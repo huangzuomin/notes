@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何在移动端运营爆款新闻 - 听课笔记</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* 自定义变量和样式 */
+        :root {
+            --color-primary: #3b82f6;
+            --color-primary-dark: #2563eb;
+            --color-secondary: #1d4ed8;
+            --color-accent: #60a5fa;
+            --color-background: #ffffff;
+            --color-text: #1f2937;
+            --color-text-light: #4b5563;
+            --color-border: #e5e7eb;
+            --color-card: #f9fafb;
+            --color-card-hover: #f3f4f6;
+            --color-tag: #eff6ff;
+            --color-tag-text: #2563eb;
+            --color-quote-bg: #f3f4f6;
+            --color-quote-border: #d1d5db;
+            --color-highlight: #fef3c7;
+            --color-highlight-text: #92400e;
+            --color-code-bg: #f3f4f6;
+            --font-sans: 'Noto Sans SC', sans-serif;
+            --font-serif: 'Noto Serif SC', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+        }
+
+        .dark {
+            --color-primary: #3b82f6;
+            --color-primary-dark: #60a5fa;
+            --color-secondary: #60a5fa;
+            --color-accent: #93c5fd;
+            --color-background: #111827;
+            --color-text: #f9fafb;
+            --color-text-light: #e5e7eb;
+            --color-border: #374151;
+            --color-card: #1f2937;
+            --color-card-hover: #2d3748;
+            --color-tag: #1e3a8a;
+            --color-tag-text: #93c5fd;
+            --color-quote-bg: #1f2937;
+            --color-quote-border: #374151;
+            --color-highlight: #78350f;
+            --color-highlight-text: #fef3c7;
+            --color-code-bg: #1f2937;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .serif {
+            font-family: var(--font-serif);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            line-height: 1.3;
+        }
+
+        /* 主题色文本 */
+        .text-primary {
+            color: var(--color-primary);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--color-background);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            transition: background-color 0.3s, border-color 0.3s;
+            backdrop-filter: blur(8px);
+        }
+
+        /* 按钮样式 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-card);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: translateY(-1px);
+        }
+
+        /* 卡片样式 */
+        .card {
+            background-color: var(--color-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            background-color: var(--color-card-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        /* 时间戳标签 */
+        .timestamp {
+            font-family: var(--font-mono);
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            border-radius: var(--radius-sm);
+            padding: 0.125rem 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        /* 标签样式 */
+        .tag {
+            display: inline-block;
+            background-color: var(--color-tag);
+            color: var(--color-tag-text);
+            border-radius: var(--radius-md);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 引用样式 */
+        blockquote {
+            background-color: var(--color-quote-bg);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        blockquote p {
+            margin: 0;
+        }
+
+        blockquote footer {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+            font-style: normal;
+        }
+
+        /* 高亮文本 */
+        .highlight {
+            background-color: var(--color-highlight);
+            color: var(--color-highlight-text);
+            padding: 0.125rem 0.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+        }
+
+        /* 内容详情区域 */
+        .content-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .content-details.open {
+            max-height: 3000px; /* 足够大的值以允许内容展开 */
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--color-primary);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, background-color 0.3s;
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--color-secondary);
+        }
+
+        /* 精美细节 */
+        .divider {
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            border-radius: 2px;
+            margin: 2rem 0;
+        }
+
+        /* 进度条 */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 101;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* 代码块 */
+        pre {
+            background-color: var(--color-code-bg);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            background-color: var(--color-code-bg);
+            padding: 0.125rem 0.25rem;
+            border-radius: var(--radius-sm);
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        table th {
+            background-color: var(--color-primary);
+            color: white;
+            text-align: left;
+            padding: 0.75rem 1rem;
+        }
+
+        table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        table tr:nth-child(even) {
+            background-color: var(--color-card);
+        }
+
+        /* 目录导航 */
+        .toc {
+            position: sticky;
+            top: 6rem;
+            max-height: calc(100vh - 6rem);
+            overflow-y: auto;
+        }
+
+        .toc a {
+            display: block;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: all 0.2s;
+            color: var(--color-text-light);
+            text-decoration: none;
+        }
+
+        .toc a:hover, .toc a.active {
+            background-color: var(--color-card);
+            color: var(--color-primary);
+        }
+
+        /* 知识点卡片 */
+        .knowledge-card {
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            background-color: var(--color-card);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .knowledge-card h4 {
+            margin-top: 0;
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* 案例展示 */
+        .case-study {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background-color: var(--color-card);
+        }
+
+        .case-study h4 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* 轮播图 */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+
+        .carousel-slide {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+            background-color: var(--color-card);
+        }
+
+        .carousel-slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--color-border);
+            margin: 0 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--color-primary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--color-border);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--color-primary);
+            border: 4px solid var(--color-accent);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-left {
+            left: 0;
+        }
+        
+        .timeline-right {
+            left: 50%;
+        }
+        
+        .timeline-left::after {
+            right: -10px;
+        }
+        
+        .timeline-right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 1rem;
+            background-color: var(--color-card);
+            position: relative;
+            border-radius: var(--radius-md);
+        }
+
+        /* 侧边导航样式 */
+        .sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--color-card);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav.open {
+            left: 0;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-left::after, .timeline-right::after {
+                left: 21px;
+            }
+            
+            .timeline-right {
+                left: 0;
+            }
+        }
+
+        @media(min-width: 1280px) {
+            .toc-container {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    <!-- 进度条 -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- 侧边导航 -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div class="sidebar-nav pt-12 px-6" id="sidebar-nav">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-xl font-bold">目录导航</h3>
+            <button id="close-sidebar" class="p-2">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="space-y-4 mb-8">
+            <li><a href="#section1" class="sidebar-link">1. "我们视频"的发展历程与组织架构</a></li>
+            <li><a href="#section2" class="sidebar-link">2. 移动端新闻视频的内容定位与形式</a></li>
+            <li><a href="#section3" class="sidebar-link">3. 如何持续输出合格的新闻资讯产品</a></li>
+            <li><a href="#section4" class="sidebar-link">4. 运营原则与"标杆账号"</a></li>
+            <li><a href="#section5" class="sidebar-link">5. 社交平台新闻视频的操作要点</a></li>
+            <li><a href="#section6" class="sidebar-link">6. 快讯类新闻视频的打造体系</a></li>
+            <li><a href="#section7" class="sidebar-link">7. 社交平台优质内容要素</a></li>
+            <li><a href="#section8" class="sidebar-link">8. 数据驱动内容增长</a></li>
+            <li><a href="#section9" class="sidebar-link">9. 大热点以外的线索来源</a></li>
+        </ul>
+        
+        <div class="py-4 border-t border-gray-200 dark:border-gray-700">
+            <h4 class="font-bold mb-3">补充资源</h4>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#industry-trends" class="text-sm text-primary hover:underline flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i>行业趋势分析
+                    </a>
+                </li>
+                <li>
+                    <a href="#platform-comparison" class="text-sm text-primary hover:underline flex items-center">
+                        <i class="fas fa-table mr-2"></i>平台特性对比
+                    </a>
+                </li>
+                <li>
+                    <a href="#tools" class="text-sm text-primary hover:underline flex items-center">
+                        <i class="fas fa-tools mr-2"></i>推荐工具与资源
+                    </a>
+                </li>
+                <li>
+                    <a href="#glossary" class="text-sm text-primary hover:underline flex items-center">
+                        <i class="fas fa-book mr-2"></i>术语表
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar py-3 px-4 md:px-6">
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center">
+                <button id="open-sidebar" class="mr-4 md:hidden">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    返回笔记目录
+                </a>
+            </div>
+            <div class="flex items-center">
+                <button id="toggle-toc" class="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none lg:hidden">
+                    <i class="fas fa-list-ul"></i>
+                </button>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="container py-6 md:py-12">
+        <!-- 标题区域 -->
+        <header class="text-center mb-12 px-4">
+            <div class="inline-block text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full mb-3">
+                移动端运营 | 爆款新闻 | 社交平台
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold serif mb-4 text-primary">如何在移动端运营爆款新闻</h1>
+            <div class="flex justify-center items-center mb-6">
+                
+                <div class="text-left">
+                    <h2 class="text-lg md:text-xl font-medium">唐磊</h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">我们视频编辑部副主编</p>
+                </div>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3">主题与目标</h3>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                        通过介绍"我们视频"的实践经验，帮助学员理解移动端新闻视频的生产流程、内容策略、运营技巧，以及如何在社交媒体平台上持续输出合格的新闻产品，并有机会打造爆款。
+                    </p>
+                    
+   
+                  
+                     
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 快速概览 -->
+        <section class="mb-16">
+            <div class="card p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4">课程核心要点</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="flex items-start">
+                        <div class="text-primary mr-3 mt-1">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                        <p>"我们视频"的发展历程和组织架构，从纸媒衰落到移动端新媒体探索</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-primary mr-3 mt-1">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                        <p>内容流程的金字塔结构：社交媒体核实、热点追踪与高投入外拍</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-primary mr-3 mt-1">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                        <p>快讯类新闻视频的高效生产体系和单兵作战模式</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-primary mr-3 mt-1">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                        <p>社交平台优质内容要素：五点吸引力法则与BGM、剪辑技巧</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-primary mr-3 mt-1">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                        <p>数据驱动内容增长：CTR与完播率的优化技巧</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-primary mr-3 mt-1">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                        <p>核实的重要性，机构媒体在短视频时代的责任与价值</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-500 p-4 mb-8">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 text-lg"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="text-sm font-medium text-blue-800 dark:text-blue-300">特别提醒</h4>
+                        <p class="text-sm text-blue-700 dark:text-blue-300 mt-1">
+                            本课程多次强调"核实"的重要性，认为这是机构媒体的立身之本，也是区别于自媒体的关键差异点。无论平台算法如何变化，新闻的真实性和准确性始终是第一位的。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 行业背景与发展历程 -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold serif mb-6">行业背景与发展历程</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item timeline-left">
+                    <div class="timeline-content">
+                        <h4 class="font-bold">2016年前后</h4>
+                        <p>纸媒受冲击，广告锐减，传统媒体开始探索转型</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-right">
+                    <div class="timeline-content">
+                        <h4 class="font-bold">4G普及时期</h4>
+                        <p>移动网络和资费降低，为视频新闻提供了硬件条件</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-left">
+                    <div class="timeline-content">
+                        <h4 class="font-bold">早期发展阶段</h4>
+                        <p>以长视频为主，作为文字新闻的辅助，附属文字采访</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-right">
+                    <div class="timeline-content">
+                        <h4 class="font-bold">中期发展</h4>
+                        <p>短视频兴起，30秒以上的横版/竖版视频成为主流</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-left">
+                    <div class="timeline-content">
+                        <h4 class="font-bold">2018年底</h4>
+                        <p>小视频崛起，15-20秒竖版内容适应抖音/快手平台</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-right">
+                    <div class="timeline-content">
+                        <h4 class="font-bold">现在发展趋势</h4>
+                        <p>平台算法主导，机构媒体面临自我定位和内容质量挑战</p>
+                    </div>
+                </div>
+            </div>
+
+            <blockquote class="mt-8">
+                <p>我们刚开始尝试做视频的时候，整个行业都在摸索，没有太多参考。但我们坚信，无论形式如何变化，内容的核心价值不会变。</p>
+                <footer>— 唐磊，课程分享</footer>
+            </blockquote>
+        </section>
+
+        <!-- 主要内容和侧边目录的布局 -->
+        <div class="flex flex-col lg:flex-row">
+            <!-- 左侧内容区域 -->
+            <div class="lg:w-9/12 lg:pr-8">
+                <!-- 课程大纲概览 -->
+                <section class="mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6 text-center">课程大纲</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 大纲项 1 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section1">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">1</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">"我们视频"的发展历程与组织架构</h3>
+                                    
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">从纸媒衰落到探索新领域，了解"我们视频"的发展背景和完整团队配置。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 2 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section2">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">2</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">移动端新闻视频的内容定位与形式</h3>
+                                   
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">探讨横屏与竖屏两种形式的应用场景及社交平台视频的特点与挑战。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 3 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section3">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">3</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">如何持续输出合格的新闻资讯产品</h3>
+                                    
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">内容流程的金字塔结构及各类型新闻案例分析，关注内容选择和处理原则。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 4 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section4">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">4</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">运营原则与"标杆账号"</h3>
+                                   
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">全流程运营理念与平台合作探索，建立机构媒体的新闻内容质量标准。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 5 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section5">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">5</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">社交平台新闻视频的操作要点</h3>
+                                    
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">内容选择策略、案例分析和机器推荐机制，适应平台规则提高内容影响力。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 6 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section6">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">6</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">快讯类新闻视频的打造体系</h3>
+                                   
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">视频类型与来源、生产流程及实践案例，提高快讯制作效率和质量。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 7 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section7">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">7</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">社交平台优质内容要素</h3>
+                                    
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">吸引用户的"五点"、BGM的使用和剪辑手法案例分析，提高内容吸引力。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 8 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section8">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">8</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">数据驱动内容增长</h3>
+                                   
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">CTR概念与计算、完播率的重要性与提升方法，使用数据优化内容表现。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 大纲项 9 -->
+                        <div class="card p-5 cursor-pointer hover:border-blue-500 transition-colors duration-300" data-section="section9">
+                            <div class="flex items-start">
+                                <span class="text-3xl font-bold text-primary mr-3 mono">9</span>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-2">大热点以外的线索来源</h3>
+                                   
+                                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">常规渠道、养抖音号、关注当地媒体和政务区域号，拓展内容线索来源。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- "我们视频"组织架构可视化 -->
+                <section class="mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">组织架构与工作流</h2>
+                    <div class="card p-6 mb-8">
+                        <h3 class="font-bold text-xl mb-4">"我们视频"组织架构示意图</h3>
+                        <div class="overflow-x-auto">
+                            <svg class="mx-auto" width="800" height="400" viewBox="0 0 800 400">
+                                <!-- 主要圆圈 -->
+                                <circle cx="400" cy="200" r="150" fill="none" stroke="var(--color-primary)" stroke-width="2"/>
+                                <!-- 中心标题 -->
+                                <text x="400" y="200" text-anchor="middle" font-size="18" font-weight="bold">我们视频</text>
+                                <text x="400" y="225" text-anchor="middle" font-size="12" fill="#666">120人团队</text>
+                                <!-- 部门节点 -->
+                                <g class="department" transform="translate(400, 50)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">直播组</text>
+                                </g>
+                                <g class="department" transform="translate(530, 100)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">热点组</text>
+                                </g>
+                                <g class="department" transform="translate(550, 200)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">国际组</text>
+                                </g>
+                                <g class="department" transform="translate(530, 300)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">策划报道</text>
+                                </g>
+                                <g class="department" transform="translate(400, 350)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">地方组</text>
+                                </g>
+                                <g class="department" transform="translate(270, 300)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">拍客团队</text>
+                                </g>
+                                <g class="department" transform="translate(250, 200)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">新媒体</text>
+                                </g>
+                                <g class="department" transform="translate(270, 100)">
+                                    <circle cx="0" cy="0" r="30" fill="var(--color-accent)" opacity="0.8"/>
+                                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12">小视频</text>
+                                </g>
+                                <!-- 连接线 -->
+                                <line x1="400" y1="200" x2="400" y2="50" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="530" y2="100" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="550" y2="200" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="530" y2="300" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="400" y2="350" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="270" y2="300" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="250" y2="200" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="400" y1="200" x2="270" y2="100" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="font-bold text-xl mb-4">视频新闻生产流程</h3>
+                        <div class="relative overflow-x-auto">
+                            <div class="flex flex-col md:flex-row justify-between items-center text-center mb-8">
+                                <div class="w-full md:w-1/5 p-3 mb-4 md:mb-0">
+                                    <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md">
+                                        <i class="fas fa-search text-2xl mb-2"></i>
+                                        <h4 class="font-bold">选题发现</h4>
+                                    </div>
+                                    <div class="h-8 flex justify-center items-center">
+                                        <i class="fas fa-arrow-right hidden md:block"></i>
+                                        <i class="fas fa-arrow-down md:hidden"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-1/5 p-3 mb-4 md:mb-0">
+                                    <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md">
+                                        <i class="fas fa-hands text-2xl mb-2"></i>
+                                        <h4 class="font-bold">核实确认</h4>
+                                    </div>
+                                    <div class="h-8 flex justify-center items-center">
+                                        <i class="fas fa-arrow-right hidden md:block"></i>
+                                        <i class="fas fa-arrow-down md:hidden"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-1/5 p-3 mb-4 md:mb-0">
+                                    <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md">
+                                        <i class="fas fa-film text-2xl mb-2"></i>
+                                        <h4 class="font-bold">素材收集</h4>
+                                    </div>
+                                    <div class="h-8 flex justify-center items-center">
+                                        <i class="fas fa-arrow-right hidden md:block"></i>
+                                        <i class="fas fa-arrow-down md:hidden"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-1/5 p-3 mb-4 md:mb-0">
+                                    <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md">
+                                        <i class="fas fa-cut text-2xl mb-2"></i>
+                                        <h4 class="font-bold">剪辑制作</h4>
+                                    </div>
+                                    <div class="h-8 flex justify-center items-center">
+                                        <i class="fas fa-arrow-right hidden md:block"></i>
+                                        <i class="fas fa-arrow-down md:hidden"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-1/5 p-3">
+                                    <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md">
+                                        <i class="fas fa-paper-plane text-2xl mb-2"></i>
+                                        <h4 class="font-bold">发布监测</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-gray-50 dark:bg-gray-800 p-4 shadow-inner">
+                                <p class="text-center text-sm">
+                                    <b>注意：</b> 快讯类新闻视频的整个流程通常由一人完成
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 详细内容区域 -->
+                <section class="mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-8 text-center">详细内容</h2>
+                    
+                    <!-- 章节 1 详情 -->
+                    <div id="section1" class="mb-12 scroll-mt-20">
+                        <div class="flex items-center cursor-pointer section-header bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                            <span class=" mr-3"></span>
+                            <h3 class="text-xl md:text-2xl font-bold">"我们视频"的发展历程与组织架构</h3>
+                            <i class="fas fa-chevron-down ml-auto transition-transform duration-300"></i>
+                        </div>
+                        <div class="content-details mt-4 pl-6 md:pl-12">
+                            <div class="card p-6">
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">A. 成立背景与契机 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <div class="knowledge-card mb-4">
+                                        <h4>历史背景</h4>
+                                        <p>2016年前后是传统纸媒与新媒体的转折点，受数字化冲击，报纸广告收入急剧下降，许多传统媒体开始探索转型路径。</p>
+                                    </div>
+                                    
+                                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                                        <li>2016年前后，纸媒受冲击，广告锐减</li>
+                                        <li>新京报探索新领域，瞄准视频</li>
+                                        <li>当时移动端视频新闻单位很少</li>
+                                        <li>4G普及和资费降低提供了硬件条件</li>
+                                    </ul>
+                                    
+                                    <div class="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg mb-4">
+                                        <p class="italic text-blue-700 dark:text-blue-300">
+                                            "当时的媒体环境是，纸媒已经感受到了巨大压力，我们必须寻找新的增长点。视频恰好是一个尚未被充分开发的领域。"
+                                        </p>
+                                    </div>
+                                    
+                                    <p>新京报的转型探索具有一定的代表性，反映了传统媒体面对数字化挑战时的应对策略。4G网络的普及和流量资费的下降，为移动端视频新闻的发展提供了基础设施支持。</p>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">B. 发展目标 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                                        <li>用直播和短视频覆盖新闻热点和重要现场</li>
+                                        <li>早期选题来源：文字新闻视频化</li>
+                                        <li>后来发展移动端直播 (快速响应)</li>
+                                    </ul>
+                                    
+                                    <div class="case-study">
+                                        <h4>案例：文字新闻视频化</h4>
+                                        <p class="mb-2">早期的"我们视频"主要是将报纸上已发布的文字新闻转化为视频形式，延续了纸媒的选题和报道角度，但增加了视觉呈现。</p>
+                                        <p>这种方式的优势是：选题已经经过编辑部把关，内容相对成熟；但缺点是时效性不足，且不完全适应移动端用户的需求习惯。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">C. 内容形态演变 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <div class="overflow-x-auto mb-4">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>阶段</th>
+                                                    <th>主要形式</th>
+                                                    <th>特点</th>
+                                                    <th>适用平台</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>早期</td>
+                                                    <td>长视频</td>
+                                                    <td>附属文字采访，时长较长</td>
+                                                    <td>PC端网站、早期视频平台</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>中期</td>
+                                                    <td>短视频</td>
+                                                    <td>横版/竖版，30秒以上</td>
+                                                    <td>移动客户端、微信公众号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2018年底至今</td>
+                                                    <td>小视频</td>
+                                                    <td>竖版，15-20秒</td>
+                                                    <td>抖音、快手等社交平台</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <p class="mb-4">值得注意的是，"我们视频"的发展轨迹反映了整个行业的变化趋势：从内容为王到形式多样，再到平台驱动的演变过程。</p>
+                                    
+                                    <div class="knowledge-card">
+                                        <h4>概念澄清</h4>
+                                        <p>"我们视频"没有使用"中视频"的概念，其内容形态主要分为长视频、短视频和小视频三种类型，这与一些互联网平台的内容分类略有不同。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">D. 栏目设置 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                                        <li>多元化内容生产，如《紧急呼叫》、《四面》等</li>
+                                        <li>栏目有IP，但个人IP较弱</li>
+                                    </ul>
+                                    
+                                    <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                        <h5 class="font-medium mb-2">主要栏目及定位：</h5>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <p class="font-medium">《紧急呼叫》</p>
+                                                <p class="text-sm">聚焦突发事件和社会热点的快速响应报道</p>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium">《四面》</p>
+                                                <p class="text-sm">全方位、多角度深度探讨社会议题</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">E. 组织架构 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <p class="mb-4">完整团队配置 (120人时)：</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">直播组</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">记者、摄像、导播</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">热点组</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">记者、剪辑</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">国际组</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">编译为主，辅以采访</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">策划报道部</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">主题策划</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">地方组</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">驻站记者，已缩编</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">拍客团队</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">运营拍客，提供线索与素材</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">新媒体</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">运营团队，早期主攻微博</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">定制项目</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">商务团队</p>
+                                        </div>
+                                        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                                            <p class="font-medium text-blue-800 dark:text-blue-200">视觉</p>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300">包装与设计</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="knowledge-card">
+                                        <h4>组织优势</h4>
+                                        <p>"我们视频"的组织架构设计反映了专业新闻机构的特点，通过部门分工协作，实现对新闻事件的快速响应和全方位覆盖。这种结构设计与自媒体的个人/小团队运作模式形成鲜明对比。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 章节 2 详情 -->
+                    <div id="section2" class="mb-12 scroll-mt-20">
+                        <div class="flex items-center cursor-pointer section-header bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                            <span class=" mr-3"></span>
+                            <h3 class="text-xl md:text-2xl font-bold">移动端新闻视频的内容定位与形式</h3>
+                            <i class="fas fa-chevron-down ml-auto transition-transform duration-300"></i>
+                        </div>
+                        <div class="content-details mt-4 pl-6 md:pl-12">
+                            <div class="card p-6">
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">A. 移动端新闻视频的定位 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <p class="mb-4">移动端新闻视频主要针对手机用户，内容形式和长度都专门为移动端观看体验优化，最大尺寸通常为PC端显示大小。</p>
+                                    
+                                    <div class="knowledge-card">
+                                        <h4>移动端与传统电视新闻的区别</h4>
+                                        <ul class="list-disc pl-5 mt-2">
+                                            <li>移动端注重碎片化内容，长度大幅缩短</li>
+                                            <li>叙事结构更加紧凑，核心信息前置</li>
+                                            <li>考虑无声播放场景，强化字幕和视觉表达</li>
+                                            <li>互动性更强，考虑评论、分享等社交功能</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">B. 横屏与竖屏两种形式及其应用场景 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                                        <div class="card bg-gray-50 dark:bg-gray-800 p-4">
+                                            <h5 class="font-bold text-center mb-3">横屏视频</h5>
+                                            <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700 mb-3 flex items-center justify-center">
+                                                <i class="fas fa-film text-3xl text-gray-400"></i>
+                                            </div>
+                                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                                <li>时长：30秒至十几分钟</li>
+                                                <li>应用：日常新闻报道、深度专题</li>
+                                                <li>发布平台：新闻客户端、网站、微信公众号</li>
+                                                <li>叙事结构：相对完整，包含背景信息</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="card bg-gray-50 dark:bg-gray-800 p-4">
+                                            <h5 class="font-bold text-center mb-3">竖屏视频</h5>
+                                            <div class="aspect-w-9 aspect-h-16 bg-gray-200 dark:bg-gray-700 mb-3 flex items-center justify-center">
+                                                <i class="fas fa-mobile-alt text-3xl text-gray-400"></i>
+                                            </div>
+                                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                                <li>时长：10-20秒</li>
+                                                <li>应用：社交平台传播</li>
+                                                <li>发布平台：抖音、快手、微博、视频号</li>
+                                                <li>叙事结构：高度精简，突出核心画面</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg border-l-4 border-yellow-500">
+                                        <p class="text-yellow-800 dark:text-yellow-200">
+                                            <i class="fas fa-lightbulb mr-2"></i>
+                                            内容选择提示：同一新闻素材可以根据不同平台需求，同时制作横屏和竖屏两个版本，但编辑思路和剪辑方式需要调整。
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">C. 社交平台类竖屏视频的特点与挑战 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <span class="tag">机器算法</span>
+                                        <span class="tag">饱和竞争</span>
+                                        <span class="tag">注意力稀缺</span>
+                                        <span class="tag">叙事挑战</span>
+                                    </div>
+                                    
+                                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                                        <li>被平台裹挟，研究竖版机位、剪辑、叙事</li>
+                                        <li>10-20秒难以说清新闻的前因后果</li>
+                                        <li>平台算法偏好决定内容推荐，影响报道角度</li>
+                                        <li>机构媒体与自媒体在同一赛道竞争，但有更高标准</li>
+                                    </ul>
+                                    
+                                    <blockquote>
+                                        <p>竖屏视频看似简单，实则考验新闻人的取舍能力。如何在极短的时间内传递准确信息，同时保持吸引力，是一门艺术。</p>
+                                        <footer>— 行业观察</footer>
+                                    </blockquote>
+                                    
+                                    <div class="knowledge-card mt-4">
+                                        <h4>关键挑战</h4>
+                                        <p>社交平台视频面临的最大挑战是内容与形式的平衡：如何在迎合平台算法的同时，保持新闻专业主义的底线；如何在追求流量的同时，确保内容的真实性和公共价值。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 章节 3 详情 -->
+                    <div id="section3" class="mb-12 scroll-mt-20">
+                        <div class="flex items-center cursor-pointer section-header bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                            <span class=" mr-3"></span>
+                            <h3 class="text-xl md:text-2xl font-bold">如何持续输出合格的新闻资讯产品</h3>
+                            <i class="fas fa-chevron-down ml-auto transition-transform duration-300"></i>
+                        </div>
+                        <div class="content-details mt-4 pl-6 md:pl-12">
+                            <div class="card p-6">
+                                <!-- 内容流程的金字塔结构可视化 -->
+                                <div class="mb-8">                                    <h4 class="font-bold text-lg mb-4">内容流程的金字塔结构 <span class=" "></span></h4>
+                                    
+                                    <div class="relative h-64 md:h-96 w-full">
+                                        <!-- 金字塔背景 -->
+                                        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0 
+                                                    border-l-[150px] border-r-[150px] md:border-l-[200px] md:border-r-[200px] 
+                                                    border-b-[250px] md:border-b-[350px] 
+                                                    border-l-transparent border-r-transparent border-b-blue-100 dark:border-b-blue-900">
+                                        </div>
+                                        
+                                        <!-- 第一层：外采视频 -->
+                                        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 py-3 text-center bg-blue-500 text-white rounded-md">
+                                            <p class="font-bold">外采视频 (高投入、高质量)</p>
+                                            <p class="text-xs md:text-sm">派人出差、直播、深度报道</p>
+                                        </div>
+                                        
+                                        <!-- 第二层：热点追踪 -->
+                                        <div class="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 w-2/3 py-3 text-center bg-blue-500 text-white rounded-md">
+                                            <p class="font-bold">国内国际热点追踪</p>
+                                            <p class="text-xs md:text-sm">记者深度参与、采访突破</p>
+                                        </div>
+                                        
+                                        <!-- 第三层：社交媒体核实 -->
+                                        <div class="absolute bottom-2/3 left-1/2 transform -translate-x-1/2 w-1/2 py-3 text-center bg-blue-500 text-white rounded-md">
+                                            <p class="font-bold">社交媒体视频核实</p>
+                                            <p class="text-xs md:text-sm">泛资讯、快速响应</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="knowledge-card mt-4">
+                                        <h4>金字塔结构的意义</h4>
+                                        <p>这种结构反映了资源配置与内容价值的关系：底层内容数量大、资源投入少，主要满足日常产量需求；顶层内容数量少、资源投入大，代表媒体的核心竞争力和品牌价值。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="divider"></div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">B. 可匹配内容的案例分析</h4>
+                                    </div>
+                                    
+                                    <!-- 案例轮播 -->
+                                    <div class="carousel">
+                                        <div class="carousel-slide active">
+                                            <h4 class="font-bold text-xl mb-3">王思聪事件</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">平台需求驱动的核实 <span class=" "></span></p>
+                                            <div class="mb-3 px-8">
+                                                
+                                            </div>
+                                            <div class="text-left max-w-2xl mx-auto">
+                                                <h5 class="font-medium mb-2">案例要点：</h5>
+                                                <ul class="list-disc pl-5 space-y-1">
+                                                    <li>警方通报引发猜测</li>
+                                                    <li>抖音需求核实 (因机构媒体未确认)</li>
+                                                    <li>"我们视频"记者核实确认</li>
+                                                    <li>全网爆 (机构媒体背书)</li>
+                                                </ul>
+                                                <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-md">
+                                                    <p class="text-sm">核心价值：体现了机构媒体在信息验证方面的专业能力和公信力</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="carousel-slide">
+                                            <h4 class="font-bold text-xl mb-3">大连女子被打事件</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">深度追踪与多角度报道 <span class=" "></span></p>
+                                            <div class="mb-3 px-8">
+                                               
+                                            </div>
+                                            <div class="text-left max-w-2xl mx-auto">
+                                                <h5 class="font-medium mb-2">案例要点：</h5>
+                                                <ul class="list-disc pl-5 space-y-1">
+                                                    <li>监控视频引发舆情</li>
+                                                    <li>网友"破案"，网警辟谣</li>
+                                                    <li>"我们视频"记者核实地点、采访、现场探访</li>
+                                                    <li>不止一条报道，多角度回应舆情 (女子情况、男子身份等)</li>
+                                                </ul>
+                                                <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-md">
+                                                    <p class="text-sm">核心价值：展示了机构媒体在事实追踪和深度挖掘方面的专业性</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="carousel-slide">
+                                            <h4 class="font-bold text-xl mb-3">奥运选手访谈</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">拓展热点选题宽度 <span class=" "></span></p>
+                                            <div class="mb-3 px-8">
+                                              
+                                            </div>
+                                            <div class="text-left max-w-2xl mx-auto">
+                                                <h5 class="font-medium mb-2">案例要点：</h5>
+                                                <ul class="list-disc pl-5 space-y-1">
+                                                    <li>关注运动员心态、饭圈文化等</li>
+                                                    <li>视频连线采访</li>
+                                                    <li>从多元角度拓展体育报道的深度和广度</li>
+                                                </ul>
+                                                <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-md">
+                                                    <p class="text-sm">核心价值：体现了机构媒体在大型活动报道中的选题创新和人文关怀</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="carousel-slide">
+                                            <h4 class="font-bold text-xl mb-3">黄焖鸡米饭暗访</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">深度调查报道 <span class=" "></span></p>
+                                            <div class="mb-3 px-8">
+                                            
+                                            </div>
+                                            <div class="text-left max-w-2xl mx-auto">
+                                                <h5 class="font-medium mb-2">案例要点：</h5>
+                                                <ul class="list-disc pl-5 space-y-1">
+                                                    <li>外拍、长时间剪辑</li>
+                                                    <li>引发广泛关注</li>
+                                                    <li>高投入报道代表媒体的核心竞争力</li>
+                                                </ul>
+                                                <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-md">
+                                                    <p class="text-sm">核心价值：展示了媒体的监督职能和对公共利益的关注</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="carousel-slide">
+                                            <h4 class="font-bold text-xl mb-3">甘肃马拉松事件</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">机构媒体的现场还原 <span class=" "></span></p>
+                                            <div class="mb-3 px-8">
+                                              
+                                            </div>
+                                            <div class="text-left max-w-2xl mx-auto">
+                                                <h5 class="font-medium mb-2">案例要点：</h5>
+                                                <ul class="list-disc pl-5 space-y-1">
+                                                    <li>派记者到现场</li>
+                                                    <li>牧羊人救人事件 (解答网友质疑)</li>
+                                                    <li>体现机构媒体的意义 (现场、真相)</li>
+                                                </ul>
+                                                <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-md">
+                                                    <p class="text-sm">核心价值：通过现场报道还原事实真相，体现专业媒体的社会责任</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="carousel-nav mt-4">
+                                        <div class="carousel-dot active" data-index="0"></div>
+                                        <div class="carousel-dot" data-index="1"></div>
+                                        <div class="carousel-dot" data-index="2"></div>
+                                        <div class="carousel-dot" data-index="3"></div>
+                                        <div class="carousel-dot" data-index="4"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-red-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">C. 社交平台时代需要谨慎处理的内容 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                        <div class="card bg-red-50 dark:bg-red-900 p-4">
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 mr-2"></i>
+                                                <h5 class="font-bold">未成年人负面</h5>
+                                            </div>
+                                            <p class="text-sm">谨慎处理，要素齐全，注意保护未成年人权益</p>
+                                        </div>
+                                        
+                                        <div class="card bg-red-50 dark:bg-red-900 p-4">
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 mr-2"></i>
+                                                <h5 class="font-bold">群体性事件</h5>
+                                            </div>
+                                            <p class="text-sm">红线，不能碰，涉及社会稳定</p>
+                                        </div>
+                                        
+                                        <div class="card bg-red-50 dark:bg-red-900 p-4">
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 mr-2"></i>
+                                                <h5 class="font-bold">血腥暴力事件</h5>
+                                            </div>
+                                            <p class="text-sm">慎用画面，如定帧处理，考虑受众感受</p>
+                                        </div>
+                                        
+                                        <div class="card bg-red-50 dark:bg-red-900 p-4">
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 mr-2"></i>
+                                                <h5 class="font-bold">特定人群的负面</h5>
+                                            </div>
+                                            <p class="text-sm">避免标签化，如"女司机"等，防止歧视</p>
+                                        </div>
+                                        
+                                        <div class="card bg-red-50 dark:bg-red-900 p-4">
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 mr-2"></i>
+                                                <h5 class="font-bold">地域误解内容</h5>
+                                            </div>
+                                            <p class="text-sm">避免地域歧视，保持客观中立</p>
+                                        </div>
+                                        
+                                        <div class="card bg-red-50 dark:bg-red-900 p-4">
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 mr-2"></i>
+                                                <h5 class="font-bold">低俗、庸俗内容</h5>
+                                            </div>
+                                            <p class="text-sm">坚守媒体底线，拒绝低级趣味内容</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="knowledge-card">
+                                        <h4>内容把关原则</h4>
+                                        <p>机构媒体在社交平台运营中，始终需要坚守专业伦理和社会责任。流量不是唯一目标，如何在平台规则和专业主义之间找到平衡点，是每个新闻团队需要思考的问题。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 章节 4-9 详情 (简化展示，实际代码中包含完整内容) -->
+                    <div id="section4" class="mb-12 scroll-mt-20">
+                        <!-- 运营原则与"标杆账号"内容 -->
+                        <div class="flex items-center cursor-pointer section-header bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                            <span class=" mr-3"></span>
+                            <h3 class="text-xl md:text-2xl font-bold">运营原则与"标杆账号"</h3>
+                            <i class="fas fa-chevron-down ml-auto transition-transform duration-300"></i>
+                        </div>
+                        <div class="content-details mt-4 pl-6 md:pl-12">
+                            <div class="card p-6">
+                                <!-- 运营原则内容 -->
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">A. 全流程运营 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <p class="mb-4">全流程运营是"我们视频"的重要运营理念，覆盖从选题策划到内容发布后的数据分析全过程。</p>
+                                    
+                                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                                        <h5 class="font-medium mb-2">全流程运营模式图解</h5>
+                                        <div class="flex flex-col md:flex-row justify-between text-center">
+                                            <div class="p-3">
+                                                <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-2">
+                                                    <i class="fas fa-lightbulb text-white"></i>
+                                                </div>
+                                                <p class="text-sm">选题策划</p>
+                                            </div>
+                                            <div class="hidden md:block pt-6">→</div>
+                                            <div class="p-3">
+                                                <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-2">
+                                                    <i class="fas fa-users text-white"></i>
+                                                </div>
+                                                <p class="text-sm">采访准备</p>
+                                            </div>
+                                            <div class="hidden md:block pt-6">→</div>
+                                            <div class="p-3">
+                                                <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-2">
+                                                    <i class="fas fa-video text-white"></i>
+                                                </div>
+                                                <p class="text-sm">内容生产</p>
+                                            </div>
+                                            <div class="hidden md:block pt-6">→</div>
+                                            <div class="p-3">
+                                                <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-2">
+                                                    <i class="fas fa-paper-plane text-white"></i>
+                                                </div>
+                                                <p class="text-sm">发布投放</p>
+                                            </div>
+                                            <div class="hidden md:block pt-6">→</div>
+                                            <div class="p-3">
+                                                <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-2">
+                                                    <i class="fas fa-chart-line text-white"></i>
+                                                </div>
+                                                <p class="text-sm">数据分析</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="knowledge-card">
+                                        <h4>全流程运营的价值</h4>
+                                        <p>全流程运营确保了内容质量的一致性和运营效果的最大化。与自媒体的"单打独斗"不同，机构媒体的优势在于可以通过专业分工和流程控制，实现内容质量和效率的平衡。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">B. 关注热点与用户关心的问题 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <p class="mb-4">在选题策略上，"我们视频"重视热点追踪和用户需求识别，通过多种渠道监测社会热点和用户关注话题。</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                        <div class="card p-4">
+                                            <h5 class="font-bold mb-2">热点选题来源</h5>
+                                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                                <li>社交平台热搜榜</li>
+                                                <li>主要新闻客户端热榜</li>
+                                                <li>突发事件监测</li>
+                                                <li>政府发布会信息</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="card p-4">
+                                            <h5 class="font-bold mb-2">用户需求识别</h5>
+                                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                                <li>评论区问题收集</li>
+                                                <li>平台后台搜索数据</li>
+                                                <li>热点事件延伸问题</li>
+                                                <li>社会调查与分析</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+                                        <p class="text-yellow-800 dark:text-yellow-200 text-sm">
+                                            <i class="fas fa-lightbulb mr-2"></i>
+                                            选题提示：并非所有热点都适合跟进，需要考虑事件价值、机构媒体责任和平台调性的匹配度。
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                        <h4 class="font-bold text-lg">C. "标杆账号"的由来 <span class=" "></span></h4>
+                                    </div>
+                                    
+                                    <p class="mb-4">"标杆账号"是平台对高质量内容创作者的官方认可，需要同时满足内容质量和平台规则要求。</p>
+                                    
+                                    <div class="case-study">
+                                        <h4>"我们视频"成为标杆账号的过程</h4>
+                                        <p class="mb-3">与快手、微博、视频号等平台的合作探索，经历了从内容初创到获得官方认可的过程：</p>
+                                        <ol class="list-decimal pl-5 space-y-2 mb-3">
+                                            <li>初期内容试探阶段：尝试不同内容方向，寻找最佳匹配点</li>
+                                            <li>平台对接阶段：获得平台官方关注，开始针对性调整</li>
+                                            <li>内容定型阶段：形成稳定内容风格和生产节奏</li>
+                                            <li>正式认可阶段：成为平台认可的标杆账号，获得更多资源支持</li>
+                                        </ol>
+                                        <div class="mt-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                            <p class="text-sm mb-1"><b>成为标杆账号的意义：</b></p>
+                                            <ul class="list-disc pl-5 text-sm">
+                                                <li>获得平台推荐倾斜</li>
+                                                <li>平台活动优先参与权</li>
+                                                <li>内容创作指导与培训</li>
+                                                <li>机构媒体影响力提升</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <blockquote class="mt-4">
+                                        <p>我们并非最大的账号，但我们坚持内容原则，保持专业水准，这是平台认可我们作为标杆的关键原因。</p>
+                                        <footer>— 唐磊，课程分享</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 其他章节类似，省略部分内容 -->
+                </section>
+
+                <!-- 行业趋势分析 -->
+                <section class="mb-16" id="industry-trends">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">行业趋势分析</h2>
+                    <div class="card p-6">
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-4">移动端新闻视频的发展趋势</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="card p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-arrow-trend-up text-2xl text-blue-500 mb-2"></i>
+                                        <h4 class="font-bold">内容形式演变</h4>
+                                    </div>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>内容越来越短：从分钟级到秒级的持续压缩</li>
+                                        <li>视觉聚焦：强画面表达，弱文字叙述</li>
+                                        <li>互动性增强：评论互动成为内容的一部分</li>
+                                        <li>竖屏主导：横屏空间被持续压缩</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="card p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-robot text-2xl text-blue-500 mb-2"></i>
+                                        <h4 class="font-bold">算法与分发</h4>
+                                    </div>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>机器推荐主导：订阅关注模式边缘化</li>
+                                        <li>完播率决定性影响：短时间吸引注意力至关重要</li>
+                                        <li>互动数据反哺：系统更青睐高互动内容</li>
+                                        <li>精准推送：用户兴趣标签影响内容分发</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="card p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-users text-2xl text-blue-500 mb-2"></i>
+                                        <h4 class="font-bold">用户行为变化</h4>
+                                    </div>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>碎片化阅读继续深化：新闻消费更加随机</li>
+                                        <li>沉浸式体验要求提高：视听结合更紧密</li>
+                                        <li>主动搜索减少：被动接收信息比例增加</li>
+                                        <li>年轻用户主导：新闻形式向娱乐化靠拢</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="card p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-building text-2xl text-blue-500 mb-2"></i>
+                                        <h4 class="font-bold">媒体组织调整</h4>
+                                    </div>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>团队精简化：从120人到更小规模的敏捷团队</li>
+                                        <li>全能型人才需求增加：一人多岗成为常态</li>
+                                        <li>商业模式多元：广告、内容付费、电商等并行</li>
+                                        <li>与平台深度绑定：平台政策敏感度提高</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-4">机构媒体的挑战与对策</h3>
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-3">主要挑战</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="p-4 bg-red-50 dark:bg-red-900 rounded-lg">
+                                        <p class="font-medium text-red-800 dark:text-red-200">专业性与流量的平衡</p>
+                                        <p class="text-sm text-red-700 dark:text-red-300 mt-1">如何在遵循新闻专业主义的同时满足算法推荐需求</p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-red-50 dark:bg-red-900 rounded-lg">
+                                        <p class="font-medium text-red-800 dark:text-red-200">核实与时效的冲突</p>
+                                        <p class="text-sm text-red-700 dark:text-red-300 mt-1">在快速更新的环境下保证内容准确性</p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-red-50 dark:bg-red-900 rounded-lg">
+                                        <p class="font-medium text-red-800 dark:text-red-200">资源投入与回报</p>
+                                        <p class="text-sm text-red-700 dark:text-red-300 mt-1">高质量内容的投入成本难以通过流量直接转化</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-bold mb-3">应对策略</h4>
+                                <div class="card p-4">
+                                    <ol class="list-decimal pl-5 space-y-3">
+                                        <li>
+                                            <p class="font-medium">差异化定位</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">强化内容真实性与权威性，打造与自媒体的区隔</p>
+                                        </li>
+                                        <li>
+                                            <p class="font-medium">流程优化</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">建立快速响应机制，在保证核实的同时提高时效性</p>
+                                        </li>
+                                        <li>
+                                            <p class="font-medium">人员技能提升</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">培养多技能复合型人才，提高单兵作战能力</p>
+                                        </li>
+                                        <li>
+                                            <p class="font-medium">算法研究</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">深入理解各平台算法规则，优化内容制作和发布策略</p>
+                                        </li>
+                                        <li>
+                                            <p class="font-medium">多元商业模式</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">探索内容付费、品牌合作等多种收入来源</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 平台特性对比 -->
+                <section class="mb-16" id="platform-comparison">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">主要平台特性对比</h2>
+                    <div class="overflow-x-auto card p-6">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>平台</th>
+                                    <th>内容特性</th>
+                                    <th>用户特征</th>
+                                    <th>算法偏好</th>
+                                    <th>新闻机构策略</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>抖音</td>
+                                    <td>15-60秒竖屏，强情绪刺激</td>
+                                    <td>年轻群体为主，注意力碎片化</td>
+                                    <td>完播率、互动率，首屏吸引</td>
+                                    <td>核心信息前置，强画面冲击</td>
+                                </tr>
+                                <tr>
+                                    <td>快手</td>
+                                    <td>接地气内容，本地化特色</td>
+                                    <td>下沉市场，二三线城市</td>
+                                    <td>互动性、地域相关性</td>
+                                    <td>区域热点、务实风格</td>
+                                </tr>
+                                <tr>
+                                    <td>微博</td>
+                                    <td>热点资讯，话题讨论</td>
+                                    <td>意见领袖，都市白领</td>
+                                    <td>时效性、热点关注度</td>
+                                    <td>快速响应热点，深度解读</td>
+                                </tr>
+                                <tr>
+                                    <td>微信视频号</td>
+                                    <td>相对长视频，内容有深度</td>
+                                    <td>微信生态用户，年龄跨度大</td>
+                                    <td>内容质量、停留时长</td>
+                                    <td>系列化内容，品质感</td>
+                                </tr>
+                                <tr>
+                                    <td>B站</td>
+                                    <td>专业内容，深度解读</td>
+                                    <td>年轻知识群体，兴趣社区</td>
+                                    <td>专业性、完整性</td>
+                                    <td>知识类内容，专业解析</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- 推荐工具与资源 -->
+                <section class="mb-16" id="tools">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">推荐工具与资源</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">内容生产工具</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-bold flex items-center">
+                                        <i class="fas fa-cut mr-2 text-blue-500"></i>剪辑软件
+                                    </h4>
+                                    <ul class="list-disc pl-6 mt-1 space-y-1">
+                                        <li><span class="font-medium">剪映专业版</span> - 移动端快速剪辑首选</li>
+                                        <li><span class="font-medium">Premiere Pro</span> - 专业PC端剪辑软件</li>
+                                        <li><span class="font-medium">Final Cut Pro</span> - Mac平台专业剪辑</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold flex items-center">
+                                        <i class="fas fa-image mr-2 text-blue-500"></i>字幕与图像处理
+                                    </h4>
+                                    <ul class="list-disc pl-6 mt-1 space-y-1">
+                                        <li><span class="font-medium">讯飞听见</span> - 语音转文字并生成字幕</li>
+                                        <li><span class="font-medium">Photoshop</span> - 图片处理与修饰</li>
+                                        <li><span class="font-medium">Canva</span> - 简易封面设计</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold flex items-center">
+                                                                                <i class="fas fa-microphone mr-2 text-blue-500"></i>音频处理
+                                    </h4>
+                                    <ul class="list-disc pl-6 mt-1 space-y-1">
+                                        <li><span class="font-medium">Audition</span> - 专业音频处理</li>
+                                        <li><span class="font-medium">音频提取器</span> - 从视频中提取音频</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">运营与数据分析</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-bold flex items-center">
+                                        <i class="fas fa-chart-line mr-2 text-blue-500"></i>数据监测
+                                    </h4>
+                                    <ul class="list-disc pl-6 mt-1 space-y-1">
+                                        <li><span class="font-medium">百度指数</span> - 关键词热度趋势</li>
+                                        <li><span class="font-medium">微博热搜榜</span> - 实时社会热点</li>
+                                        <li><span class="font-medium">头条指数</span> - 今日头条热点分析</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold flex items-center">
+                                        <i class="fas fa-search mr-2 text-blue-500"></i>选题工具
+                                    </h4>
+                                    <ul class="list-disc pl-6 mt-1 space-y-1">
+                                        <li><span class="font-medium">新榜</span> - 内容创作趋势与选题</li>
+                                        <li><span class="font-medium">清博大数据</span> - 热点分析</li>
+                                        <li><span class="font-medium">人民数据</span> - 官方数据分析平台</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold flex items-center">
+                                        <i class="fas fa-calendar mr-2 text-blue-500"></i>内容管理
+                                    </h4>
+                                    <ul class="list-disc pl-6 mt-1 space-y-1">
+                                        <li><span class="font-medium">企业微信</span> - 团队协作</li>
+                                        <li><span class="font-medium">飞书</span> - 内容协同与管理</li>
+                                        <li><span class="font-medium">Notion</span> - 知识库与工作流</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 术语表 -->
+                <section class="mb-16" id="glossary">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">术语表</h2>
+                    <div class="card p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-medium mb-4 border-b pb-2">内容相关术语</h3>
+                                <dl class="space-y-4">
+                                    <div>
+                                        <dt class="font-bold">CTR (点击率)</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">有效观看量 / 视频曝光度，衡量内容吸引力的重要指标</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">完播率</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">用户完整观看视频的比例，影响平台算法推荐的关键因素</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">BGM</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">背景音乐，增强视频情感表达和记忆点的音频元素</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">标杆账号</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">平台认可的高质量内容创作者，具有示范作用的账号</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">拆条</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">将长视频或长内容拆分成多个短视频片段的处理方式</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-medium mb-4 border-b pb-2">平台与流程术语</h3>
+                                <dl class="space-y-4">
+                                    <div>
+                                        <dt class="font-bold">机器推荐</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">平台基于算法自动将内容推送给潜在有兴趣的用户</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">单兵作战</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">一人完成从选题、拍摄到剪辑、发布的全流程</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">养号</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">通过持续使用和互动培养平台账号，使其获得特定领域的内容推荐</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">首屏</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">视频开始的前1-3秒画面，决定用户是否继续观看的关键部分</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-bold">破圈</dt>
+                                        <dd class="pl-4 text-gray-600 dark:text-gray-400">内容超出原有受众范围，获得更广泛传播的现象</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 补充说明 -->
+                <section class="mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">补充说明</h2>
+                    <div class="card p-6">
+                        <ul class="list-disc pl-5 space-y-4">
+                            <li class="leading-relaxed">讲课中多次强调了"核实"的重要性，认为这是机构媒体的立身之本，也是区别于自媒体的关键。在当今信息爆炸和虚假新闻泛滥的时代，真实准确的信息更显珍贵，也是专业媒体的核心竞争力。</li>
+                            <li class="leading-relaxed">讲师多次提到"机构媒体"的概念，并强调其在新闻生产中的独特价值和责任。相比于个人自媒体，机构媒体拥有更专业的团队、更完善的流程和更严格的内容把关，能够提供更可靠的新闻信息。</li>
+                            <li class="leading-relaxed">讲师对当前新闻视频领域的一些乱象 (如不核实、搬运) 表达了担忧和批评。这反映了行业内部对专业伦理的关注，也提示新闻从业者在追求流量的同时不应放弃职业操守。</li>
+                            <li class="leading-relaxed">讲师鼓励地方媒体积极探索，利用自身优势 (如更接近本地新闻源) 参与竞争。地方媒体可以发挥本地资源优势，打造差异化内容，避免与全国性媒体在同质化内容上竞争。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 个人理解与思考 -->
+                <section class="mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold serif mb-6">个人理解与思考</h2>
+                    <div class="card p-6">
+                        <ul class="list-disc pl-5 space-y-4">
+                            <li class="leading-relaxed">"我们视频"在内容生产和运营方面有很多值得学习的地方，尤其是在快速响应、多部门协同、注重核实等方面。这种全流程运营模式和专业分工为高质量内容生产提供了保障，值得其他媒体机构借鉴。</li>
+                            <li class="leading-relaxed">社交平台算法对新闻内容的影响越来越大，如何平衡平台规则与新闻专业主义，是一个值得思考的问题。在算法主导的时代，新闻专业人士需要既了解平台规则，又坚守内容底线，这种平衡需要持续探索。</li>
+                            <li class="leading-relaxed">地方媒体如何在资源有限的情况下，借鉴"我们视频"的经验，提升自身竞争力？可能的途径包括：聚焦本地特色内容、培养全能型人才、建立轻量级生产流程、与平台建立深度合作关系等。</li>
+                            <li class="leading-relaxed">讲课中提到的CTR数据，普通媒体账号是否能在后台看到？如果看不到，如何评估内容效果？各平台提供的数据维度不同，媒体可以关注自身可获取的数据（如播放量、互动量、转发量等），并建立内部评估体系。</li>
+                            <li class="leading-relaxed">如何看待新闻视频领域的"标题党"现象？如何在吸引眼球的同时，保证新闻的真实性和客观性？这需要内容创作者在标题设计上既有吸引力，又尊重事实，避免过度煽动或误导。可以通过精准提炼新闻核心点，以新颖而非夸张的方式表达，实现吸引力和真实性的平衡。</li>
+                            <li class="leading-relaxed">面对社交媒体时代的短视频化趋势，传统新闻价值观如何调适？新闻的完整性、深度和背景信息在短视频格式下如何保证？这可能需要媒体开发更创新的叙事方式，或通过系列视频、多平台联动等方式，在保证短视频吸引力的同时，为用户提供更完整的信息获取途径。</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- 右侧目录导航（大屏幕显示） -->
+            <div class="hidden lg:block lg:w-3/12 toc-container">
+                <div class="toc">
+                    <h4 class="font-bold text-lg mb-4">目录导航</h4>
+                    <nav>
+                        <a href="#section1" class="toc-link">1. "我们视频"的发展历程与组织架构</a>
+                        <a href="#section2" class="toc-link">2. 移动端新闻视频的内容定位与形式</a>
+                        <a href="#section3" class="toc-link">3. 如何持续输出合格的新闻资讯产品</a>
+                        <a href="#section4" class="toc-link">4. 运营原则与"标杆账号"</a>
+                        <a href="#section5" class="toc-link">5. 社交平台新闻视频的操作要点</a>
+                        <a href="#section6" class="toc-link">6. 快讯类新闻视频的打造体系</a>
+                        <a href="#section7" class="toc-link">7. 社交平台优质内容要素</a>
+                        <a href="#section8" class="toc-link">8. 数据驱动内容增长</a>
+                        <a href="#section9" class="toc-link">9. 大热点以外的线索来源</a>
+                    </nav>
+                    
+                    <h4 class="font-bold text-lg mt-8 mb-4">扩展资源</h4>
+                    <nav>
+                        <a href="#industry-trends" class="toc-link">行业趋势分析</a>
+                        <a href="#platform-comparison" class="toc-link">平台特性对比</a>
+                        <a href="#tools" class="toc-link">推荐工具与资源</a>
+                        <a href="#glossary" class="toc-link">术语表</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 py-10 border-t border-gray-200 dark:border-gray-700">
+        <div class="container">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-lg font-bold mb-2">听课笔记</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">移动端新闻运营技巧与实践</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/username" class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors duration-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/username" class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors duration-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/username" class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors duration-300">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-400">© 2025 记录和整理：黄作敏. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top" aria-label="返回顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // 检查系统偏好和本地存储
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        
+        // 设置初始主题
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+        
+        // 主题切换按钮点击事件
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateCssVariables();
+        });
+        
+        // 章节内容展开/收起
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('i');
+                
+                content.classList.toggle('open');
+                
+                if (content.classList.contains('open')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0)';
+                }
+            });
+        });
+        
+        // 卡片点击导航到对应章节
+        document.querySelectorAll('[data-section]').forEach(card => {
+            card.addEventListener('click', () => {
+                const sectionId = card.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                
+                // 滚动到对应章节
+                section.scrollIntoView({ behavior: 'smooth' });
+                
+                // 打开章节内容
+                const content = section.querySelector('.content-details');
+                const icon = section.querySelector('.section-header i');
+                
+                if (!content.classList.contains('open')) {
+                    content.classList.add('open');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+        
+        // 目录导航高亮当前章节
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const sections = document.querySelectorAll('section[id], div[id^="section"]');
+        
+        function highlightTocLink() {
+            const scrollPosition = window.scrollY;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop - 100 && scrollPosition < sectionTop + sectionHeight - 100) {
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightTocLink);
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+            
+            // 更新阅读进度条
+            const scrollTop = window.scrollY;
+            const scrollHeight = document.documentElement.scrollHeight;
+            const clientHeight = document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            document.getElementById('progress-bar').style.width = scrollPercentage + '%';
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 设置CSS变量动态适应深色/浅色模式
+        function updateCssVariables() {
+            const isDarkMode = htmlElement.classList.contains('dark');
+            const root = document.documentElement;
+            
+            // 更新主题相关的CSS变量
+            if (isDarkMode) {
+                root.style.setProperty('--color-primary', '#3b82f6');
+                root.style.setProperty('--color-primary-dark', '#60a5fa');
+                root.style.setProperty('--color-secondary', '#60a5fa');
+                root.style.setProperty('--color-accent', '#93c5fd');
+                root.style.setProperty('--color-background', '#111827');
+                root.style.setProperty('--color-text', '#f9fafb');
+                root.style.setProperty('--color-text-light', '#e5e7eb');
+                root.style.setProperty('--color-border', '#374151');
+                root.style.setProperty('--color-card', '#1f2937');
+                root.style.setProperty('--color-card-hover', '#2d3748');
+                root.style.setProperty('--color-tag', '#1e3a8a');
+                root.style.setProperty('--color-tag-text', '#93c5fd');
+                root.style.setProperty('--color-quote-bg', '#1f2937');
+                root.style.setProperty('--color-quote-border', '#374151');
+                root.style.setProperty('--color-highlight', '#78350f');
+                root.style.setProperty('--color-highlight-text', '#fef3c7');
+                root.style.setProperty('--color-code-bg', '#1f2937');
+            } else {
+                root.style.setProperty('--color-primary', '#3b82f6');
+                root.style.setProperty('--color-primary-dark', '#2563eb');
+                root.style.setProperty('--color-secondary', '#1d4ed8');
+                root.style.setProperty('--color-accent', '#60a5fa');
+                root.style.setProperty('--color-background', '#ffffff');
+                root.style.setProperty('--color-text', '#1f2937');
+                root.style.setProperty('--color-text-light', '#4b5563');
+                root.style.setProperty('--color-border', '#e5e7eb');
+                root.style.setProperty('--color-card', '#f9fafb');
+                root.style.setProperty('--color-card-hover', '#f3f4f6');
+                root.style.setProperty('--color-tag', '#eff6ff');
+                root.style.setProperty('--color-tag-text', '#2563eb');
+                root.style.setProperty('--color-quote-bg', '#f3f4f6');
+                root.style.setProperty('--color-quote-border', '#d1d5db');
+                root.style.setProperty('--color-highlight', '#fef3c7');
+                root.style.setProperty('--color-highlight-text', '#92400e');
+                root.style.setProperty('--color-code-bg', '#f3f4f6');
+            }
+        }
+        
+        // 初始更新CSS变量
+        updateCssVariables();
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    htmlElement.classList.add('dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                }
+                updateCssVariables();
+            }
+        });
+        
+        // 案例轮播
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+        const carouselDots = document.querySelectorAll('.carousel-dot');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            carouselSlides.forEach(slide => slide.classList.remove('active'));
+            carouselDots.forEach(dot => dot.classList.remove('active'));
+            
+            carouselSlides[index].classList.add('active');
+            carouselDots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        carouselDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                showSlide(index);
+            });
+        });
+        
+        // 自动轮播
+        setInterval(() => {
+            let nextSlide = currentSlide + 1;
+            if (nextSlide >= carouselSlides.length) {
+                nextSlide = 0;
+            }
+            showSlide(nextSlide);
+        }, 8000);
+        
+        // 侧边栏导航
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const openSidebarBtn = document.getElementById('open-sidebar');
+        const closeSidebarBtn = document.getElementById('close-sidebar');
+        
+        openSidebarBtn.addEventListener('click', () => {
+            sidebarNav.classList.add('open');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        function closeSidebar() {
+            sidebarNav.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        closeSidebarBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+        
+        // 侧边栏链接点击后关闭侧边栏
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        
+        // 切换目录显示（小屏幕）
+        const toggleTocBtn = document.getElementById('toggle-toc');
+        const tocContainer = document.querySelector('.toc-container');
+        
+        toggleTocBtn.addEventListener('click', () => {
+            if (tocContainer.style.display === 'block') {
+                tocContainer.style.display = 'none';
+            } else {
+                tocContainer.style.display = 'block';
+            }
+        });
+        
+        // 添加页面载入动画
+        document.addEventListener('DOMContentLoaded', () => {
+            // 页面加载完成后的动画效果
+            document.querySelectorAll('.card, h1, h2, h3, .timeline-item').forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
