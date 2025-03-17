@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事实核查清单 - 记者实用工具</title>
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // 检查系统主题偏好并设置初始模式
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-color: #1f2937;
+            --text-color-light: #4b5563;
+            --bg-color: #ffffff;
+            --bg-color-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+        }
+        
+        .dark {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --accent-color: #fbbf24;
+            --text-color: #f9fafb;
+            --text-color-light: #d1d5db;
+            --bg-color: #111827;
+            --bg-color-secondary: #1f2937;
+            --border-color: #374151;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--text-color-light);
+            border-radius: 4px;
+        }
+        
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .checklist-item {
+            transition: all 0.2s ease;
+            position: relative;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist-item:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .dark .checklist-item:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .checklist-item label {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        
+        .checklist-item input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: var(--text-color-light);
+        }
+        
+        .tooltip {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        
+        .tooltip-content {
+            position: absolute;
+            right: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            visibility: hidden;
+            opacity: 0;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 250px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .tooltip:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            width: 100%;
+            background-color: var(--bg-color-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        
+        .progress-value {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--bg-color-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tag-blue {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .tag-red {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        .tag-yellow {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .tag-green {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .section-highlight {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: black;
+                background-color: white;
+            }
+            
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            
+            .progress-bar, .tooltip {
+                display: none !important;
+            }
+            
+            .checklist-item {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow-md mb-8 no-print">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-lg font-bold text-blue-600 dark:text-blue-400">
+                <i class="fas fa-book"></i>
+                <span>听课笔记</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn btn-outline text-sm">
+                    <i class="fas fa-home"></i> 总目录
+                </a>
+                <a href="javascript:history.back()" class="btn btn-outline text-sm">
+                    <i class="fas fa-arrow-left"></i> 返回笔记
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i id="theme-icon" class="fas fa-moon text-gray-700 dark:text-gray-300"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 md:px-8">
+        <!-- 页面标题 -->
+        <header class="mb-10 fade-in">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="tag tag-blue">工作工具</span>
+                <span class="tag tag-red">事实核查</span>
+                <span class="tag tag-yellow">新闻真实性</span>
+                <span class="tag tag-green">记者基本功</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">新闻事实核查清单</h1>
+            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-6">
+                系统化的核查流程，确保新闻报道事实准确、内容真实
+            </p>
+            
+            <div class="flex flex-wrap gap-4 items-center">
+                <div id="progress-container" class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="font-medium">完成进度:</span>
+                    <span id="progress-text">0/0 (0%)</span>
+                    <div class="progress-bar w-40">
+                        <div id="progress-value" class="progress-value" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <button id="reset-btn" class="btn btn-outline text-sm">
+                        <i class="fas fa-undo"></i> 重置清单
+                    </button>
+                    <button id="print-btn" class="btn btn-outline text-sm">
+                        <i class="fas fa-print"></i> 打印清单
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 核查工作简介 -->
+        <section class="mb-12 fade-in bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl">
+            <h2 class="text-xl font-bold mb-4 flex items-center">
+                <i class="fas fa-info-circle text-blue-500 mr-2"></i> 关于事实核查
+            </h2>
+            <div class="space-y-4">
+                <p>
+                    事实核查是新闻报道的基础和生命线。在信息爆炸的时代，记者需要更加谨慎地核实每一个事实，以确保报道的准确性和公信力。本清单旨在提供一个系统化的核查框架，帮助记者在新闻采写过程中避免事实错误。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <h3 class="font-bold mb-2 text-blue-600 dark:text-blue-400">为什么重要？</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>维护媒体公信力</li>
+                            <li>避免误导公众</li>
+                            <li>防止法律风险</li>
+                            <li>履行记者职业道德</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <h3 class="font-bold mb-2 text-blue-600 dark:text-blue-400">如何使用清单？</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>对照检查每一项内容</li>
+                            <li>勾选已完成的项目</li>
+                            <li>查看进度跟踪</li>
+                            <li>针对未完成项继续跟进</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <h3 class="font-bold mb-2 text-blue-600 dark:text-blue-400">适用情况</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>所有类型的新闻报道</li>
+                            <li>特别是争议性话题</li>
+                            <li>重大事件报道</li>
+                            <li>调查性报道</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 核查清单 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            <div class="lg:col-span-9 order-2 lg:order-1">
+                <!-- 基础事实核实 -->
+                <section id="section-1" class="mb-12 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">一、基础事实核实</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4">
+                        <div class="space-y-2">
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>人物姓名拼写是否正确（包括中英文名、职务头衔）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        特别注意同音字、生僻字，官方头衔与实际使用头衔的差异。涉外报道需要查询官方英文名称拼写。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>时间表述是否准确（日期、时间点、时间段、时序）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        检查日期是否有误、上午/下午是否标注正确、不同时区的时间是否换算准确，事件发生的先后顺序是否清晰。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>地点名称是否准确（含行政区划、具体位置描述）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        核对地名的行政级别与归属关系，准确描述事件发生的具体地理位置，注意地名的官方标准表述。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>数字与数据是否准确（具体数值、比例、增减幅度）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        复核所有数字，包括金额、计量单位、百分比等，注意区分绝对值与相对值，避免数据解读偏差。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>机构名称与组织称谓是否准确（全称与简称使用是否规范）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        使用机构官方网站提供的标准名称，注意机构的隶属关系和级别，区分正式名称与通俗称呼。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>专业术语与行业名词解释是否准确</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        专业术语应查询权威解释，避免想当然理解；非通用名词应提供必要解释；避免滥用行业黑话。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>引用的法律条款与政策文件是否准确</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        查阅原文确认法律条款内容，注意法规的最新修订版本，引用政府文件需核实发布时间和适用范围。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="1">
+                                    <span>历史事件与背景介绍是否准确</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        历史事件应参考权威史料或官方记载，避免以讹传讹；背景材料应确保与报道主题相关且准确无误。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 信源核实 -->
+                <section id="section-2" class="mb-12 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">二、信源核实</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4">
+                        <div class="space-y-2">
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>是否核实所有消息来源的身份与资质</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        核实消息来源的真实身份、专业背景和发言资格，评估其可信度和权威性，避免使用匿名来源。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>是否获得多方信源的交叉验证（至少两个独立来源）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        重要信息应至少有两个独立信源确认，避免单一信源；不同信源之间应无利益关联，以确保验证的有效性。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>引用内容是否与原始表述一致（避免曲解或断章取义）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        直接引用应与原话完全一致；间接引用应准确传递原意；截取部分内容时应确保不改变原意或误导读者。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>是否评估了信源可能的利益关联与立场偏好</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        分析信源与报道对象的利益关系，考虑其发言动机，判断可能的偏见或利益倾向，在报道中作相应说明。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>官方声明与公开数据是否查证了发布渠道的可靠性</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        确认官方信息的发布渠道是否权威（如官网、官方社交媒体账号），警惕虚假官方账号或钓鱼网站。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>是否对匿名信源做了必要的身份描述与使用理由说明</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        使用匿名信源时，应尽可能提供其身份类别、知情程度的说明，并解释为何需要匿名，明确编辑部已知其真实身份。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="2">
+                                    <span>是否向相关各方提供了回应或澄清的机会</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        报道中涉及批评或质疑时，应联系当事人获取回应；若未获回应，应在报道中说明已尝试联系及结果。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 材料与证据核实 -->
+                <section id="section-3" class="mb-12 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">三、材料与证据核实</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4">
+                        <div class="space-y-2">
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>图片与视频材料是否核实了真实性与时效性</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        检查图片/视频的拍摄时间、地点，确认是否为原始素材或经过剪辑处理，利用反向图片搜索等技术验证真实性。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>文件与档案材料是否核实了真伪与完整性</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        核实文件的发布单位、盖章、签名等要素，检查是否为全文、最新版本，文件引用应注明出处和获取途径。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>社交媒体内容是否核实了账号的真实性与权威性</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        确认社交媒体账号是否官方认证、创建时间、历史发帖特征等，警惕虚假账号、恶作剧或"钓鱼"内容。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>数据来源是否查证了准确性与研究方法</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        检查数据的收集方法、样本大小、时间范围、统计口径等，评估数据提供机构的专业性，确认数据解读的合理性。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>使用的调查报告与研究是否来自权威机构</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        评估发布调查或研究的机构背景、研究团队资质、研究方法的科学性，避免引用来历不明或有明显偏见的研究。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>现场采访记录是否完整并可追溯</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        保存完整的采访录音/视频、笔记等原始记录，记录采访时间、地点、方式，确保可回溯核实。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="3">
+                                    <span>是否对可疑证据进行了交叉验证</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        对可靠性存疑的材料寻求多种方式验证，如实地走访、询问多位知情人、寻找其他佐证资料等。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 逻辑与解释核实 -->
+                <section id="section-4" class="mb-12 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">四、逻辑与解释核实</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4">
+                        <div class="space-y-2">
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="4">
+                                    <span>因果关系的推断是否有充分依据</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        重新检视事实之间的因果关系推断是否合理，警惕相关性与因果关系的混淆，避免跳跃式结论。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="4">
+                                    <span>对事件的解释是否考虑了其他可能性</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        思考事件是否存在其他解释角度，避免先入为主，尝试从不同立场审视事实，确保解释的全面性。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="4">
+                                    <span>使用的类比与比喻是否恰当</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        检查文中使用的类比是否恰当，避免不当类比导致的误导；确保比喻符合事实本质，不夸大或缩小事实。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="4">
+                                    <span>是否区分了事实陈述与观点评论</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        明确区分客观事实与主观评论，读者应能清楚分辨哪些是已证实的事实，哪些是记者或他人的解读。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="4">
+                                    <span>统计数据的解读是否科学</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        检查数据解读是否符合统计规律，避免数据使用陷阱（如选择性使用数据、忽略基数差异、混淆百分比与百分点等）。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="4">
+                                    <span>标题与内文是否一致（不夸大、不误导）</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        确保标题准确反映文章主要内容，不夸大事实，不断章取义，不制造误导性暗示，不使用"标题党"手法。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 报道风险审查 -->
+                <section id="section-5" class="mb-12 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">五、报道风险审查</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4">
+                        <div class="space-y-2">
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="5">
+                                    <span>涉及未成年人内容是否符合保护规定</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        未成年人信息应严格保护，包括姓名、照片、住址、学校等，特别是受害者信息；避免对未成年人负面标签化。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="5">
+                                    <span>涉及隐私内容是否必要且已做模糊处理</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        评估披露个人隐私的必要性，对非公众人物的私人信息、照片等适当处理；对受害者应特别谨慎保护隐私。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="5">
+                                    <span>涉及犯罪嫌疑人的表述是否符合"疑罪从无"原则</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        在司法程序未完成前，使用"涉嫌"、"被指控"等表述，避免将嫌疑人直接定性为"罪犯"等预设有罪的表达。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="5">
+                                    <span>涉及特殊群体的表述是否尊重且不带偏见</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        避免使用带有歧视性或刻板印象的语言描述特殊群体，包括民族、宗教、性别、职业、疾病患者等。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="5">
+                                    <span>报道是否考虑了可能的社会影响与舆论导向</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        评估报道可能引发的社会反应，避免不当煽动情绪；敏感议题应客观报道，避免单一视角引发极化。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="5">
+                                    <span>是否预留了更正渠道与反馈机制</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        设置读者反馈通道，对发现的错误及时更正并说明；重大错误应在显著位置公开更正，确保受众知晓。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 最终复核 -->
+                <section id="section-6" class="mb-12 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">六、最终复核</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4">
+                        <div class="space-y-2">
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="6">
+                                    <span>是否让非参与报道的同事进行独立审读</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        找没有参与报道过程的同事阅读全文，获取新鲜视角的反馈，发现可能被忽视的问题。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="6">
+                                    <span>是否回顾所有存疑点并解决</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        回顾采编过程中标记的所有存疑点，确保已得到解决或在报道中明确说明了不确定性。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="6">
+                                    <span>是否检查了所有事实性内容的原始来源</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        重新检查关键事实的原始来源，避免以转述或二手资料作为事实依据；确保引用内容有明确出处。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="6">
+                                    <span>最后通读全文，检查内部一致性</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        完整阅读一遍全文，检查文中各部分描述是否一致，有无矛盾之处；确认结论与所提供的事实证据相符。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checklist-item">
+                                <label>
+                                    <input type="checkbox" class="check-item" data-section="6">
+                                    <span>是否确认文章符合新闻伦理和法律法规要求</span>
+                                </label>
+                                <div class="tooltip">
+                                    <i class="fas fa-question-circle text-blue-500"></i>
+                                    <div class="tooltip-content">
+                                        最终检查报道是否符合职业伦理规范和相关法律法规，特别是涉及未成年人、隐私、名誉权、知情权等方面。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- 侧边栏 -->
+            <div class="lg:col-span-3 order-1 lg:order-2">
+                <div class="sticky top-24 space-y-6">
+                    <!-- 进度概览 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 mb-6 fade-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <i class="fas fa-chart-pie text-blue-500 mr-2"></i> 核查进度
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>基础事实核实</span>
+                                    <span id="section-1-progress">0/8</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div id="section-1-bar" class="progress-value" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>信源核实</span>
+                                    <span id="section-2-progress">0/7</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div id="section-2-bar" class="progress-value" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>材料与证据核实</span>
+                                    <span id="section-3-progress">0/7</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div id="section-3-bar" class="progress-value" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>逻辑与解释核实</span>
+                                    <span id="section-4-progress">0/6</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div id="section-4-bar" class="progress-value" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>报道风险审查</span>
+                                    <span id="section-5-progress">0/6</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div id="section-5-bar" class="progress-value" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>最终复核</span>
+                                    <span id="section-6-progress">0/5</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div id="section-6-bar" class="progress-value" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold">总体完成</span>
+                                <span id="total-progress" class="font-bold">0/39 (0%)</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="total-bar" class="progress-value" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 快速跳转 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 mb-6 fade-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <i class="fas fa-list text-blue-500 mr-2"></i> 目录导航
+                        </h3>
+                        
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="#section-1" class="flex items-center py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs mr-3">1</span>
+                                    基础事实核实
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-2" class="flex items-center py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs mr-3">2</span>
+                                    信源核实
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-3" class="flex items-center py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs mr-3">3</span>
+                                    材料与证据核实
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-4" class="flex items-center py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs mr-3">4</span>
+                                    逻辑与解释核实
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-5" class="flex items-center py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs mr-3">5</span>
+                                    报道风险审查
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-6" class="flex items-center py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs mr-3">6</span>
+                                    最终复核
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 核查小提示 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 fade-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> 核查小贴士
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-md section-highlight">
+                                <h4 class="font-bold mb-2">记住"五W一H"</h4>
+                                <p class="text-sm">核实每个事件的Who(谁)、What(什么)、When(何时)、Where(何地)、Why(为何)和How(如何)，确保基础事实准确无误。</p>
+                            </div>
+                            
+                            <div class="bg-cyan-50 dark:bg-cyan-900/20 p-4 rounded-md section-highlight" style="border-left-color: #06b6d4;">
+                                <h4 class="font-bold mb-2">独立核查原则</h4>
+                                <p class="text-sm">不要简单复制其他媒体报道或网络传言，始终回溯到原始信源，保持独立判断。</p>
+                            </div>
+                            
+                            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-md section-highlight" style="border-left-color: #10b981;">
+                                <h4 class="font-bold mb-2">避免时间压力</h4>
+                                <p class="text-sm">即使在紧急新闻情况下，也要给自己核实事实的时间。一个准确迟发的报道总比不准确的快发报道更好。</p>
+                            </div>
+                            
+                            <div class="mt-4 text-center">
+                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                                    点击获取更多事实核查技巧 <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 核查案例 -->
+        <section class="mb-16 fade-in">
+            <div class="flex items-center mb-6">
+                <div class="section-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold">核查案例分析</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8 overflow-x-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 flex items-center mb-4">
+                            <i class="fas fa-times-circle text-red-500 mr-2"></i> 不良示例
+                        </h3>
+                        
+                        <div class="border border-red-200 dark:border-red-900 rounded-lg p-4 bg-red-50 dark:bg-red-900/20">
+                            <h4 class="font-bold mb-2">事例：自然灾害报道中的数据错误</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm">某媒体报道洪灾造成"5000人死亡"，但实际官方通报为"50人死亡，约5000人受灾"。</p>
+                            <div class="bg-white dark:bg-gray-800 p-3 rounded-md mb-3 text-sm">
+                                <p class="font-medium text-red-600 dark:text-red-400 mb-1">错误做法：</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>未直接查阅官方通报，而是引用其他媒体转述</li>
+                                    <li>混淆了"死亡人数"和"受灾人数"两个概念</li>
+                                    <li>未向相关部门核实数据</li>
+                                    <li>在时间压力下，忽略了基本数据核查步骤</li>
+                                </ul>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mr-1"></i> 
+                                此错误导致社会恐慌和舆论谴责，媒体公信力严重受损。
+                            </p>
+                        </div>
+                        
+                        <div class="border border-red-200 dark:border-red-900 rounded-lg p-4 bg-red-50 dark:bg-red-900/20">
+                            <h4 class="font-bold mb-2">事例：引用虚假社交媒体内容</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm">某媒体引用一位"知名科学家"在社交媒体上关于疫苗的言论，后证实该账号为冒充账号。</p>
+                            <div class="bg-white dark:bg-gray-800 p-3 rounded-md mb-3 text-sm">
+                                <p class="font-medium text-red-600 dark:text-red-400 mb-1">错误做法：</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>未验证社交媒体账号的真实性和认证状态</li>
+                                    <li>没有通过其他渠道联系当事人确认</li>
+                                    <li>对存在争议的专业内容未寻求其他专家意见</li>
+                                    <li>未检查该"科学家"的背景和相关资质</li>
+                                </ul>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mr-1"></i> 
+                                此错误导致错误信息传播，影响公众健康决策。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 flex items-center mb-4">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i> 优秀示例
+                        </h3>
+                        
+                        <div class="border border-green-200 dark:border-green-900 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                            <h4 class="font-bold mb-2">事例：多源验证的企业丑闻报道</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm">某媒体报道一家大型企业存在财务造假，通过多种渠道收集证据，严格核实后发布。</p>
+                            <div class="bg-white dark:bg-gray-800 p-3 rounded-md mb-3 text-sm">
+                                <p class="font-medium text-green-600 dark:text-green-400 mb-1">正确做法：</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>获取多名内部人士独立证词，交叉验证信息</li>
+                                    <li>搜集和分析公开财务文件，发现异常</li>
+                                    <li>咨询三位不同会计专家对财务数据的独立分析</li>
+                                    <li>在报道前联系企业，给予充分回应机会</li>
+                                    <li>报道中明确标注哪些指控已证实，哪些尚无定论</li>
+                                </ul>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 
+                                这种严谨核查使报道在后续调查中经受住了考验，推动了相关问题的解决。
+                            </p>
+                        </div>
+                        
+                        <div class="border border-green-200 dark:border-green-900 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                            <h4 class="font-bold mb-2">事例：谨慎处理突发事件初期信息</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm">某地发生爆炸事件，媒体在报道中明确区分已确认信息和未确认信息。</p>
+                            <div class="bg-white dark:bg-gray-800 p-3 rounded-md mb-3 text-sm">
+                                <p class="font-medium text-green-600 dark:text-green-400 mb-1">正确做法：</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>明确标注信息来源和确认程度</li>
+                                    <li>只报道经官方确认的伤亡数字</li>
+                                    <li>对目击者描述说明"尚未独立核实"</li>
+                                    <li>避免猜测爆炸原因，仅报道官方调查进展</li>
+                                    <li>及时更新报道，纠正早期的不准确信息</li>
+                                </ul>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 
+                                这种透明、谨慎的报道方式避免了恐慌和错误信息传播，赢得读者信任。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 no-print">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- 页脚 -->
+    <footer class="mt-20 bg-gray-50 dark:bg-gray-900 py-10 no-print">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center">
+                        <i class="fas fa-book-open mr-2"></i> 听课笔记工具库
+                    </a>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">新闻事实核查工具 - 提升报道准确性与可信度</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-6">
+                    <div>
+                        <h3 class="font-semibold mb-3">快速链接</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">笔记首页</a></li>
+                            <li><a href="javascript:history.back()" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">返回笔记</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-3">相关资源</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">事实核查指南</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">调查报道方法</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">数据核验工具</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-600 dark:text-gray-400">作者姓名: 听课笔记整理员</p>
+                        <p class="text-gray-600 dark:text-gray-400">© 2023 听课笔记工具库. 保留所有权利</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-400 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+        
+        // 初始化主题图标
+        if (document.documentElement.classList.contains('dark')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // 复选框功能与进度更新
+        const checkboxes = document.querySelectorAll('.check-item');
+        const progressText = document.getElementById('progress-text');
+        const progressValue = document.getElementById('progress-value');
+        const totalBar = document.getElementById('total-bar');
+        
+        // 每个部分的项目数量
+        const sectionCounts = {
+            1: 8,
+            2: 7,
+            3: 7,
+            4: 6,
+            5: 6,
+            6: 5
+        };
+        
+        // 总项目数
+        const totalItems = Object.values(sectionCounts).reduce((a, b) => a + b, 0);
+        
+        function updateProgress() {
+            // 更新每个部分的进度
+            for (let section in sectionCounts) {
+                const checked = document.querySelectorAll(`.check-item[data-section="${section}"]:checked`).length;
+                const total = sectionCounts[section];
+                const percent = Math.round((checked / total) * 100);
+                
+                document.getElementById(`section-${section}-progress`).textContent = `${checked}/${total}`;
+                document.getElementById(`section-${section}-bar`).style.width = `${percent}%`;
+            }
+            
+            // 更新总进度
+            const totalChecked = document.querySelectorAll('.check-item:checked').length;
+            const totalPercent = Math.round((totalChecked / totalItems) * 100);
+            
+            progressText.textContent = `${totalChecked}/${totalItems} (${totalPercent}%)`;
+            totalBar.style.width = `${totalPercent}%`;
+            
+            // 同步主进度条
+            document.getElementById('progress-text').textContent = `${totalChecked}/${totalItems} (${totalPercent}%)`;
+            document.getElementById('progress-value').style.width = `${totalPercent}%`;
+            
+            // 更新总进度文本
+            document.getElementById('total-progress').textContent = `${totalChecked}/${totalItems} (${totalPercent}%)`;
+            
+            // 保存到本地存储
+            saveProgress();
+        }
+        
+        // 为每个复选框添加事件监听器
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+        
+        // 保存进度到本地存储
+        function saveProgress() {
+            const checkedState = {};
+            checkboxes.forEach((checkbox, index) => {
+                checkedState[index] = checkbox.checked;
+            });
+            localStorage.setItem('factCheckProgress', JSON.stringify(checkedState));
+        }
+        
+        // 从本地存储加载进度
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('factCheckProgress');
+            if (savedProgress) {
+                const checkedState = JSON.parse(savedProgress);
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = checkedState[index] || false;
+                });
+                updateProgress();
+            }
+        }
+        
+        // 重置按钮功能
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            if (confirm('确定要重置所有选项吗？')) {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+                localStorage.removeItem('factCheckProgress');
+            }
+        });
+        
+        // 打印按钮功能
+        document.getElementById('print-btn').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // 页面加载后淡入效果
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

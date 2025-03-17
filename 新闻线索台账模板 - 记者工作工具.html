@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻线索台账模板 - 记者工作工具</title>
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // 检查系统主题偏好并设置初始模式
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-color: #1f2937;
+            --text-color-light: #4b5563;
+            --bg-color: #ffffff;
+            --bg-color-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+        }
+        
+        .dark {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --accent-color: #fbbf24;
+            --text-color: #f9fafb;
+            --text-color-light: #d1d5db;
+            --bg-color: #111827;
+            --bg-color-secondary: #1f2937;
+            --border-color: #374151;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--text-color-light);
+            border-radius: 4px;
+        }
+        
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--bg-color-secondary);
+            transform: translateY(-2px);
+        }
+        
+        /* 表格样式 */
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .custom-table th {
+            background-color: var(--bg-color-secondary);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .custom-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+        
+        .custom-table tbody tr:hover td {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .dark .custom-table tbody tr:hover td {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* 表单样式 */
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+        
+        .form-label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        /* 下拉菜单样式 */
+        .select-wrapper {
+            position: relative;
+        }
+        
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-color-light);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow-md mb-8">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-lg font-bold text-blue-600 dark:text-blue-400">
+                <i class="fas fa-book"></i>
+                <span>听课笔记</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn btn-outline text-sm">
+                    <i class="fas fa-home"></i> 总目录
+                </a>
+                <a href="javascript:history.back()" class="btn btn-outline text-sm">
+                    <i class="fas fa-arrow-left"></i> 返回笔记
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i id="theme-icon" class="fas fa-moon text-gray-700 dark:text-gray-300"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 md:px-8">
+        <!-- 页面标题 -->
+        <header class="mb-12 fade-in">
+            <div class="flex flex-wrap justify-between items-center mb-6">
+                <div>
+                    <span class="tag">工作工具</span>
+                    <span class="tag">记者资源</span>
+                    <span class="tag">线索管理</span>
+                </div>
+            </div>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">新闻线索台账模板</h1>
+            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-6">
+                系统化管理新闻线索，提高工作效率和线索转化率
+            </p>
+            
+            <div class="flex flex-wrap gap-3">
+                <a href="#section1" class="btn btn-primary">
+                    <i class="fas fa-table"></i> 台账模板
+                </a>
+                <a href="#section2" class="btn btn-outline">
+                    <i class="fas fa-plus-circle"></i> 添加新线索
+                </a>
+                <a href="#section3" class="btn btn-outline">
+                    <i class="fas fa-info-circle"></i> 使用说明
+                </a>
+            </div>
+        </header>
+        
+        <!-- 简介 -->
+        <section class="mb-12 fade-in">
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> 为什么需要线索台账？
+                </h2>
+                <div class="space-y-4">
+                    <p>
+                        在新闻工作中，大量线索如果没有系统管理，容易导致重要线索被忽略或遗忘。线索台账帮助记者：
+                    </p>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>系统化记录所有线索来源和内容</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>对线索进行优先级管理</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>追踪线索处理进度和结果</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>防止重复工作和重要线索丢失</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>团队协作时便于交接和共享</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>回溯历史线索，发现潜在关联</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 台账模板 -->
+        <section id="section1" class="mb-16 fade-in">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-table"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold">线索台账模板</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8 overflow-x-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex gap-2">
+                        <button class="btn btn-outline text-sm">
+                            <i class="fas fa-filter"></i> 筛选
+                        </button>
+                        <button class="btn btn-outline text-sm">
+                            <i class="fas fa-sort"></i> 排序
+                        </button>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-outline text-sm">
+                            <i class="fas fa-file-export"></i> 导出
+                        </button>
+                        <button class="btn btn-outline text-sm">
+                            <i class="fas fa-print"></i> 打印
+                        </button>
+                    </div>
+                </div>
+                
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">#</th>
+                            <th style="width: 12%">收集日期</th>
+                            <th style="width: 20%">线索标题</th>
+                            <th style="width: 10%">来源渠道</th>
+                            <th style="width: 10%">优先级</th>
+                            <th style="width: 13%">负责人</th>
+                            <th style="width: 15%">处理状态</th>
+                            <th style="width: 15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2023-11-15</td>
+                            <td>某小区燃气管道老化导致安全隐患</td>
+                            <td>12345热线</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                    高
+                                </span>
+                            </td>
+                            <td>李明</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                    核实中
+                                </span>
+                            </td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <button class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        <i class="fas fa-eye"></i> 查看
+                                    </button>
+                                    <button class="text-green-600 dark:text-green-400 hover:underline">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2023-11-14</td>
+                            <td>网购平台虚假折扣投诉增多</td>
+                            <td>微博热搜</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                                    中
+                                </span>
+                            </td>
+                            <td>王芳</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                    处理完成
+                                </span>
+                            </td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <button class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        <i class="fas fa-eye"></i> 查看
+                                    </button>
+                                    <button class="text-green-600 dark:text-green-400 hover:underline">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>2023-11-13</td>
+                            <td>某校外培训机构违规收费</td>
+                            <td>人民网留言板</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                                    中
+                                </span>
+                            </td>
+                            <td>张强</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                    采访中
+                                </span>
+                            </td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <button class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        <i class="fas fa-eye"></i> 查看
+                                    </button>
+                                    <button class="text-green-600 dark:text-green-400 hover:underline">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>2023-11-12</td>
+                            <td>新医保政策实施后药价变化调查</td>
+                            <td>内部策划</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                    高
+                                </span>
+                            </td>
+                            <td>赵薇</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                    撰写中
+                                </span>
+                            </td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <button class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        <i class="fas fa-eye"></i> 查看
+                                    </button>
+                                    <button class="text-green-600 dark:text-green-400 hover:underline">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>2023-11-10</td>
+                            <td>某地农产品滞销情况</td>
+                            <td>读者来信</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                    低
+                                </span>
+                            </td>
+                            <td>未分配</td>
+                            <td>
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                    待处理
+                                </span>
+                            </td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <button class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        <i class="fas fa-eye"></i> 查看
+                                    </button>
+                                    <button class="text-green-600 dark:text-green-400 hover:underline">
+                                        <i class="fas fa-edit"></i> 编辑
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- 分页 -->
+                <div class="flex justify-between items-center mt-6">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                        显示 1 到 5，共 24 条
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-outline text-sm px-3 py-1">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary text-sm px-3 py-1">1</button>
+                        <button class="btn btn-outline text-sm px-3 py-1">2</button>
+                        <button class="btn btn-outline text-sm px-3 py-1">3</button>
+                        <button class="btn btn-outline text-sm px-3 py-1">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 添加新线索 -->
+        <section id="section2" class="mb-16 fade-in">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold">添加新线索</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="title" class="form-label">线索标题 <span class="text-red-500">*</span></label>
+                            <input type="text" id="title" class="form-control" placeholder="请输入描述性标题" required>
+                        </div>
+                        <div>
+                            <label for="date" class="form-label">收集日期 <span class="text-red-500">*</span></label>
+                            <input type="date" id="date" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div>
+                            <label for="source" class="form-label">来源渠道 <span class="text-red-500">*</span></label>
+                            <div class="select-wrapper">
+                                <select id="source" class="form-control">
+                                    <option value="">请选择线索来源</option>
+                                    <option value="official">官方发布</option>
+                                    <option value="gov-hotline">12345热线</option>
+                                    <option value="social-media">社交媒体</option>
+                                    <option value="reader">读者爆料</option>
+                                    <option value="internal">内部策划</option>
+                                    <option value="other">其他来源</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="priority" class="form-label">优先级 <span class="text-red-500">*</span></label>
+                            <div class="select-wrapper">
+                                <select id="priority" class="form-control">
+                                    <option value="">请选择优先级</option>
+                                    <option value="high">高 - 需立即处理</option>
+                                    <option value="medium">中 - 一周内处理</option>
+                                    <option value="low">低 - 择时处理</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="assignee" class="form-label">负责人</label>
+                            <div class="select-wrapper">
+                                <select id="assignee" class="form-control">
+                                    <option value="">请选择负责人</option>
+                                    <option value="liming">李明</option>
+                                    <option value="wangfang">王芳</option>
+                                    <option value="zhangqiang">张强</option>
+                                    <option value="zhaowei">赵薇</option>
+                                    <option value="unassigned">暂不分配</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="description" class="form-label">线索描述 <span class="text-red-500">*</span></label>
+                        <textarea id="description" class="form-control" rows="5" placeholder="请详细描述线索内容、背景、潜在价值等信息"></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="contact" class="form-label">联系人信息</label>
+                            <input type="text" id="contact" class="form-control" placeholder="联系人姓名、电话或其他联系方式">
+                        </div>
+                        <div>
+                            <label for="deadline" class="form-label">处理截止日期</label>
+                            <input type="date" id="deadline" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="attachment" class="form-label">附件</label>
+                        <input type="file" id="attachment" class="form-control">
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            支持图片、文档、音频等格式，单个文件不超过10MB
+                        </p>
+                    </div>
+                    
+                    <div class="flex justify-end gap-3">
+                        <button type="reset" class="btn btn-outline">
+                            <i class="fas fa-undo"></i> 重置
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 保存线索
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- 使用说明 -->
+        <section id="section3" class="mb-16 fade-in">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold">使用说明</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-clipboard-list mr-2"></i>记录原则
+                        </h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>每条线索应当详细记录，包括线索来源、具体内容、潜在报道价值等</li>
+                            <li>优先级分类标准：
+                                <ul class="list-circle pl-5 mt-2 space-y-1">
+                                    <li><strong>高优先级</strong>：重大突发事件、社会热点问题、独家线索</li>
+                                    <li><strong>中优先级</strong>：有一定社会关注度、需要较快跟进的线索</li>
+                                    <li><strong>低优先级</strong>：可择时跟进、价值需进一步评估的线索</li>
+                                </ul>
+                            </li>
+                            <li>定期回顾未处理线索，评估其时效性和价值变化</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-tasks mr-2"></i>线索状态管理
+                        </h3>
+                        <p class="mb-4">线索状态说明：</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-200 mb-2">
+                                    待处理
+                                </span>
+                                <p class="text-sm">新录入的线索，尚未开始处理</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 mb-2">
+                                    核实中
+                                </span>
+                                <p class="text-sm">正在核实线索真实性和价值</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 mb-2">
+                                    采访中
+                                </span>
+                                <p class="text-sm">已确认线索价值，正在进行采访</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 mb-2">
+                                    撰写中
+                                </span>
+                                <p class="text-sm">采访完成，正在撰写报道</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 mb-2">
+                                    处理完成
+                                </span>
+                                <p class="text-sm">报道已发布，线索处理完毕</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <span class="inline-block px-2 py-1 text-xs rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 mb-2">
+                                    暂停/搁置
+                                </span>
+                                <p class="text-sm">因各种原因暂时搁置的线索</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-lightbulb mr-2"></i>最佳实践
+                        </h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>每天固定时间检查和更新线索状态</li>
+                            <li>团队会议中定期回顾高价值线索</li>
+                            <li>对处理完毕的线索进行归档，便于日后参考</li>
+                            <li>定期分析线索来源分布，优化线索收集渠道</li>
+                            <li>建立线索评估标准，提高线索筛选效率</li>
+                            <li>记录线索处理过程中的经验教训，持续改进工作方法</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg">
+                        <h3 class="text-lg font-bold mb-3 flex items-center">
+                            <i class="fas fa-link text-blue-600 dark:text-blue-400 mr-2"></i> 相关资源
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-file-pdf text-red-500 mt-1 mr-2"></i>
+                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                    线索评估指南.pdf
+                                </a>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-excel text-green-500 mt-1 mr-2"></i>
+                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                    线索台账完整Excel模板.xlsx
+                                </a>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-video text-purple-500 mt-1 mr-2"></i>
+                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                    线索管理视频教程
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 工具推荐 -->
+        <section class="mb-16 fade-in">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold">配套工具推荐</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4">
+                                <i class="fas fa-chart-pie text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">线索分析面板</h3>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                            可视化展示线索来源、处理状态、转化率等数据，帮助优化工作流程。
+                        </p>
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                            查看详情 <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-400 mr-4">
+                                <i class="fas fa-calendar-alt text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">选题日历</h3>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                            与线索台账联动的选题日历，帮助规划报道时间和资源分配。
+                        </p>
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                            查看详情 <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-400 mr-4">
+                                <i class="fas fa-mobile-alt text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">移动端录入</h3>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                            外出采访时通过手机快速录入线索，支持语音识别和图片附件。
+                        </p>
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                            查看详情 <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+   
+    <!-- 页脚 -->
+    <footer class="mt-20 bg-gray-50 dark:bg-gray-900 py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center">
+                        <i class="fas fa-book-open mr-2"></i> 新闻采编工具库
+                    </a>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">高效管理新闻线索，提升工作质量</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-6">
+                    <div>
+                        <h3 class="font-semibold mb-3">快速链接</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">笔记首页</a></li>
+                            <li><a href="javascript:history.back()" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">返回笔记</a></li>
+                            <li><a href="#section2" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">添加线索</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-3">相关资源</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">热点新闻课程</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">调查报道方法</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">新闻选题策划</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-600 dark:text-gray-400">本模板由黄作敏制作</p>
+                        <p class="text-gray-600 dark:text-gray-400">© 2025 新闻采编工具库. 保留所有权利</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-400 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+        
+        // 初始化主题图标
+        if (document.documentElement.classList.contains('dark')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // 页面加载后淡入效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

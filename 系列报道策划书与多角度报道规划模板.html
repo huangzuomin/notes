@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系列报道策划书与多角度报道规划模板</title>
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // 检查系统主题偏好并设置初始模式
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --dark-accent-color: #d97706;
+            --text-color: #1f2937;
+            --text-color-light: #4b5563;
+            --bg-color: #ffffff;
+            --bg-color-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        .dark {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --accent-color: #fbbf24;
+            --dark-accent-color: #f59e0b;
+            --text-color: #f9fafb;
+            --text-color-light: #d1d5db;
+            --bg-color: #111827;
+            --bg-color-secondary: #1f2937;
+            --border-color: #374151;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--text-color-light);
+            border-radius: 4px;
+        }
+        
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .fade-in-delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .fade-in-delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .fade-in-delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: var(--dark-accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--bg-color-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tag-blue {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .tag-yellow {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .tag-green {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        
+        .tag-red {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+            padding-bottom: 32px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-item:last-child::before {
+            height: 0;
+        }
+        
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+        
+        .form-label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            width: 100%;
+            background-color: var(--bg-color-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-value {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: black;
+                background-color: white;
+            }
+            
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+        }
+        
+        /* 角色卡片样式 */
+        .role-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .role-card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+        }
+        
+        .role-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        
+        /* 添加一个特殊的强调版块 */
+        .highlight-box {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        /* 统一的段落边距 */
+        .content-paragraph {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        /* 表单组件样式 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 步骤导航 */
+        .step-nav {
+            position: sticky;
+            top: 80px;
+        }
+        
+        .step-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .step-link:hover {
+            background-color: var(--bg-color-secondary);
+        }
+        
+        .step-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .step-link.active .step-number {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        /* 富文本编辑器外观模拟 */
+        .editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            border-top-left-radius: 0.375rem;
+            border-top-right-radius: 0.375rem;
+            background-color: var(--bg-color-secondary);
+        }
+        
+        .editor-button {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            color: var(--text-color-light);
+            transition: all 0.2s ease;
+        }
+        
+        .editor-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--text-color);
+        }
+        
+        .dark .editor-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .editor-content {
+            min-height: 200px;
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+            padding: 1rem;
+        }
+        
+        /* 拖拽排序提示 */
+        .drag-handle {
+            cursor: grab;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .drag-handle:hover {
+            background-color: var(--bg-color-secondary);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow-md mb-8 no-print">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-lg font-bold text-blue-600 dark:text-blue-400">
+                <i class="fas fa-newspaper"></i>
+                <span>新闻策划工具</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn btn-outline text-sm">
+                    <i class="fas fa-home"></i> 总目录
+                </a>
+                <a href="javascript:history.back()" class="btn btn-outline text-sm">
+                    <i class="fas fa-arrow-left"></i> 返回笔记
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i id="theme-icon" class="fas fa-moon text-gray-700 dark:text-gray-300"></i>
+                </button>
+                <button id="print-btn" class="btn btn-outline text-sm">
+                    <i class="fas fa-print"></i> 打印
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 md:px-8">
+        <!-- 页面标题 -->
+        <header class="mb-10 fade-in">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="tag tag-blue">新闻策划</span>
+                <span class="tag tag-yellow">系列报道</span>
+                <span class="tag tag-green">多角度报道</span>
+                <span class="tag tag-red">深度调查</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">系列报道策划书与多角度报道规划</h1>
+            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300">
+                系统化设计、组织和执行有影响力的系列报道与多角度新闻调查
+            </p>
+            
+            <div class="flex flex-wrap gap-3 mt-6">
+                <button class="btn btn-primary" id="new-project">
+                    <i class="fas fa-plus"></i> 新建策划
+                </button>
+                <button class="btn btn-outline">
+                    <i class="fas fa-folder-open"></i> 加载模板
+                </button>
+                <button class="btn btn-outline">
+                    <i class="fas fa-save"></i> 保存草稿
+                </button>
+            </div>
+        </header>
+        
+        <!-- 主要内容区 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            <!-- 左侧步骤导航 -->
+            <div class="lg:col-span-3 order-2 lg:order-1">
+                <div class="step-nav no-print">
+                    <h2 class="text-xl font-bold mb-4">策划步骤</h2>
+                    
+                    <a href="#section1" class="step-link active">
+                        <span class="step-number">1</span>
+                        <span>报道主题与目标</span>
+                    </a>
+                    
+                    <a href="#section2" class="step-link">
+                        <span class="step-number">2</span>
+                        <span>调研与背景分析</span>
+                    </a>
+                    
+                    <a href="#section3" class="step-link">
+                        <span class="step-number">3</span>
+                        <span>多角度报道框架</span>
+                    </a>
+                    
+                    <a href="#section4" class="step-link">
+                        <span class="step-number">4</span>
+                        <span>报道系列规划</span>
+                    </a>
+                    
+                    <a href="#section5" class="step-link">
+                        <span class="step-number">5</span>
+                        <span>资源需求与团队</span>
+                    </a>
+                    
+                    <a href="#section6" class="step-link">
+                        <span class="step-number">6</span>
+                        <span>时间线与发布计划</span>
+                    </a>
+                    
+                    <a href="#section7" class="step-link">
+                        <span class="step-number">7</span>
+                        <span>预期效果与评估</span>
+                    </a>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <h3 class="font-bold text-blue-600 dark:text-blue-400 mb-2 flex items-center">
+                            <i class="fas fa-lightbulb mr-2"></i> 小贴士
+                        </h3>
+                        <p class="text-sm">完整填写每个步骤的内容，将使你的策划更加全面和有说服力。可随时保存草稿，方便后续修改。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧主要内容 -->
+            <div class="lg:col-span-9 order-1 lg:order-2">
+                <!-- 1. 报道主题与目标 -->
+                <section id="section1" class="mb-16 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">报道主题与目标</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <div class="form-group">
+                            <label for="project-title" class="form-label">系列报道标题 <span class="text-red-500">*</span></label>
+                            <input type="text" id="project-title" class="form-control" placeholder="为系列报道取一个吸引人且概括主题的标题">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project-theme" class="form-label">核心主题与议题 <span class="text-red-500">*</span></label>
+                            <div class="editor-toolbar">
+                                <button class="editor-button"><i class="fas fa-bold"></i></button>
+                                <button class="editor-button"><i class="fas fa-italic"></i></button>
+                                <button class="editor-button"><i class="fas fa-underline"></i></button>
+                                <div class="mx-2 border-r border-gray-300 dark:border-gray-600 h-6"></div>
+                                <button class="editor-button"><i class="fas fa-list-ul"></i></button>
+                                <button class="editor-button"><i class="fas fa-list-ol"></i></button>
+                                <button class="editor-button"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div id="project-theme" class="editor-content" contenteditable="true">
+                                <p>详细描述本系列报道要探索的核心问题、现象或事件，明确表述报道要解决的关键议题。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label for="target-audience" class="form-label">目标受众</label>
+                                <textarea id="target-audience" class="form-control" rows="4" placeholder="描述本系列报道的主要受众群体，包括人口统计特征、兴趣和关注点等。"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">报道类型</label>
+                                <div class="mt-2 space-y-2">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="type-investigative" class="mr-2">
+                                        <label for="type-investigative">调查性报道</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="type-explainer" class="mr-2">
+                                        <label for="type-explainer">解释性报道</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="type-narrative" class="mr-2">
+                                        <label for="type-narrative">叙事性报道</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="type-data" class="mr-2">
+                                        <label for="type-data">数据驱动型报道</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="type-solution" class="mr-2">
+                                        <label for="type-solution">解决方案报道</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="type-other" class="mr-2">
+                                        <label for="type-other">其他</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <label for="project-goals" class="form-label">报道目标 <span class="text-red-500">*</span></label>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg mb-4">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                    <i class="fas fa-info-circle mr-1"></i> 提示：好的报道目标应该是具体的、可衡量的，并且明确阐述报道将如何为受众和社会带来价值。
+                                </div>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>提高特定问题的公众意识</li>
+                                    <li>揭示隐藏的事实或不为人知的真相</li>
+                                    <li>推动政策改变或制度完善</li>
+                                    <li>为受众提供决策依据或行动指南</li>
+                                    <li>记录重要历史事件或社会变迁</li>
+                                </ul>
+                            </div>
+                            <textarea id="project-goals" class="form-control" rows="5" placeholder="列出本系列报道希望实现的目标和预期影响..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- 主题重要性与意义 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">主题重要性与意义</h3>
+                        
+                        <div class="form-group">
+                            <label for="news-value" class="form-label">新闻价值分析</label>
+                            <textarea id="news-value" class="form-control" rows="4" placeholder="分析该主题的时效性、重要性、接近性、影响力、趣味性等新闻价值要素..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social-significance" class="form-label">社会意义</label>
+                            <textarea id="social-significance" class="form-control" rows="4" placeholder="解释该系列报道对社会、民生、经济或政策等方面的潜在影响和意义..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">主题独特性评估</label>
+                            <div class="mt-2 space-y-4">
+                                <div>
+                                    <span class="block mb-1">该主题的创新性</span>
+                                    <div class="flex items-center">
+                                        <span class="text-sm mr-2">低</span>
+                                        <input type="range" min="1" max="5" value="3" class="w-full">
+                                        <span class="text-sm ml-2">高</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <span class="block mb-1">竞争媒体的关注度</span>
+                                    <div class="flex items-center">
+                                        <span class="text-sm mr-2">低</span>
+                                        <input type="range" min="1" max="5" value="3" class="w-full">
+                                        <span class="text-sm ml-2">高</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <span class="block mb-1">我们的差异化优势</span>
+                                    <div class="flex items-center">
+                                        <span class="text-sm mr-2">弱</span>
+                                        <input type="range" min="1" max="5" value="3" class="w-full">
+                                        <span class="text-sm ml-2">强</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 2. 调研与背景分析 -->
+                <section id="section2" class="mb-16 fade-in fade-in-delay-1">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">调研与背景分析</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <div class="form-group">
+                            <label for="background-research" class="form-label">背景研究摘要</label>
+                            <div class="editor-toolbar">
+                                <button class="editor-button"><i class="fas fa-bold"></i></button>
+                                <button class="editor-button"><i class="fas fa-italic"></i></button>
+                                <button class="editor-button"><i class="fas fa-underline"></i></button>
+                                <div class="mx-2 border-r border-gray-300 dark:border-gray-600 h-6"></div>
+                                <button class="editor-button"><i class="fas fa-list-ul"></i></button>
+                                <button class="editor-button"><i class="fas fa-list-ol"></i></button>
+                                <button class="editor-button"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div id="background-research" class="editor-content" contenteditable="true">
+                                <p>总结已完成的前期调研成果，包括问题的历史背景、现状、相关数据和关键事件等。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">已有资料与素材</label>
+                            <div class="space-y-4 mt-2">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <input type="checkbox" id="material-1" class="mr-2">
+                                    </div>
+                                    <div>
+                                        <label for="material-1" class="font-medium">已有文献与研究综述</label>
+                                        <textarea class="form-control mt-2" rows="2" placeholder="列出已经收集的相关文献、研究报告和学术论文..."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <input type="checkbox" id="material-2" class="mr-2">
+                                    </div>
+                                    <div>
+                                        <label for="material-2" class="font-medium">现有数据与统计</label>
+                                        <textarea class="form-control mt-2" rows="2" placeholder="列出已获取的数据来源、统计资料和可视化素材..."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <input type="checkbox" id="material-3" class="mr-2">
+                                    </div>
+                                    <div>
+                                        <label for="material-3" class="font-medium">专家咨询与访谈</label>
+                                        <textarea class="form-control mt-2" rows="2" placeholder="列出已联系或访谈的专家资源及主要观点..."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <input type="checkbox" id="material-4" class="mr-2">
+                                    </div>
+                                    <div>
+                                        <label for="material-4" class="font-medium">案例与典型事例</label>
+                                        <textarea class="form-control mt-2" rows="2" placeholder="列出已发现的典型案例、个人故事或代表性事例..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-6">
+                            <label for="key-questions" class="form-label">核心问题清单</label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">列出系列报道需要解答的关键问题，这些问题将指导你的采访和研究方向。</p>
+                            <div id="key-questions" class="space-y-3">
+                                <div class="flex items-center">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="问题 1">
+                                    <button class="ml-2 p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="问题 2">
+                                    <button class="ml-2 p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="问题 3">
+                                    <button class="ml-2 p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline mt-3">
+                                <i class="fas fa-plus"></i> 添加问题
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 报道差异化分析 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">报道差异化分析</h3>
+                        
+                        <div class="form-group">
+                            <label for="competition-analysis" class="form-label">竞争媒体分析</label>
+                            <textarea id="competition-analysis" class="form-control" rows="4" placeholder="分析其他媒体对该主题的已有报道情况，包括覆盖角度、深度和方式等..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="unique-approach" class="form-label">独特报道角度</label>
+                            <textarea id="unique-approach" class="form-control" rows="4" placeholder="详述本系列报道计划采用的独特视角或方法，以及如何与现有报道形成差异化..."></textarea>
+                        </div>
+                        
+                        <div class="highlight-box bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">内部资源优势</h4>
+                            <p class="text-sm mb-3">思考团队在此主题上可能具备的独特优势：</p>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">人脉资源</span>
+                                        <textarea class="form-control mt-1" rows="1" placeholder="特殊的人脉网络或渠道..."></textarea>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">专业知识</span>
+                                        <textarea class="form-control mt-1" rows="1" placeholder="团队的专业背景优势..."></textarea>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">技术能力</span>
+                                        <textarea class="form-control mt-1" rows="1" placeholder="数据分析、可视化等特殊技能..."></textarea>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">独家材料</span>
+                                        <textarea class="form-control mt-1" rows="1" placeholder="独家获得的文件、证据或证词..."></textarea>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 3. 多角度报道框架 -->
+                <section id="section3" class="mb-16 fade-in fade-in-delay-2">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">多角度报道框架</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">
+                            多角度报道是确保系列报道全面深入的关键。在这一节中，规划报道将覆盖的不同视角和维度。
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <!-- 角度卡片 1 -->
+                            <div class="role-card">
+                                <div class="role-card-header flex items-center">
+                                    <div class="role-icon">
+                                        <i class="fas fa-landmark fa-lg"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">政策与制度角度</h3>
+                                </div>
+                                <div class="p-4">
+                                    <div class="form-group">
+                                        <label class="form-label">核心关注点</label>
+                                        <textarea class="form-control" rows="3" placeholder="探讨相关政策法规、制度设计以及其实际运行效果..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">关键信源</label>
+                                        <input type="text" class="form-control" placeholder="政策制定者、监管部门、专家学者等...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">核心问题</label>
+                                        <textarea class="form-control" rows="2" placeholder="要探究的关键问题和疑点..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 角度卡片 2 -->
+                            <div class="role-card">
+                                <div class="role-card-header flex items-center" style="background-color: #10b981;">
+                                    <div class="role-icon">
+                                        <i class="fas fa-users fa-lg"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">社会影响角度</h3>
+                                </div>
+                                <div class="p-4">
+                                    <div class="form-group">
+                                        <label class="form-label">核心关注点</label>
+                                        <textarea class="form-control" rows="3" placeholder="探讨问题对普通民众、特定群体和整体社会的具体影响..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">关键信源</label>
+                                        <input type="text" class="form-control" placeholder="受影响群体、社会组织、基层工作者等...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">核心问题</label>
+                                        <textarea class="form-control" rows="2" placeholder="要探究的关键问题和疑点..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 角度卡片 3 -->
+                            <div class="role-card">
+                                <div class="role-card-header flex items-center" style="background-color: #f59e0b;">
+                                    <div class="role-icon">
+                                        <i class="fas fa-chart-line fa-lg"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">经济与市场角度</h3>
+                                </div>
+                                <div class="p-4">
+                                    <div class="form-group">
+                                        <label class="form-label">核心关注点</label>
+                                        <textarea class="form-control" rows="3" placeholder="分析相关经济因素、市场运作机制和商业利益..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">关键信源</label>
+                                        <input type="text" class="form-control" placeholder="企业代表、行业协会、经济学家等...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">核心问题</label>
+                                        <textarea class="form-control" rows="2" placeholder="要探究的关键问题和疑点..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 角度卡片 4 -->
+                            <div class="role-card">
+                                <div class="role-card-header flex items-center" style="background-color: #ef4444;">
+                                    <div class="role-icon">
+                                        <i class="fas fa-user fa-lg"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">个体故事角度</h3>
+                                </div>
+                                <div class="p-4">
+                                    <div class="form-group">
+                                        <label class="form-label">核心关注点</label>
+                                        <textarea class="form-control" rows="3" placeholder="通过典型个案和真实故事展现问题的具体影响和人性面..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">关键信源</label>
+                                        <input type="text" class="form-control" placeholder="事件当事人、见证者、普通民众等...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">核心问题</label>
+                                        <textarea class="form-control" rows="2" placeholder="要探究的关键问题和疑点..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-outline mb-6">
+                            <i class="fas fa-plus"></i> 添加更多角度
+                        </button>
+                        
+                        <!-- 自定义角度卡片 -->
+                        <div class="border border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-5">
+                            <h3 class="text-lg font-bold mb-4">创建自定义报道角度</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="form-group">
+                                    <label class="form-label">角度名称</label>
+                                    <div class="flex">
+                                        <input type="text" class="form-control" placeholder="例如：历史溯源角度">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">卡片颜色</label>
+                                    <div class="grid grid-cols-6 gap-2">
+                                        <button class="w-10 h-10 rounded-md bg-blue-600"></button>
+                                        <button class="w-10 h-10 rounded-md bg-green-600"></button>
+                                        <button class="w-10 h-10 rounded-md bg-yellow-500"></button>
+                                        <button class="w-10 h-10 rounded-md bg-red-600"></button>
+                                        <button class="w-10 h-10 rounded-md bg-purple-600"></button>
+                                        <button class="w-10 h-10 rounded-md bg-gray-600"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">角度图标</label>
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <i class="fas fa-history"></i>
+                                    </button>
+                                    <button class="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <i class="fas fa-globe"></i>
+                                    </button>
+                                    <button class="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <i class="fas fa-microscope"></i>
+                                    </button>
+                                    <button class="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </button>
+                                    <button class="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <i class="fas fa-balance-scale"></i>
+                                    </button>
+                                    <button class="w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <i class="fas fa-hands-helping"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">核心关注点</label>
+                                <textarea class="form-control" rows="3" placeholder="描述该角度的主要关注点和要探讨的内容..."></textarea>
+                            </div>
+                            
+                            <button class="btn btn-primary mt-2">
+                                <i class="fas fa-plus"></i> 创建角度卡片
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 多角度整合规划 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">多角度整合规划</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">角度之间的关联与整合方式</label>
+                            <textarea class="form-control" rows="4" placeholder="描述不同角度之间如何关联、衔接和互补，以形成完整的报道叙事..."></textarea>
+                        </div>
+                        
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
+                            <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 flex items-center">
+                                <i class="fas fa-lightbulb mr-2"></i> 多角度整合策略
+                            </h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>确保各角度内容有关联但不重复</li>
+                                <li>设计清晰的内部引用和交叉参考系统</li>
+                                <li>创建统一的视觉元素和标识系统</li>
+                                <li>建立连贯的叙事线索贯穿各角度报道</li>
+                                <li>设计角度间的内容过渡和引导元素</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">主线与副线关系</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <span class="block font-medium mb-2">报道主线</span>
+                                    <textarea class="form-control" rows="3" placeholder="描述贯穿整个系列报道的主要叙事线索..."></textarea>
+                                </div>
+                                <div>
+                                    <span class="block font-medium mb-2">报道副线</span>
+                                    <textarea class="form-control" rows="3" placeholder="描述辅助主线的次要叙事线索..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <label class="form-label">角度优先级与呈现顺序</label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                拖动调整各角度的优先级或呈现顺序：
+                            </p>
+                            <div class="space-y-2" id="angle-priority">
+                                <div class="flex items-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-md">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <div class="w-2 h-10 bg-blue-600 rounded mr-3"></div>
+                                    <div>
+                                        <span class="block font-medium">政策与制度角度</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">探讨相关政策法规和制度设计</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs rounded-full">优先级 1</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-md">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <div class="w-2 h-10 bg-green-600 rounded mr-3"></div>
+                                    <div>
+                                        <span class="block font-medium">社会影响角度</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">探讨问题对社会各群体的影响</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs rounded-full">优先级 2</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-md">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <div class="w-2 h-10 bg-yellow-500 rounded mr-3"></div>
+                                    <div>
+                                        <span class="block font-medium">经济与市场角度</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">分析相关经济因素和市场影响</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs rounded-full">优先级 3</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-md">
+                                    <div class="drag-handle mr-2 text-gray-400">
+                                        <i class="fas fa-grip-vertical"></i>
+                                    </div>
+                                    <div class="w-2 h-10 bg-red-600 rounded mr-3"></div>
+                                    <div>
+                                        <span class="block font-medium">个体故事角度</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">通过典型个案展现问题影响</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs rounded-full">优先级 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 4. 报道系列规划 -->
+                <section id="section4" class="mb-16 fade-in fade-in-delay-3">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-list-ol"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">报道系列规划</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <div class="form-group">
+                            <label class="form-label mb-4">报道系列结构</label>
+                            <div class="space-y-6" id="series-structure">
+                                <!-- 第一篇 -->
+                                <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                                    <div class="bg-gray-100 dark:bg-gray-800 p-4 flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <span class="inline-block w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center mr-3">1</span>
+                                            <input type="text" class="bg-transparent border-0 font-bold text-lg w-full focus:outline-none" value="开篇：[系列报道标题]">
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button class="p-2 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                                <i class="fas fa-chevron-up"></i>
+                                            </button>
+                                            <button class="p-2 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                            <button class="p-2 text-red-500">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div class="space-y-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">报道角度</label>
+                                                    <select class="form-control">
+                                                        <option>全景式/综述 (主题全面导入)</option>
+                                                        <option>政策与制度角度</option>
+                                                        <option>社会影响角度</option>
+                                                        <option>经济与市场角度</option>
+                                                        <option>个体故事角度</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">报道格式</label>
+                                                    <select class="form-control">
+                                                        <option>综述性报道</option>
+                                                        <option>深度调查</option>
+                                                        <option>数据可视化</option>
+                                                        <option>人物特写</option>
+                                                        <option>观察与分析</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">预计篇幅</label>
+                                                    <input type="text" class="form-control" placeholder="例如: 3000字左右">
+                                                </div>
+                                            </div>
+                                            <div class="space-y-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">内容摘要</label>
+                                                    <textarea class="form-control" rows="4" placeholder="概述本篇报道的主要内容、核心观点和重点素材..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">关键信源</label>
+                                                    <input type="text" class="form-control" placeholder="列出关键采访对象和信息来源...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">亮点与创新点</label>
+                                            <textarea class="form-control" rows="2" placeholder="描述本篇报道计划使用的创新手法、独家素材或特殊视角..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 第二篇 -->
+                                <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                                    <div class="bg-gray-100 dark:bg-gray-800 p-4 flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <span class="inline-block w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center mr-3">2</span>
+                                            <input type="text" class="bg-transparent border-0 font-bold text-lg w-full focus:outline-none" placeholder="输入标题...">
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button class="p-2 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                                <i class="fas fa-chevron-up"></i>
+                                            </button>
+                                            <button class="p-2 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                            <button class="p-2 text-red-500">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div class="space-y-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">报道角度</label>
+                                                    <select class="form-control">
+                                                        <option>政策与制度角度</option>
+                                                        <option>全景式/综述</option>
+                                                        <option>社会影响角度</option>
+                                                        <option>经济与市场角度</option>
+                                                        <option>个体故事角度</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">报道格式</label>
+                                                    <select class="form-control">
+                                                        <option>深度调查</option>
+                                                        <option>综述性报道</option>
+                                                        <option>数据可视化</option>
+                                                        <option>人物特写</option>
+                                                        <option>观察与分析</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">预计篇幅</label>
+                                                    <input type="text" class="form-control" placeholder="例如: 2500字左右">
+                                                </div>
+                                            </div>
+                                            <div class="space-y-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">内容摘要</label>
+                                                    <textarea class="form-control" rows="4" placeholder="概述本篇报道的主要内容、核心观点和重点素材..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">关键信源</label>
+                                                    <input type="text" class="form-control" placeholder="列出关键采访对象和信息来源...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">亮点与创新点</label>
+                                            <textarea class="form-control" rows="2" placeholder="描述本篇报道计划使用的创新手法、独家素材或特殊视角..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-primary mt-6">
+                                <i class="fas fa-plus"></i> 添加报道篇章
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 非文字内容规划 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">非文字内容规划</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                            <div>
+                                <h4 class="font-bold mb-4 flex items-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-chart-bar mr-2"></i> 数据可视化
+                                </h4>
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">核心数据集</label>
+                                        <textarea class="form-control" rows="2" placeholder="列出需要获取的关键数据集及其来源..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">可视化类型</label>
+                                        <div class="mt-2 space-y-2">
+                                            <div class="flex items-center">
+                                                <input type="checkbox" id="vis-1" class="mr-2">
+                                                <label for="vis-1">数据图表</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="checkbox" id="vis-2" class="mr-2">
+                                                <label for="vis-2">信息图</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="checkbox" id="vis-3" class="mr-2">
+                                                <label for="vis-3">地图可视化</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="checkbox" id="vis-4" class="mr-2">
+                                                <label for="vis-4">交互式数据可视化</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="checkbox" id="vis-5" class="mr-2">
+                                                <label for="vis-5">时间线</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-bold mb-4 flex items-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-photo-video mr-2"></i> 多媒体素材
+                                </h4>
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">视频内容</label>
+                                        <textarea class="form-control" rows="2" placeholder="描述需要拍摄的视频素材、访谈或现场画面..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">图片素材</label>
+                                        <textarea class="form-control" rows="2" placeholder="描述需要拍摄或收集的图片内容与用途..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">音频内容</label>
+                                        <textarea class="form-control" rows="2" placeholder="描述需要录制的音频内容，如人声、环境音等..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <h4 class="font-bold mb-4 flex items-center text-blue-600 dark:text-blue-400">
+                                <i class="fas fa-desktop mr-2"></i> 交互式内容
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" id="int-1" class="mr-2">
+                                        <label for="int-1" class="font-medium">互动测试/问卷</label>
+                                    </div>
+                                    <textarea class="form-control" rows="2" placeholder="描述测试/问卷内容和目的..."></textarea>
+                                </div>
+                                
+                                <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" id="int-2" class="mr-2">
+                                        <label for="int-2" class="font-medium">交互式图片/地图</label>
+                                    </div>
+                                    <textarea class="form-control" rows="2" placeholder="描述交互式内容的主题和功能..."></textarea>
+                                </div>
+                                
+                                <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" id="int-3" class="mr-2">
+                                        <label for="int-3" class="font-medium">社交媒体整合</label>
+                                    </div>
+                                    <textarea class="form-control" rows="2" placeholder="描述如何整合社交媒体内容或互动..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 5. 资源需求与团队 -->
+                <section id="section5" class="mb-16 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">资源需求与团队</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold mb-4">团队组成</h3>
+                        <div class="space-y-6" id="team-members">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- 团队成员 1 -->
+                                <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <input type="text" class="bg-transparent border-0 font-bold focus:outline-none" placeholder="姓名">
+                                            <span class="block text-sm text-gray-600 dark:text-gray-400">主导记者</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="form-group">
+                                            <label class="form-label text-sm">负责内容</label>
+                                            <textarea class="form-control text-sm" rows="2" placeholder="描述该成员的主要职责和负责内容..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label text-sm">专业优势</label>
+                                            <input type="text" class="form-control text-sm" placeholder="列出相关专业背景或技能...">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 团队成员 2 -->
+                                <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <input type="text" class="bg-transparent border-0 font-bold focus:outline-none" placeholder="姓名">
+                                            <span class="block text-sm text-gray-600 dark:text-gray-400">数据分析师</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="form-group">
+                                            <label class="form-label text-sm">负责内容</label>
+                                            <textarea class="form-control text-sm" rows="2" placeholder="描述该成员的主要职责和负责内容..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label text-sm">专业优势</label>
+                                            <input type="text" class="form-control text-sm" placeholder="列出相关专业背景或技能...">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 团队成员 3 -->
+                                <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <input type="text" class="bg-transparent border-0 font-bold focus:outline-none" placeholder="姓名">
+                                            <span class="block text-sm text-gray-600 dark:text-gray-400">摄影/视频</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="form-group">
+                                            <label class="form-label text-sm">负责内容</label>
+                                            <textarea class="form-control text-sm" rows="2" placeholder="描述该成员的主要职责和负责内容..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label text-sm">专业优势</label>
+                                            <input type="text" class="form-control text-sm" placeholder="列出相关专业背景或技能...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-outline">
+                                <i class="fas fa-plus"></i> 添加团队成员
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 资源需求 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">资源需求</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                            <div>
+                                <h4 class="font-bold mb-4">预算需求</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <input type="checkbox" id="budget-1" class="mr-2">
+                                        </div>
+                                        <div>
+                                            <label for="budget-1" class="font-medium">差旅费用</label>
+                                            <div class="flex mt-1">
+                                                <input type="text" class="form-control" placeholder="金额">
+                                                <div class="ml-2 self-center text-sm text-gray-600 dark:text-gray-400">元</div>
+                                            </div>
+                                            <input type="text" class="form-control mt-2 text-sm" placeholder="用途说明...">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <input type="checkbox" id="budget-2" class="mr-2">
+                                        </div>
+                                        <div>
+                                            <label for="budget-2" class="font-medium">设备租赁</label>
+                                            <div class="flex mt-1">
+                                                <input type="text" class="form-control" placeholder="金额">
+                                                <div class="ml-2 self-center text-sm text-gray-600 dark:text-gray-400">元</div>
+                                            </div>
+                                            <input type="text" class="form-control mt-2 text-sm" placeholder="用途说明...">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <input type="checkbox" id="budget-3" class="mr-2">
+                                        </div>
+                                        <div>
+                                            <label for="budget-3" class="font-medium">数据购买/服务</label>
+                                            <div class="flex mt-1">
+                                                <input type="text" class="form-control" placeholder="金额">
+                                                <div class="ml-2 self-center text-sm text-gray-600 dark:text-gray-400">元</div>
+                                            </div>
+                                            <input type="text" class="form-control mt-2 text-sm" placeholder="用途说明...">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <input type="checkbox" id="budget-4" class="mr-2">
+                                        </div>
+                                        <div>
+                                            <label for="budget-4" class="font-medium">其他费用</label>
+                                            <div class="flex mt-1">
+                                                <input type="text" class="form-control" placeholder="金额">
+                                                <div class="ml-2 self-center text-sm text-gray-600 dark:text-gray-400">元</div>
+                                            </div>
+                                            <input type="text" class="form-control mt-2 text-sm" placeholder="用途说明...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-bold mb-4">技术与装备需求</h4>
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">摄影/摄像设备</label>
+                                        <textarea class="form-control" rows="2" placeholder="列出需要的摄影、摄像设备..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">录音/采访设备</label>
+                                        <textarea class="form-control" rows="2" placeholder="列出需要的录音、采访设备..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">数据处理/编辑工具</label>
+                                        <textarea class="form-control" rows="2" placeholder="列出需要的软件工具或技术平台..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">其他特殊需求</label>
+                                        <textarea class="form-control" rows="2" placeholder="其他需要的技术资源或服务..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">合作资源与外部支持</label>
+                            <textarea class="form-control" rows="3" placeholder="描述可能需要的外部专业人士合作、机构支持或资源共享需求..."></textarea>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 6. 时间线与发布计划 -->
+                <section id="section6" class="mb-16 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">时间线与发布计划</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <div class="form-group mb-6">
+                            <div class="flex flex-wrap gap-4 mb-4">
+                                <div class="space-x-2">
+                                    <label for="start-date" class="form-label inline-block">项目开始日期</label>
+                                    <input type="date" id="start-date" class="form-control inline-block w-auto">
+                                </div>
+                                <div class="space-x-2">
+                                    <label for="end-date" class="form-label inline-block">计划完成日期</label>
+                                    <input type="date" id="end-date" class="form-control inline-block w-auto">
+                                </div>
+                                <div class="space-x-2">
+                                    <label for="first-pub-date" class="form-label inline-block">首篇发布日期</label>
+                                    <input type="date" id="first-pub-date" class="form-control inline-block w-auto">
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <label class="form-label mr-4">总体进度</label>
+                                <div class="progress-bar flex-1">
+                                    <div class="progress-value" style="width: 25%"></div>
+                                </div>
+                                <span class="ml-2 text-sm">25%</span>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mb-4">项目时间线</h3>
+                        <div class="space-y-6">
+                            <!-- 时间线项目 -->
+                            <div class="timeline-item">
+                                <h4 class="font-bold">前期调研阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold">采访与资料收集阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold">素材整理与分析阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold">撰写与编辑阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold">多媒体制作阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold">审核与修改阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold">发布与推广阶段</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">开始日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">结束日期</span>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm text-gray-600 dark:text-gray-400">负责人</span>
+                                        <input type="text" class="form-control" placeholder="负责人姓名">
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="block text-sm text-gray-600 dark:text-gray-400">主要任务</span>
+                                    <textarea class="form-control" rows="2" placeholder="描述该阶段的主要工作内容和目标..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-outline mt-2">
+                                <i class="fas fa-plus"></i> 添加时间节点
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 发布与传播计划 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">发布与传播计划</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">发布频率与时间</label>
+                            <select class="form-control mb-2">
+                                <option>每日一篇</option>
+                                <option>每周两篇</option>
+                                <option>每周一篇</option>
+                                <option>整体一次性发布</option>
+                                <option>其他自定义频率</option>
+                            </select>
+                            <textarea class="form-control" rows="2" placeholder="详细说明发布计划、最佳发布时间和顺序..."></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                            <div class="form-group">
+                                <label class="form-label">发布平台</label>
+                                <div class="mt-2 space-y-2">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="platform-1" class="mr-2">
+                                        <label for="platform-1">官方网站</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="platform-2" class="mr-2">
+                                        <label for="platform-2">微信公众号</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="platform-3" class="mr-2">
+                                        <label for="platform-3">微博</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="platform-4" class="mr-2">
+                                        <label for="platform-4">抖音/视频号</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="platform-5" class="mr-2">
+                                        <label for="platform-5">纸媒</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="platform-6" class="mr-2">
+                                        <label for="platform-6">其他</label>
+                                        <input type="text" class="form-control ml-2 w-auto" placeholder="请注明">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">传播策略</label>
+                                <textarea class="form-control" rows="5" placeholder="描述推广和传播的具体策略，包括社交媒体传播计划、话题标签设计、关键意见领袖合作等..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <label class="form-label">平台差异化调整计划</label>
+                            <textarea class="form-control" rows="3" placeholder="描述针对不同平台特性，如何对内容形式和呈现方式进行调整..."></textarea>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 7. 预期效果与评估 -->
+                <section id="section7" class="mb-16 fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="section-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">预期效果与评估</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                        <div class="form-group mb-8">
+                            <label class="form-label">预期成果</label>
+                            <textarea class="form-control" rows="4" placeholder="描述本系列报道预期实现的具体成果和影响..."></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-8">
+                            <div>
+                                <h4 class="font-bold mb-4 flex items-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-bullseye mr-2"></i> 量化指标
+                                </h4>
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">传播指标</label>
+                                        <textarea class="form-control" rows="2" placeholder="设定阅读量、转发量、互动率等具体目标数值..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">反响指标</label>
+                                        <textarea class="form-control" rows="2" placeholder="设定评论数、讨论话题数、读者反馈等目标数值..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">影响力指标</label>
+                                        <textarea class="form-control" rows="2" placeholder="设定议程设置、政策影响、社会反响等目标..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-bold mb-4 flex items-center text-blue-600 dark:text-blue-400">
+                                    <i class="fas fa-balance-scale mr-2"></i> 质化评估
+                                </h4>
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">专业评价</label>
+                                        <textarea class="form-control" rows="2" placeholder="来自业内、专家的预期评价标准..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">社会影响</label>
+                                        <textarea class="form-control" rows="2" placeholder="报道可能带来的社会讨论和变化..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">长期价值</label>
+                                        <textarea class="form-control" rows="2" placeholder="报道的长期参考价值和历史意义..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-8">
+                            <h4 class="font-bold mb-4 flex items-center text-blue-600 dark:text-blue-400">
+                                <i class="fas fa-analytics mr-2"></i> 效果追踪方式
+                            </h4>
+                            <textarea class="form-control" rows="4" placeholder="描述如何跟踪、记录和评估报道效果，包括使用的工具、方法和时间节点..."></textarea>
+                        </div>
+                        
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-5 rounded-lg mb-6">
+                            <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-3 flex items-center">
+                                <i class="fas fa-lightbulb mr-2"></i> 潜在挑战与应对策略
+                            </h4>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label class="form-label">可能面临的挑战</label>
+                                    <textarea class="form-control" rows="3" placeholder="列出项目执行过程中可能面临的主要困难和挑战..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">应对策略</label>
+                                    <textarea class="form-control" rows="3" placeholder="针对上述挑战，提出具体的应对策略和替代方案..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">其他备注</label>
+                            <textarea class="form-control" rows="4" placeholder="其他需要说明的事项，如特殊考虑、风险防控、后续规划等..."></textarea>
+                        </div>
+                        
+                        <div class="flex justify-end mt-6 space-x-4">
+                            <button class="btn btn-outline">
+                                <i class="fas fa-save"></i> 保存草稿
+                            </button>
+                            <button class="btn btn-accent">
+                                <i class="fas fa-file-export"></i> 导出策划书
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> 提交策划
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 no-print">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- 页脚 -->
+    <footer class="mt-20 bg-gray-50 dark:bg-gray-900 py-10 no-print">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center">
+                        <i class="fas fa-newspaper mr-2"></i> 新闻策划工具
+                    </a>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">系统化设计与规划有影响力的系列报道</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-6">
+                    <div>
+                        <h3 class="font-semibold mb-3">快速链接</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">笔记首页</a></li>
+                            <li><a href="javascript:history.back()" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">返回笔记</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">帮助中心</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-3">相关资源</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">报道策划案例</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">调查报道方法</a></li>
+                            <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">叙事结构指南</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-600 dark:text-gray-400">作者姓名: 新闻策划工具开发团队</p>
+                        <p class="text-gray-600 dark:text-gray-400">© 2023 新闻策划工具库. 保留所有权利</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-400 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+        
+        // 初始化主题图标
+        if (document.documentElement.classList.contains('dark')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // 步骤导航高亮
+        const sections = document.querySelectorAll('section[id^="section"]');
+        const navLinks = document.querySelectorAll('.step-link');
+        
+        function updateActiveLink() {
+            let found = false;
+            
+            sections.forEach((section, i) => {
+                const rect = section.getBoundingClientRect();
+                if (!found && rect.top <= 200 && rect.bottom >= 200) {
+                    found = true;
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    navLinks[i].classList.add('active');
+                }
+            });
+            
+            // If we're at the bottom of the page, highlight the last link
+            if (!found && window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 100) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                navLinks[navLinks.length - 1].classList.add('active');
+            }
+        }
+        
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink();
+        
+        // 打印功能
+        document.getElementById('print-btn').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // 创建新项目点击
+        document.getElementById('new-project').addEventListener('click', function() {
+            const inputs = document.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea');
+            
+            // 清空所有文本输入
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            
+            // 取消选中所有复选框
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // 滚动到页面顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // 页面加载后淡入效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeIns = document.querySelectorAll('.fade-in');
+            
+            fadeIns.forEach(element => {
+                element.style.opacity = '1';
+            });
+        });
+    </script>
+</body>
+</html>
