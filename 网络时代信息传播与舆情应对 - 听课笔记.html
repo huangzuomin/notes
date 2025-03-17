@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网络时代信息传播与舆情应对 - 听课笔记</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #f72585;
+            --light-bg: #ffffff;
+            --dark-bg: #121212;
+            --light-text: #374151;
+            --dark-text: #e5e7eb;
+            --light-card: #f7f7f7;
+            --dark-card: #1f1f1f;
+            --transition: all 0.3s ease;
+        }
+
+        .light {
+            --bg-color: var(--light-bg);
+            --text-color: var(--light-text);
+            --card-bg: var(--light-card);
+            --border-color: #e5e5e5;
+        }
+
+        .dark {
+            --bg-color: var(--dark-bg);
+            --text-color: var(--dark-text);
+            --card-bg: var(--dark-card);
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+
+        .title-font {
+            font-family: 'ZCOOL XiaoWei', serif;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            border-radius: 0.5rem;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .highlight {
+            background: linear-gradient(to bottom, transparent 60%, rgba(67, 97, 238, 0.2) 40%);
+            padding: 0 3px;
+            display: inline;
+        }
+
+        .dark .highlight {
+            background: linear-gradient(to bottom, transparent 60%, rgba(67, 97, 238, 0.4) 40%);
+        }
+
+        .btn {
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hover-rotate:hover {
+            transform: rotate(180deg);
+            transition: transform 0.5s ease;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        /* 内容淡入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* 滚动监听动画 */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .scroll-fade.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-50 backdrop-filter backdrop-blur-lg bg-opacity-70 dark:bg-opacity-70 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center h-16">
+            <a href="index.html" class="flex items-center nav-link">
+                <i class="fas fa-arrow-left mr-2 text-blue-600 dark:text-blue-400"></i>
+                <span class="font-medium">返回笔记目录</span>
+            </a>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+                <i class="fas fa-moon text-gray-600 dark:hidden"></i>
+                <i class="fas fa-sun text-yellow-300 hidden dark:block"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 md:px-6 py-8 max-w-5xl">
+        <!-- 标题和讲师信息 -->
+        <header class="mb-12 text-center fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 title-font text-blue-700 dark:text-blue-400">网络时代信息传播与舆情应对</h1>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4 text-gray-600 dark:text-gray-400">
+                <div class="flex items-center">
+                    <i class="fas fa-user-tie mr-2"></i>
+                    <span>讲课者：王言虎（新京报评论部副主编）</span>
+                </div>
+                <div class="hidden md:block">•</div>
+                <div class="flex items-center">
+                    <i class="fas fa-pen-nib mr-2"></i>
+                    <span>记录：黄作敏</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 笔记导航 -->
+        <div class="mb-8 fade-in delay-1">
+            <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 shadow-sm">
+                <h2 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-book-open mr-2 text-blue-600 dark:text-blue-400"></i>
+                    笔记目录
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#part1" class="group">
+                        <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all bg-white/60 dark:bg-gray-800/60">
+                            <h3 class="font-bold text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">第一部分</h3>
+                            <p class="text-gray-600 dark:text-gray-400">后真相时代特征、舆情传播复杂性及应对原则</p>
+                        </div>
+                    </a>
+                    <a href="#part2" class="group">
+                        <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all bg-white/60 dark:bg-gray-800/60">
+                            <h3 class="font-bold text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">第二部分</h3>
+                            <p class="text-gray-600 dark:text-gray-400">舆情事件处理与舆论引导策略</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第一部分笔记内容 -->
+        <section id="part1" class="mb-16 fade-in delay-2 scroll-section">
+            <div class="border-l-4 border-blue-600 dark:border-blue-400 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold">第一部分：后真相时代、舆情复杂性与应对原则</h2>
+            </div>
+            <p class="mb-6 text-lg">"后真相时代"的舆情应对与引导策略，结合多个典型案例，深入探讨了舆情传播的特征、复杂性及应对原则。</p>
+
+            <!-- 后真相时代特征与案例分析 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-700 dark:text-blue-400">关于后真相时代的特征与案例分析</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-2">后真相时代的特征</h4>
+                    <p class="mb-4">强调事实的重要性被削弱，<span class="highlight">情绪和叙事成为舆论传播的核心驱动力</span>。传播者通过制造情绪化内容获取流量，而受众则以此作为社交货币，形成了公共舆论场的撕裂与极化。</p>
+                </div>
+
+                <!-- 案例卡片网格 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <!-- 江萍数学竞赛事件 -->
+                    <div class="card p-4 md:p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-calculator text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <h4 class="font-semibold">江萍数学竞赛事件</h4>
+                        </div>
+                        <p>通过江萍在阿里全球数学竞赛中的造假事件，分析了舆论从"天才"到"骗局"的反转过程，揭示了后真相时代中碎片化信息的拼接与虚构对舆论的影响。</p>
+                    </div>
+
+                    <!-- 秦朗作业事件 -->
+                    <div class="card p-4 md:p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-video text-amber-600 dark:text-amber-400"></i>
+                            </div>
+                            <h4 class="font-semibold">秦朗作业事件</h4>
+                        </div>
+                        <p>以短视频平台上的虚假新闻为例，说明新媒体时代"新黄色新闻"的传播特点，强调缺乏交叉验证的信息如何迅速引发舆论热潮。</p>
+                    </div>
+
+                    <!-- 华南理工大学王玉磊事件 -->
+                    <div class="card p-4 md:p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-university text-red-600 dark:text-red-400"></i>
+                            </div>
+                            <h4 class="font-semibold">华南理工大学王玉磊事件</h4>
+                        </div>
+                        <p>分析了高校性侵事件中舆情应对的失误，包括仓促回应、情绪裹挟和缺乏事实依据的决策，导致当事人遭受二次伤害。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆情传播的复杂性与社会心态的变化 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-700 dark:text-blue-400">关于舆情传播的复杂性与社会心态的变化</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-semibold mb-2">全媒体时代的传播特征</h4>
+                        <p class="mb-3">提出"全程、全息、全员、全效"四个传播特性，强调信息传播的时空突破、数据化、去中心化和功能多样化。</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded">
+                                <span class="font-medium">全程</span>：时空突破
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded">
+                                <span class="font-medium">全息</span>：数据化
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded">
+                                <span class="font-medium">全员</span>：去中心化
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded">
+                                <span class="font-medium">全效</span>：功能多样
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">社会心态的变化</h4>
+                        <p class="mb-3">分析了内卷、躺平等流行词汇背后的社会心理，指出经济形势严峻、就业压力增大、阶层固化等因素导致公众情绪失衡，进一步加剧了舆情的复杂性。</p>
+                        <div class="mb-3">
+                            <div class="flex items-center mb-1">
+                                <i class="fas fa-angle-right text-blue-600 dark:text-blue-400 mr-2"></i>
+                                <span class="font-medium">明星考编事件</span>
+                            </div>
+                            <p class="pl-6">以易烊千玺等明星考编引发的舆论风波为例，探讨了公众对不公平现象的敏感性及其背后的社会心理根源。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆情应对中的意识形态斗争与典型案例 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-700 dark:text-blue-400">关于舆情应对中的意识形态斗争与典型案例</h3>
+                
+                <div class="mb-4">
+                    <h4 class="text-lg font-semibold mb-2">意识形态斗争的表现</h4>
+                    <p class="mb-4">指出网络空间成为意识形态斗争的主战场，<span class="highlight">性别议题、环保主义、动物保护等成为撕裂舆论的热点话题</span>。</p>
+                </div>
+
+                <!-- 案例卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <!-- 成都火锅店吸烟事件 -->
+                    <div class="card p-5">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-fire-alt text-red-600 dark:text-red-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">成都火锅店吸烟事件</h4>
+                                <p>分析了性别对立、港独身份等多重因素如何复杂化一个普通社会事件，揭示了舆情背后可能存在的策划与操控。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 成都49中学生坠楼事件 -->
+                    <div class="card p-5">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-school text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">成都49中学生坠楼事件</h4>
+                                <p>通过该事件，说明境外势力如何利用社会事件进行舆论渗透，强调舆情应对中识别深层次问题的重要性。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 地方政府舆情应对的失误与教训 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-700 dark:text-blue-400">关于地方政府舆情应对的失误与教训</h3>
+                
+                <!-- 案例卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <!-- 唐山烧烤店打人事件 -->
+                    <div class="card p-5">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-exclamation-triangle text-orange-600 dark:text-orange-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">唐山烧烤店打人事件</h4>
+                                <p>分析了该事件对唐山城市形象的严重破坏，指出地方政府在舆情应对中的失策及其对社会信任的损害。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 丰县铁链女事件 -->
+                    <div class="card p-5">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-chain-broken text-purple-600 dark:text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">丰县铁链女事件</h4>
+                                <p>详细梳理了事件的四次官方通报及其矛盾之处，揭示了基层治理、舆情重视不足、澄而不清等问题对地方政府公信力的毁灭性影响。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆情应对的原则与技术 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-700 dark:text-blue-400">关于舆情应对的原则与技术</h3>
+                
+                <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg mb-5">
+                    <h4 class="text-lg font-semibold mb-2">舆情应对的重要性</h4>
+                    <blockquote class="border-l-4 border-blue-500 pl-4 italic">
+                        "引用习近平总书记讲话，强调互联网舆论工作对意识形态安全和政权安全的关键作用。"
+                    </blockquote>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">舆情应对的技术与策略</h4>
+                        <div class="card p-4">
+                            <p class="mb-3">提出"<span class="font-bold text-blue-600 dark:text-blue-400">时度效</span>"原则，强调舆情应对需把握时机、注重尺度、追求效果，避免仓促决策和信息失真。</p>
+                            <div class="grid grid-cols-3 gap-2 text-center">
+                                <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                    <span class="block text-sm text-blue-600 dark:text-blue-400">时</span>
+                                    <span class="block text-xs">把握时机</span>
+                                </div>
+                                <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                    <span class="block text-sm text-blue-600 dark:text-blue-400">度</span>
+                                    <span class="block text-xs">注重尺度</span>
+                                </div>
+                                <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                    <span class="block text-sm text-blue-600 dark:text-blue-400">效</span>
+                                    <span class="block text-xs">追求效果</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">地方政府的舆情管理建议</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>地方媒体及时介入，发布权威信息</li>
+                            <li>避免陷入塔西佗陷阱</li>
+                            <li>强化政治意识和舆情敏感度</li>
+                            <li>建立健全舆情应对机制</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分笔记内容 -->
+        <section id="part2" class="mb-16 fade-in delay-3 scroll-section">
+            <div class="border-l-4 border-green-600 dark:border-green-400 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold">第二部分：舆情事件处理与舆论引导策略</h2>
+            </div>
+            <p class="mb-6 text-lg">舆情事件的处理与舆论引导策略，详细分析了多个实际案例，提出了具体的应对原则和方法。</p>
+
+            <!-- 舆情事件处理的原则与方法 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-700 dark:text-green-400">关于舆情事件处理的原则与方法</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                    <!-- 实事求是的重要性 -->
+                    <div class="card p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-balance-scale text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <h4 class="font-semibold">实事求是的重要性</h4>
+                        </div>
+                        <p>强调在舆情事件中，地方政府或相关机构应避免在事实不清时做出过早判断。</p>
+                        <div class="mt-3 text-sm">
+                            <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded mr-1">江西工业职业技术学院"鸭脖事件"</span>
+                            <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">南阳迷笛音乐节财物被盗事件</span>
+                        </div>
+                    </div>
+
+                    <!-- 同理心的体现 -->
+                    <div class="card p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-heart text-pink-600 dark:text-pink-400"></i>
+                            </div>
+                            <h4 class="font-semibold">同理心的体现</h4>
+                        </div>
+                        <p>提出舆情回应中应尊重常识、适时道歉、措辞有人情味，并把握时度效。</p>
+                        <div class="mt-3 text-sm">
+                            <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded mr-1">上海交通大学"针头事件"</span>
+                            <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">山西五台县中毒事件</span>
+                        </div>
+                    </div>
+
+                    <!-- 舆情预判与机制建立 -->
+                    <div class="card p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-sitemap text-purple-600 dark:text-purple-400"></i>
+                            </div>
+                            <h4 class="font-semibold">舆情预判与机制建立</h4>
+                        </div>
+                        <p>建议地方政府建立舆情规章机制，提前预判可能引发舆情的事件，成立专班负责舆情处理，确保第一时间介入并妥善分工。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆论引导的策略与技巧 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-700 dark:text-green-400">关于舆论引导的策略与技巧</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-semibold mb-3">时度效的把握</h4>
+                        <div class="flex mb-3">
+                            <div class="w-12 flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                                    <i class="fas fa-clock text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-medium mb-1">时机</p>
+                                <p class="text-sm">突发事件发生后，应迅速发布准确信息，避免信息真空</p>
+                            </div>
+                        </div>
+                        <div class="flex mb-3">
+                            <div class="w-12 flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                                    <i class="fas fa-balance-scale-right text-green-600 dark:text-green-400"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-medium mb-1">力度</p>
+                                <p class="text-sm">表达上注重分寸，避免失真或失态</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-12 flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-amber-600 dark:text-amber-400"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-medium mb-1">效果</p>
+                                <p class="text-sm">确保信息传播达到预期目标，解疑释惑</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3">优化信息发布渠道</h4>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>通过多平台发布信息，与公众实时互动</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>避免单一渠道发布导致信息传播受限</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>遵循"宜细不宜粗、宜快不宜慢、宜准确不宜含糊"原则</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-4">
+                            <h4 class="text-lg font-semibold mb-2">舆论场话语权的结构</h4>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <p><span class="font-medium text-green-600 dark:text-green-400">弱传播理论</span>：生活中的弱势群体往往是舆论场中的强势选题，地方政府在舆论场中应秉持人民至上的理念，避免高高在上的姿态。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆情引导的案例分析 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-700 dark:text-green-400">关于舆情引导的案例分析</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                    <!-- 事实不清时的引导 -->
+                    <div class="card p-5">
+                        <div class="flex flex-col h-full">
+                            <div class="mb-3">
+                                <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">事实不清时</span>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-2">吉林"四道浮桥案"</h4>
+                            <p class="flex-grow">强调在事实不清时应保持定力，避免被单一信源误导，利用专业分析引导舆论。</p>
+                            <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                                <span class="text-sm text-green-600 dark:text-green-400 font-medium">应对关键：</span>
+                                <span class="text-sm">保持定力，专业分析</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 认识不清时的引导 -->
+                    <div class="card p-5">
+                        <div class="flex flex-col h-full">
+                            <div class="mb-3">
+                                <span class="inline-block px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded-full">认识不清时</span>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-2">初中生杀人案</h4>
+                            <p class="flex-grow">指出在公众认识不清时，应通过专家学者的专业解读，廓清迷雾，引导公众情绪。</p>
+                            <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                                <span class="text-sm text-green-600 dark:text-green-400 font-medium">应对关键：</span>
+                                <span class="text-sm">专家解读，廓清迷雾</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 全情高涨时的引导 -->
+                    <div class="card p-5">
+                        <div class="flex flex-col h-full">
+                            <div class="mb-3">
+                                <span class="inline-block px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs rounded-full">舆情高涨时</span>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-2">淄博烧烤事件</h4>
+                            <p class="flex-grow">展示如何在舆情高涨时提前策划，通过数据和事实引导公众理性行为，避免次生灾害。</p>
+                            <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                                <span class="text-sm text-green-600 dark:text-green-400 font-medium">应对关键：</span>
+                                <span class="text-sm">提前策划，数据引导</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆情引导的思维方法 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-700 dark:text-green-400">关于舆情引导的思维方法</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="space-y-4">
+                        <div class="card p-4">
+                            <h4 class="text-lg font-semibold mb-2 flex items-center">
+                                <i class="fas fa-exchange-alt mr-2 text-blue-600 dark:text-blue-400"></i>
+                                转化与借力
+                            </h4>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                                    <span>主动转发议题</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                                    <span>聚焦公众关注点</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                                    <span>利用热点互动，化被动为主动</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card p-4">
+                            <h4 class="text-lg font-semibold mb-2 flex items-center">
+                                <i class="fas fa-users mr-2 text-purple-600 dark:text-purple-400"></i>
+                                凝聚主流媒体合力
+                            </h4>
+                            <p>强调主流媒体的背书作用，建议地方政府与主流媒体合作，提升舆情处理的公信力。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="card p-4">
+                            <h4 class="text-lg font-semibold mb-2 flex items-center">
+                                <i class="fas fa-sync-alt mr-2 text-amber-600 dark:text-amber-400"></i>
+                                负面事件的正向转化
+                            </h4>
+                            <p>建议通过新闻发布会等形式，主动组织舆情回应，将危机转化为科普契机。</p>
+                        </div>
+                        
+                        <div class="card p-4">
+                            <h4 class="text-lg font-semibold mb-2 flex items-center">
+                                <i class="fas fa-star mr-2 text-yellow-600 dark:text-yellow-400"></i>
+                                正面典型的放大
+                            </h4>
+                            <p>通过挖掘新闻价值，强化正面典型的传播效果，提升舆论引导的积极影响。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 舆情事件的复杂性与应对策略 -->
+            <div class="mb-10 scroll-fade">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-700 dark:text-green-400">关于舆情事件的复杂性与应对策略</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                    <!-- 多方利益博弈的处理 -->
+                    <div class="card p-5">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-chess mr-2 text-indigo-600 dark:text-indigo-400"></i>
+                            多方利益博弈的处理
+                        </h4>
+                        <p>以深圳提前开学事件为例，分析了舆情事件中多方利益诉求的复杂性，提出在回应中应依法依规，同时争取公众理解。</p>
+                    </div>
+
+                    <!-- 常识、常情、常理的底线 -->
+                    <div class="card p-5">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-hand-paper mr-2 text-red-600 dark:text-red-400"></i>
+                            常识、常情、常理的底线
+                        </h4>
+                        <p>强调舆情处理中应遵循常识、常情、常理，避免留下把柄或硬伤。</p>
+                        <div class="mt-3 grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-sm">常识</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-sm">常情</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-sm">常理</div>
+                        </div>
+                    </div>
+
+                    <!-- 中庸之道的应用 -->
+                    <div class="card p-5">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-balance-scale mr-2 text-yellow-600 dark:text-yellow-400"></i>
+                            中庸之道的应用
+                        </h4>
+                        <p>提出在舆情引导中应追求平衡，既要满足多方需求，又要把握时度效，最终实现良好的舆论引导效果。</p>
+                        <div class="mt-3 text-center">
+                            <span class="inline-block px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-sm rounded-full">平衡多方需求</span>
+                            <i class="fas fa-plus mx-2 text-xs"></i>
+                            <span class="inline-block px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm rounded-full">把握时度效</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 总结部分 -->
+        <section class="mb-16 fade-in delay-4 scroll-fade">
+            <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold">总结与思考</h2>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+                <div class="flex items-start">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                        <i class="fas fa-lightbulb text-xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">核心观点</h3>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <p>后真相时代下，舆情传播更加复杂，情绪与叙事往往超过事实本身</p>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <p>舆情应对需把握"时度效"原则，保持实事求是和同理心</p>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <p>舆情引导需考虑多方博弈，在遵循常识、常情、常理的基础上寻求平衡</p>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <p>主流媒体合力与专业解读对廓清迷雾、引导舆论至关重要</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-900 py-10 border-t border-gray-200 dark:border-gray-800 fade-in delay-5">
+        <div class="container mx-auto px-4 md:px-6 max-w-5xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">网络时代信息传播与舆情应对</h3>
+                    <p class="text-gray-600 dark:text-gray-400">听课笔记整理 黄作敏</p>
+                </div>
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="flex space-x-4 mb-3">
+                        <a href="https://github.com/username" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://twitter.com/username" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/username" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">© 2023 内部资料谢绝转载. </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-blue-600 dark:bg-blue-700 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 深色模式切换
+        const html = document.querySelector('html');
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // 检查系统偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.classList.remove('light');
+            html.classList.add('dark');
+        }
+        
+        // 主题切换按钮
+        themeToggle.addEventListener('click', function() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+            }
+        });
+        
+        // 滚动监听，显示/隐藏回到顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+            
+            // 滚动动画
+            const scrollFades = document.querySelectorAll('.scroll-fade');
+            scrollFades.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementHeight = element.offsetHeight;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - elementHeight / 4) {
+                    element.classList.add('appear');
+                }
+            });
+        });
+        
+        // 回到顶部按钮点击事件
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 页面加载完成后触发滚动事件，以显示初始可见区域的元素
+        window.addEventListener('load', function() {
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
