@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热点新闻挖掘及操作指南 - 听课笔记</title>
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // 检查系统主题偏好并设置初始模式
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-color: #1f2937;
+            --text-color-light: #4b5563;
+            --bg-color: #ffffff;
+            --bg-color-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+        }
+        
+        .dark {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --accent-color: #fbbf24;
+            --text-color: #f9fafb;
+            --text-color-light: #d1d5db;
+            --bg-color: #111827;
+            --bg-color-secondary: #1f2937;
+            --border-color: #374151;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--text-color-light);
+            border-radius: 4px;
+        }
+        
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .quote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+            color: var(--text-color-light);
+        }
+        
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            background-color: rgba(245, 158, 11, 0.2);
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.25rem;
+        }
+        
+        .toc-item {
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .toc-item:hover {
+            transform: translateX(5px);
+        }
+        
+        /* 响应式图片 */
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin: 1.5rem 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .responsive-img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--bg-color-secondary);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow-md mb-8">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-lg font-bold text-blue-600 dark:text-blue-400">
+                <i class="fas fa-book"></i>
+                <span>听课笔记</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn btn-outline text-sm">
+                    <i class="fas fa-arrow-left"></i> 返回目录
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i id="theme-icon" class="fas fa-moon text-gray-700 dark:text-gray-300"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 md:px-8">
+        <header class="mb-12 fade-in">
+            <div class="flex flex-wrap justify-between items-center mb-6">
+                <div>
+                    <span class="tag">新闻实务</span>
+                    <span class="tag">调查报道</span>
+                    <span class="tag">热点挖掘</span>
+                </div>
+            </div>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">热点新闻挖掘及操作指南</h1>
+            <div class="flex items-center text-gray-600 dark:text-gray-400 mb-6">
+                <div class="flex items-center mr-6">
+                    <i class="fas fa-user mr-2"></i>
+                    <span>汤旸 - 新京报调查新闻部副主编</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>记录：黄作敏</span>
+                </div>
+            </div>
+            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-6">
+                课程围绕热点新闻的操作与线索挖掘展开，详细探讨了新闻线索来源、操作方法、风险防范及增量报道的策略。热点新闻报道的多角度策划、系列报道的操作方法以及新闻报道中的风险防范。
+            </p>
+        </header>
+        
+        <!-- 目录 -->
+        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-sm mb-10 fade-in">
+            <h2 class="text-xl font-bold mb-4 flex items-center">
+                <i class="fas fa-list-ul mr-2 text-blue-500 dark:text-blue-400"></i>内容概览
+            </h2>
+            <ul class="space-y-2">
+                <li class="toc-item">
+                    <a href="#section1" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>热点新闻线索来源</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section2" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>热点新闻操作方法</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section3" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>新闻选题与风险防范</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section4" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>记者素养与主动性培养</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section5" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>热点新闻报道的多角度策划</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section6" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>系列报道的策划与操作</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section7" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>新闻报道中的风险防范</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section8" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>热点新闻报道的意识形态风险</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section9" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>新闻报道的质疑精神与独立判断</span>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#section10" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                        <i class="fas fa-angle-right mr-2"></i>
+                        <span>重大事故报道的操作原则</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 主要内容 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- 左侧内容 -->
+            <div class="md:col-span-2 space-y-12">
+                <!-- 热点新闻线索来源 -->
+                <section id="section1" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">热点新闻线索来源</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <img src="img/2.png" alt="新闻线索来源" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-building mr-2"></i>官方发布与政务平台
+                        </h3>
+                        <p class="mb-4">
+                            从政府官网、新媒体（微博、微信公众号）获取线索是重要渠道。官方发布主要分三类：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>发生类：突发事件、重大政策发布</li>
+                            <li>进展类：事件后续处理、政策实施过程</li>
+                            <li>结果类：事件调查结果、政策实施效果</li>
+                        </ul>
+                        
+                        <div class="quote">
+                            记者需要学会从官方发布中提取有价值的新闻线索，发现潜藏的深度报道机会。
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-comments mr-2"></i>社交平台与用户爆料
+                        </h3>
+                        <p class="mb-4">
+                            微博、抖音、快手等平台是线索的重要来源，特别需要注意：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>评论区中可能隐藏着大量未被挖掘的线索</li>
+                            <li>运营人员需关注评论区内容并及时反馈</li>
+                            <li>要学会辨别真假信息，避免被误导</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-phone-alt mr-2"></i>地方政府热线与领导留言板
+                        </h3>
+                        <p class="mb-4">
+                            政府热线和留言板是挖掘民生问题的重要渠道：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>12345政务热线常有市民反映的典型问题</li>
+                            <li>人民网领导留言板收集了大量民生诉求</li>
+                            <li>这些渠道反映的问题通常具有典型性和代表性</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-file-alt mr-2"></i>内部报料渠道与线索征集
+                        </h3>
+                        <p class="mb-4">
+                            建立自己的线索收集机制同样重要：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>设立报料电话、邮箱、私信等接收渠道</li>
+                            <li>在特定节点（如315、重阳节）开展线索征集活动</li>
+                            <li>建立长效的线索收集和管理机制</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- 热点新闻操作方法 -->
+                <section id="section2" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">热点新闻操作方法</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-check-circle mr-2"></i>线索核实与采访技巧
+                        </h3>
+                        <p class="mb-4">
+                            线索核实是新闻报道的基础，必须确保信息准确性：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>新闻报道需具备有效增量（如独家信息或快速发布）</li>
+                            <li>通过采访核心当事人、律师等获取持续性线索</li>
+                            <li>多方验证信息，避免单一信源带来的风险</li>
+                        </ul>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2 flex items-center">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                采访技巧提示
+                            </h4>
+                            <p>
+                                取得当事人信任的关键是真诚与专业。避免简单"复述"当事人话语，应具备专业分析和独立判断能力，这样才能获得更有价值的信息。
+                            </p>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-layer-group mr-2"></i>多角度报道与增量挖掘
+                        </h3>
+                        <p class="mb-4">
+                            通过事件进展和多角度报道实现增量是保持新闻热度的关键：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>深圳燃气爆炸事件：从空置房问题延伸到燃气安全管理</li>
+                            <li>通过一个事件的不同侧面逐步深入报道</li>
+                            <li>每个角度应形成完整的报道，而非简单的补充</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-flask mr-2"></i>社会实验与民生测评
+                        </h3>
+                        <p class="mb-4">
+                            通过实验验证新闻线索的方式，提升报道的权威性和影响力：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>联合消防部门进行安全实验验证存在的隐患</li>
+                            <li>与质检机构合作开展民生产品质量测评</li>
+                            <li>通过实验数据支撑报道观点，增强说服力</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- 新闻选题与风险防范 -->
+                <section id="section3" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">新闻选题与风险防范</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                      
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-calendar-check mr-2"></i>选题策划与固定节日选题
+                        </h3>
+                        <p class="mb-4">
+                            合理规划选题，把握重要时间节点：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>提前策划节日相关选题（如消防日、供暖季等）</li>
+                            <li>结合社会热点进行报道延展</li>
+                            <li>创建选题日历，避免临时应对</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-rocket mr-2"></i>新兴领域与技术的关注
+                        </h3>
+                        <p class="mb-4">
+                            关注新兴技术和领域带来的新问题和乱象：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>人工智能、DC技术等新领域存在监管空白</li>
+                            <li>制度完善滞后于问题产生的现象为新闻选题提供了空间</li>
+                            <li>成为新领域的观察者和记录者</li>
+                        </ul>
+                        
+                        <div class="bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2 flex items-center">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                                注意事项
+                            </h4>
+                            <p>
+                                新兴领域报道需要格外谨慎，既要揭示问题，又不能妨碍行业健康发展。尤其涉及金融、医疗等关系民生的领域，更要平衡报道。
+                            </p>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-history mr-2"></i>线索回头看与台账建立
+                        </h3>
+                        <p class="mb-4">
+                            建立系统的线索管理机制：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>建立新闻线索台账，记录每条线索的来源和处理状态</li>
+                            <li>定期回顾未完结的新闻线索，确保重要线索不被遗漏</li>
+                            <li>监测已报道事件的后续发展，进行跟踪报道</li>
+                        </ul>
+  <img src="img/3.png" alt="新闻选题与风险防范" class="responsive-img" loading="lazy">
+                    </div>
+                </section>
+                
+                <!-- 记者素养与主动性培养 -->
+                <section id="section4" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">记者素养与主动性培养</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-flag mr-2"></i>记者主动性与独家意识
+                        </h3>
+                        <p class="mb-6">
+                            优秀记者的核心素养在于主动寻找新闻、发现独家线索：
+                        </p>
+                        <div class="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 p-5 rounded-lg mb-6">
+                            <ul class="list-disc pl-6 space-y-3">
+                                <li class="font-medium">避免被动等待任务分配，主动发现身边的新闻线索</li>
+                                <li class="font-medium">培养"这是一个独家"的意识，寻找与众不同的报道角度</li>
+                                <li class="font-medium">建立个人线索库，持续积累和更新专业领域的信息</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="quote">
+                            "优秀记者会问'我能为这个话题增加什么新内容'，而不仅仅是复述已知信息。"
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-cubes mr-2"></i>多维度思考与立场转换
+                        </h3>
+                        <p class="mb-4">
+                            从不同立场看待问题，发掘深层次报道角度：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>例如，报道外卖员超速问题时，不仅关注当事人，也思考城市治理视角</li>
+                            <li>学会在当事人、管理者、专家等多种角色间转换思考</li>
+                            <li>用不同利益相关者的视角审视同一事件，挖掘隐藏的故事</li>
+                        </ul>
+                        
+                        <div class="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2 flex items-center">
+                                <i class="fas fa-star text-green-500 mr-2"></i>
+                                专业成长建议
+                            </h4>
+                            <p>
+                                定期阅读高质量的调查报道，分析他们的选题、角度和采访方法。向优秀记者学习，但不简单模仿，而是吸收其精华形成自己的报道风格。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 热点新闻报道的多角度策划 -->
+                <section id="section5" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">热点新闻报道的多角度策划</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <img src="img/6.png" alt="热点新闻报道多角度策划" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-globe mr-2"></i>个人网站与热点事件的结合
+                        </h3>
+                        <p class="mb-4">
+                            通过热点事件与个性化网站的结合，扩大报道影响力：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>如土拨鼠传播风险报道与相关科普网站的合作</li>
+                            <li>热点事件的延展性利用</li>
+                            <li>借助外部平台扩大传播渠道</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-camera-retro mr-2"></i>酒店偷拍事件的系列报道
+                        </h3>
+                        <p class="mb-4">
+                            以石家庄民宿摄像头事件为例，多角度系列报道的开展：
+                        </p>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-3">报道角度拆解：</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3">1</span>
+                                    <div>
+                                        <p class="font-medium">黑产链条调查</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">深入偷拍设备的销售渠道、传播网络</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3">2</span>
+                                    <div>
+                                        <p class="font-medium">责任划分分析</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">民宿平台、房东、监管部门的责任问题</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3">3</span>
+                                    <div>
+                                        <p class="font-medium">市场反应追踪</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">事件后民宿预订量变化、平台整改措施</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3">4</span>
+                                    <div>
+                                        <p class="font-medium">行业指导建议</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">防范偷拍的技术手段、法律保障措施</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-water mr-2"></i>洪灾报道的多维度切入
+                        </h3>
+                        <p class="mb-4">
+                            自然灾害报道的多角度策划：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>动态发布：灾情实时更新、救援进展</li>
+                            <li>科普内容：洪灾成因、防灾减灾知识</li>
+                            <li>生态影响：对环境、农业的长期影响</li>
+                            <li>人物故事：灾区民众、救援人员的感人事迹</li>
+                            <li>重建计划：灾后恢复与长期规划</li>
+                        </ul>
+                        
+                        <img src="img/7.png" alt="洪灾报道多角度" class="responsive-img" loading="lazy">
+                    </div>
+                </section>
+                
+                <!-- 系列报道的策划与操作 -->
+                <section id="section6" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">系列报道的策划与操作</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-check-double mr-2"></i>系列报道的适用性
+                        </h3>
+                        <p class="mb-4">
+                            系列报道适用于具备以下特点的新闻事件：
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2 text-center">重要性</h4>
+                                <p class="text-sm text-center">具有社会关注度和影响力的重大事件</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2 text-center">复杂性</h4>
+                                <p class="text-sm text-center">涉及多方面因素，需要深入解析的问题</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2 text-center">话题性</h4>
+                                <p class="text-sm text-center">具备持续讨论价值的社会现象</p>
+                            </div>
+                        </div>
+                        
+                        <p class="mb-6">
+                            系列报道需要提前策划，明确每篇报道的角度和重点，确保整个系列具有逻辑性和完整性。
+                        </p>
+                        
+                        <img src="img/8.png" alt="系列报道策划与操作" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-crown mr-2"></i>经典案例分享
+                        </h3>
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-2">菲律宾博彩集团卧底调查</h4>
+                            <p class="mb-4">
+                                记者深入博彩集团进行卧底调查，分多期报道揭露：
+                            </p>
+                            <ul class="list-disc pl-6 mb-4 space-y-1">
+                                <li>非法运营模式与资金流向</li>
+                                <li>人员招募与管理机制</li>
+                                <li>对当地社会的影响及政府监管缺失</li>
+                            </ul>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                该系列报道引发广泛关注，促使相关部门加强监管。
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-2">大闸蟹造假调查</h4>
+                            <p class="mb-4">
+                                针对市场上大闸蟹造假现象的系列调查：
+                            </p>
+                            <ul class="list-disc pl-6 mb-4 space-y-1">
+                                <li>市场调查：各渠道大闸蟹真假情况</li>
+                                <li>产业链追踪：造假的源头与利益链条</li>
+                                <li>鉴别指南：消费者如何辨别真假</li>
+                                <li>监管建议：健全产品溯源体系</li>
+                            </ul>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                该系列报道为消费者提供实用指导，也推动了行业自律。
+                            </p>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>系列报道的风险防范
+                        </h3>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>采访不到位风险：确保每篇报道都有充分、多元的信源支撑</li>
+                            <li>事实差错风险：建立严格的事实核查机制，避免以点代面</li>
+                            <li>政治导向风险：把握正确舆论导向，避免片面解读引发误导</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- 新闻报道中的风险防范 -->
+                <section id="section7" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">新闻报道中的风险防范</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-balance-scale mr-2"></i>事实核实的重要性
+                        </h3>
+                        <p class="mb-4">
+                            事实核实是新闻报道的生命线，必须严格执行：
+                        </p>
+                        <div class="bg-red-50 dark:bg-red-900/30 p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2 text-red-600 dark:text-red-400">核实原则</h4>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>避免主观判断和未经证实的信息</li>
+                                <li>核心事件定性需格外审慎</li>
+                                <li>对受访者提供的资料要求原始证据</li>
+                                <li>对关键数字和指标必须交叉验证</li>
+                            </ul>
+                        </div>
+                        
+                        <img src="img/9.png" alt="事实核实重要性" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-users mr-2"></i>多方信源与质疑精神
+                        </h3>
+                        <p class="mb-4">
+                            在争议性内容中需引入多方观点，保持平衡报道：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>避免单一信源，至少采访事件的各方当事人</li>
+                            <li>记者应保持质疑精神，不轻信单方面说辞</li>
+                            <li>独立判断受访者的表述，进行事实核验</li>
+                            <li>在不确定情况下，明确标注信息来源</li>
+                        </ul>
+                        
+                        <img src="img/10.png" alt="多方信源与质疑精神" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-exclamation-circle mr-2"></i>重大事故报道的导向与结构
+                        </h3>
+                        <p class="mb-4">
+                            重大事故报道需特别注意导向和结构安排：
+                        </p>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-2">报道结构建议</h4>
+                            <ol class="list-decimal pl-6 space-y-2">
+                                <li>救援进展优先：突出救援工作的进展和效果</li>
+                                <li>官方信息为主：以官方通报为主要信源</li>
+                                <li>避免早期推测：不在事故初期推测原因</li>
+                                <li>平衡情绪表达：避免过度煽情或引导情绪</li>
+                                <li>后续跟进明确：说明将持续关注事件进展</li>
+                            </ol>
+                        </div>
+                        
+                        <img src="img/11.png" alt="重大事故报道导向" class="responsive-img" loading="lazy">
+                    </div>
+                </section>
+                
+                <!-- 热点新闻报道的意识形态风险 -->
+                <section id="section8" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">热点新闻报道的意识形态风险</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-bullhorn mr-2"></i>舆情引导的风险
+                        </h3>
+                        <p class="mb-6">
+                            通过实际案例分析舆情引导的潜在风险：
+                        </p>
+                        <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 mb-6">
+                            <h4 class="font-semibold mb-2">宜宾山体滑坡案例</h4>
+                            <p class="text-sm">
+                                部分媒体在报道中过早质疑当地开采活动与山体滑坡的关系，在事实尚未明确的情况下引发了将自然灾害归因为人为疏忽的舆论导向，造成了负面社会影响。
+                            </p>
+                        </div>
+                        
+                        <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 mb-6">
+                            <h4 class="font-semibold mb-2">梅大高速塌方案例</h4>
+                            <p class="text-sm">
+                                事故初期，某些自媒体未经核实便将塌方原因归结为工程质量问题，引发舆论对基础设施建设的广泛质疑，后经调查证实为极端天气导致。
+                            </p>
+                        </div>
+                        
+                        <p class="mb-4">
+                            这些案例警示我们，在重大事故报道中需谨慎处理舆情引导，避免将天灾错误地转化为"人祸"的倾向。
+                        </p>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-clipboard-list mr-2"></i>重大事故的判定标准
+                        </h3>
+                        <p class="mb-4">
+                            准确判断事故等级，采取相应的报道策略：
+                        </p>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-2">重大事故标志</h4>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>总书记或高级领导人批示</li>
+                                <li>部长级领导带队处理</li>
+                                <li>安委会挂牌督办</li>
+                                <li>成立国家级调查组</li>
+                                <li>多部门联合处置</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="mb-4">
+                            当事故符合上述标准时，媒体报道需加强意识形态风险防控，严格按照官方通报口径报道，避免独立解读和推测。
+                        </p>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-fingerprint mr-2"></i>独家内容的核实与验证
+                        </h3>
+                        <p class="mb-4">
+                            独家新闻需更严格的核实流程：
+                        </p>
+                        <div class="bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2 flex items-center">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                                案例警示
+                            </h4>
+                            <p>
+                                "替死鬼"事件中，媒体未充分核实当事人身份，导致报道严重失实。澎湃新闻案例中，因单一信源导致重大事实错误，影响媒体公信力。这提醒我们独家内容必须多方验证，不能贪快而忽视核查。
+                            </p>
+                        </div>
+                        
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>独家内容至少需3个以上独立信源交叉验证</li>
+                            <li>涉及敏感信息时，主编级别以上必须审核</li>
+                            <li>对可能引发重大舆论的独家，建立特别审核机制</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- 新闻报道的质疑精神与独立判断 -->
+                <section id="section9" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">新闻报道的质疑精神与独立判断</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <img src="img/11.png" alt="质疑精神与独立判断" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-brain mr-2"></i>质疑精神的培养
+                        </h3>
+                        <p class="mb-4">
+                            记者对所有信息保持合理质疑是职业素养的体现：
+                        </p>
+                        <div class="quote">
+                            "作为新闻工作者，我们应当'存疑'而非'轻信'。对官方通报保持理性审视，对受访者说辞进行验证，这是我们的职业责任。"
+                        </div>
+                        
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>避免被单一信息牵着走，主动寻求多方证据</li>
+                            <li>对看似"完美"的故事保持警惕，找出可能的漏洞</li>
+                            <li>质疑不等于否定，而是寻求更全面的真相</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-balance-scale-right mr-2"></i>独立判断的能力
+                        </h3>
+                        <p class="mb-4">
+                            记者需在多方信息中梳理出独立观点：
+                        </p>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-3">培养独立判断能力的方法：</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <p class="font-medium">反问技巧</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">针对关键信息提出"为什么"和"如何证明"的问题</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <p class="font-medium">证据权重</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">评估不同证据的可信度，并据此判断事实</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <p class="font-medium">情景重建</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">尝试重建事件发生经过，检验各方说法的合理性</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <p class="font-medium">专业咨询</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">就专业问题咨询相关领域专家，辅助判断</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-hashtag mr-2"></i>新媒体时代的线索辨别
+                        </h3>
+                        <p class="mb-4">
+                            在新媒体平台获取线索时，需特别警惕虚假信息：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>核实发布账号的历史信用和真实身份</li>
+                            <li>检查图片、视频的元数据，判断是否被篡改</li>
+                            <li>通过线上线下结合的方式验证线索真实性</li>
+                            <li>对热门线索保持冷静，不盲目跟风</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- 重大事故报道的操作原则 -->
+                <section id="section10" class="fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold">重大事故报道的操作原则</h2>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+                        <img src="img/12.png" alt="重大事故报道操作原则" class="responsive-img" loading="lazy">
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-ambulance mr-2"></i>救援优先的报道导向
+                        </h3>
+                        <p class="mb-4">
+                            明确重大事故报道需以救援为核心：
+                        </p>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-2">救援优先原则</h4>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>突出救援工作的进展、难点和成效</li>
+                                <li>报道救援人员的专业行动和无私奉献</li>
+                                <li>关注受灾群众安置和生活保障情况</li>
+                                <li>避免在事故初期推测原因，以免干扰救援</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="quote">
+                            "在重大灾难现场，记者的第一责任是确保不妨碍救援，第二责任是客观报道事实，而非急于寻找'责任方'。"
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-shield-virus mr-2"></i>重大事故的风险防控
+                        </h3>
+                        <p class="mb-4">
+                            通过实际案例分析风险防控的必要性：
+                        </p>
+                        <div class="border-l-4 border-yellow-400 dark:border-yellow-600 pl-4 mb-6 bg-yellow-50 dark:bg-yellow-900/20 p-3">
+                            <p class="mb-2">
+                                <span class="font-semibold">风险案例：</span> 宜宾山体滑坡和梅大高速塌方事件中，媒体报道需特别注意用词和表述，避免使用"质疑"、"存疑"、"令人疑惑"等带有明显主观判断的词汇，以免引发不必要的舆情风险。
+                            </p>
+                            <p>
+                                正确做法是客观陈述已知事实，引用权威专家解读可能原因，避免主观臆测。
+                            </p>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-user-shield mr-2"></i>意识形态风险的防范
+                        </h3>
+                        <p class="mb-4">
+                            在重大事故报道中需特别关注意识形态风险：
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 space-y-2">
+                            <li>避免夸大政府工作中的不足，引发对政府公信力的质疑</li>
+                            <li>警惕因单方面表述引发的舆情误导</li>
+                            <li>重大自然灾害报道中，避免将自然因素简单归因为人为因素</li>
+                            <li>关注国际舆论对中国重大事故的解读，及时澄清不实言论</li>
+                        </ul>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2 flex items-center">
+                                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                                最佳实践
+                            </h4>
+                            <p>
+                                重大事故报道应遵循"先救援、后原因、再反思"的报道节奏，确保各阶段的报道重点与当前工作重心保持一致，既满足公众知情权，又避免不当引导舆论。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- 右侧边栏 -->
+            <div class="md:col-span-1">
+                <div class="sticky top-24 space-y-6">
+                    <!-- 讲师信息 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">讲师介绍</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 mr-4">
+                                <i class="fas fa-user text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-lg">汤旸</p>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">新京报调查新闻部副主编</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">
+                            
+                        </p>
+                    </div>
+                    
+                    <!-- 关键要点 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">关键要点</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>多渠道获取新闻线索，特别关注评论区和政务热线</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>保持质疑精神，对所有信息进行多方核实</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>多角度策划热点报道，延展报道深度</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>重大事故报道以救援为先，避免过早推测原因</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>系列报道需前期充分策划，保持逻辑性和完整性</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>培养记者主动性，挖掘独家报道角度</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 实用工具 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">实用工具</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-toolbox text-yellow-500 mt-1 mr-2"></i>
+                                <div>
+                                    <p class="font-medium">线索台账模板</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">用于记录和跟踪新闻线索</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-toolbox text-yellow-500 mt-1 mr-2"></i>
+                                <div>
+                                    <p class="font-medium">事实核查清单</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">确保报道内容准确无误</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-toolbox text-yellow-500 mt-1 mr-2"></i>
+                                <div>
+                                    <p class="font-medium">系列报道策划书</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">多角度报道规划模板</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 返回顶部 -->
+                    <div class="text-center fade-in">
+                        <a href="#" class="btn btn-primary inline-flex items-center px-4 py-2">
+                            <i class="fas fa-arrow-up mr-2"></i> 返回顶部
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="mt-20 bg-gray-50 dark:bg-gray-900 py-10">
+        <div class="container mx-auto px-4">
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-lg font-bold mb-2">作者信息</h3>
+                        <p class="text-gray-600 dark:text-gray-400">记录：黄作敏</p>
+                        <p class="text-gray-600 dark:text-gray-400">© 2025 内部资料谢绝转载. 保留所有权利</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-400 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-400">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+        
+        // 初始化主题图标
+        if (document.documentElement.classList.contains('dark')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // 页面加载后淡入效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
