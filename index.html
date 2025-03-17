@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新京报培训笔记目录</title>
+    <!-- TailwindCSS 通过国内CDN引入 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- 引入字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+    <!-- 引入图标 -->
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #2563eb;
+            --color-secondary: #6366f1;
+            --color-accent: #ec4899;
+            --color-bg-light: #f9fafb;
+            --color-text-light: #1f2937;
+            --color-bg-dark: #111827;
+            --color-text-dark: #f3f4f6;
+        }
+
+        .light {
+            --color-bg: var(--color-bg-light);
+            --color-text: var(--color-text-light);
+            --color-card: #ffffff;
+            --color-card-border: #e5e7eb;
+            --color-highlight: rgba(37, 99, 235, 0.1);
+            --color-muted: #6b7280;
+            --color-date-header: #e0f7fa;
+            --color-lunch: rgba(248, 187, 208, 0.5);
+        }
+
+        .dark {
+            --color-bg: var(--color-bg-dark);
+            --color-text: var(--color-text-dark);
+            --color-card: #1f2937;
+            --color-card-border: #374151;
+            --color-highlight: rgba(99, 102, 241, 0.2);
+            --color-muted: #9ca3af;
+            --color-date-header: rgba(0, 150, 199, 0.2);
+            --color-lunch: rgba(236, 64, 122, 0.2);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', system-ui, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .date-header {
+            background-color: var(--color-date-header);
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .date-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .lunch-break {
+            text-align: center;
+            background-color: var(--color-lunch);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 2.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--color-card-border);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-card-border);
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.02);
+            font-weight: 600;
+        }
+
+        tbody tr:hover {
+            background-color: var(--color-highlight);
+        }
+
+        .course-link {
+            display: block;
+            transition: all 0.2s;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+        }
+
+        .course-link:hover {
+            background-color: var(--color-highlight);
+            transform: translateX(5px);
+        }
+        
+        .course-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .course-info {
+            font-size: 0.875rem;
+            color: var(--color-muted);
+            display: block;
+        }
+        
+        .teacher-info {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        
+        .teacher-name {
+            font-weight: 500;
+        }
+        
+        .teacher-title {
+            color: var(--color-muted);
+            font-size: 0.75rem;
+        }
+        
+        .time-cell {
+            font-family: monospace;
+            white-space: nowrap;
+            text-align: center;
+        }
+        
+        .card-container {
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .card-container:hover {
+            transform: translateY(-4px);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .day-1 { animation-delay: 0.1s; }
+        .day-2 { animation-delay: 0.2s; }
+        .day-3 { animation-delay: 0.3s; }
+        
+        /* 日期角标 */
+        .date-flag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: rotate(5deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-8">
+        <header class="mb-12 text-center">
+            <div class="inline-flex items-center justify-center p-1 px-3 mb-4 rounded-full bg-blue-100 dark:bg-blue-900">
+                <span class="text-xs text-blue-500 dark:text-blue-300">2023年培训笔记</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold leading-tight">新京报培训笔记目录</h1>
+            <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                融媒体时代的新闻采编与传播技巧，全媒体运营与内容创新
+            </p>
+            <div class="mt-8">
+                <button id="theme-toggle" class="btn btn-primary">
+                    <i class="fas fa-moon mr-2 dark:hidden"></i>
+                    <i class="fas fa-sun mr-2 hidden dark:block"></i>
+                    <span class="dark:hidden">切换深色模式</span>
+                    <span class="hidden dark:block">切换浅色模式</span>
+                </button>
+            </div>
+        </header>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="card-container bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-fade-in day-1">
+                <div class="relative">
+                    <span class="date-flag">第一日</span>
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center space-x-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+                        <i class="fas fa-calendar-day text-xl text-blue-500"></i>
+                        <h2 class="text-lg font-bold">3月16日 (周日)</h2>
+                    </div>
+                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900/30 text-blue-500 dark:text-blue-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div>
+                                    <a href="media-integration.html" class="course-link">
+                                        <span class="course-title">媒体融合格局塑造与全媒体传播体系建设</span>
+                                        <span class="course-info">介绍新京报融媒体改革路径与方法论</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">刘国良</div>
+                                                <div class="teacher-title">总编室主编</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            09:30-11:30
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-purple-100 dark:bg-purple-900/30 text-purple-500 dark:text-purple-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-globe-asia"></i>
+                                </div>
+                                <div>
+                                    <a href="internet-communication.html" class="course-link">
+                                        <span class="course-title">网络时代信息传播与舆情应对</span>
+                                        <span class="course-info">新闻传播规律, 舆情应对和引导策略</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">王言虎</div>
+                                                <div class="teacher-title">评论部副主编</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            14:00-15:50
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-rose-100 dark:bg-rose-900/30 text-rose-500 dark:text-rose-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div>
+                                    <a href="hot-news.html" class="course-link">
+                                        <span class="course-title">热点新闻挖掘及操作指南</span>
+                                        <span class="course-info">结合典型案例分享新闻热点捕捉及操作方法论</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">汤旸</div>
+                                                <div class="teacher-title">调查新闻部副主编</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            16:10-18:00
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-container bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-fade-in day-2">
+                <div class="relative">
+                    <span class="date-flag">第二日</span>
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center space-x-3 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20">
+                        <i class="fas fa-calendar-day text-xl text-green-500"></i>
+                        <h2 class="text-lg font-bold">3月17日 (周一)</h2>
+                    </div>
+                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <a href="short-video.html" class="course-link">
+                                        <span class="course-title">如何在移动端运营爆款新闻短视频</span>
+                                        <span class="course-info">揭秘抖音快手等平台爆款短视频运营技巧</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">唐磊</div>
+                                                <div class="teacher-title">我们视频编辑部副主编</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            09:30-11:30
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                               
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-green-100 dark:bg-green-900/30 text-green-500 dark:text-green-300 p-2 rounded-lg mr-3">
+                                    <i class="fab fa-weixin"></i>
+                                </div>
+                                <div>
+                                    <a href="wechat-articles.html" class="course-link">
+                                        <span class="course-title">打开公众号爆款的密码</span>
+                                        <span class="course-info">新京报官微爆款文章内容生产经验及案例</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">李凡宗</div>
+                                                <div class="teacher-title">平台运营部副主编</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            14:00-15:50
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-amber-100 dark:bg-amber-900/30 text-amber-500 dark:text-amber-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-broadcast-tower"></i>
+                                </div>
+                                <div>
+                                    <a href="live-streaming.html" class="course-link">
+                                        <span class="course-title">小程序直播技巧及全流程解析</span>
+                                        <span class="course-info">揭秘直播全流程, 操盘经验分享及案例分析</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">蒋鹏峰</div>
+                                                <div class="teacher-title">我们视频编辑部 资深记者</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            16:10-18:00
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900/30 text-blue-500 dark:text-blue-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <div>
+                                    <a href="media-literacy.html" class="course-link">
+                                        <span class="course-title">媒介素质提升及舆情风防范</span>
+                                        <span class="course-info">热点事件舆情剖析, 如何正确与媒体打交道</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">余亚仕</div>
+                                                <div class="teacher-title">传媒研究院执行院长</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            18:30-20:20
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-container bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-fade-in day-3">
+                <div class="relative">
+                    <span class="date-flag">第三日</span>
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20">
+                        <i class="fas fa-calendar-day text-xl text-purple-500"></i>
+                        <h2 class="text-lg font-bold">3月18日 (周二)</h2>
+                    </div>
+                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-film"></i>
+                                </div>
+                                <div>
+                                    <a href="video-planning.html" class="course-link">
+                                        <span class="course-title">视频新闻如何策划大型主题报道</span>
+                                        <span class="course-info">以中国新闻奖作品《身后的国》为例, 解析大型主题报道策划及创作过程</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">田昊文</div>
+                                                <div class="teacher-title">政务服务部资深编辑</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            9:30-11:30
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-500 dark:text-cyan-300 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div>
+                                    <a href="ai-tools.html" class="course-link">
+                                        <span class="course-title">如何用 AI 工具写稿制图、创作短视频</span>
+                                        <span class="course-info">实操指导使用 AIGC, 从入门到提升</span>
+                                    </a>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <div class="teacher-info">
+                                            <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                            <div>
+                                                <div class="teacher-name">王瑾</div>
+                                                <div class="teacher-title">动新闻编辑部资深编导</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            13:30-15:15
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 传统表格视图 (小屏幕隐藏) -->
+        <div class="hidden lg:block mt-16 mb-8 border-t border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl font-bold mt-8 mb-6 text-center">培训日程详表</h2>
+        
+            <!-- 3月16日 -->
+            <div class="mb-10 animate-fade-in day-1">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="date-header">3月16日 (周日)</th>
+                        </tr>
+                        <tr>
+                            <th width="15%">时间</th>
+                            <th width="65%">课程安排</th>
+                            <th width="20%">讲师</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">09:30-11:30</td>
+                            <td>
+                                <a href="media-integration.html" class="course-link">
+                                    <span class="course-title">媒体融合格局塑造与全媒体传播体系建设</span>
+                                    <span class="course-info">介绍新京报融媒体改革路径与方法论</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">刘国良</div>
+                                        <div class="teacher-title">总编室主编</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lunch-break" colspan="3">午餐 + 午休</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:00-15:50</td>
+                            <td>
+                                <a href="internet-communication.html" class="course-link">
+                                    <span class="course-title">网络时代信息传播与舆情应对</span>
+                                    <span class="course-info">新闻传播规律, 舆情应对和引导策略</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">王言虎</div>
+                                        <div class="teacher-title">评论部副主编</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:10-18:00</td>
+                            <td>
+                                <a href="hot-news.html" class="course-link">
+                                    <span class="course-title">热点新闻挖掘及操作指南</span>
+                                    <span class="course-info">结合典型案例分享新闻热点捕捉及操作方法论</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">汤旸</div>
+                                        <div class="teacher-title">调查新闻部副主编</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 3月17日 -->
+            <div class="mb-10 animate-fade-in day-2">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="date-header">3月17日 (周一)</th>
+                        </tr>
+                        <tr>
+                            <th width="15%">时间</th>
+                            <th width="65%">课程安排</th>
+                            <th width="20%">讲师</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">09:30-11:30</td>
+                            <td>
+                                <a href="short-video.html" class="course-link">
+                                    <span class="course-title">如何在移动端运营爆款新闻短视频</span>
+                                    <span class="course-info">揭秘抖音快手等平台爆款短视频运营技巧</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">唐磊</div>
+                                        <div class="teacher-title">我们视频编辑部副主编</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lunch-break" colspan="3">午餐 + 午休</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:00-15:50</td>
+                            <td>
+                                <a href="wechat-articles.html" class="course-link">
+                                    <span class="course-title">打开公众号爆款的密码</span>
+                                    <span class="course-info">新京报官微爆款文章内容生产经验及案例</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">李凡宗</div>
+                                        <div class="teacher-title">平台运营部副主编</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:10-18:00</td>
+                            <td>
+                                <a href="live-streaming.html" class="course-link">
+                                    <span class="course-title">小程序直播技巧及全流程解析</span>
+                                    <span class="course-info">揭秘直播全流程, 操盘经验分享及案例分析</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">蒋鹏峰</div>
+                                        <div class="teacher-title">我们视频编辑部 资深记者</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">18:30-20:20</td>
+                            <td>
+                                <a href="media-literacy.html" class="course-link">
+                                    <span class="course-title">媒介素质提升及舆情风防范</span>
+                                    <span class="course-info">热点事件舆情剖析, 如何正确与媒体打交道</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">余亚仕</div>
+                                        <div class="teacher-title">传媒研究院执行院长</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 3月18日 -->
+            <div class="animate-fade-in day-3">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="date-header">3月18日 (周二)</th>
+                        </tr>
+                        <tr>
+                            <th width="15%">时间</th>
+                            <th width="65%">课程安排</th>
+                            <th width="20%">讲师</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">9:30-11:30</td>
+                            <td>
+                                <a href="video-planning.html" class="course-link">
+                                    <span class="course-title">视频新闻如何策划大型主题报道</span>
+                                    <span class="course-info">以中国新闻奖作品《身后的国》为例, 解析大型主题报道策划及创作过程</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">田昊文</div>
+                                        <div class="teacher-title">政务服务部资深编辑</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lunch-break" colspan="3">午餐 + 午休</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:30-15:15</td>
+                            <td>
+                                <a href="ai-tools.html" class="course-link">
+                                    <span class="course-title">如何用 AI 工具写稿制图、创作短视频</span>
+                                    <span class="course-info">实操指导使用 AIGC, 从入门到提升</span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="teacher-info">
+                                    <i class="fas fa-user-tie mr-2 text-gray-400"></i>
+                                    <div>
+                                        <div class="teacher-name">王瑾</div>
+                                        <div class="teacher-title">动新闻编辑部资深编导</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-100 dark:bg-gray-800 py-8 mt-12">
+        <div class="container">
+            <div class="text-center">
+                <p class="text-gray-600 dark:text-gray-300 mb-2">© 2023 新京报融媒体培训课程笔记</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">本资料仅供内部学习使用，未经授权请勿外传</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // 检查系统主题和本地存储
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('theme');
+        
+        // 设置初始主题
+        if (storedTheme === 'dark' || (!storedTheme && prefersDarkMode)) {
+            html.classList.remove('light');
+            html.classList.add('dark');
+        }
+        
+        // 主题切换点击事件
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // 滚动时显示淡入动画
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+        
+        // 滚动事件监听
+        window.addEventListener('scroll', () => {
+            revealOnScroll();
+        });
+        
+        // 初始加载时检查
+        document.addEventListener('DOMContentLoaded', () => {
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
