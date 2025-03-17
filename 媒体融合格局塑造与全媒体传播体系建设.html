@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新京报媒体融合发展听课笔记</title>
+    <!-- TailwindCSS 通过国内CDN引入 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- 引入字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+    <!-- 引入图标 -->
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #2563eb;
+            --color-secondary: #6366f1;
+            --color-accent: #ec4899;
+            --color-bg-light: #f9fafb;
+            --color-text-light: #1f2937;
+            --color-bg-dark: #111827;
+            --color-text-dark: #f3f4f6;
+        }
+
+        .light {
+            --color-bg: var(--color-bg-light);
+            --color-text: var(--color-text-light);
+            --color-card: #ffffff;
+            --color-card-border: #e5e7eb;
+            --color-highlight: rgba(37, 99, 235, 0.1);
+            --color-muted: #6b7280;
+        }
+
+        .dark {
+            --color-bg: var(--color-bg-dark);
+            --color-text: var(--color-text-dark);
+            --color-card: #1f2937;
+            --color-card-border: #374151;
+            --color-highlight: rgba(99, 102, 241, 0.2);
+            --color-muted: #9ca3af;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', system-ui, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--color-card);
+            border: 1px solid var(--color-card-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--color-secondary);
+            color: var(--color-secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-highlight);
+        }
+
+        .highlight-text {
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 2px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: var(--color-highlight);
+            color: var(--color-primary);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.2s; }
+        .animate-delay-3 { animation-delay: 0.3s; }
+        .animate-delay-4 { animation-delay: 0.4s; }
+        .animate-delay-5 { animation-delay: 0.5s; }
+
+        /* 轮播图效果 */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.375rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+        }
+
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 0.5rem;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1.5rem);
+            background-color: var(--color-card-border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* 导航高亮效果 */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: var(--color-text);
+            transition: color 0.2s;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background-color: var(--color-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            transform-origin: center;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-primary);
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            transform: scaleX(1);
+        }
+        
+        /* 滚动监听功能样式 */
+        .section {
+            scroll-margin-top: 6rem;
+        }
+        
+        .plan-card {
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover .plan-icon {
+            transform: scale(1.1);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-opacity-90 border-b border-gray-200 dark:border-gray-700" style="background-color: var(--color-bg);">
+        <div class="container flex items-center justify-between h-16 md:h-20">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
+                    <i class="fas fa-newspaper text-white text-lg"></i>
+                </div>
+                <h1 class="text-xl font-bold">新京报媒体融合发展</h1>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="#overview" class="nav-link">笔记概述</a>
+                <a href="#history" class="nav-link">历史与现状</a>
+                <a href="#brand" class="nav-link">品牌与内容</a>
+                <a href="#practice" class="nav-link">融合实践</a>
+                <a href="#future" class="nav-link">五大行动计划</a>
+            </nav>
+            
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container py-8">
+        <!-- 概述部分 -->
+        <section id="overview" class="section mb-20 animate-fade-in">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">新京报媒体融合发展听课笔记</h1>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                    本笔记记录了有关新京报的转型发展历程、媒体融合的探索实践以及未来发展方向的课程内容，聚焦数字化转型背景下媒体机构的创新发展策略。
+                </p>
+                
+                <div class="flex flex-wrap justify-center mt-8 gap-4">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                        <i class="fas fa-history mr-2"></i>
+                        <span>从2003年创办至今</span>
+                    </div>
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                        <i class="fas fa-users mr-2"></i>
+                        <span>微博粉丝4700万+</span>
+                    </div>
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-green-50 dark:bg-green-900 text-green-600 dark:text-green-300">
+                        <i class="fas fa-project-diagram mr-2"></i>
+                        <span>全媒体传播矩阵</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 内容概览 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <a href="#history" class="card p-6 hover:border-blue-500 animate-fade-in animate-delay-1">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mb-4">
+                        <i class="fas fa-hourglass-half text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">历史与现状</h3>
+                    <p class="text-gray-600 dark:text-gray-300">新京报的创办背景、发展历程及当前的组织架构与运营状况。</p>
+                </a>
+                
+                <a href="#brand" class="card p-6 hover:border-purple-500 animate-fade-in animate-delay-2">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mb-4">
+                        <i class="fas fa-crown text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">品牌与内容创新</h3>
+                    <p class="text-gray-600 dark:text-gray-300">新闻采编、主题报道亮点与品牌活动拓展策略。</p>
+                </a>
+                
+                <a href="#practice" class="card p-6 hover:border-green-500 animate-fade-in animate-delay-3">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mb-4">
+                        <i class="fas fa-sync-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">媒体融合实践</h3>
+                    <p class="text-gray-600 dark:text-gray-300">全媒体传播矩阵构建、智库化转型与内容变革探索。</p>
+                </a>
+                
+                <a href="#future" class="card p-6 hover:border-rose-500 animate-fade-in animate-delay-4">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 mb-4">
+                        <i class="fas fa-rocket text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">五大行动计划</h3>
+                    <p class="text-gray-600 dark:text-gray-300">2025年新京报将推出的五大创新行动计划详情。</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 历史与现状 -->
+        <section id="history" class="section mb-20 opacity-0 animate-fade-in">
+            <h2 class="section-title text-3xl font-bold">关于新京报转型发展的历史与现状</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <div class="space-y-6">
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-bold mb-2">创办背景与发展历程</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                新京报于2003年由南方日报报业集团和光明日报报业集团联合创办，经历了都市报黄金时代的快速发展，并于2011年划归北京市委宣传部管理。其前十年的发展奠定了坚实基础，后续在新媒体领域的敏锐布局使其在媒体转型中占据优势。
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">2003年创办</span>
+                                <span class="tag">都市报黄金时代</span>
+                                <span class="tag">2011年体制调整</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-bold mb-2">媒体融合的探索</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                新京报在2012年开始布局新媒体，包括微信、微博、动新闻等，逐步形成了全媒体传播矩阵。其官方微博粉丝量达4700万，位居都市报之首，展现了强大的传播能力。
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">2012年布局新媒体</span>
+                                <span class="tag">微博粉丝4700万</span>
+                                <span class="tag">全媒体传播矩阵</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-bold mb-2">组织架构调整</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                新京报近年来推行中心化的组织架构改革，简化管理流程，提升执行效率，为媒体融合发展提供了组织保障。采用极度扁平化的操作模式，采编与经营分开，内容运营中心与客户端部门协同工作，提升了生产效率。
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">中心化改革</span>
+                                <span class="tag">扁平化管理</span>
+                                <span class="tag">采编经营分离</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 侧边数据展示 -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-4 border-gray-200 dark:border-gray-700">
+                        <i class="fas fa-chart-pie mr-2 text-blue-500"></i>
+                        关键数据指标
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">微博粉丝量</span>
+                                <span class="text-blue-600 dark:text-blue-400 font-bold">4700万+</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">位居都市报第一</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">新媒体平台</span>
+                                <span class="text-purple-600 dark:text-purple-400 font-bold">10+</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-purple-600 h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">覆盖主流社交媒体平台</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">智库服务</span>
+                                <span class="text-green-600 dark:text-green-400 font-bold">2家</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-green-600 h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">新京智库与天文智库</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">发展历程</span>
+                                <span class="text-rose-600 dark:text-rose-400 font-bold">20年</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-rose-600 h-2.5 rounded-full" style="width: 100%"></div>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">2003年至今</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <h4 class="font-semibold mb-4">组织架构特点</h4>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>扁平化管理结构</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>采编与经营分离</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>内容运营中心化</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>选题会与专题会机制</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 品牌与内容创新 -->
+        <section id="brand" class="section mb-20 opacity-0 animate-fade-in">
+            <h2 class="section-title text-3xl font-bold">关于新京报的品牌与内容创新</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6 hover:border-blue-500">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                            <i class="fas fa-search-plus text-xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">新闻采编与社会调查</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        新京报持续强化调查性报道和舆论监督，打造了如油罐车运输乱象调查等品牌报道，展现了其在民生领域的深度挖掘能力。在调查性报道中注重扎实采访与风险控制，确保报道的安全性与建设性。
+                    </p>
+                    <div class="flex flex-wrap mt-4">
+                        <span class="tag">调查性报道</span>
+                        <span class="tag">舆论监督</span>
+                        <span class="tag">民生关注</span>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <h4 class="font-semibold mb-2">代表性报道</h4>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-blue-500 mr-2 mt-1"></i>
+                                <span>油罐车运输乱象调查</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-blue-500 mr-2 mt-1"></i>
+                                <span>315消费者权益调查</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card p-6 hover:border-purple-500">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                            <i class="fas fa-bookmark text-xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">主题性报道的亮点</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        新京报在主题性报道中注重创新与差异化，如北京中轴线申遗报道、北京文化论坛等，力求在内容和形式上与其他媒体形成区隔。通过VR、3D、H5、动新闻等新技术，实现了多样化的内容呈现，增强了用户体验。
+                    </p>
+                    <div class="flex flex-wrap mt-4">
+                        <span class="tag">创新差异化</span>
+                        <span class="tag">融媒体呈现</span>
+                        <span class="tag">技术应用</span>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <h4 class="font-semibold mb-2">创新案例</h4>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-purple-500 mr-2 mt-1"></i>
+                                <span>北京中轴线申遗报道</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-purple-500 mr-2 mt-1"></i>
+                                <span>"百年红楼"主题报道</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-purple-500 mr-2 mt-1"></i>
+                                <span>中国海警与边防报道</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card p-6 hover:border-green-500">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                            <i class="fas fa-calendar-check text-xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">品牌活动与文化拓展</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        通过举办如贝壳财经年会、图书市集等活动，新京报将传统媒体资源延伸至线下，形成了品牌输出与文化传播的双重效应。"大国匠心"品牌活动通过弘扬工匠精神，成功延伸至线下公益展览，形成了品牌效应。
+                    </p>
+                    <div class="flex flex-wrap mt-4">
+                        <span class="tag">线下活动</span>
+                        <span class="tag">品牌延伸</span>
+                        <span class="tag">文创产品</span>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <h4 class="font-semibold mb-2">品牌活动</h4>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-green-500 mr-2 mt-1"></i>
+                                <span>贝壳财经年会</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-green-500 mr-2 mt-1"></i>
+                                <span>图书市集活动</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-green-500 mr-2 mt-1"></i>
+                                <span>"大国匠心"公益展览</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 内容策划与创新 -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-6 border-l-4 border-purple-500 pl-4">内容策划与主题报道创新实践</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h4 class="text-lg font-bold mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                            主题报道创新案例
+                        </h4>
+                        
+                        <div class="space-y-4">
+                            <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <h5 class="font-semibold mb-2">"百年红楼"报道</h5>
+                                <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                    通过从人、楼、物三个维度切入，结合纸媒特刊和融媒体产品，展现了主题报道的深度与广度。
+                                </p>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded">多维度呈现</span>
+                                    <span class="mx-2">|</span>
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-2 py-1 rounded">纸媒与融媒结合</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <h5 class="font-semibold mb-2">中轴线报道延展</h5>
+                                <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                    不仅限于传统报道形式，还通过文创产品、动新闻、AI技术等多种形式，成功实现了内容的多元化呈现。
+                                </p>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-2 py-1 rounded">跨媒体呈现</span>
+                                    <span class="mx-2">|</span>
+                                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-2 py-1 rounded">文创产品化</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <h5 class="font-semibold mb-2">中国海警与边防报道</h5>
+                                <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                    通过深入挖掘中国海警和边防士兵的工作内容，采用短视频、记者出镜等形式，展现了与央视不同的视角，获得了广泛认可。
+                                </p>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-2 py-1 rounded">差异化视角</span>
+                                    <span class="mx-2">|</span>
+                                    <span class="bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300 px-2 py-1 rounded">短视频呈现</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h4 class="text-lg font-bold mb-3 flex items-center">
+                            <i class="fas fa-bullhorn text-red-500 mr-2"></i>
+                            传播方式变革
+                        </h4>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-semibold mb-2">全媒体传播矩阵</h5>
+                                <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                    通过原创内容和品牌栏目，推动全媒体传播矩阵的建设，提升了内容的传播力和影响力。
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <div class="flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                                        <i class="fab fa-weixin text-green-500 mr-1"></i>
+                                        <span class="text-sm">微信</span>
+                                    </div>
+                                    <div class="flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                                        <i class="fab fa-weibo text-red-500 mr-1"></i>
+                                        <span class="text-sm">微博</span>
+                                    </div>
+                                    <div class="flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                                        <i class="fas fa-mobile-alt text-blue-500 mr-1"></i>
+                                        <span class="text-sm">客户端</span>
+                                    </div>
+                                    <div class="flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                                        <i class="fas fa-video text-purple-500 mr-1"></i>
+                                        <span class="text-sm">短视频</span>
+                                    </div>
+                                    <div class="flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                                        <i class="fas fa-podcast text-amber-500 mr-1"></i>
+                                        <span class="text-sm">音频</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                                <h5 class="font-semibold mb-2">错位竞争策略</h5>
+                                <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                    在315报道中，通过延长传播周期、错开央视的集中报道时间，采用多样化的传播形式，成功实现了传播效果的最大化。
+                                </p>
+                            </div>
+                            
+                            <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                                <h5 class="font-semibold mb-2">融媒体技术应用</h5>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
+                                    <div class="p-2 text-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                        <i class="fas fa-vr-cardboard text-2xl text-blue-500"></i>
+                                        <p class="text-sm mt-1">VR技术</p>
+                                    </div>
+                                    <div class="p-2 text-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                        <i class="fas fa-cube text-2xl text-purple-500"></i>
+                                        <p class="text-sm mt-1">3D展示</p>
+                                    </div>
+                                    <div class="p-2 text-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                        <i class="fas fa-file-code text-2xl text-green-500"></i>
+                                        <p class="text-sm mt-1">H5互动</p>
+                                    </div>
+                                    <div class="p-2 text-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                        <i class="fas fa-play-circle text-2xl text-red-500"></i>
+                                        <p class="text-sm mt-1">动新闻</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 媒体融合实践 -->
+        <section id="practice" class="section mb-20 opacity-0 animate-fade-in">
+            <h2 class="section-title text-3xl font-bold">关于新京报的媒体融合实践</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card p-6 hover:border-indigo-500">
+                        <div class="mb-4">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300">
+                                <i class="fas fa-network-wired text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">全媒体传播矩阵</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            新京报构建了包括报纸、杂志、客户端、微信、微博、音频、视频在内的全媒体传播矩阵，逻辑清晰、体系分明，整合效率高，形成了强大的传播网络。
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+                            <div class="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <i class="fas fa-newspaper text-2xl text-gray-700 dark:text-gray-300 mb-2"></i>
+                                <p class="text-sm">纸质媒体</p>
+                            </div>
+                            <div class="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <i class="fas fa-mobile-alt text-2xl text-blue-500 mb-2"></i>
+                                <p class="text-sm">移动客户端</p>
+                            </div>
+                            <div class="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <i class="fas fa-comment text-2xl text-green-500 mb-2"></i>
+                                <p class="text-sm">社交媒体</p>
+                            </div>
+                            <div class="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <i class="fas fa-video text-2xl text-red-500 mb-2"></i>
+                                <p class="text-sm">视听媒体</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6 hover:border-amber-500">
+                        <div class="mb-4">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300">
+                                <i class="fas fa-brain text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">智库化转型</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            新京报通过新京智库和天文智库，提供舆情监测、行业报告等服务，深度融入社会治理体系，探索媒体智库化发展的新路径。通过与北京证券交易所的深度合作，利用其金融机构服务资质，探索了与产权报道和经营结合的服务模式。
+                        </p>
+                        <div class="flex flex-wrap mt-4">
+                            <span class="tag">舆情监测</span>
+                            <span class="tag">行业报告</span>
+                            <span class="tag">金融信息服务</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6 hover:border-emerald-500">
+                        <div class="mb-4">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300">
+                                <i class="fas fa-edit text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">内容方向的变革</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            聚焦民生领域，强化监督性与建设性报道，注重回应社会关切，提升内容的政治正确性与可操作性。通过主动设置议题，强化权威声音的传播，促进社会理性思考与和谐稳定。
+                        </p>
+                        <div class="flex flex-wrap mt-4">
+                            <span class="tag">民生关注</span>
+                            <span class="tag">监督与建设</span>
+                            <span class="tag">政治正确性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6 hover:border-red-500">
+                        <div class="mb-4">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">风险控制与舆论引导</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            在调查性报道中注重扎实采访与风险控制，确保报道的安全性与建设性，同时强化舆论引导能力，稳健发声。在敏感议题上，通过设置合理议程，避免舆论失控，维护社会稳定。
+                        </p>
+                        <div class="flex flex-wrap mt-4">
+                            <span class="tag">风险评估</span>
+                            <span class="tag">舆论引导</span>
+                            <span class="tag">稳健发声</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-4 border-gray-200 dark:border-gray-700">
+                        <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                        创新服务案例
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-blue-700 dark:text-blue-300">政务服务</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                新京报推出了"政务服务"系列报道，如"中国答案"，并在内容品质和代运维方面表现出色，实现了价值传播和商业价值的双赢。
+                            </p>
+                            <div class="text-sm text-gray-500 dark:text-gray-400 italic">
+                                "通过深度挖掘政务服务背后的故事，展现政府服务创新的成果。"
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-green-700 dark:text-green-300">品牌活动</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                "大国匠心"品牌活动通过弘扬工匠精神，成功延伸至线下公益展览，形成了品牌效应，获得了社会各界的广泛认可。
+                            </p>
+                            <div class="flex mt-2 space-x-2">
+                                <img src="https://via.placeholder.com/60x60?text=活动1" alt="活动图片" class="w-12 h-12 rounded object-cover">
+                                <img src="https://via.placeholder.com/60x60?text=活动2" alt="活动图片" class="w-12 h-12 rounded object-cover">
+                                <img src="https://via.placeholder.com/60x60?text=活动3" alt="活动图片" class="w-12 h-12 rounded object-cover">
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-purple-700 dark:text-purple-300">教育培训与文创</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                新京报通过教育培训共享平台，促进资源深度交流，同时开发了如中轴线鼠标垫等文创产品，将报道内容延伸至线下消费领域。
+                            </p>
+                            <div class="flex items-center mt-2">
+                                <i class="fas fa-graduation-cap text-purple-500 mr-2"></i>
+                                <span class="text-sm">教育培训平台</span>
+                                <span class="mx-2">|</span>
+                                <i class="fas fa-paint-brush text-purple-500 mr-2"></i>
+                                <span class="text-sm">文创产品开发</span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-amber-700 dark:text-amber-300">金融信息服务</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">
+                                与北京证券交易所的深度合作，利用金融机构服务资质，探索了与产权报道和经营结合的服务模式，进一步拓展了智库服务的深度和广度。
+                            </p>
+                            <div class="text-sm text-gray-500 dark:text-gray-400 flex items-center mt-2">
+                                <i class="fas fa-chart-line mr-2 text-amber-500"></i>
+                                <span>金融信息分析与服务</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+            <!-- 组织架构与生产流程 -->
+            <div class="mt-12 card p-6">
+                <h3 class="text-2xl font-bold mb-6">
+                    <i class="fas fa-sitemap mr-2 text-indigo-500"></i>
+                    组织架构与生产流程
+                </h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">扁平化与中心化结合</h4>
+                        <div class="mb-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span class="text-gray-600 dark:text-gray-300">
+                                        采用极度扁平化的操作模式，采编与经营分开，提高决策效率
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span class="text-gray-600 dark:text-gray-300">
+                                        内容运营中心与客户端部门协同工作，优化资源配置
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span class="text-gray-600 dark:text-gray-300">
+                                        减少层级审批，提升执行力和创新活力
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <h4 class="text-lg font-bold mb-4">选题会与专题会机制</h4>
+                        <div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span class="text-gray-600 dark:text-gray-300">
+                                        通过中层参与的选题会和专题会，确保选题质量
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span class="text-gray-600 dark:text-gray-300">
+                                        总编辑协调整体策划，确保报道方向与质量
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span class="text-gray-600 dark:text-gray-300">
+                                        主题报道全媒体协同，资源统一调度
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <!-- 组织架构图 -->
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                            <h4 class="text-lg font-bold mb-4 text-center">新京报组织架构简图</h4>
+                            
+                            <div class="overflow-hidden">
+                                <div class="flex justify-center mb-4">
+                                    <div class="p-3 bg-blue-100 dark:bg-blue-900/50 rounded-lg text-center w-40">
+                                        <div class="font-semibold">总编辑</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-center mb-6">
+                                    <div class="w-0.5 h-6 bg-gray-400"></div>
+                                </div>
+                                
+                                <div class="flex justify-center space-x-6 mb-4">
+                                    <div class="p-3 bg-green-100 dark:bg-green-900/50 rounded-lg text-center w-32">
+                                        <div class="font-semibold">内容运营中心</div>
+                                    </div>
+                                    <div class="p-3 bg-purple-100 dark:bg-purple-900/50 rounded-lg text-center w-32">
+                                        <div class="font-semibold">经营管理中心</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-3 gap-3">
+                                    <div class="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-center">
+                                        <div class="font-medium text-sm">采编部门</div>
+                                    </div>
+                                    <div class="p-2 bg-amber-50 dark:bg-amber-900/30 rounded-lg text-center">
+                                        <div class="font-medium text-sm">新媒体部门</div>
+                                    </div>
+                                    <div class="p-2 bg-red-50 dark:bg-red-900/30 rounded-lg text-center">
+                                        <div class="font-medium text-sm">智库部门</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 text-sm text-gray-500 dark:text-gray-400">
+                                <p class="mb-2">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    扁平化管理结构，减少中间层级
+                                </p>
+                                <p>
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    采编与经营分离，保证内容独立性
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 五大行动计划 -->
+        <section id="future" class="section mb-20 opacity-0 animate-fade-in">
+            <h2 class="section-title text-3xl font-bold">新京报2025年五大行动计划</h2>
+            
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    2025年，新京报将在媒体深度融合的道路上继续发力，推出五大行动计划，为媒体发展注入新的活力与动力。
+                </p>
+            </div>
+            
+            <!-- 五大行动计划展示 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                <div class="lg:col-span-3">
+                    <div class="plan-card card p-8 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 hover:border-blue-500">
+                        <div class="flex flex-col md:flex-row md:items-start">
+                            <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                                <div class="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full plan-icon bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                                    <i class="fas fa-bullhorn text-3xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4 md:text-left">民生前哨计划</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4 md:text-left">
+                                    围绕"社会、人本、民生"，关注社会动态，聚集民生话题。打造民生报道"三个一"工程。
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                                    <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mr-3">
+                                                <i class="fas fa-comment-alt"></i>
+                                            </div>
+                                            <h4 class="font-semibold">一个民生报料平台</h4>
+                                        </div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                            利用互联网与社交平台便利，方便群众民生话题倾诉
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mr-3">
+                                                <i class="fas fa-users"></i>
+                                            </div>
+                                            <h4 class="font-semibold">一个民生互动栏目</h4>
+                                        </div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                            升级"有事儿@新京报"，了解民众急难愁盼，为百姓办好事办实事
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mr-3">
+                                                <i class="fas fa-search"></i>
+                                            </div>
+                                            <h4 class="font-semibold">一批调查报道</h4>
+                                        </div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                            聚焦重大民生领域问题，用扎实的调查、细致的采访、用心的求证、精准的文字推动社会治理
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plan-card card p-8 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 hover:border-purple-500">
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full plan-icon bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mb-6">
+                        <i class="fas fa-microchip text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">智媒升级计划</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        实施"智能、数据、产品"三轮驱动战略，全面推进智慧媒体建设。
+                    </p>
+                    
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">AI研究院深度合作</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    依托新京报AI研究院，深化AI领域报道，升级ESG智引大模型，与政府、科研机构、高校和企业在大模型等领域展开深度合作。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">智能采编体系</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    完善全媒体智能采编体系，建立媒体工作流及智能体，实现智能创作、编辑、分发一体化。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">数据资产链条</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    通过"采集—治理—应用—变现"数据资产全链条，构建统一数据中台和标准体系，实现数据规范管理和价值转化。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plan-card card p-8 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 hover:border-blue-500">
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full plan-icon bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mb-6">
+                        <i class="fas fa-expand-arrows-alt text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">融媒扩容计划</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        放大新京报内容价值和IP影响力，形成"一横一纵"融媒格局。
+                    </p>
+                    
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">客户端新闻+建设</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    将优质资源要素向互联网主阵地倾斜，以客户端新闻+建设，带动微博、微信、视频、音频矩阵影响力进一步延展。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">垂类账号建设</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    整合上下游资源，打造经济、民生领域若干垂类账号，专注特定圈层，为新媒体商业化赋能。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-copy"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">融媒模型复制</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    打造融媒模型，复制优秀IP团队能力和业务模式，在不同平台和地域扩大品牌影响力，为媒体IP品牌的打造提供方案和模板。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plan-card card p-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 hover:border-green-500">
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full plan-icon bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mb-6">
+                        <i class="fas fa-city text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">未来城市计划</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        携手全国知名高校，整合媒体资源与前沿技术，构建一套完整的城市品牌传播体系。
+                    </p>
+                    
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">城市品牌传播体系</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    以报告评价、主题报道、互动营销、峰会论坛、调研报告、媒介素养培训等内容模块，构建完整的城市品牌传播体系。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">品牌活动强化</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    强化新京智库春季论坛、贝壳财经夏季年会品牌，为城市形象增添多元传播渠道。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">30城品牌提升</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    通过精准的品牌推广策略与创新传播手段，助力30个城市全面提升品牌影响力，焕新城市形象，拓宽城市的传播维度，共同打造城市品牌综合提升方案。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plan-card card p-8 bg-gradient-to-br from-rose-50 to-red-50 dark:from-rose-900/20 dark:to-red-900/20 hover:border-rose-500">
+                    <div class="w-16 h-16 flex items-center justify-center rounded-full plan-icon bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 mb-6">
+                        <i class="fas fa-hand-holding-heart text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">公益回响计划</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        充分链接政府、企业、公益组织等资源，从公益的记录者、观察者变身为公益的服务者、赋能者。
+                    </p>
+                    
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">公益领域聚焦</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    聚焦凡人"微力量"、绿色低碳、企业社会责任等领域，发现并报道公益平台、企业募捐、基金会善举。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">"回响"公益栏目</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    推出"回响"公益视频栏目，开展"健康指南针"防骗辟谣公益社区行，让善举被看见，让善意有回响。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">公益传播生态</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    搭建全方位、立体化、多主体参与的公益传播平台，实现"发现—报道—连接—改变"的公益闭环。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 媒体融合使命总结 -->
+            <div class="card p-8 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 border-l-4 border-blue-500">
+                <h3 class="text-2xl font-bold mb-6 text-center md:text-left">媒体融合的新使命与新任务</h3>
+                
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                    媒体融合已经进入第二个十年，作为社会的守望者、时代的瞭望者，媒体必须准确深刻地理解现阶段的新使命、新任务，纵深推进系统性变革，不断提升记者编辑的能力本领，优化工作机制和评价体系，让主流成为顶流，让大流量澎湃正能量，让互联网这个"最大变量"变成"最大增量"，让主流思想舆论不断巩固壮大，让时代的强音始终响彻在舆论阵地的主战场。
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <div class="text-blue-600 dark:text-blue-300 font-semibold mb-2 flex items-center">
+                            <i class="fas fa-flag mr-2"></i>
+                            <span>守望社会</span>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            坚持媒体的社会责任感，关注民生议题，成为社会百态的真实记录者
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <div class="text-purple-600 dark:text-purple-300 font-semibold mb-2 flex items-center">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            <span>将主流变顶流</span>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            创新传播方式，提升主流内容的传播力和影响力，让主流舆论成为网络热点
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <div class="text-green-600 dark:text-green-300 font-semibold mb-2 flex items-center">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            <span>系统性变革</span>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            深化媒体融合发展改革，优化工作机制和评价体系，适应新媒体环境
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <div class="text-red-600 dark:text-red-300 font-semibold mb-2 flex items-center">
+                            <i class="fas fa-bullhorn mr-2"></i>
+                            <span>时代强音</span>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            发出时代的声音，讲好中国故事，让主流思想舆论在网络空间持续巩固壮大
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚区域 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 pt-12 pb-6">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
+                            <i class="fas fa-newspaper text-white text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">新京报媒体融合发展</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        本听课笔记记录了新京报在媒体融合背景下的创新发展策略，涵盖了产品创新、内容策划、传播方式变革、组织架构优化以及2025年将推出的五大行动计划。是了解当代媒体转型的重要参考资料。
+                    </p>
+                    <div class="flex space-x-4">
+            
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">快速导航</h4>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#overview" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                笔记概述
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#history" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                历史与现状
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#brand" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                品牌与内容
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#practice" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                融合实践
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#future" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                五大行动计划
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">相关资源</h4>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                新京报官网
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                媒体融合研究中心
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                传媒发展报告
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors">
+                                数字化转型案例库
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h4 class="font-semibold mb-2">老师信息</h4>
+                        <div class="flex items-center">
+                           
+                            <div>
+                                <p class="font-medium">新京报总编室主编 刘国良</p>
+                                <div class="flex space-x-2 mt-1">
+                          
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-gray-500 dark:text-gray-400 text-sm text-center md:text-right">
+                        <p>© 2023 新京报媒体融合发展听课笔记</p>
+                        <p class="mt-1">记录：黄作敏 保留所有权利 | 内部资料 谢绝转载</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // 检查系统主题和本地存储
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('theme');
+        
+        // 设置初始主题
+        if (storedTheme === 'dark' || (!storedTheme && prefersDarkMode)) {
+            html.classList.remove('light');
+            html.classList.add('dark');
+        }
+        
+        // 主题切换点击事件
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // 导航高亮与滚动监听
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        function highlightNav() {
+            let scrollPosition = window.scrollY;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        
+        // 滚动时显示淡入动画
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        function toggleBackToTopButton() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('translate-y-20', 'opacity-0');
+                backToTopButton.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                backToTopButton.classList.add('translate-y-20', 'opacity-0');
+                backToTopButton.classList.remove('translate-y-0', 'opacity-100');
+            }
+        }
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 滚动事件监听
+        window.addEventListener('scroll', () => {
+            highlightNav();
+            revealOnScroll();
+            toggleBackToTopButton();
+        });
+        
+        // 初始加载时检查
+        document.addEventListener('DOMContentLoaded', () => {
+            highlightNav();
+            revealOnScroll();
+            toggleBackToTopButton();
+            
+            // 平滑滚动到锚点
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
