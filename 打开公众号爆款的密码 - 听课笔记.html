@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打开公众号爆款的密码 - 听课笔记</title>
+    <link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #0066ff;
+            --primary-light: #3385ff;
+            --secondary: #4c5bb5;
+            --text: #2c3e50;
+            --text-light: #505965;
+            --bg-light: #ffffff;
+            --bg-dark: #111827;
+            --bg-card: #f5f7fa;
+            --bg-card-dark: #1f2937;
+            --border-light: #e5e7eb;
+            --border-dark: #374151;
+            --highlight: #f9fafb;
+            --highlight-dark: #1e293b;
+        }
+
+        .dark {
+            --text: #e5e7eb;
+            --text-light: #9ca3af;
+            --bg-card: var(--bg-card-dark);
+            --border-light: var(--border-dark);
+            --highlight: var(--highlight-dark);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: background-color 0.3s ease;
+            line-height: 1.7; /* 优化行高 */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.4; /* 优化标题行高 */
+        }
+
+        .content p {
+            margin-bottom: 1.5rem; /* 增加段落间距 */
+            line-height: 1.8;
+            max-width: 72ch; /* 限制行宽，提高可读性 */
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 延迟动画，按顺序淡入 */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        .highlight-text {
+            background: linear-gradient(transparent 70%, rgba(100, 149, 237, 0.3) 0%);
+            display: inline;
+            padding: 0 2px; /* 增加内边距 */
+        }
+
+        .dark .highlight-text {
+            background: linear-gradient(transparent 70%, rgba(100, 149, 237, 0.2) 0%);
+        }
+
+        .toc-link {
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            display: block;
+            margin-bottom: 0.5rem; /* 增加导航项间距 */
+        }
+
+        .toc-link:hover, .toc-link.active {
+            border-left: 3px solid var(--primary); /* 加粗活动状态边框 */
+            color: var(--primary);
+            font-weight: 500; /* 加粗活动状态文字 */
+        }
+        
+        /* 深色模式适配 */
+        .dark .bg-white { background-color: var(--bg-dark); }
+        .dark .bg-gray-50 { background-color: var(--bg-card-dark); }
+        .dark .bg-gray-100 { background-color: var(--highlight-dark); }
+        .dark .text-gray-900 { color: var(--text); }
+        .dark .text-gray-800 { color: var(--text); }
+        .dark .text-gray-700 { color: var(--text-light); }
+        .dark .text-gray-600 { color: var(--text-light); }
+        .dark .border-gray-200 { border-color: var(--border-dark); }
+        .dark .border-gray-100 { border-color: var(--border-dark); }
+
+        /* 关键内容高亮 */
+        .key-point {
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        /* 添加进度指示器 */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: var(--primary);
+            width: 0%;
+        }
+
+        /* 添加滚动到顶部按钮 */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        /* 添加卡片分隔线，提高视觉层次 */
+        .card + .card {
+            margin-top: 1.5rem;
+        }
+
+        /* 阅读指南样式 */
+        .reading-guide {
+            background: linear-gradient(135deg, #e6f7ff 0%, #e6fffa 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .dark .reading-guide {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 204, 204, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- 进度指示器 -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <nav class="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 backdrop-blur-lg bg-opacity-80 dark:bg-opacity-80 transition-all duration-300">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>返回笔记目录</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none transition-colors duration-300" aria-label="切换深色模式">
+                        <i class="fas fa-sun text-lg hidden dark:block"></i>
+                        <i class="fas fa-moon text-lg block dark:hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 标题区域 -->
+        <div class="mb-10 fade-in">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-center tracking-tight">打开公众号爆款的密码</h1>
+            <div class="flex flex-col sm:flex-row justify-center items-center text-gray-600 dark:text-gray-400 mb-8 space-y-2 sm:space-y-0 sm:space-x-6 text-sm">
+                <span class="flex items-center">
+                    <i class="fas fa-user mr-2"></i>
+                    讲者: 李凡宗 (平台运营部副主编)
+                </span>
+                <span class="flex items-center">
+                    <i class="fas fa-edit mr-2"></i>
+                    记录: 黄作敏
+                </span>
+                <span class="flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    时间: 2025.3.17
+                </span>
+            </div>
+            
+            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-100 dark:border-blue-800 mb-8 max-w-3xl mx-auto">
+                <h2 class="text-xl font-semibold mb-3 text-blue-800 dark:text-blue-300">核心主题</h2>
+                <p class="text-gray-700 dark:text-gray-300 text-base">
+                    本次分享围绕微信公众号的运营现状、挑战与策略，探讨内容选题、标题制作、用户互动和未来趋势。核心观点强调了<span class="font-semibold highlight-text">平台流量逻辑转变、用户阅读习惯迁移、情绪价值重要性和精细化运营</span>的关键作用。
+                </p>
+            </div>
+            
+            <!-- 阅读指南 -->
+            <div class="reading-guide max-w-3xl mx-auto">
+                <h3 class="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-200">阅读指南</h3>
+                <p class="text-sm text-gray-700 dark:text-gray-300">本笔记分为四个主要部分：宏观环境变化、运营核心逻辑、具体运营策略及未来趋势。阅读重点在于理解公众号流量分配的新机制和用户情绪驱动的内容生产模式。最后的常见问答部分总结了核心观点和实用策略。</p>
+            </div>
+        </div>
+
+        <!-- 两列布局：侧边导航 + 内容 -->
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+            <!-- 侧边导航 - 仅在大屏幕显示 -->
+            <div class="hidden lg:block">
+                <div class="sticky top-20">
+                    <nav class="space-y-1 mt-4">
+                        <h3 class="text-md font-semibold mb-4 text-gray-500 dark:text-gray-400 uppercase tracking-wider">目录</h3>
+                        <a href="#section1" class="toc-link py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">微信公众号运营的宏观环境变化</a>
+                        <a href="#section2" class="toc-link py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">运营核心逻辑：蹭热点与情绪价值</a>
+                        <a href="#section3" class="toc-link py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">微信公众号运营的具体策略</a>
+                        <a href="#section4" class="toc-link py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">未来趋势与建议</a>
+                        <a href="#qa-section" class="toc-link py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">常见问答</a>
+                    </nav>
+                    
+                    <!-- 小卡片：重要概念 -->
+                    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-md font-semibold mb-3 text-gray-700 dark:text-gray-300">核心关键词</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">情绪价值</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs font-medium">蹭热点</span>
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium">标题技巧</span>
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-medium">平台算法</span>
+                            <span class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-xs font-medium">用户互动</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 实用工具区 -->
+                    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-md font-semibold mb-3 text-gray-700 dark:text-gray-300">实用工具</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>
+                                <a href="https://weixin.qq.com/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                                    <i class="fab fa-weixin mr-2"></i>微信公众平台
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://s.weibo.com/top/summary" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                                    <i class="fab fa-weibo mr-2"></i>微博热搜榜
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncementlist" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                                    <i class="fas fa-bullhorn mr-2"></i>微信公众平台公告
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 主要内容区域 -->
+            <div class="lg:col-span-3 content">
+                <section id="section1" class="mb-12 fade-in delay-1">
+                    <div class="border-l-4 border-blue-500 pl-4 mb-6">
+                        <h2 class="text-2xl font-bold">一、微信公众号运营的宏观环境变化</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">流量瓶颈与平台分流</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                公众号的流量增长面临瓶颈，且被微博、抖音等平台分流。微信自身也在调整账号逻辑，<span class="key-point">流量不再完全依赖粉丝数量</span>。"现在算法的是流量掌握在平台手里，只有你发的内容能够符合平台的调性，能够让平台发注，如果没有的话，即使你有很多粉丝，流量也不会太好。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">平台主导流量分配</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                平台越来越倾向于将流量引导至符合其调性的内容，而非仅根据账号的粉丝数量分配。"当时还是以这些账号为主导，现在越来越是平台想让流量往哪些地方去，这个流量的潮水就向这个地方发展。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">短视频的冲击</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                短视频平台如抖音、视频号的崛起极大地改变了用户的生活习惯和信息消费方式。"早起第一件事打开抖音，上厕所一边拿着手机刷抖音。晚上睡觉之前最后一件事还是抖音，这跟18年以前形成了强烈的反差。" 这导致<span class="key-point">朋友圈的流量地位下降</span>，"现在几乎没有刷爆朋友圈的东西了，因为朋友圈已经不是一个流量的指标，不是成为一把尺子。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">"热搜"成为新的流量指标</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">"热搜"成为衡量内容火爆程度的重要指标</span>，媒体和政务账号纷纷在标题中提及热搜以吸引关注。"现在唯一的标的，唯一的指标只有热搜，你看现在媒体，包括一些政务账号，你能看到的账号。你的朋友圈能看到大家都在标题里面说，热搜爆了，那这个热搜第一，又上热搜，重上热搜。"
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="section2" class="mb-12 fade-in delay-2">
+                    <div class="border-l-4 border-green-500 pl-4 mb-6">
+                        <h2 class="text-2xl font-bold">二、当前运营的核心逻辑：蹭热点与情绪价值</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">"蹭热点"成为重要手段</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                对于内容创作能力不高的媒体，追逐热点成为获取流量的核心逻辑。"核心逻辑对于语言创作能力不太高的一些媒体，就是越来越怎么去蹭一些热点的流量。" 然而，<span class="key-point">很多此类内容缺乏深度</span>，仅是对热搜信息的简单搬运和网民观点的罗列。"只是把微博上一个热搜，翻到他的标题，翻到他的正文，说一下某某事发生的？这个网友是怎么看的？"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">情绪消费的崛起</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                用户在信息消费时，<span class="key-point">越来越注重信息背后的情绪价值</span>而非纯粹的事实资讯。"其实就是消费者里面，这不光是一个信息的消费，它主要是一个情绪的消费。" 短视频的流行进一步强化了这种趋势，用户通过信息寻求情感的共鸣、价值观的认同甚至阴谋论的满足。"大家其实越来越消费的根本不是什么资讯就是什么信息，是这些信息背后所蕴含的情绪、价值观，包括一些阴谋论，他其实都消费这个东西了。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">自媒体承接情绪流量</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                大量自媒体通过<span class="key-point">承接和放大用户的情绪来获取流量</span>，这部分流量原本可能属于传统媒体。"但是大量的自媒体利用这个机会把他们的情绪承接过去，就拿这个不管是善恶，正义，好多观念，一些朴素的道德观，朴素的正义观去把这个流量介入。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">平台弱化账号品牌</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                微信等平台正在<span class="key-point">弱化账号的品牌效应</span>，更加注重内容本身的质量和平台的整体用户留存。"现在越来越弱化账号的作用。你看你的微信，现在我经常对微信这个灰度测试第一条还是我关注的，后面给我推了一堆，都不是我关注的账号。说你可能感兴趣，他就不断的在测试流量。"
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="section3" class="mb-12 fade-in delay-3">
+                    <div class="border-l-4 border-purple-500 pl-4 mb-6">
+                        <h2 class="text-2xl font-bold">三、微信公众号运营的具体策略</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">公众号定位与人群细分</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">明确公众号的定位和目标受众至关重要</span>，不同的定位决定了内容选题和呈现方式。"第一个就是我号想要面对的人群，想要做什么，你说做一个地方信息的发布还是什么，但说白了，地方信息的发布这样一个平台，你就不要希望它的流量有多大，它的稿子的点击量有多大，因为它这个服务性的信息。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">内容选题的三个"势能"</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-medium text-blue-600 dark:text-blue-400">1. 借势（蹭热点）</h4>
+                                    <p class="text-gray-700 dark:text-gray-300">
+                                        巧妙地结合微博热搜等热点事件进行内容创作，可以进行知识科普或观点解读。"第一个就是微博热搜借势，有热点，说白了咱就是蹭热点。同样蹭热点，有高级有低级之分，你高级一点，你很巧妙的把热搜从到了给了大家科普，一些知识分享。"
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-blue-600 dark:text-blue-400">2. 造势（原创策划）</h4>
+                                    <p class="text-gray-700 dark:text-gray-300">
+                                        如果有强大的原创能力和对用户兴趣点的准确把握，可以进行自主策划。"如果你有非常强的原创能力，你知道哪些点能火。那你就自己去创作，其实很多信息，我们内容制作者有些信息，有些审题做之前就决定就知道，这个东西肯定会有量。"
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-blue-600 dark:text-blue-400">3. 顺势（整合关注）</h4>
+                                    <p class="text-gray-700 dark:text-gray-300">
+                                        整合受众普遍关注的热点话题，进行梳理和解读。"另外一个是选题的两个特点，特点就是之前热过的点，过段时间还会热。就年年315，像今年315做的一个电缆什么的，去年我们也做过。"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">标题的重要性超越封面</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                由于平台展示机制的变化，<span class="key-point">标题的重要性日益凸显</span>。"但是说实话，现在封面的重要性远远没有标题，而是越来越不如，因为我不知道大家知不知道，在稍等，因为在那个很多你的常驻用户非常驻用户的显示里面，你头图的大图是显示不出来的，你做了半天大图显示不出来，它还是个小图。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">标题制作技巧</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded shadow border border-gray-100 dark:border-gray-600 hover:shadow-md transition-shadow duration-300">
+                                    <span class="text-base font-semibold text-blue-600 dark:text-blue-400">口语化表达</span>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">降低用户理解门槛，更容易在社交场景中传播。用户在朋友圈和聊天记录中接受门槛低，认知成本低。</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded shadow border border-gray-100 dark:border-gray-600 hover:shadow-md transition-shadow duration-300">
+                                    <span class="text-base font-semibold text-blue-600 dark:text-blue-400">数字的运用</span>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">阿拉伯数字比汉字更容易被用户接受。有数字的标题通常更吸引人，需使用阿拉伯数字而非汉字数字。</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded shadow border border-gray-100 dark:border-gray-600 hover:shadow-md transition-shadow duration-300">
+                                    <span class="text-base font-semibold text-blue-600 dark:text-blue-400">悬念与反转</span>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">在标题中隐含冲突或意想不到的信息，吸引用户点击。可能的话要在标题里面隐含反转、冲突等元素。</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded shadow border border-gray-100 dark:border-gray-600 hover:shadow-md transition-shadow duration-300">
+                                    <span class="text-base font-semibold text-blue-600 dark:text-blue-400">利用热词与梗</span>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">巧妙地使用网络热词、流行语和表情符号，增加趣味性和传播性。根据选题适当运用网络热梗和流行歌曲。</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded shadow border border-gray-100 dark:border-gray-600 hover:shadow-md transition-shadow duration-300">
+                                    <span class="text-base font-semibold text-blue-600 dark:text-blue-400">借用"热搜"效应</span>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">在标题中提及"热搜"以利用用户对热点信息的关注。很多媒体已经在使用这种方法提升点击率。</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded shadow border border-gray-100 dark:border-gray-600 hover:shadow-md transition-shadow duration-300">
+                                    <span class="text-base font-semibold text-blue-600 dark:text-blue-400">引用"央媒评论"</span>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">针对热点事件，引用央媒的评论可以提升权威性和引导性。利用央媒对热点事件的短评和表态增加可信度。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">重视评论区互动</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">评论区也是内容生产的重要部分</span>，积极与用户互动，甚至可以引导话题和制造新热点。"第二部分就是评论区，也是内容生产的一部分，我觉得这一点非常重要。跟我跟大家交流的那个一样，你的评论区，你不是说我发这些内容，我的标题是我的稿件的内容，我的封面是我的内容，我的内容是我的内容，我的评论区跟我无关，不是这样的。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">内容呈现形式的演变</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                从纯图文到长图文，再到H5互动，微信公众号的内容呈现形式不断演变，但目前来看，<span class="key-point">制作复杂、成本高昂的互动内容效果并不一定最好</span>。"可以说今日一个纯图文，就是图示说新闻图片或者这个应景的一些图片，加这个文字到这个长图，纯图文时代就需要你的文笔特别好…但现在，作用越来越少了，周期比较长，这个社会效果，你说好吧，也不一定好，很难去判断。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">增粉策略</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">贴合热点打造爆款、利用政务资源、聚焦特定群体举办活动</span>等是常见的增粉方式。"增粉如果你粉丝量比较少的话，努力贴合热点打造10万加。如果有当地的政务资源，把政府资源迁移过来也可以相对来简单一点。如果你想聚焦某类群体，你如果有很多资质可以办领，他可以弄策划大赛。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">关注"微信快讯"机制</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">了解微信快讯的推荐规则</span>，有助于提升内容的曝光度。"然后他们说哪些稿子是会更好的入取咱们的快讯？那时效性要有标题的关键信息，有图片，视频有视频号的话更好。"
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="section4" class="mb-12 fade-in delay-4">
+                    <div class="border-l-4 border-yellow-500 pl-4 mb-6">
+                        <h2 class="text-2xl font-bold">四、未来趋势与建议</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">持续学习与创新</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">标题制作和内容运营是一个不断学习和创新的过程</span>，需要持续关注行业动态和用户反馈。"其实标题这个事情，是一个不断学习的过程，你说，我们哗就起到一个一看学过这些，能起一个非常好的标题嘛，我觉得如果你之前没用过这些方式，用用还行，但是你每天都用。你自己有一段时间你也有审美疲劳了，就审美疲劳。"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">平衡流量与价值观</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                媒体在追求流量的同时，<span class="key-point">应坚守专业性和社会责任</span>，避免过度依赖低俗或虚假信息。良好的内容质量和正向的价值观引导，长期来看更有利于品牌建设和用户信任的培养。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">拥抱多平台融合</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="key-point">微信公众号不再是唯一的传播阵地</span>，应积极探索与其他平台的联动，例如通过短视频为公众号导流。多平台内容分发和交叉引流将成为未来趋势，可以有效扩大内容触达面和影响力。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 总结卡片 -->
+                    <div class="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 border border-blue-100 dark:border-blue-800 shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-800 dark:text-blue-300">总结</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            本次分享揭示了当前微信公众号运营面临的挑战和机遇。平台流量逻辑的转变和用户阅读习惯的迁移要求运营者必须转变思路，更加注重内容质量、情绪价值和传播技巧。通过精细化的内容选题、巧妙的标题制作、积极的用户互动以及对平台规则的理解与运用，才能在竞争激烈的媒体环境中获得持续关注和发展。
+                        </p>
+                    </div>
+                </section>
+                
+                <!-- 常见问答部分 -->
+                <section id="qa-section" class="mb-12 fade-in delay-5">
+                    <div class="border-l-4 border-red-500 pl-4 mb-6">
+                        <h2 class="text-2xl font-bold">常见问答</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">在新媒体环境下，公众号如何适应用户阅读习惯和平台算法的转变？</h3>
+                            <div class="text-gray-700 dark:text-gray-300 space-y-4">
+                                <p>在新媒体环境下，公众号要维持影响力，需要深刻理解并适应用户阅读习惯和平台算法的转变：</p>
+                                
+                                <div class="mt-3">
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-2">深刻理解并迎合用户阅读习惯的转变</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li><strong>内容呈现短平快：</strong> 考虑更加精炼和直接的内容形式，突出核心信息，减少冗长文字</li>
+                                        <li><strong>重视情绪价值和共鸣：</strong> 创作能够引发用户共情、愤怒或好奇的内容</li>
+                                        <li><strong>提供社交货币：</strong> 创作用户愿意分享的内容，使其成为社交谈资</li>
+                                        <li><strong>关注评论区互动：</strong> 积极引导评论区讨论，利用精彩评论引发新的关注</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-2">积极应对平台算法的调整</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li><strong>理解流量分配机制：</strong> 认识到平台算法将流量掌握在手中，内容需要符合平台调性</li>
+                                        <li><strong>重视内容质量和独特性：</strong> 高质量的原创内容仍然是核心竞争力</li>
+                                        <li><strong>提高内容被分享的几率：</strong> 转发是公众号涨粉的关键逻辑</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">公众号内容生产应关注哪些用户情绪？</h3>
+                            <div class="text-gray-700 dark:text-gray-300 space-y-4">
+                                <p>公众号内容生产应重点关注以下用户情绪，以适应用户阅读习惯和平台算法的转变，并维持影响力:</p>
+                                
+                                <ul class="list-disc pl-5 space-y-3">
+                                    <li>
+                                        <strong>共情:</strong> 
+                                        <p class="mt-1">提供能够引起用户共鸣的内容，包括对弱势群体的同情和理解，以及对普遍情感体验的触动。</p>
+                                    </li>
+                                    <li>
+                                        <strong>愤怒:</strong> 
+                                        <p class="mt-1">针对社会不公、道德沦丧等负面事件表达愤怒，能够迅速抓住用户的注意力，引发广泛讨论和分享。</p>
+                                    </li>
+                                    <li>
+                                        <strong>好奇:</strong> 
+                                        <p class="mt-1">通过悬念、反转、以及与热点事件相关联的方式设置标题，激发用户的好奇心，促使其点击阅读。</p>
+                                    </li>
+                                    <li>
+                                        <strong>价值认同:</strong> 
+                                        <p class="mt-1">内容应能传递符合用户基本价值观（如正义、公平）的信息，或者帮助用户表达自己的价值观和认知。</p>
+                                    </li>
+                                    <li>
+                                        <strong>情绪释放:</strong> 
+                                        <p class="mt-1">用户在消费信息时，往往也在寻求情绪的释放和共鸣，平台算法也倾向于推送能够引发情绪波动的内容。</p>
+                                    </li>
+                                </ul>
+                                
+                                <p class="mt-4">总之，公众号内容生产需要超越简单的信息传递，深入挖掘和回应用户的情绪需求，才能获得用户的持续关注和认可。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">新媒体运营在公众号平台的核心逻辑是什么？</h3>
+                            <div class="text-gray-700 dark:text-gray-300 space-y-4">
+                                <p>在新媒体环境下，公众号平台运营的核心逻辑可以概括为<strong>深刻理解并迎合用户的情绪需求和平台的流量分配机制，以提升内容的可见性和用户的参与度</strong>。</p>
+                                
+                                <div class="space-y-4 mt-3">
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-blue-600 dark:text-blue-400 mb-2">情绪驱动的内容生产</h4>
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>当前用户在信息消费时，越来越看重内容所承载的情绪价值</li>
+                                            <li>用户的注意力更多地被能够触动他们情感的内容所吸引</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-blue-600 dark:text-blue-400 mb-2">适应平台算法的流量策略</h4>
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>微信公众号的流量越来越受到平台算法的控制</li>
+                                            <li>要关注并利用平台的流量机制，例如<strong>"快讯"</strong>功能</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-blue-600 dark:text-blue-400 mb-2">标题的创新与优化</h4>
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>在用户主动浏览公众号列表意愿降低的情况下，<strong>标题成为吸引点击的关键</strong></li>
+                                            <li>采用更<strong>口语化、更贴近用户表达习惯</strong>的标题</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <p class="mt-4">总之，新媒体运营在公众号平台的核心逻辑是<strong>以用户的情绪需求为导向，以平台算法为依据，通过创新内容和互动方式，在激烈的流量竞争中争取用户的注意力和时间</strong>。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">在微信公众号中插入视频的实际效果如何？</h3>
+                            <div class="text-gray-700 dark:text-gray-300 space-y-4">
+                                <p>根据分享内容，在微信公众号中插入视频的实际效果可以总结如下：</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-red-600 dark:text-red-400 mb-2">用户观看意愿较低</h4>
+                                        <p class="text-sm">尽管用户已习惯视频内容，但<strong>不习惯在公众号文章中观看视频</strong>。用户打开公众号主要是为了阅读文字，而非观看视频。</p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-red-600 dark:text-red-400 mb-2">心理代价较高</h4>
+                                        <p class="text-sm">用户在公众号中点击观看视频需要付出更高的"心理代价"。这与在抖音等专业视频平台的预期不同，可能打断阅读体验。</p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-red-600 dark:text-red-400 mb-2">播放量远低于阅读量</h4>
+                                        <p class="text-sm">即使文章阅读量高，其中的视频播放量通常只有阅读量的两三成。大多数用户不会点击观看嵌入的视频。</p>
+                                    </div>
+                                    
+                                    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                                        <h4 class="font-medium text-red-600 dark:text-red-400 mb-2">与平台定位不符</h4>
+                                        <p class="text-sm">公众号在用户心中仍以文字内容为主。频繁插入视频可能与用户对该平台的预期不符，降低用户体验。</p>
+                                    </div>
+                                </div>
+                                
+                                <p class="mt-4 font-medium">总结：<span class="font-normal">直接在微信公众号文章中插入视频，其观看效果通常不佳，用户观看意愿和实际播放量都相对较低。用户更倾向于在专业视频平台观看视频，而在公众号中更习惯阅读文字内容。</span></p>
+                            </div>
+                        </div>
+                        
+                        <!-- 新增问答 -->
+                        <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-lg card">
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">当前媒体公众号运营面临的主要流量变化是什么？</h3>
+                            <div class="text-gray-700 dark:text-gray-300 space-y-4">
+                                <p>当前媒体公众号运营面临的主要流量变化体现在以下几个方面：</p>
+                                
+                                <div class="space-y-3 mt-3">
+                                    <div class="flex">
+                                        <div class="rounded-full bg-blue-100 dark:bg-blue-900 h-7 w-7 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <span class="text-blue-800 dark:text-blue-200 text-sm font-medium">1</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-800 dark:text-gray-200">平台算法主导流量分配</h4>
+                                            <p class="text-sm mt-1">微信等平台算法越来越掌握流量分配权，只有发布符合平台调性的内容，才更可能获得推荐和流量。</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex">
+                                        <div class="rounded-full bg-blue-100 dark:bg-blue-900 h-7 w-7 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <span class="text-blue-800 dark:text-blue-200 text-sm font-medium">2</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-800 dark:text-gray-200">账号主导地位弱化，内容本身更重要</h4>
+                                            <p class="text-sm mt-1">用户的微信阅读习惯从关注特定账号转向更多接受平台推荐。用户更关注内容本身以及内容所蕴含的情绪价值。</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex">
+                                        <div class="rounded-full bg-blue-100 dark:bg-blue-900 h-7 w-7 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <span class="text-blue-800 dark:text-blue-200 text-sm font-medium">3</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-800 dark:text-gray-200">"朋友圈"影响力下降，"热搜"崛起</h4>
+                                            <p class="text-sm mt-1">"刷爆朋友圈"已不再是衡量内容火爆程度的指标，"热搜"成为新的流量标杆。媒体和政务账号都在标题中强调"热搜"。</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex">
+                                        <div class="rounded-full bg-blue-100 dark:bg-blue-900 h-7 w-7 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <span class="text-blue-800 dark:text-blue-200 text-sm font-medium">4</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-800 dark:text-gray-200">短视频平台抢占用户时间</h4>
+                                            <p class="text-sm mt-1">抖音等短视频平台极大改变了用户的资讯消费习惯，导致微信公众号的阅读时间被挤压。</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex">
+                                        <div class="rounded-full bg-blue-100 dark:bg-blue-900 h-7 w-7 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <span class="text-blue-800 dark:text-blue-200 text-sm font-medium">5</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-800 dark:text-gray-200">情绪消费的重要性凸显</h4>
+                                            <p class="text-sm mt-1">用户在信息消费过程中，越来越看重信息背后所蕴含的情绪、价值观等。自媒体更多地承接了用户的情绪需求。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 实用工具部分 -->
+        
+            </div>
+        </div>
+    </main>
+
+    <!-- 滚动到顶部按钮 -->
+    <button id="scrollTopBtn" class="scroll-top" aria-label="回到顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-10 mt-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">记录整理</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">黄作敏</p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/username" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="https://twitter.com/username" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/username" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">相关笔记</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:underline">返回笔记目录</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">新媒体运营策略进阶</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">短视频内容创作指南</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">社交媒体算法解析</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-600 dark:text-gray-400 text-sm">
+                <p>© 2025 内部资料谢绝转载. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 深色模式切换
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // 检查系统偏好和本地存储
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const savedTheme = localStorage.getItem('theme');
+        
+        // 初始化主题
+        if (savedTheme === 'dark' || (!savedTheme && darkModeMediaQuery.matches)) {
+            htmlElement.classList.add('dark');
+        }
+        
+        // 主题切换按钮点击事件
+        themeToggleButton.addEventListener('click', function() {
+            htmlElement.classList.toggle('dark');
+            
+            // 保存用户偏好
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // 监听系统偏好变化
+        darkModeMediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    htmlElement.classList.add('dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                }
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // 减去导航栏的高度
+                        behavior: 'smooth'
+                    });
+                    
+                    // 更新活动状态
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // 滚动时更新目录活动状态和滚动进度
+        window.addEventListener('scroll', () => {
+            // 更新页面阅读进度
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+            
+            // 更新目录活动状态
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPosition = window.scrollY + 100; // 加一点偏移以提高准确性
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+            
+            // 控制回到顶部按钮显示
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (winScroll > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // 回到顶部按钮点击事件
+        document.getElementById('scrollTopBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
