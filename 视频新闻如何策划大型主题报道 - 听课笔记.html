@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频新闻如何策划大型主题报道 - 听课笔记</title>
+    <!-- 使用更可靠的CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css">
+    <style>
+        /* 基础样式设置 */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        /* 深色模式 */
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .bg-white {
+            background-color: #2d3748 !important;
+        }
+        
+        .dark-mode .text-gray-800 {
+            color: #e2e8f0 !important;
+        }
+        
+        .dark-mode .text-gray-700 {
+            color: #cbd5e0 !important;
+        }
+        
+        .dark-mode .text-gray-600 {
+            color: #a0aec0 !important;
+        }
+        
+        .dark-mode .border-gray-200 {
+            border-color: #4a5568 !important;
+        }
+        
+        .dark-mode .card {
+            background-color: #2d3748 !important;
+            border-color: #4a5568 !important;
+        }
+        
+        .dark-mode .bg-gray-100 {
+            background-color: #2d3748 !important;
+        }
+        
+        /* 卡片样式 */
+        .card {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 引用样式 */
+        .quote {
+            position: relative;
+            padding: 1.5rem;
+            background-color: #f7fafc;
+            border-left: 4px solid #4299e1;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        .dark-mode .quote {
+            background-color: #2c3e50;
+            border-left-color: #63b3ed;
+        }
+        
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .dark-mode .navbar {
+            background-color: #2d3748;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 基础间距 */
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+        
+        h1, h2, h3, h4, h5 {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.8rem; margin-top: 2.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+        
+        p { margin-bottom: 1rem; }
+        
+        .dark-mode h2 { border-bottom-color: #4a5568; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .grid-cols-5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+        .my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+        .my-8 { margin-top: 2rem; margin-bottom: 2rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-10 { margin-bottom: 2.5rem; }
+        .mr-2 { margin-right: 0.5rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        
+        .p-2 { padding: 0.5rem; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .pl-6 { padding-left: 1.5rem; }
+        
+        .w-full { width: 100%; }
+        .max-w-4xl { max-width: 56rem; }
+        
+        .rounded { border-radius: 0.25rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-full { border-radius: 9999px; }
+        
+        .shadow-sm { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        
+        .text-white { color: #fff; }
+        .text-gray-200 { color: #e5e7eb; }
+        .text-gray-300 { color: #d1d5db; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-600 { color: #4b5563; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-900 { color: #111827; }
+        .text-blue-600 { color: #2563eb; }
+        .text-blue-700 { color: #1d4ed8; }
+        .text-green-500 { color: #10b981; }
+        .text-yellow-500 { color: #f59e0b; }
+        .text-red-500 { color: #ef4444; }
+        
+        .bg-white { background-color: #fff; }
+        .bg-gray-100 { background-color: #f3f4f6; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-blue-100 { background-color: #dbeafe; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-green-50 { background-color: #ecfdf5; }
+        .bg-yellow-50 { background-color: #fffbeb; }
+        .bg-purple-100 { background-color: #f3e8ff; }
+        
+        .hover\:bg-gray-200:hover { background-color: #e5e7eb; }
+        .hover\:text-blue-600:hover { color: #2563eb; }
+        
+        .transition { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; }
+        .transition-colors { transition-property: background-color, border-color, color, fill, stroke; }
+        .duration-300 { transition-duration: 0.3s; }
+        
+        .list-disc { list-style-type: disc; padding-left: 1.5rem; }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="navbar py-3 px-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>返回听课笔记目录</span>
+            </a>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 transition-colors">
+                <i class="fas fa-sun text-yellow-500" id="sun-icon"></i>
+                <i class="fas fa-moon text-blue-600" id="moon-icon" style="display: none;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="my-8 fade-in">
+            <h1 class="text-3xl font-bold mb-2 text-center text-gray-900">视频新闻如何策划大型主题报道</h1>
+            <div class="flex flex-col items-center mb-8 text-center text-gray-600">
+                <p class="mb-2">主讲人：田昊文 · 政务服务部资深编辑</p>
+                <p>记录与整理：黄作敏</p>
+            </div>
+            <div class="w-32 h-1 mx-auto bg-blue-600 rounded mb-12"></div>
+        </div>
+
+        <div class="fade-in">
+            <p class="text-lg mb-8">
+                关于融媒体主题策划的经验和方法。主讲人以其团队策划的"身后是我的国"——聚焦边防战士生活的大型融媒体项目为例，详细阐述了从前期准备到后期执行、再到小型日常策划的思路与实践，并总结了策划成功的关键要素。
+            </p>
+
+            <!-- 第一部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">一、主题策划的背景与目标</h2>
+                <div class="space-y-4">
+                    <div class="quote">
+                        <p class="text-gray-700">
+                            当时就是在这样一个中印冲突的一个大的国际背景之下，然后当时其实很多媒体有转发这个报道，然后做了一些这种快讯类的一些资讯的内容，然后我们也在想，就是除了就是转发这个报道，我们作为一个媒体还能做什么。然后当时就是在这样一个背景下有了这样一个策划。
+                        </p>
+                    </div>
+                    
+                    <p>策划的启动源于特定的国际背景——中印冲突，媒体希望超越新闻快讯，提供更深层次、更具人文关怀的报道。</p>
+                    
+                    <div class="quote">
+                        <p class="text-gray-700">
+                            所是困难这么多驻守边关的士兵，就像格桑花一般生态在这里。
+                        </p>
+                    </div>
+                    
+                    <p>策划的核心是展现边防战士艰苦的生活环境和如同格桑花般顽强扎根的精神。</p>
+                    
+                    <div class="quote">
+                        <p class="text-gray-700">
+                            派派我们的前方记者呢，与边防战士们同吃住同巡逻。
+                        </p>
+                    </div>
+                    
+                    <p>采取记者深入一线、与战士同吃同住同巡逻的体验式报道，旨在展现战士们真实的生活状态和精神风貌。</p>
+                </div>
+            </section>
+
+            <!-- 第二部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">二、"身后是我的国"策划的筹备阶段（前期准备的十大步骤）</h2>
+                
+                <p class="my-4">主讲人详细介绍了大型主题策划的十个前期准备步骤，强调了充分准备的重要性，认为准备阶段耗费了大约40%的精力。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">1</span>
+                            <h3 class="text-xl font-semibold">了解项目背景</h3>
+                        </div>
+                        <p class="text-gray-700">深入理解事件发生的宏观环境，明确策划的出发点和意义。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">2</span>
+                            <h3 class="text-xl font-semibold">成立项目小组</h3>
+                        </div>
+                        <p class="text-gray-700">根据项目需求和团队成员的特长进行人员调配，形成高效的项目团队。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">3</span>
+                            <h3 class="text-xl font-semibold">脑暴（Brainstorming）</h3>
+                        </div>
+                        <p class="text-gray-700">通过集体讨论，激发创意，碰撞出新的想法和角度。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">4</span>
+                            <h3 class="text-xl font-semibold">各取所长，明确分工</h3>
+                        </div>
+                        <p class="text-gray-700">根据团队成员的特点和优势分配任务，确保每个人都能在最擅长的领域发挥作用。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">5</span>
+                            <h3 class="text-xl font-semibold">提前预案</h3>
+                        </div>
+                        <p class="text-gray-700">制定详细的执行计划和应急预案，不打无准备之仗。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">6</span>
+                            <h3 class="text-xl font-semibold">项目名称</h3>
+                        </div>
+                        <p class="text-gray-700">项目名称能够赋予内容更多的意义，如同精美的包装对于巧克力一样。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">7</span>
+                            <h3 class="text-xl font-semibold">出片的类型</h3>
+                        </div>
+                        <p class="text-gray-700">为系列策划设定明确的视频类型，让内容多而不散。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">8</span>
+                            <h3 class="text-xl font-semibold">各类片的思路细化</h3>
+                        </div>
+                        <p class="text-gray-700">明确每天必拍的内容和可以发挥的内容，为前方记者提供清晰的拍摄指引。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">9</span>
+                            <h3 class="text-xl font-semibold">制作期限</h3>
+                        </div>
+                        <p class="text-gray-700">为每个视频设定明确的交片时间，把控整体项目进度。</p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white text-sm font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3">10</span>
+                            <h3 class="text-xl font-semibold">终端宣发（前期）</h3>
+                        </div>
+                        <p class="text-gray-700">在项目启动初期就与各大平台沟通，争取推广资源和位置。</p>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg my-6">
+                    <p class="text-gray-700 italic">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                        主讲人认为，在主题策划中，前期准备占据了总工作量的约40%，这一阶段的充分准备是项目成功的基础。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 第三部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">三、"身后是我的国"策划的执行阶段</h2>
+                
+                <p class="my-4">在充分的准备基础上，执行阶段主要强调以下几点：</p>
+                
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3">1. 明确分工，高效对接</h3>
+                        <div class="quote">
+                            <p class="text-gray-700">
+                                我们的任务都已经明确了我干干嘛你干嘛，大家都是各司其职，然后包包括刚才和各位老师们分享的，我们喜欢用这个云端的来方式来对接，所以就是各司其职，云端高效进行对接就可以了。
+                            </p>
+                        </div>
+                        <p class="text-gray-700 mt-4">
+                            项目成员各司其职，利用云端工具进行高效协作和沟通。统筹负责整体质量把控、进度管理和内外协调。前方团队保证完成每日拍摄目标，后方团队负责高质量内容的及时产出。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3">2. 每日素材回看与质量把控</h3>
+                        <div class="quote">
+                            <p class="text-gray-700">
+                                很重要的一个事儿就是我们要回看每天的一个素材，然后，基本上我们一个素材可能经过了五六分的把控。
+                            </p>
+                        </div>
+                        <p class="text-gray-700 mt-4">
+                            通过多层级的素材审核，确保内容质量。摄像、记者、统筹、编导等都会对素材进行观看和筛选。统筹负责提炼关键信息，编导负责挑选精彩内容。
+                        </p>
+                        <div class="quote mt-4">
+                            <p class="text-gray-700">
+                                像当时我们的这个策划的话，他都不是拍的那种K啊，什么就只是就是正常的高清视频，然后我们的素材量就已经达到了700多G。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3">3. 复盘</h3>
+                        <div class="quote">
+                            <p class="text-gray-700">
+                                第三个，也是跟老师们一定要分享的一个我觉得很实用的小经验，就是复盘。
+                            </p>
+                        </div>
+                        <p class="text-gray-700 mt-4">
+                            团队每天晚上进行复盘，总结经验教训，及时调整策略。复盘机制促成了"给边防战士送祝福"这一感人环节的策划与实施，弥补了原计划拍摄内容的不足。
+                        </p>
+                        <div class="quote mt-4">
+                            <p class="text-gray-700">
+                                我们当时就是在半夜复盘的时候，然后大家聊到第二天的那个拍摄任务，然后包括今天的一个拍摄进度的时候，然后聊的时候说有一个很大的问题。我们预计预计的第二天要去的那个地方的话，就是他没有办法拍到我们预期的内容。
+                            </p>
+                        </div>
+                        <p class="text-gray-700 mt-4">通过复盘，团队紧急策划了联系家属送祝福的方案，并成功制作出感人的视频内容。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第四部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">四、后期推广（剩余5%的精力）</h2>
+                
+                <div class="quote">
+                    <p class="text-gray-700">
+                        最后那一小块，咱们后面再说，剩下那5%留给谁？嗯，然后其实前面有了非常详细详细的一个复杂的准备工作以后，真正到执行的时候，他没有那么没有那么麻烦了。
+                    </p>
+                </div>
+                
+                <p class="text-gray-700 my-4">主讲人强调后期推广的重要性，认为这是项目成功的关键一环，如同"好酒也怕巷子深"。</p>
+                
+                <div class="quote">
+                    <p class="text-gray-700">
+                        如果你没有留5%的精力给后期推广，你哼哧哼哧做了这么多的努力，很有可能是白费。
+                    </p>
+                </div>
+                
+                <div class="my-6 space-y-4">
+                    <p class="text-gray-700">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        充分利用前期与平台沟通的成果，确保内容获得充足的曝光量。
+                    </p>
+                    <p class="text-gray-700">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        制作海报等宣传物料，方便内容传播。
+                    </p>
+                    <p class="text-gray-700">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        "基本上我们的每一条视频全部都上了各个平台的热榜啊。"
+                    </p>
+                </div>
+            </section>
+
+            <!-- 第五部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">五、小型日常策划的思路</h2>
+                
+                <p class="my-4">我们可以参考来源中讲话人分享的多种"小而美"的策划类型及其思路。这些策划虽然体量较小，但同样需要付出心血，遵循基本的策划步骤。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">传统节日类 - 揭秘式策划</h3>
+                        <p class="text-gray-700">
+                            这类策划着重于在传统节日期间，以揭秘或探究的方式呈现一些鲜为人知或有趣的方面。例如"百宫探秘图鉴"，虽然只是采访了各行各业的人，但通过赋予他们有趣的名称（如"小鸡器年鉴定师"），并以探秘图鉴的形式呈现，最终获得了北京新闻奖一等奖。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">面对传统节日 - 创意类策划</h3>
+                        <p class="text-gray-700">
+                            当常规的节日策划遇到瓶颈时，可以尝试创意性的思路。如"人生次元"策划，让一个记者去体验讲脱口秀。这种"A去体验B的人生"的方式，由于体验者与被体验者职业的反差，能够产生新鲜感和看点。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">重要节点的策划</h3>
+                        <p class="text-gray-700">
+                            在重要的时间节点，可以策划一些具有纪念意义或盘点性质的内容。如年终盘点、讲述凡人故事、关注中国发展，以及高考时以"破茧"为主题讲述考生故事。例如，"横穿大摩天路"是从北京开车到新疆，一路报道各地风土人情。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">传统节日类 - 情绪性的策划</h3>
+                        <p class="text-gray-700">
+                            这类策划侧重于在传统节日期间，通过营造特定的情境，引发受众的情感共鸣。如"中秋电话亭"策划，通过设置"只能打一通最珍贵的电话"的情境，并提供可以打给"超时空"的功能，激发参与者分享真实的情感和故事。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">热点新闻类的策划</h3>
+                        <p class="text-gray-700">
+                            针对社会热点新闻，可以快速策划一些短平快的内容，例如在疫情期间制作混检相关的短视频。这类策划需要紧跟热点，反应迅速，并找到能够传递正能量或实用信息的角度。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">重大事件 - 情怀上的策划</h3>
+                        <p class="text-gray-700">
+                            在面对具有历史意义的重大事件时，可以策划一些富有情怀的内容。如抗美援朝时期邀请老兵重回鸭绿江的策划。由于老兵在当地偶遇战友，产生了非常感人的画面，展现了纪实的魅力。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 p-4 rounded-lg my-6">
+                    <p class="text-gray-700">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        <strong>关键总结：</strong> 小型日常策划的思路多种多样，关键在于结合特定的时间节点、社会热点或节日背景，发挥创意，找到独特的切入点，并注重内容的情感价值和真实性。即使是小体量的策划，也需要运用策划思维，精心准备，才能产生良好的传播效果。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 第六部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">六、策划成功的关键要素（凭什么为你买单？）</h2>
+                
+                <div class="quote">
+                    <p class="text-gray-700">
+                        我觉得很重要的就是你的内容传递的一个情绪价值。我觉得这个情绪价值往往比你传递的一些其他的内容会更加打动人。
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-blue-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-heart text-red-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">情绪价值</h3>
+                        <p class="text-gray-700">真实的情感往往最能触动人心，情绪价值比其他内容更加打动人。</p>
+                    </div>
+                    
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-blue-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-fire text-yellow-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">热点关注</h3>
+                        <p class="text-gray-700">贴合社会热点，更容易获得关注和流量。</p>
+                    </div>
+                    
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-blue-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-tools text-gray-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">实用性信息</h3>
+                        <p class="text-gray-700">提供对受众有价值的信息，满足实际需求。</p>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 p-6 rounded-lg my-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 text-center">内容成功的三个关键点</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="p-4">
+                            <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-green-500 font-bold text-xl">1</span>
+                            </div>
+                            <p class="text-gray-700 font-semibold">对我有用</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-green-500 font-bold text-xl">2</span>
+                            </div>
+                            <p class="text-gray-700 font-semibold">与我有关</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-green-500 font-bold text-xl">3</span>
+                            </div>
+                            <p class="text-gray-700 font-semibold">触动情绪</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第七部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">七、策划背后的精神</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 my-8">
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-purple-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-hammer text-gray-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">死磕</h3>
+                        <p class="text-gray-700">追求极致，不轻易放弃，为了做好策划愿意付出巨大的努力和时间。</p>
+                    </div>
+                    
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-purple-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-users text-gray-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">团结</h3>
+                        <p class="text-gray-700">团队合作至关重要，每个成员都不可或缺，形成强大的合力。</p>
+                    </div>
+                    
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-purple-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-fist-raised text-gray-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">不放弃</h3>
+                        <p class="text-gray-700">面对困难和挑战，坚持不懈，迎难而上。</p>
+                    </div>
+                    
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-purple-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-hiking text-gray-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">吃苦</h3>
+                        <p class="text-gray-700">为了呈现最好的内容，愿意承担艰苦的工作和环境。</p>
+                    </div>
+                    
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="bg-purple-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-crown text-gray-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">内容至上</h3>
+                        <p class="text-gray-700">即使设备简陋，好的内容依然能够打动人心，内容始终是第一位的。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 结论部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">结论</h2>
+                
+                <div class="bg-gray-100 p-6 rounded-lg my-6">
+                    <p class="text-gray-700 mb-4">
+                        主讲人通过"身后是我的国"等一系列成功案例，深入浅出地分享了融媒体主题策划的方法和理念。其核心在于充分的前期准备、明确的分工协作、灵活的执行调整（复盘）、以及对内容的情感价值和传播效果的高度重视。无论是大型策划还是小型日常选题，都需要策划团队秉持死磕、团结、不放弃的精神，才能最终将最好的故事呈现给受众。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 建议部分 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">建议</h2>
+                
+                <div class="bg-gray-100 p-6 rounded-lg my-6">
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <p>在未来的融媒体策划中，可以借鉴"身后是我的国"项目的前期准备流程，确保项目框架的完整性和细节的周全性。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <p>重视团队合作和成员的优势发挥，建立高效的项目小组。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <p>将脑暴和复盘机制常态化，鼓励创新和及时调整。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <p>在项目初期就考虑终端宣发策略，并预留足够的资源用于推广。</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <p>持续关注内容的情感价值，用真实、真挚的内容打动受众。</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 案例部分 -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">案例：《身后是我的国》是如何策划的？</h2>
+                
+                <div class="space-y-6 my-6">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">1. 这个策划的背景是什么？</h3>
+                        <p class="text-gray-700">
+                            这个策划的背景是当时中印边境冲突的大环境下，许多媒体都在转发相关报道和快讯。为了更深入地呈现边防战士的真实生活和精神面貌，策划团队希望派遣自己的记者前往边防一线，通过亲身体验，展现战士们看似平凡生活中的不平凡之处。这个想法得到了报社的支持，并经过与西藏军区长时间的沟通和等待（约一个月），最终获得了拍摄许可。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">2. 为了完成这个策划，项目组是如何组建和分工的？</h3>
+                        <p class="text-gray-700">
+                            项目组采取"小而精"的模式，由一名制片领导带领9名执行团队成员。具体分工如下：
+                        </p>
+                        <ul class="list-disc pl-6 mt-2 text-gray-700 space-y-2">
+                            <li>两人负责项目统筹和总导演，一人擅长视频，一人擅长文字，形成互补。</li>
+                            <li>一名女记者担任前方记者，虽然出镜经验不多，但与西藏军区关系良好，且性格外向，善于表达。</li>
+                            <li>一名经验丰富的地方记者兼摄像担任前方摄像，为年轻记者提供支持和保障。</li>
+                            <li>五名编导和后期剪辑人员，负责视频的制作工作，工作量较大。</li>
+                        </ul>
+                        <p class="mt-4 text-gray-700">
+                            项目组的筛选标准包括团队成员是否擅长该选题、是否拥有相关资源，以及是否能高效协作，避免拖累整体进度。每个人在项目中都承担着重要的作用。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">3. 策划过程中"脑暴"环节的重要性是什么？是如何进行的？</h3>
+                        <p class="text-gray-700">
+                            "脑暴"是策划落地的重要环节。通过集体讨论，汇集项目组所有成员的不同生活背景、经验和学历，能够碰撞出许多意想不到的创意火花。起初，脑暴可能会比较沉默，但通过统筹或领导主动抛出想法，可以逐渐激发大家的讨论热情，产生许多有趣的观点。对于这个边防策划，由于时间非常紧张（从确定能做到进入现场仅一周左右），团队在五天内进行了几十场脑暴会议，集中讨论确定了内容方向、视频条数、拍摄重点等关键内容，为后续的顺利进行奠定了基础。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">4. 在这个策划中，如何做到"各取所长，明确分工"？</h3>
+                        <p class="text-gray-700">
+                            团队成员的分工充分考虑了每个人的特点和优势。例如：
+                        </p>
+                        <ul class="list-disc pl-6 mt-2 text-gray-700 space-y-2">
+                            <li>一名擅长节奏感强、有网感和电影感视频剪辑的男生负责制作预告片，尽管他从未尝试过。</li>
+                            <li>一名非常细心的女生负责剪辑记者的Vlog，并承担了前方记者的后勤保障工作，如提醒妆容、生活起居等。</li>
+                            <li>一名性格外向、善于表达的女生担任前方记者，能够流畅自然地进行出镜报道。</li>
+                            <li>经验丰富的男摄像则在现场给予年轻女记者支持和指导。</li>
+                        </ul>
+                        <p class="mt-4 text-gray-700">
+                            这种细致的分工和对个人特长的发挥，使得团队能够形成合力，弥补各自的不足，最终呈现出更优质的内容。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">5. "提前预案"在策划中起到了什么作用？具体包含哪些方面？</h3>
+                        <p class="text-gray-700">
+                            "提前预案"是"不打无准备之仗"的关键。即使时间紧张，团队也做了非常详尽的预案，对于策划的推进具有重要意义。预案包含以下方面：
+                        </p>
+                        <ul class="list-disc pl-6 mt-2 text-gray-700 space-y-2">
+                            <li><strong>路线规划和内容确定：</strong> 明确拍摄路线和每天需要拍摄的内容。</li>
+                            <li><strong>时间安排：</strong> 详细规划每天甚至每个时间段的执行日程。</li>
+                            <li><strong>产量预估：</strong> 预估每天能够产出的视频条数。</li>
+                            <li><strong>人员调配：</strong> 确定每个人的具体任务和职责。</li>
+                            <li><strong>关键词设定：</strong> 为每一天设定一个关键词，方便团队围绕主题展开工作。</li>
+                            <li><strong>视频类型划分：</strong> 将视频分为预告片、正片、精彩片段、Vlog等类型。</li>
+                            <li><strong>文档准备：</strong> 列出详细的行程安排、随笔记录、策划案，方便内部沟通和对外推广。</li>
+                            <li><strong>平台沟通：</strong> 提前与设计团队和各推广平台（报社内部、腾讯、微博、抖音等）敲定合作事宜。</li>
+                        </ul>
+                        <p class="mt-4 text-gray-700">
+                            详细的内容预案，包括每天的拍摄重点和Vlog脚本，以及利用云文档进行多人协作和沟通，确保了拍摄工作的顺利进行和后期制作的高效展开。预案不是限制现场发挥，而是确保基础质量，并为意外惊喜和更高质量的内容创造条件。
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 py-8 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">作者信息</h3>
+                    <p class="text-gray-600">作者姓名: 黄作敏</p>
+                    <p class="text-gray-600">记录整理自: 田昊文的演讲</p>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="https://github.com/" target="_blank" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-center text-gray-600">
+                <p>© 2025 内部资料谢绝转载. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 基础的主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        
+        // 检查默认主题
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        });
+        
+        // 简化的渐入动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(function(element) {
+                element.style.opacity = '1';
+            });
+        });
+    </script>
+</body>
+</html>
