@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新媒体环境下机构媒体的小屏直播实践与思考</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .btn-hover {
+            transition: all 0.2s ease;
+        }
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+        .quote-card {
+            position: relative;
+        }
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 4rem;
+            color: rgba(14, 165, 233, 0.2);
+            font-family: serif;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #0ea5e9;
+            border: 3px solid #e0f2fe;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e0f2fe;
+        }
+        .animate-delay-100 {
+            animation-delay: 0.1s;
+        }
+        .animate-delay-200 {
+            animation-delay: 0.2s;
+        }
+        .animate-delay-300 {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+    <div class="min-h-screen">
+        <!-- 导航栏 -->
+        <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <i class="fas fa-broadcast-tower text-primary-500 text-2xl mr-2"></i>
+                            <span class="text-xl font-bold text-gray-800 dark:text-white">小屏直播实践</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="theme-toggle" class="p-2 rounded-full focus:outline-none">
+                            <i class="fas fa-moon text-gray-600 dark:text-yellow-300 hidden dark:inline-block"></i>
+                            <i class="fas fa-sun text-gray-600 dark:text-yellow-300 inline-block dark:hidden"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主标题区 -->
+        <header class="bg-gradient-to-r from-primary-600 to-primary-400 text-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-slide-up">新媒体环境下机构媒体的小屏直播实践与思考</h1>
+                <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto animate-slide-up animate-delay-100">探索机构媒体如何在新媒体时代利用小屏直播进行内容创新与商业变现</p>
+            </div>
+        </header>
+
+        <!-- 主要内容区 -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- 核心观点 -->
+            <section class="mb-16">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 md:p-8 card-hover animate-fade-in">
+                    <h2 class="text-2xl font-bold mb-4 text-primary-600 dark:text-primary-400 flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i>核心观点
+                    </h2>
+                    <p class="text-lg leading-relaxed mb-4">本节课程围绕新京报在小屏直播领域的实践经验，探讨了机构媒体如何在新媒体环境下有效利用小屏直播进行新闻报道、内容创新和商业变现。</p>
+                    <p class="text-lg leading-relaxed">课程回顾了小屏直播的发展历程、机构媒体面临的挑战与机遇，并深入分析了直播前准备、直播中调度、直播后运营等关键环节的操作方法和策略。</p>
+                </div>
+            </section>
+
+            <!-- 演变与现状 -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center text-primary-600 dark:text-primary-400 animate-fade-in">
+                    <i class="fas fa-chart-line mr-2"></i>小屏直播的演变与现状
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 早期探索 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover animate-fade-in animate-delay-100">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-history text-primary-500 mr-2"></i>早期探索与辉煌
+                        </h3>
+                        <p class="mb-4">新京报在早期就将小屏直播视为"王牌栏目"，如"悬崖村"报道的尝试，展现了机构媒体利用移动设备进行突发新闻现场直播的早期探索。</p>
+                        <div class="quote-card bg-primary-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                            <p class="italic">"没事，卡死也是现场啊，这就是新闻证明这个悬崖村的信号真的不好。"</p>
+                        </div>
+                        <p>尽管当时技术条件有限，信号不稳定，但"卡死也是现场"的理念体现了新闻的即时性和真实性。</p>
+                    </div>
+                    
+                    <!-- 现状挑战 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover animate-fade-in animate-delay-200">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>当前挑战与应对
+                        </h3>
+                        <p class="mb-4">随着自媒体的涌现，街景探访、慢直播等早期的小屏直播内容不再具有独特性，平台不再向机构媒体购买此类内容。</p>
+                        <div class="quote-card bg-primary-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                            <p class="italic">"加上现在的这个舆论环境，整体对于直播内容的管控确实也是一个因素啊，所以直播的这块业务就一直在萎缩啊。"</p>
+                        </div>
+                        <p>机构媒体在突发新闻现场的第一时间介入能力仍然是核心竞争力。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 时间线 -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center text-primary-600 dark:text-primary-400 animate-fade-in">
+                    <i class="fas fa-stream mr-2"></i>小屏直播发展时间线
+                </h2>
+                
+                <div class="relative timeline pl-12">
+                    <!-- 早期探索 -->
+                    <div class="relative timeline-item mb-8 animate-fade-in animate-delay-100">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm font-medium px-3 py-1 rounded-full">2016-2018</span>
+                                <h3 class="ml-3 text-lg font-bold">早期探索期</h3>
+                            </div>
+                            <p>机构媒体开始尝试小屏直播，"悬崖村"等报道展现了移动设备直播的潜力，尽管技术条件有限，但确立了新闻即时性的价值。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 内容同质化 -->
+                    <div class="relative timeline-item mb-8 animate-fade-in animate-delay-200">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-sm font-medium px-3 py-1 rounded-full">2018-2020</span>
+                                <h3 class="ml-3 text-lg font-bold">内容同质化期</h3>
+                            </div>
+                            <p>自媒体大量涌现，街景探访、慢直播等内容变得普遍，平台不再专门购买机构媒体的此类内容，机构媒体需要寻找新的差异化路径。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 行业萎缩 -->
+                    <div class="relative timeline-item mb-8 animate-fade-in animate-delay-300">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-sm font-medium px-3 py-1 rounded-full">2020-2022</span>
+                                <h3 class="ml-3 text-lg font-bold">行业调整期</h3>
+                            </div>
+                            <p>受舆论环境管控和商业变现压力影响，机构媒体的小屏直播业务整体萎缩，但突发新闻的第一时间介入能力仍是核心竞争力。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 创新转型 -->
+                    <div class="relative timeline-item animate-fade-in animate-delay-400">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium px-3 py-1 rounded-full">2022-至今</span>
+                                <h3 class="ml-3 text-lg font-bold">创新转型期</h3>
+                            </div>
+                            <p>机构媒体转向突发事件的快速响应和策划性主题报道，在策划性报道中寻求新的增长点和变现模式，同时探索AI等新技术应用。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 直播全流程 -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center text-primary-600 dark:text-primary-400 animate-fade-in">
+                    <i class="fas fa-tasks mr-2"></i>小屏直播全流程实践
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- 直播前 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card-hover animate-fade-in animate-delay-100">
+                        <div class="bg-primary-500 text-white p-4">
+                            <h3 class="text-xl font-bold flex items-center">
+                                <i class="fas fa-calendar-check mr-2"></i>直播前准备
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>选题策划：从每日报题转向以周报题为主，注重选题独特性和吸引力</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>预告片与海报：高质量预告吸引平台和用户关注</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>内容挖掘：抓住人物故事中的情感点，引发观众共鸣</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>平台沟通：提前协商争取推荐资源和流量支持</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="mt-6 bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-bold mb-2 text-primary-600 dark:text-primary-400">成功案例</h4>
+                                <p>19年春运"川味绿皮火车返乡"直播，通过前期对主人公张春秀夫妇的深度采访和感人短片的制作，成功引起平台关注。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 直播中 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card-hover animate-fade-in animate-delay-200">
+                        <div class="bg-primary-600 text-white p-4">
+                            <h3 class="text-xl font-bold flex items-center">
+                                <i class="fas fa-broadcast-tower mr-2"></i>直播中调度
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>设备准备：信号背包等专业设备保障直播稳定性</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>多机位协同：提供丰富画面素材，避免内容枯燥</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>实时互动：回应网友提问和评论，增强参与感</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>记者素养：捕捉现场细节，调动感官分享真实感受</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="mt-6 bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-bold mb-2 text-primary-600 dark:text-primary-400">成功案例</h4>
+                                <p>"川味绿皮火车返乡"直播通过固定机位、记者移动机位和GoPro在洗漱间等场景的架设，呈现了火车上的多样生活。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 直播后 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card-hover animate-fade-in animate-delay-300">
+                        <div class="bg-primary-700 text-white p-4">
+                            <h3 class="text-xl font-bold flex items-center">
+                                <i class="fas fa-chart-line mr-2"></i>直播后运营
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>二次分发：剪辑精彩片段成短视频再次收割流量</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>数据分析：为后续内容创作和运营提供参考</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>商业变现：版权合作、广告植入、知识付费等</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>品牌建设：提升机构媒体的品牌影响力和专业形象</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="mt-6 bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-bold mb-2 text-primary-600 dark:text-primary-400">成功案例</h4>
+                                <p>航天返回直播后，将翟志刚家人连线、专家解读等片段制作成短视频，获得了比直播更高的播放量。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 关键策略 -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center text-primary-600 dark:text-primary-400 animate-fade-in">
+                    <i class="fas fa-key mr-2"></i>关键策略与案例分析
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 特殊主题直播 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover animate-fade-in animate-delay-100">
+                        <h3 class="text-xl font-bold mb-4 text-primary-600 dark:text-primary-400 flex items-center">
+                            <i class="fas fa-star mr-2"></i>特殊主题直播策略
+                        </h3>
+                        <p class="mb-4">面对央视等媒体在重大事件直播中的版权垄断，机构媒体需要转换视角，从独特的内容切入，邀请多元化嘉宾，挖掘深度解读和幕后故事。</p>
+                        
+                        <div class="bg-yellow-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                            <h4 class="font-bold mb-2 text-primary-600 dark:text-primary-400">成功案例：神舟系列返回直播</h4>
+                            <p>邀请航天设计师、导演、科普博主、骨科医生等不同领域嘉宾，从独特视角解读航天事件，并结合热点话题进行引流。</p>
+                        </div>
+                        
+                        <p>结合社会热点和用户关注点进行策划，能够快速获得流量和关注。</p>
+                    </div>
+                    
+                    <!-- 技术应用 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 card-hover animate-fade-in animate-delay-200">
+                        <h3 class="text-xl font-bold mb-4 text-primary-600 dark:text-primary-400 flex items-center">
+                            <i class="fas fa-robot mr-2"></i>技术应用与未来展望
+                        </h3>
+                        <p class="mb-4">尝试利用AI工具辅助选题策划、文案撰写、内容剪辑等工作，提高效率和创新性。</p>
+                        
+                        <div class="bg-yellow-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                            <h4 class="font-bold mb-2 text-primary-600 dark:text-primary-400">AI应用案例</h4>
+                            <p>两会期间利用AI向专家提问，引发深度思考。</p>
+                        </div>
+                        
+                        <div class="quote-card bg-primary-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <p class="italic">"人文社科的这个根啊，就在于体验生活对于我们来说。好的新闻、好的内容也一定是要有深刻的体验和现场而来的。"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 成功关键 -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center text-primary-600 dark:text-primary-400 animate-fade-in">
+                    <i class="fas fa-trophy mr-2"></i>成功关键总结
+                </h2>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 card-hover animate-fade-in">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-sync-alt text-primary-600 dark:text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-2">转变观念，拥抱变化</h3>
+                                <p class="text-sm">从传统媒体思维向新媒体思维转变，重视用户互动和平台特性。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-chess mr-2 text-primary-600 dark:text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-2">精细策划，提前布局</h3>
+                                <p class="text-sm">注重选题的独特性和吸引力，做好充分的直播前准备和预热。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-comments mr-2 text-primary-600 dark:text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-2">灵活应变，互动为王</h3>
+                                <p class="text-sm">在直播中注重与观众的实时互动，提升用户参与感。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-pen-fancy mr-2 text-primary-600 dark:text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-2">深耕内容，创新表达</h3>
+                                <p class="text-sm">挖掘深度内容，创新表达方式，提供有价值的信息和观点。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-chart-pie mr-2 text-primary-600 dark:text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-2">重视运营，多维变现</h3>
+                                <p class="text-sm">通过二次分发、平台合作、商业赞助等多种方式实现内容价值的最大化。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-microchip mr-2 text-primary-600 dark:text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-2">拥抱技术，提升效率</h3>
+                                <p class="text-sm">积极探索和应用新技术，赋能内容生产和传播。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-primary-50 dark:bg-gray-700 rounded-lg">
+                        <p class="text-center font-medium">机构媒体应充分发挥其专业优势和品牌影响力，在小屏直播领域不断探索创新，以适应快速变化的新媒体生态，实现社会效益和经济效益的双赢。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-gray-100 dark:bg-gray-800 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-6 md:mb-0">
+                            <h3 class="text-lg font-bold mb-2">新媒体环境下机构媒体的小屏直播实践与思考</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">基于新京报实践经验的分析与总结</p>
+                        </div>
+                        
+                        <div class="flex space-x-6">
+                            <a href="#" class="text-gray-500 hover:text-primary-500 dark:hover:text-primary-400">
+                                <i class="fab fa-github text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-primary-500 dark:hover:text-primary-400">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-primary-500 dark:hover:text-primary-400">
+                                <i class="fab fa-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-primary-500 dark:hover:text-primary-400">
+                                <i class="fab fa-weixin text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
+                        <p>© 2023 新媒体研究小组. 保留所有权利.</p>
+                        <p class="mt-2">作者: 新京报直播团队 | 编辑: 数字媒体研究中心</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // 检查本地存储或系统偏好
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('click', function() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // 滚动动画
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8);
+                if (isVisible) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // 初始加载动画
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+                elements.forEach(el => {
+                    el.style.opacity = '0';
+                    if (el.classList.contains('animate-slide-up')) {
+                        el.style.transform = 'translateY(20px)';
+                    }
+                });
+            }, 50);
+        });
+        
+        // 滚动时触发动画
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // 按钮悬停效果
+        const buttons = document.querySelectorAll('.btn-hover');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+        
+        // 卡片悬停效果
+        const cards = document.querySelectorAll('.card-hover');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+</html>
