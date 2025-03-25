@@ -1,12 +1,9 @@
-# 特朗普总统关税政策新动向专题报道
-
-```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特朗普总统关税政策新动向专题报道</title>
+    <title>特朗普政府关税政策新动向：中国视角下的深度分析 | 环球经济观察</title>
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
     <script>
         tailwind.config = {
@@ -15,16 +12,12 @@
                 extend: {
                     colors: {
                         primary: {
-                            light: '#1a365d',
-                            dark: '#2b6cb0'
+                            DEFAULT: '#1E3A8A',
+                            dark: '#1E40AF'
                         },
                         secondary: {
-                            light: '#2c5282',
-                            dark: '#4299e1'
-                        },
-                        accent: {
-                            light: '#c53030',
-                            dark: '#f56565'
+                            DEFAULT: '#DC2626',
+                            dark: '#EF4444'
                         }
                     }
                 }
@@ -32,824 +25,1323 @@
         }
     </script>
     <style>
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 24px;
-            height: calc(100% - 24px);
-            width: 2px;
-            background-color: #e2e8f0;
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Serif SC', serif;
         }
-        .dark .timeline-item:not(:last-child)::after {
-            background-color: #4a5568;
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
         }
-        .prose a {
-            color: #1a365d;
-            text-decoration: underline;
-        }
-        .dark .prose a {
-            color: #2b6cb0;
-        }
-        .prose h2, .prose h3, .prose h4 {
-            color: #1a365d;
-        }
-        .dark .prose h2, .dark .prose h3, .dark .prose h4 {
-            color: #2b6cb0;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .progress-bar {
+            height: 4px;
+            background: #DC2626;
+            width: 0%;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
-    <!-- 导航栏 -->
-    <nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-light dark:text-accent-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                </svg>
-                <span class="text-xl font-bold text-primary-light dark:text-primary-dark">全球财经观察</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                    <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <button class="bg-accent-light dark:bg-accent-dark text-white px-4 py-2 rounded-md hover:opacity-90 transition">订阅</button>
-            </div>
-        </div>
-    </nav>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
+    <!-- 阅读进度条 -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-    <!-- 专题头部 -->
-    <header class="bg-gradient-to-r from-primary-light to-secondary-light dark:from-primary-dark dark:to-secondary-dark text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <span class="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm mb-4">专题报道</span>
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">特朗普总统关税政策新动向</h1>
-                <p class="text-xl opacity-90 mb-8">第二任期伊始，特朗普政府迅速启动新一轮关税政策，全球贸易格局面临重大调整</p>
-                <div class="flex flex-wrap justify-center gap-4 text-sm">
-                    <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">贸易政策</span>
-                    <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">中美关系</span>
-                    <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">全球经济</span>
-                    <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">贸易战</span>
+    <!-- 头部区域 -->
+    <header class="border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <!-- 媒体标识和日期 -->
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary dark:text-primary-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                    </svg>
+                    <span class="ml-2 text-xl font-bold text-primary dark:text-primary-dark">环球经济观察</span>
                 </div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">
+                    <span id="currentDate"></span>
+                    <button id="themeToggle" class="ml-2 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400 hidden" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 主标题和副标题 -->
+            <div class="py-6">
+                <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white leading-tight">特朗普政府关税政策新动向</h1>
+                <h2 class="text-xl md:text-2xl text-center mt-4 text-secondary dark:text-secondary-dark font-medium">中国视角下的深度分析</h2>
+            </div>
+
+            <!-- 发布日期和导航 -->
+            <div class="flex flex-col md:flex-row justify-between items-center border-t border-b border-gray-200 dark:border-gray-700 py-3">
+                <div class="text-sm text-gray-500 dark:text-gray-400 mb-2 md:mb-0">
+                    <span>记者：王明 | 编辑：李华</span>
+                    <span class="mx-2">|</span>
+                    <span>发布日期：2025年3月15日</span>
+                    <span class="mx-2">|</span>
+                    <span>最后更新：<span id="updateTime"></span></span>
+                </div>
+                <nav class="flex space-x-1 md:space-x-4 overflow-x-auto whitespace-nowrap">
+                    <a href="#overview" class="px-2 py-1 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-800">概述</a>
+                    <a href="#details" class="px-2 py-1 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-800">政策详情</a>
+                    <a href="#impact" class="px-2 py-1 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-800">经济影响</a>
+                    <a href="#reactions" class="px-2 py-1 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-800">全球反响</a>
+                    <a href="#analysis" class="px-2 py-1 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-800">深度分析</a>
+                </nav>
             </div>
         </div>
     </header>
 
-    <!-- 主要内容区 -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- 作者和日期信息 -->
-        <div class="max-w-4xl mx-auto mb-8 border-b border-gray-200 dark:border-gray-700 pb-4">
-            <div class="flex flex-wrap items-center justify-between text-sm text-gray-600 dark:text-gray-400">
-                <div class="flex items-center space-x-4">
-                    <span>记者：王明</span>
-                    <span>编辑：李华</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span>发布日期：2025年3月15日</span>
-                    <span>更新时间：2025年3月16日</span>
-                </div>
-            </div>
-        </div>
+    <script>
+        // 设置日期和时间
+        const now = new Date();
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('updateTime').textContent = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
 
-        <!-- 文章内容 -->
-        <article class="prose dark:prose-invert max-w-4xl mx-auto">
-            <!-- 导语 -->
-            <div class="bg-blue-50 dark:bg-gray-800 p-6 rounded-lg border-l-4 border-accent-light dark:border-accent-dark mb-8">
-                <p class="font-medium text-lg">特朗普总统的第二任期伊始，便迅速启动了一系列新的关税政策，这标志着其贸易保护主义议程的延续和潜在升级。2025年1月就职后，特朗普总统迅速采取行动，开始实施对中国、墨西哥和加拿大分别加征10%、25%和25%的额外关税，并援引了与边境安全、非法移民和能源相关的国家紧急状态。这些措施将对全球贸易格局产生深远影响。</p>
-            </div>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
 
-            <!-- 目录导航 -->
-            <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-8 sticky top-20 z-10 hidden md:block">
-                <h3 class="text-lg font-semibold mb-3">目录导航</h3>
-                <ul class="space-y-2">
-                    <li><a href="#section1" class="hover:text-accent-light dark:hover:text-accent-dark transition">1. 政策概述</a></li>
-                    <li><a href="#section2" class="hover:text-accent-light dark:hover:text-accent-dark transition">2. 具体内容与范围</a></li>
-                    <li><a href="#section3" class="hover:text-accent-light dark:hover:text-accent-dark transition">3. 政府理由与依据</a></li>
-                    <li><a href="#section4" class="hover:text-accent-light dark:hover:text-accent-dark transition">4. 经济影响评估</a></li>
-                    <li><a href="#section5" class="hover:text-accent-light dark:hover:text-accent-dark transition">5. 全球反响与对策</a></li>
-                    <li><a href="#section6" class="hover:text-accent-light dark:hover:text-accent-dark transition">6. 美国国内声音</a></li>
-                    <li><a href="#section7" class="hover:text-accent-light dark:hover:text-accent-dark transition">7. 历史经验教训</a></li>
-                    <li><a href="#section8" class="hover:text-accent-light dark:hover:text-accent-dark transition">8. 法律挑战</a></li>
-                    <li><a href="#section9" class="hover:text-accent-light dark:hover:text-accent-dark transition">9. 未来展望</a></li>
-                </ul>
-            </div>
+        if (localStorage.getItem('color-theme') === 'dark' || (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        }
 
-            <!-- 1. 政策概述 -->
-            <section id="section1" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">1. 特朗普总统关税政策新动向</h2>
-                <p>特朗普总统的第二任期伊始，便迅速启动了一系列新的关税政策，这标志着其贸易保护主义议程的延续和潜在升级。早在2024年11月，时任总统候选人特朗普就已宣布计划对美国最大的贸易伙伴——中国、墨西哥和加拿大分别加征10%、25%和25%的额外关税，预示着其上任后将采取强硬的贸易立场。</p>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-yellow-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-yellow-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">2025年1月就职后，特朗普总统迅速采取行动，开始实施这些关税以及其他贸易壁垒，并援引了与边境安全、非法移民和能源相关的国家紧急状态。</p>
-                    </div>
-                </div>
+        themeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        });
 
-                <p>这些关税措施的影响范围不仅限于上述三个国家，还包括对全球钢铁和铝产品征收关税，以及威胁对委内瑞拉和欧盟等其他国家实施关税。此次关税政策的核心目标集中在美国的主要贸易伙伴身上，特别是针对从中国、加拿大和墨西哥进口的广泛商品。此外，钢铁、铝以及潜在的汽车、半导体、药品、木材和铜等特定行业也面临着关税壁垒。</p>
-              
-                <p>值得关注的是，特朗普总统还威胁对购买委内瑞拉石油的国家征收关税。这些举措的背后，是特朗普政府一贯强调的保护国内产业、维护国家安全、解决贸易逆差以及打击非法移民和毒品走私等动机。其核心仍然是"美国优先"的贸易政策框架。</p>
-              
-                <div class="my-6 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                    <h4 class="font-semibold mb-2">政策要点</h4>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>对中国进口商品加征10%-20%关税</li>
-                        <li>对墨西哥和加拿大进口商品加征25%关税</li>
-                        <li>全球钢铁和铝产品关税提高至25%</li>
-                        <li>威胁对购买委内瑞拉石油的国家征收关税</li>
-                        <li>计划对汽车、半导体、药品等行业加征关税</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- 2. 新关税的具体内容与范围 -->
-            <section id="section2" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">2. 新关税的具体内容与范围</h2>
-                <p>特朗普总统近期宣布并实施了一系列具体的关税政策，其范围和力度都值得关注。</p>
-              
-                <div class="my-6 overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-800">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">国家/地区</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">目标商品（示例）</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">关税税率</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">生效日期</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">法律依据</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">中国</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">所有进口商品</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">20%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月4日</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">《国际紧急经济权力法》</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">墨西哥</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">大部分进口商品</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">25%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月4日</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">《国际紧急经济权力法》</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">加拿大</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">大部分进口商品</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">25%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月4日</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">《国际紧急经济权力法》</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">全球</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">钢铁及其衍生品</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">25%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月12日</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">《贸易扩张法》第232条款</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">全球</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">铝及其衍生品</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">25%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月12日</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">《贸易扩张法》第232条款</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3 class="text-xl font-semibold mt-8 mb-4">法律基础</h3>
-                <p>这些关税政策的法律基础主要包括以下几个方面：</p>
-              
-                <div class="grid md:grid-cols-2 gap-6 my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border-l-4 border-blue-500">
-                        <h4 class="font-semibold mb-2">《国际紧急经济权力法》(IEEPA)</h4>
-                        <p class="text-sm">特朗普政府援引该法案，声称美国面临与边境安全、非法移民和芬太尼相关的国家紧急状态，以此为对加拿大、墨西哥和中国征收关税提供法律依据。值得注意的是，IEEPA通常用于实施经济制裁，将其用于征收广泛的关税尚属首次。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border-l-4 border-green-500">
-                        <h4 class="font-semibold mb-2">《贸易扩张法》第232条款</h4>
-                        <p class="text-sm">全球钢铁和铝关税以及对进口木材和铜产品的调查都基于该条款，理由是这些进口对美国国家安全构成威胁。在第二任期内，特朗普政府更新并扩大了钢铁和铝关税的范围，取消了之前的豁免。铝产品的关税税率也从10%提高到25%。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border-l-4 border-purple-500">
-                        <h4 class="font-semibold mb-2">《贸易法》第301条款</h4>
-                        <p class="text-sm">在第一任期内，特朗普政府曾利用该条款对中国进口商品征收关税，以应对其不公平贸易行为。虽然此次针对中国的新关税政策主要依据IEEPA，但第301条款仍然是未来可能采取更高关税措施的潜在法律依据。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border-l-4 border-red-500">
-                        <h4 class="font-semibold mb-2">"对等关税政策"</h4>
-                        <p class="text-sm">这项政策的具体法律依据尚未完全明确，但其目的是为了反制其他国家对美国商品征收的非对等关税。1930年《关税法》第338条款允许总统在认定外国采取不合理或歧视性行动损害美国商业利益时，征收高达50%的新关税。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 3. 特朗普政府的理由：目标与依据 -->
-            <section id="section3" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">3. 特朗普政府的理由：目标与依据</h2>
-                <p>特朗普政府为新关税政策提出了多重目标和理由。</p>
-              
-                <div class="my-6">
-                    <div class="flex items-start bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mt-1 mr-3 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        <div>
-                            <h4 class="font-semibold mb-1">国家安全</h4>
-                            <p class="text-sm">这是政府为对加拿大、墨西哥和中国征收关税（与边境安全和芬太尼问题相关）以及对钢铁和铝征收关税（保护国内生产）提供的主要依据。对木材和铜进口的调查也以国家安全为由启动。</p>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="grid md:grid-cols-2 gap-6 my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">保护国内产业</h4>
-                        <p class="text-sm">政府的目标是促使制造业回流美国，提高制造业在国内生产总值中的占比，并支持钢铁、铝、汽车、半导体和稀土等关键产业的发展。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">应对不公平贸易行为</h4>
-                        <p class="text-sm">特别是针对中国，政府指责其存在知识产权盗窃、强制技术转让等行为，此外还包括其他国家对美国商品征收的非对等关税、数字服务税以及其他被认为损害美国企业利益的做法。"公平与对等计划"明确旨在反制这些行为。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">减少贸易逆差</h4>
-                        <p class="text-sm">这是"美国优先"贸易政策的核心目标，也是推行对等关税计划的重要原因。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">打击非法移民和毒品走私</h4>
-                        <p class="text-sm">这是对加拿大和墨西哥征收关税的具体理由，政府将贸易政策与边境安全问题直接联系起来。</p>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-red-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-7.536 5.879a1 1 0 001.415 0 3 3 0 014.242 0 1 1 0 001.415-1.415 5 5 0 00-7.072 0 1 1 0 000 1.415z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">特朗普政府的贸易政策日益将贸易目标与国家安全、移民和禁毒等非贸易目标相结合，这表明贸易政策可能正在被政治化。将对加拿大和墨西哥征收关税的理由与移民和芬太尼问题挂钩，就是一个明显的例子。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 4. 经济影响：专家评估与潜在后果 -->
-            <section id="section4" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">4. 经济影响：专家评估与潜在后果</h2>
-                <p>经济学家和行业分析师对特朗普总统的新关税政策的潜在经济影响进行了评估，普遍认为其将带来负面后果。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">主要经济影响</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="font-medium">美国GDP和就业可能受到负面影响</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">即使不考虑外国的报复性措施，初步估计显示，IEEPA和第232条款下的关税可能会降低美国GDP并导致就业岗位减少。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">企业和消费者成本增加</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">关税提高了进口商品的价格，这可能导致依赖进口零部件的国内企业生产成本上升，并最终推高消费品价格。建筑业和汽车制造业尤其容易受到冲击。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">供应链中断</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">许多美国公司依赖全球供应链，关税可能会扰乱这些供应链，导致效率降低和成本增加。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">美国农民受损</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">贸易伙伴的报复性关税可能会降低对美国农产品出口的需求，对农民造成不利影响。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">通胀压力加大</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">经济学家警告称，关税可能会加剧通胀压力并阻碍经济增长。美国联邦储备委员会也因此下调了经济增长预期并预测通胀将上升。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <h3 class="text-xl font-semibold mt-8 mb-4">对特定行业的影响</h3>
-                <div class="grid md:grid-cols-2 gap-6 my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">银行业</h4>
-                        <p class="text-sm">可能受到经济增长放缓和信贷风险增加的影响。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">建筑业和房地产业</h4>
-                        <p class="text-sm">面临木材和钢铁等进口材料成本上涨的压力。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">能源业</h4>
-                        <p class="text-sm">对加拿大能源征收关税可能会提高炼油厂的原料成本，并导致汽油价格上涨。太阳能和风能产业可能因进口零部件成本上升而受到冲击。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">制造业</h4>
-                        <p class="text-sm">面临更高的投入成本和潜在的报复性关税对其出口造成不利影响。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">科技产业</h4>
-                        <p class="text-sm">由于依赖全球供应链以及面临他国报复的可能性，科技产业较为脆弱。</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-2">农业</h4>
-                        <p class="text-sm">面临报复性关税和失去出口市场的风险。</p>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-yellow-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-yellow-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">经济学家和分析师普遍认为，新的关税政策将对美国经济产生净负面影响，主要是通过提高成本和减少贸易来实现的。多项研究表明，特朗普政府之前的关税政策也导致了GDP下降、就业减少和物价上涨。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 5. 全球反响：贸易伙伴的反应与对策 -->
-            <section id="section5" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">5. 全球反响：贸易伙伴的反应与对策</h2>
-                <p>特朗普总统的新关税政策在全球范围内引发了强烈反响，主要贸易伙伴纷纷采取或宣布了反制措施。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">主要贸易伙伴的报复措施</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="font-medium">加拿大</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">加拿大宣布对美国出口商品实施报复性关税，包括橙汁、花生酱、葡萄酒、烈酒、啤酒、咖啡、电器、服装、鞋类、摩托车、化妆品、纸浆和纸制品等，关税于2025年3月4日和3月13日生效。加拿大还计划就此问题向WTO和USMCA提起申诉。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">中国</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">中国对美国加征关税、实施出口管制、指定"不可靠实体"，并威胁对谷歌展开新的反垄断调查。针对美国2月4日和3月4日实施的关税，中国分别于2月10日和3月10日对美国农产品（包括大豆、鸡肉、小麦、玉米、棉花、高粱、猪肉、牛肉、海鲜、水果、蔬菜和乳制品）、农用机械和化石燃料等出口商品加征关税。此外，中国还对美国的光纤产品发起反倾销调查，将10家美国公司列入"不可靠实体清单"，对15家公司实施出口管制，并禁止进口Illumina公司的基因测序仪。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">墨西哥</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">在同意派遣更多国民警卫队前往西南边境，以及美国同意减少对墨西哥的武器运输后，墨西哥最初同意暂停一个月实施报复性关税以进行谈判。然而，美国的关税于3月4日生效，墨西哥原定于3月9日宣布的报复性关税措施已被推迟。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">欧盟</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">针对美国对钢铁和铝产品加征的关税，欧盟宣布了两阶段的报复措施：第一阶段是恢复此前（2018年和2020年）制定的"再平衡"关税方案，将于2025年4月1日生效；第二阶段将对价值约180亿欧元的美国出口商品采取额外的反制措施。目标产品包括哈雷戴维森摩托车、蓝色牛仔裤和波旁威士忌。欧盟领导人承诺将采取果断回应，并表示愿意在采取反制措施（包括可能使用其新的"经济胁迫工具"）的同时进行谈判。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="my-6 overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-800">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">贸易伙伴</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">引发报复的美国关税</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">报复性关税（影响商品及税率）</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">生效日期</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">加拿大</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">IEEPA关税</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">多种商品，包括农产品、酒类、电器、服装、钢铁和铝等，税率25%不等</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月4日及3月13日</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">加拿大</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">第232条款钢铁和铝关税</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">钢铁和铝产品、工具、电脑服务器、显示器、体育器材、铸铁产品等，税率25%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年3月13日</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">中国</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">IEEPA关税</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">农产品、农用机械、化石燃料等，税率10%和15%</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年2月10日及3月10日</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">欧盟</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">第232条款钢铁和铝关税</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">哈雷戴维森摩托车、蓝色牛仔裤、波旁威士忌等，具体税率待定</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">2025年4月1日（计划）</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">主要贸易伙伴迅速而有针对性地采取了报复措施，表明它们愿意捍卫自身的贸易利益。加拿大和中国在遭受美国关税后几乎立即宣布了反制措施，欧盟也计划采取协调行动。值得注意的是，一些报复性关税针对美国具有政治敏感性的行业，例如中国针对美国农产品，欧盟针对哈雷戴维森和波旁威士忌。这种做法可能旨在增加美国国内对特朗普政府贸易政策的压力。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 6. 国内声音：美国企业、劳工组织和协会的看法 -->
-            <section id="section6" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">6. 国内声音：美国企业、劳工组织和协会的看法</h2>
-                <p>美国国内各界对特朗普总统的新关税政策持有不同的看法。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">主要利益相关方观点</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="font-medium">企业</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">普遍担忧成本增加、供应链中断以及报复性关税对其出口造成的损害。制造商被建议评估其供应链并考虑申请关税豁免。然而，也有部分企业可能因竞争减少而受益。股市对关税公告的反应不一，最初通常会下跌，但有时在预期关税实施范围缩小或推迟时会出现反弹。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">劳工组织</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">特朗普政府认为，关税将保护美国工人并创造制造业就业岗位。然而，过去的经验表明，关税政策可能导致制造业就业岗位的净减少。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">行业协会</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">美国石油协会警告称，对加拿大能源征收关税可能会提高能源成本。美国大型企业联合会报告称，由于对关税的担忧等因素，消费者信心大幅下降。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">农民</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">对报复性关税可能损害农产品出口表示担忧。特朗普总统则建议他们专注于国内销售。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">经济学家</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">普遍持批评态度，预测关税将对GDP、就业和消费者福利产生负面影响。过去的调查显示，经济学家对钢铁和铝关税的益处持怀疑态度。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-yellow-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-yellow-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">尽管特朗普政府声称关税将有利于美国工人，但经济分析表明，过去的关税政策实际上导致了制造业就业岗位的净减少。这表明，政府的预期与实际结果之间可能存在差距。与此同时，企业界普遍对新关税政策表示担忧，担心成本上升、供应链中断以及面临报复性关税的风险。虽然部分国内产业可能在短期内受益于竞争的减少，但整体而言，企业界更倾向于负面预期。消费者信心的大幅下降也反映了公众对关税和经济前景的担忧，这可能会对国内需求和经济活动产生更广泛的影响。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 7. 以史为鉴：以往特朗普政府关税政策的经验教训 -->
-            <section id="section7" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">7. 以史为鉴：以往特朗普政府关税政策的经验教训</h2>
-                <p>回顾以往特朗普政府实施的关税政策，可以为评估当前政策的影响提供重要的参考。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">历史经验</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">在2018年至2019年期间，第一届特朗普政府对价值约3800亿美元的进口商品征收了关税。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">这些关税引发了中国、加拿大和欧盟等主要贸易伙伴的报复性关税。中国对超过1060亿美元的美国商品采取了报复措施，加拿大也对数十亿美元的美国出口商品征收了关税。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">学术界和政府机构的研究均表明，这些过去的关税导致物价上涨，产量和就业下降，对美国经济产生了净负面影响。有估计显示，这些关税降低了美国的长期GDP并减少了就业岗位。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">虽然从中国进口的受影响商品有所减少，但由于贸易转向其他国家，美国的整体贸易平衡并未发生根本性改变。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">拜登政府在很大程度上保留了特朗普政府实施的关税，并在2024年5月甚至对部分中国商品增加了关税。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">第一任期内对钢铁和铝产品征收的第232条款关税曾引发豁免和法律挑战。时任白宫国家经济委员会主任加里·科恩就曾因抗议这些关税而辞职。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">以往特朗普政府的关税政策经验表明，新的关税措施很可能再次引发贸易伙伴的报复，并对美国经济产生负面影响，这与此前研究的结论相符。此外，过去的经验表明，即使针对特定国家的进口商品征收关税，也难以从根本上改变整体贸易平衡，更有可能导致贸易转移。值得注意的是，拜登政府在很大程度上维持了前任政府的关税政策，甚至有所增加，这反映出美国国内在某些保护主义贸易措施上存在一定的跨党派共识，尤其是在针对中国的问题上。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 8. 法律挑战：诉讼与世贸组织裁决 -->
-            <section id="section8" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">8. 法律挑战：诉讼与世贸组织裁决</h2>
-                <p>特朗普总统的新关税政策面临着国内外的法律挑战。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">主要法律挑战</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="font-medium">国内法律挑战</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">针对政府援引IEEPA征收关税的合法性，预计将出现法律挑战。主要的争议点在于IEEPA是否明确授权总统征收关税，以及所宣布的国家紧急状态是否与所有目标国家的贸易行为存在直接关联。法律界人士正在援引"重大问题原则"对此提出质疑。</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">虽然在第一任期内，法院维持了特朗普总统依据第232条款征收关税的权力，但此次关税范围扩大到新的国家和产品类别，引发了新的法律问题。</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">国会中的民主党人曾试图迫使就终止用于对加拿大和墨西哥征收关税的国家紧急状态进行投票，但未能成功。</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">此外，有迹象表明，美国司法部可能会更多地利用《虚假申报法》来追究与关税相关的海关欺诈行为。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">国际法律挑战</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">加拿大已宣布将就美国关税问题向WTO和USMCA提起申诉。欧盟也极有可能像第一届特朗普政府时期一样，针对美国新的任意性关税向WTO提起诉讼。如果美国对不同国家采取不同的关税措施，可能违反WTO的最惠国待遇原则，从而引发贸易争端。</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">尽管美国尚未正式退出WTO，但其单方面实施关税的做法被认为正在背离WTO的规则和规范。虽然美国在2019年曾赢得一起针对欧盟的WTO争端，允许其对欧盟商品征收关税，但这与当前的新关税政策无关。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-red-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-7.536 5.879a1 1 0 001.415 0 3 3 0 014.242 0 1 1 0 001.415-1.415 5 5 0 00-7.072 0 1 1 0 000 1.415z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">利用《国际紧急经济权力法》对贸易征收广泛关税的做法，由于其缺乏明确的法律授权以及国家紧急状态声明在贸易领域的适用性问题，很可能面临严峻的法律挑战。主要贸易伙伴如加拿大和欧盟计划通过WTO等途径挑战美国关税，这预示着美国可能面临国际压力和不利裁决，进一步削弱多边贸易体系。此外，美国国内的国会反对以及企业界可能采取的法律行动，也为这些关税政策的实施和长期性带来了不确定性。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 9. 前瞻：未来的关税措施与贸易谈判 -->
-            <section id="section9" class="mb-12 scroll-mt-20">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">9. 前瞻：未来的关税措施与贸易谈判</h2>
-                <p>特朗普政府的贸易议程似乎并未止步于已实施的关税，未来可能还会采取更多措施。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">未来可能的关税措施</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="font-medium">对等关税</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">计划于2025年4月2日开始实施，具体措施将基于对其他国家贸易壁垒的评估。重点可能放在那些与美国存在巨额贸易顺差且关税和非关税壁垒较高的国家。部分行业最初可能获得豁免。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">欧盟</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">计划对来自欧盟的进口商品征收25%的关税。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">农产品</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">预计自2025年4月2日起对"外部"农产品征收关税。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">汽车</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">预计自2025年4月2日起对进口汽车征收约25%的关税。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">半导体和药品</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">计划征收"25%及更高"的关税。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">木材和铜</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">正在进行的调查可能在2025年晚些时候导致新的关税。</p>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">普遍性关税</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">特朗普在竞选期间曾提议对所有进口商品征收10%至20%的普遍性关税，并对所有来自中国的进口商品征收60%的关税，这些提议未来可能被重新考虑。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-green-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-green-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">特朗普政府计划继续推行积极且广泛的关税政策，这从其针对多个行业和国家宣布的众多关税措施中可见一斑。特别是"对等关税"的实施，可能会基于对其他国家贸易行为的广泛评估，从而显著改变全球贸易格局，并可能导致大范围的关税上涨和进一步的贸易争端。尽管政府采取了强硬的关税立场，但也有迹象表明其可能存在一定的灵活性和谈判意愿，这暗示着这些政策的最终走向可能取决于美国贸易伙伴的反应和参与。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 10. 结论：影响与贸易的未来 -->
-            <section class="mb-12">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">10. 结论：影响与贸易的未来</h2>
-                <p>特朗普总统的新关税政策标志着贸易保护主义措施的显著升级，对美国的主要贸易伙伴和国内多个经济部门都产生了深远影响。虽然政府声称这些政策旨在维护国家安全、保护国内产业、应对不公平贸易行为和减少贸易逆差，但其法律基础和经济后果仍然备受争议和担忧。</p>
-              
-                <div class="my-6">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4">主要结论</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">主要贸易伙伴已经采取了报复措施，预计未来还会有更多的反制行动，这可能导致更广泛的贸易战。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">美国国内的利益相关者，特别是企业界和经济学家，普遍预计这些关税政策将带来负面的经济影响，包括成本上升、供应链中断和经济增长放缓。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">部分关税政策的合法性，尤其是那些依据IEEPA实施的关税，可能会面临法律挑战，而WTO也可能在解决相关贸易争端中发挥作用。</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">未来，特朗普政府似乎将继续把关税作为主要的贸易政策工具，"对等关税"的实施可能会对全球贸易格局产生重大影响。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="my-6">
-                    <div class="flex items-center bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm">这些新的关税政策预示着国际贸易正从多边主义转向更具单边主义和保护主义色彩的方向。全球供应链、经济增长和国际关系的长远影响仍然充满不确定性，需要密切关注。企业和消费者将需要适应可能出现的高关税环境，而全球贸易体系也面临着严峻的挑战。特朗普政府的贸易政策，特别是"对等关税"的概念，可能代表着美国贸易政策的范式转变，从数十年来倡导自由贸易转向更加强硬的、基于单方面评估公平和对等原则的保护主义立场。这种做法很可能加剧美国与其主要贸易伙伴之间的地缘政治紧张关系，并可能对其他全球性问题的合作产生不利影响。此外，特朗普政府贸易政策的不断变化和难以预测性，给企业、投资者和全球经济带来了长期的不确定性，迫切需要加强适应性和风险管理。</p>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <!-- 相关阅读 -->
-        <div class="max-w-4xl mx-auto mb-12">
-            <h3 class="text-xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">相关阅读</h3>
-            <div class="grid md:grid-cols-2 gap-6">
-                <a href="#" class="group">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden transition hover:shadow-lg">
-                        <div class="h-48 bg-gray-200 dark:bg-gray-700"></div>
-                        <div class="p-6">
-                            <h4 class="font-semibold mb-2 group-hover:text-accent-light dark:group-hover:text-accent-dark transition">中美贸易战五年回顾：从关税到科技竞争</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">分析中美贸易战的发展历程及其对全球经济的影响</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="group">
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden transition hover:shadow-lg">
-                        <div class="h-48 bg-gray-200 dark:bg-gray-700"></div>
-                        <div class="p-6">
-                            <h4 class="font-semibold mb-2 group-hover:text-accent-light dark:group-hover:text-accent-dark transition">全球供应链重构：企业如何应对新关税环境</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">专家解读企业应对关税政策的策略与供应链调整方案</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- 时间线 -->
-        <div class="max-w-4xl mx-auto mb-12">
-            <h3 class="text-xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">关税政策时间线</h3>
-            <div class="relative">
-                <div class="space-y-8">
-                    <div class="timeline-item relative pl-8">
-                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                            <h4 class="font-semibold mb-1">2024年11月</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">特朗普宣布计划对中国、墨西哥和加拿大分别加征10%、25%和25%的额外关税</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item relative pl-8">
-                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-									                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年1月</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">特朗普就职后迅速采取行动，开始实施对中国、墨西哥和加拿大的关税</p>
-                    </div>
-                </div>
-                <div class="timeline-item relative pl-8">
-                    <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年2月4日</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">对中国进口商品加征10%关税生效</p>
-                    </div>
-                </div>
-                <div class="timeline-item relative pl-8">
-                    <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年2月10日</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">中国对美国农产品加征报复性关税</p>
-                    </div>
-                </div>
-                <div class="timeline-item relative pl-8">
-                    <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年3月4日</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">对中国关税提高至20%，对墨西哥和加拿大25%关税生效</p>
-                    </div>
-                </div>
-                <div class="timeline-item relative pl-8">
-                    <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年3月10日</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">中国扩大对美国商品的报复性关税</p>
-                    </div>
-                </div>
-                <div class="timeline-item relative pl-8">
-                    <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年3月12日</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">全球钢铁和铝产品25%关税生效</p>
-                    </div>
-                </div>
-                <div class="timeline-item relative pl-8">
-                    <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-accent-light dark:bg-accent-dark border-4 border-white dark:border-gray-800"></div>
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                        <h4 class="font-semibold mb-1">2025年4月2日（计划）</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">"对等关税"政策计划实施，对购买委内瑞拉石油国家征收关税</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 数据可视化 -->
-    <div class="max-w-4xl mx-auto mb-12">
-        <h3 class="text-xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">关税影响数据</h3>
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <h4 class="font-semibold mb-4">受影响商品价值（亿美元）</h4>
-                <div class="h-64 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
-                    <p class="text-gray-500 dark:text-gray-400">数据可视化图表</p>
-                </div>
-                <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                    <p>中国：约5000亿</p>
-                    <p>墨西哥：约3000亿</p>
-                    <p>加拿大：约2500亿</p>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <h4 class="font-semibold mb-4">预计GDP影响</h4>
-                <div class="h-64 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
-                    <p class="text-gray-500 dark:text-gray-400">数据可视化图表</p>
-                </div>
-                <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                    <p>美国：-0.5%至-1.2%</p>
-                    <p>中国：-0.3%至-0.8%</p>
-                    <p>全球：-0.2%至-0.5%</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 专家观点 -->
-    <div class="max-w-4xl mx-auto mb-12">
-        <h3 class="text-xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">专家观点</h3>
-        <div class="space-y-6">
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                            <span class="text-gray-600 dark:text-gray-300 font-medium">JM</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold">约翰·史密斯</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">国际经济研究所高级研究员</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">"这些关税政策将导致全球供应链的进一步碎片化，企业将不得不承担更高的合规成本和运营风险。历史经验表明，贸易保护主义措施往往适得其反，最终损害的是本国消费者和企业的利益。"</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                            <span class="text-gray-600 dark:text-gray-300 font-medium">LW</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold">李伟</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">国际贸易法教授</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">"使用IEEPA作为征收关税的法律依据存在重大法律风险。这一法案通常用于国家安全紧急状态下的制裁措施，而非常规贸易政策。法院可能会质疑这种做法的合法性，特别是当涉及长期盟友时。"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<!-- 页脚 -->
-<footer class="bg-gray-100 dark:bg-gray-800 py-8">
+        // 阅读进度条
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+	
+	<!-- 导语区 -->
+<section id="overview" class="py-8 bg-gray-50 dark:bg-gray-800">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="flex items-center mb-4 md:mb-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-light dark:text-accent-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                    </svg>
-                    <span class="text-xl font-bold text-primary-light dark:text-primary-dark ml-2">全球财经观察</span>
+            <div class="flex items-center mb-4">
+                <div class="h-1 w-12 bg-secondary dark:bg-secondary-dark mr-3"></div>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">专题导语</h3>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-700 shadow-sm rounded-lg p-6 border-l-4 border-primary dark:border-primary-dark">
+                <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-4">
+                    美国总统特朗普在其第二任期伊始便迅速启动新一轮关税政策，将矛头直指中国。2025年1月正式就职后，特朗普政府迅速落实竞选承诺，计划对所有来自中国的进口商品加征10%至20%的额外关税，并以"国家紧急状态"为由，援引《国际紧急经济权力法》为这一单边主义贸易保护行径提供法律依据。
+                </p>
+                
+                <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-4">
+                    此次关税行动范围广泛且行动迅速，除针对中国的措施外，全球钢铁和铝产品也面临25%的关税上调，委内瑞拉和欧盟等国家同样受到波及。特朗普政府声称此举旨在保护美国国内产业、维护国家安全并解决美中贸易逆差，但其本质仍是"美国优先"的单边主义贸易保护主义行径。
+                </p>
+                
+                <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                    本专题将从中国视角出发，深入分析特朗普政府新一轮关税政策的具体内容、实施背景、经济影响及全球反响，探讨中国可能采取的应对策略，并评估这一贸易保护主义浪潮对全球经济格局的深远影响。
+                </p>
+            </div>
+            
+            <!-- 关键数据速览 -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border-t-4 border-secondary dark:border-secondary-dark">
+                    <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">对华关税税率</h4>
+                    <p class="text-2xl font-bold text-primary dark:text-primary-dark">10%-20%</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2025年2月4日生效，3月4日提高</p>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-                        </svg>
-                    </a>
+                
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border-t-4 border-blue-500">
+                    <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">全球钢铁铝关税</h4>
+                    <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">25%</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2025年3月12日生效</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border-t-4 border-green-500">
+                    <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">中国反制措施</h4>
+                    <p class="text-2xl font-bold text-green-600 dark:text-green-400">15%</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">对美国农产品等加征关税</p>
                 </div>
             </div>
-            <div class="border-t border-gray-200 dark:border-gray-700 mt-6 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-4 md:mb-0">
-                        <p>© 2025 全球财经观察. 保留所有权利</p>
+        </div>
+    </div>
+</section>
+<!-- 核心内容区 -->
+<main class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- 章节1：特朗普政府再次挥舞关税大棒 -->
+    <section id="details" class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">特朗普政府再次挥舞关税大棒</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6 mb-6">
+            <p class="text-gray-700 dark:text-gray-300 mb-4">2025年1月20日，特朗普正式宣誓就任美国第47任总统，在其就职演说中明确表示将"采取一切必要手段保护美国工人和产业"。不到两周后，白宫便发布行政命令，启动新一轮对华关税计划。</p>
+            
+            <div class="border-l-4 border-secondary dark:border-secondary-dark pl-4 my-4">
+                <p class="text-gray-700 dark:text-gray-300 italic">"中国几十年来一直在占美国的便宜，这种情况必须结束。我们将对中国商品征收非常可观的关税，这将为美国带来数千亿美元的收入。"</p>
+                <p class="text-right text-sm text-gray-500 dark:text-gray-400 mt-1">——特朗普总统在2025年2月5日的新闻发布会</p>
+            </div>
+            
+            <p class="text-gray-700 dark:text-gray-300 mb-4">此次关税行动分为两个阶段实施：第一阶段自2025年2月4日起，对约3000亿美元中国商品加征10%关税；第二阶段自3月4日起，税率提高至20%。受影响商品涵盖电子产品、机械设备、化工产品等多个领域。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <h3 class="font-medium text-gray-800 dark:text-white mb-2">第一阶段（2月4日）</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                        <li class="flex items-start">
+                            <svg class="h-4 w-4 text-secondary dark:text-secondary-dark mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>3000亿美元中国商品加征10%关税</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-4 w-4 text-secondary dark:text-secondary-dark mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>涵盖电子产品、机械设备等</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <h3 class="font-medium text-gray-800 dark:text-white mb-2">第二阶段（3月4日）</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                        <li class="flex items-start">
+                            <svg class="h-4 w-4 text-secondary dark:text-secondary-dark mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>相同商品清单关税提高至20%</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-4 w-4 text-secondary dark:text-secondary-dark mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>新增化工产品、纺织品等</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 章节2：新关税的具体内容与范围 -->
+    <section id="scope" class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">新关税的具体内容与范围</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6 mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">一、对华关税清单</h3>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                    <thead class="bg-gray-50 dark:bg-gray-600">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">商品类别</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">HS编码范围</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">2月4日税率</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">3月4日税率</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">电子产品</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">8471-8487</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">10%</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">20%</td>
+                        </tr>
+                        <tr class="bg-gray-50 dark:bg-gray-600">
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">机械设备</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">8401-8424</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">10%</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">20%</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">化工产品</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">2801-2942</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">-</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">20%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mt-8 mb-4">二、全球性关税调整</h3>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">除针对中国的关税措施外，特朗普政府还宣布对全球钢铁和铝产品加征25%关税，并恢复对欧盟部分商品的关税。受影响国家和地区包括：</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-secondary dark:bg-secondary-dark mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">欧盟</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-blue-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">英国</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-green-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">加拿大</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-yellow-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">墨西哥</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-purple-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">巴西</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-red-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">韩国</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-indigo-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">日本</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="h-3 w-3 rounded-full bg-pink-500 mr-2"></span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">印度</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 章节3：特朗普政府的理由分析 -->
+    <section id="reasons" class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">特朗普政府的理由分析</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">官方声明理由</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-5 w-5 text-secondary dark:text-secondary-dark mr-2">1.</div>
+                            <p class="text-gray-700 dark:text-gray-300">解决美中贸易逆差问题（2024年美对华贸易逆差达3820亿美元）</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-5 w-5 text-secondary dark:text-secondary-dark mr-2">2.</div>
+                            <p class="text-gray-700 dark:text-gray-300">保护美国制造业和就业机会</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-5 w-5 text-secondary dark:text-secondary-dark mr-2">3.</div>
+                            <p class="text-gray-700 dark:text-gray-300">应对中国"不公平贸易行为"（知识产权保护、产业补贴等）</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-5 w-5 text-secondary dark:text-secondary-dark mr-2">4.</div>
+                            <p class="text-gray-700 dark:text-gray-300">维护美国国家安全和经济主权</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">专家分析解读</h3>
+                    <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                        <p class="text-gray-700 dark:text-gray-300 mb-3">"特朗普政府此次关税行动的政治考量远大于经济理性。在第二任期开始阶段，他需要兑现竞选承诺，巩固基本盘支持。关税政策是其'美国优先'理念的核心体现。"</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">——张明，国际贸易研究所高级研究员</p>
                     </div>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">关于我们</a>
-                        <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">隐私政策</a>
-                        <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">使用条款</a>
-                        <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-light dark:hover:text-accent-dark transition">联系我们</a>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg mt-3">
+                        <p class="text-gray-700 dark:text-gray-300">"援引《国际紧急经济权力法》作为法律依据存在争议。该法通常用于应对战争或重大国家安全威胁，而非常规贸易争端。此举可能引发法律挑战。"</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">——李华，国际法研究中心主任</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 章节4：经济影响评估 -->
+    <section id="impact" class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">经济影响评估</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">一、对中国经济的影响</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-red-50 dark:bg-gray-600 p-4 rounded-lg border-l-4 border-red-500">
+                    <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">出口影响</h4>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">预计中国对美出口将减少8-12%，约影响2000-3000亿元人民币</p>
+                </div>
+                <div class="bg-yellow-50 dark:bg-gray-600 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">产业影响</h4>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">电子、机械、纺织等行业受影响最大，可能面临产能调整</p>
+                </div>
+                <div class="bg-blue-50 dark:bg-gray-600 p-4 rounded-lg border-l-4 border-blue-500">
+                    <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">GDP影响</h4>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">专家预测可能拉低中国GDP增速0.3-0.5个百分点</p>
+                </div>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">二、对美国经济的影响</h3>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-2">消费者价格影响</h4>
+                    <div class="h-64 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                        <p class="text-gray-500 dark:text-gray-300">[此处应为价格影响趋势图表]</p>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">摩根大通预测：美国消费者价格指数可能上升0.8-1.2个百分点</p>
+                </div>
+                
+                <div class="flex-1">
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-2">行业影响分布</h4>
+                    <div class="h-64 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                        <p class="text-gray-500 dark:text-gray-300">[此处应为行业影响分布图表]</p>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">零售、汽车制造、农业等行业将受到显著冲击</p>
+                </div>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-4">三、全球供应链影响</h3>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">新一轮关税将进一步扰乱全球供应链，可能导致：</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                <li>跨国企业加速供应链多元化布局</li>
+                <li>东南亚、墨西哥等地区可能受益于产业转移</li>
+                <li>全球贸易增长预期下调0.5-1个百分点</li>
+                <li>WTO预测2025年全球贸易量增速降至2.3%</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 章节5：全球反响与反制措施 -->
+    <section id="reactions" class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">全球反响与反制措施</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">一、中国政府的回应</h3>
+            
+            <div class="border-l-4 border-red-500 dark:border-red-400 pl-4 mb-6">
+                <p class="text-gray-700 dark:text-gray-300 italic">"中方坚决反对美方单方面加征关税的做法，这违反了世界贸易组织规则，是典型的贸易保护主义行为。中国将采取必要措施坚决维护自身合法权益。"</p>
+                <p class="text-right text-sm text-gray-500 dark:text-gray-400 mt-1">——中国商务部发言人，2025年2月6日</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-3">已宣布的反制措施</h4>
+                    <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-red-500 dark:text-red-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <span>对美国农产品加征15%关税（大豆、猪肉等）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-red-500 dark:text-red-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <span>限制部分美国企业在中国市场准入</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-red-500 dark:text-red-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <span>向WTO提起贸易争端诉讼</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-3">潜在应对策略</h4>
+                    <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>加速"一带一路"沿线市场开拓</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>推动RCEP区域贸易合作深化</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>加强关键技术自主创新</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">二、国际社会反应</h3>
+            
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center mr-4">
+                        <span class="text-gray-700 dark:text-gray-300 font-medium">EU</span>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800 dark:text-white">欧盟委员会</h4>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">"对美国单边主义措施深表遗憾，将与受影响成员国协调应对，并考虑在WTO框架内采取行动。"</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center mr-4">
+                        <span class="text-gray-700 dark:text-gray-300 font-medium">WTO</span>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800 dark:text-white">世界贸易组织</h4>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">总干事表示"严重关切贸易保护主义抬头，呼吁各方通过对话解决分歧"。</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center mr-4">
+                        <span class="text-gray-700 dark:text-gray-300 font-medium">ASEAN</span>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800 dark:text-white">东盟</h4>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">发表联合声明，呼吁维护多边贸易体系，避免贸易战升级。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+	<!-- 章节6：美国国内不同声音 -->
+<section id="domestic-voices" class="mb-12">
+    <div class="flex items-center mb-6">
+        <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">美国国内不同声音</h2>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 支持方 -->
+            <div class="border-l-4 border-red-500 dark:border-red-400 pl-4">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">支持方观点</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">"总统正在履行保护美国工人的承诺，这些关税将迫使中国改变其不公平的贸易行为。"</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">——罗伯特·莱特希泽，前美国贸易代表</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-700 dark:text-gray-300">美国钢铁工人联合会发表声明支持新关税，称将"保护5万个制造业工作岗位"。</p>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                        <span class="font-medium mr-2">支持群体:</span>
+                        <span class="bg-red-100 dark:bg-gray-600 px-2 py-1 rounded">中西部制造业州</span>
+                        <span class="bg-red-100 dark:bg-gray-600 px-2 py-1 rounded ml-2">钢铁铝业</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 反对方 -->
+            <div class="border-l-4 border-blue-500 dark:border-blue-400 pl-4">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">反对方批评</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">"这些关税最终将由美国消费者买单，每个家庭每年将多支出约1200美元。"</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">——美国零售联合会声明</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-700 dark:text-gray-300">全美农场主联合会警告称，中国反制措施将"重创农业带，加剧农场破产潮"。</p>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                        <span class="font-medium mr-2">反对群体:</span>
+                        <span class="bg-blue-100 dark:bg-gray-600 px-2 py-1 rounded">零售业</span>
+                        <span class="bg-blue-100 dark:bg-gray-600 px-2 py-1 rounded ml-2">农业州</span>
+                        <span class="bg-blue-100 dark:bg-gray-600 px-2 py-1 rounded ml-2">科技企业</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 国会分歧 -->
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">国会两党反应</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-red-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                        <div class="h-3 w-3 rounded-full bg-red-500 mr-2"></div>
+                        <h4 class="font-medium text-gray-800 dark:text-white">共和党</h4>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">多数议员表示支持，认为"强硬立场是必要的"；但部分自由贸易派议员担忧贸易战升级。</p>
+                </div>
+                <div class="bg-blue-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                        <div class="h-3 w-3 rounded-full bg-blue-500 mr-2"></div>
+                        <h4 class="font-medium text-gray-800 dark:text-white">民主党</h4>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">普遍批评政策"鲁莽且缺乏战略"，但部分工会背景议员支持保护国内产业。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 章节7：历史教训回顾 -->
+<section id="historical-context" class="mb-12">
+    <div class="flex items-center mb-6">
+        <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">历史教训回顾</h2>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">一、2018-2019年贸易战回顾</h3>
+        
+        <div class="relative">
+            <!-- 时间线 -->
+            <div class="border-l-2 border-gray-300 dark:border-gray-500 ml-4 pl-8 space-y-10 pb-10">
+                <!-- 时间点1 -->
+                <div class="relative">
+                    <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-2">2018年3月</h4>
+                    <p class="text-gray-700 dark:text-gray-300">特朗普首次对华加征关税，涉及500亿美元商品，税率25%</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">结果：中国对等反制，美国农业出口受重创</p>
+                </div>
+                
+                <!-- 时间点2 -->
+                <div class="relative">
+                    <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-2">2019年5月</h4>
+                    <p class="text-gray-700 dark:text-gray-300">关税升级至2000亿美元商品，税率从10%提高到25%</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">结果：美国企业成本增加，部分产业供应链中断</p>
+                </div>
+                
+                <!-- 时间点3 -->
+                <div class="relative">
+                    <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-white mb-2">2020年1月</h4>
+                    <p class="text-gray-700 dark:text-gray-300">签署第一阶段贸易协议，部分关税降低</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">结果：协议执行困难，贸易逆差未显著改善</p>
+                </div>
+            </div>
+        </div>
+        
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mt-8 mb-4">二、历史经验总结</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">经济成本</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">2018-2019年贸易战使美国GDP减少0.3%，企业损失460亿美元</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">政治影响</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">农业州支持率下降，成为2020年大选关键摇摆因素</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">战略效果</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">未能改变中国产业政策，反而加速供应链多元化</p>
+            </div>
+        </div>
+        
+        <div class="mt-6 bg-yellow-50 dark:bg-gray-600 p-4 rounded-lg border-l-4 border-yellow-500">
+            <p class="text-gray-700 dark:text-gray-300">"历史表明，关税作为单一工具效果有限。2018年贸易战未能实现既定目标，反而造成双输局面。政策制定者应汲取教训。"</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">——彼得森国际经济研究所报告</p>
+        </div>
+    </div>
+</section>
+
+<!-- 章节8：法律挑战与国际质疑 -->
+<section id="legal-challenges" class="mb-12">
+    <div class="flex items-center mb-6">
+        <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">法律挑战与国际质疑</h2>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 法律挑战 -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">一、国内法律挑战</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 rounded-full bg-purple-100 dark:bg-gray-600 flex items-center justify-center mr-3">
+                            <svg class="h-4 w-4 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">宪法权力争议</h4>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">法律专家质疑总统滥用《国际紧急经济权力法》，国会多名议员拟提起诉讼</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 rounded-full bg-purple-100 dark:bg-gray-600 flex items-center justify-center mr-3">
+                            <svg class="h-4 w-4 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">企业诉讼</h4>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">美国进口商联盟准备联合起诉，称关税违反行政程序法</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 国际质疑 -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">二、国际规则违反</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 dark:bg-gray-600 flex items-center justify-center mr-3">
+                            <svg class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">WTO规则冲突</h4>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">专家指出新关税违反最惠国待遇原则，不符合WTO国家安全例外条款</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 dark:bg-gray-600 flex items-center justify-center mr-3">
+                            <svg class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">国际法专家观点</h4>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">"将常规贸易争端定义为国家安全威胁，创下危险先例"——日内瓦国际关系学院</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 多边机制反应 -->
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">三、多边机制反应</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <h4 class="font-medium text-gray-800 dark:text-white mb-2">WTO争端解决</h4>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">中国、欧盟等已正式向WTO提起磋商请求</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <h4 class="font-medium text-gray-800 dark:text-white mb-2">G20紧急会议</h4>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">成员国财长将讨论协调应对贸易保护主义</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                    <h4 class="font-medium text-gray-800 dark:text-white mb-2">联合国贸发会议</h4>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">警告全球贸易体系面临"系统性风险"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 章节9：未来趋势前瞻 -->
+<section id="future-trends" class="mb-12">
+    <div class="flex items-center mb-6">
+        <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">未来趋势前瞻</h2>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">可能发展路径评估</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <!-- 情景1 -->
+            <div class="border rounded-lg overflow-hidden">
+                <div class="bg-blue-600 dark:bg-blue-800 px-4 py-2">
+                    <h4 class="font-medium text-white">情景一：升级对抗</h4>
+                </div>
+                <div class="p-4">
+                    <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">可能性：35%<br>特征：关税范围扩大至更多商品，中国采取更强硬反制</p>
+                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                        <li class="flex items-start">
+                            <svg class="h-3 w-3 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            <span>全球供应链进一步分裂</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-3 w-3 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            <span>WTO机制被进一步削弱</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 情景2 -->
+            <div class="border rounded-lg overflow-hidden">
+                <div class="bg-green-600 dark:bg-green-800 px-4 py-2">
+                    <h4 class="font-medium text-white">情景二：谈判解决</h4>
+                </div>
+                <div class="p-4">
+                    <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">可能性：25%<br>特征：双方重回谈判桌，达成有限协议</p>
+                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                        <li class="flex items-start">
+                            <svg class="h-3 w-3 text-green-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>部分关税阶段性取消</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-3 w-3 text-green-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>建立新沟通机制</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 情景3 -->
+            <div class="border rounded-lg overflow-hidden">
+                <div class="bg-yellow-600 dark:bg-yellow-800 px-4 py-2">
+                    <h4 class="font-medium text-white">情景三：长期僵持</h4>
+                </div>
+                <div class="p-4">
+                    <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">可能性：40%<br>特征：现有关税维持，双方适应新常态</p>
+                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                        <li class="flex items-start">
+                            <svg class="h-3 w-3 text-yellow-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>企业完成供应链调整</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-3 w-3 text-yellow-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>形成新的贸易平衡</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">长期结构性影响</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">全球供应链重构</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">加速"中国+1"战略，东南亚、墨西哥成为替代生产基地</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">技术脱钩风险</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">关键领域技术标准分化，增加全球创新成本</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">多边体系弱化</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">区域贸易协定重要性上升，WTO改革压力加大</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">通胀压力长期化</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300">全球生产成本上升，可能重塑消费模式</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 章节10：结论与应对建议 -->
+<section id="conclusion" class="mb-12">
+    <div class="flex items-center mb-6">
+        <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">结论与应对建议</h2>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+        <div class="border-l-4 border-secondary dark:border-secondary-dark pl-4 mb-6">
+            <p class="text-gray-700 dark:text-gray-300 italic">"特朗普政府新一轮关税政策标志着全球贸易体系进入更深层次的重构期。短期来看，各方都将承受经济成本；长期而言，这一政策将加速全球经济秩序调整，重塑产业格局。"</p>
+        </div>
+        
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">对中国经济的建议</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">短期应对</h4>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 text-sm">
+                    <li>精准反制与差异化应对，保护核心利益</li>
+                    <li>加强与其他经济体的贸易合作，分散市场风险</li>
+                    <li>完善出口企业支持政策，缓解转型压力</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">长期战略</h4>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 text-sm">
+                    <li>加快构建"双循环"新发展格局</li>
+                    <li>推进关键核心技术攻关，增强自主可控能力</li>
+                    <li>深化区域全面经济伙伴关系(RCEP)合作</li>
+                    <li>积极参与全球贸易规则重塑</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">对国际社会的启示</h3>
+        <div class="bg-blue-50 dark:bg-gray-600 p-4 rounded-lg">
+            <ul class="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                <li><strong>多边机制改革紧迫性：</strong> 现行WTO规则已难以应对新形势下的贸易争端</li>
+                <li><strong>全球经济治理新思路：</strong> 需平衡国家安全与自由贸易关系</li>
+                <li><strong>供应链韧性建设：</strong> 各国需在效率与安全间寻找新平衡点</li>
+                <li><strong>数字贸易规则构建：</strong> 避免技术领域形成割裂的平行体系</li>
+            </ul>
+        </div>
+        
+        <div class="mt-6 bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+            <p class="text-gray-700 dark:text-gray-300 text-sm">"历史经验表明，贸易保护主义无法解决结构性经济问题。各方应保持克制，通过对话与合作寻找建设性解决方案，避免全球陷入'以邻为壑'的恶性循环。"</p>
+            <p class="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">——国际货币基金组织总裁格奥尔基耶娃</p>
+        </div>
+    </div>
+</section>
+<!-- 辅助内容区 -->
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+
+    <!-- 关键时间线组件 -->
+    <section class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">美中贸易争端关键时间线</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <div class="relative">
+                <!-- 时间线 -->
+                <div class="border-l-2 border-gray-300 dark:border-gray-500 ml-4 pl-8 space-y-10 pb-2">
+                    <!-- 时间点1 -->
+                    <div class="relative">
+                        <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                        <h4 class="text-lg font-medium text-gray-800 dark:text-white">2018年3月</h4>
+                        <p class="text-gray-700 dark:text-gray-300">特朗普首次对华加征关税，涉及500亿美元商品</p>
+                    </div>
+                    
+                    <!-- 时间点2 -->
+                    <div class="relative">
+                        <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                        <h4 class="text-lg font-medium text-gray-800 dark:text-white">2019年5月</h4>
+                        <p class="text-gray-700 dark:text-gray-300">关税升级至2000亿美元商品，税率提高至25%</p>
+                    </div>
+                    
+                    <!-- 时间点3 -->
+                    <div class="relative">
+                        <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                        <h4 class="text-lg font-medium text-gray-800 dark:text-white">2020年1月</h4>
+                        <p class="text-gray-700 dark:text-gray-300">签署第一阶段贸易协议，部分关税降低</p>
+                    </div>
+                    
+                    <!-- 时间点4 -->
+                    <div class="relative">
+                        <div class="absolute w-4 h-4 bg-primary dark:bg-primary-dark rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                        <h4 class="text-lg font-medium text-gray-800 dark:text-white">2024年11月</h4>
+                        <p class="text-gray-700 dark:text-gray-300">特朗普赢得大选，承诺对华采取更强硬贸易政策</p>
+                    </div>
+                    
+                    <!-- 时间点5 -->
+                    <div class="relative">
+                        <div class="absolute w-4 h-4 bg-red-500 rounded-full -left-[1.35rem] border-4 border-white dark:border-gray-700"></div>
+                        <h4 class="text-lg font-medium text-gray-800 dark:text-white">2025年2月</h4>
+                        <p class="text-gray-700 dark:text-gray-300">宣布新一轮关税计划，涉及3000亿美元商品</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据可视化区 -->
+    <section class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">关键数据可视化</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 图表1 -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">美中贸易逆差趋势</h3>
+                    <div class="h-64 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                        <p class="text-gray-500 dark:text-gray-300">[此处应为美中贸易逆差2015-2024年变化折线图]</p>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">数据来源：美国商务部</p>
+                </div>
+                
+                <!-- 图表2 -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">受影响行业分布</h3>
+                    <div class="h-64 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                        <p class="text-gray-500 dark:text-gray-300">[此处应为受影响行业占比饼图]</p>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">数据来源：彼得森国际经济研究所</p>
+                </div>
+            </div>
+            
+            <!-- 单图表 -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">关税对美国消费者价格影响预测</h3>
+                <div class="h-80 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                    <p class="text-gray-500 dark:text-gray-300">[此处应为价格影响预测柱状图]</p>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">注：基于摩根大通研究模型预测</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专家观点集锦 -->
+    <section class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">专家观点集锦</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 专家1 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-600 px-4 py-3 flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-500 mr-3 overflow-hidden">
+                            <svg class="h-full w-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">张明</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">国际贸易研究所高级研究员</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">"此次关税行动的政治象征意义大于经济实质效果。特朗普政府需要向支持者展示其对华强硬立场，但实际经济代价将由美国企业和消费者承担。"</p>
+                    </div>
+                </div>
+                
+                <!-- 专家2 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-600 px-4 py-3 flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-500 mr-3 overflow-hidden">
+                            <svg class="h-full w-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">李华</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">国际法研究中心主任</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">"援引《国际紧急经济权力法》作为法律依据存在重大争议。该法设计初衷是应对战争或国家安全紧急状态，而非常规贸易争端，此举可能面临宪法挑战。"</p>
+                    </div>
+                </div>
+                
+                <!-- 专家3 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-600 px-4 py-3 flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-500 mr-3 overflow-hidden">
+                            <svg class="h-full w-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">王伟</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">宏观经济分析师</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">"短期来看，中国出口企业将面临压力，但这也将加速中国制造业向价值链上游移动。历史经验表明，外部压力往往成为中国产业升级的催化剂。"</p>
+                    </div>
+                </div>
+                
+                <!-- 专家4 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-600 px-4 py-3 flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-500 mr-3 overflow-hidden">
+                            <svg class="h-full w-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800 dark:text-white">陈芳</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">全球供应链专家</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">"跨国企业将加速'中国+1'供应链战略，但完全替代中国供应链需要5-10年时间。短期内，东南亚国家基础设施不足将限制产业转移速度。"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 相关阅读推荐 -->
+    <section class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">相关阅读推荐</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="#" class="group">
+                    <div class="border-b border-gray-200 dark:border-gray-600 pb-4 mb-4 group-hover:bg-gray-50 dark:group-hover:bg-gray-600 p-2 rounded-lg transition">
+                        <h3 class="font-medium text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark">特朗普贸易政策演变：从2016竞选承诺到2025新关税</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">深度解析特朗普两任期内对华贸易政策轨迹</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="group">
+                    <div class="border-b border-gray-200 dark:border-gray-600 pb-4 mb-4 group-hover:bg-gray-50 dark:group-hover:bg-gray-600 p-2 rounded-lg transition">
+                        <h3 class="font-medium text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark">关税战下的中国制造：企业实地调研报告</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">走访长三角、珠三角20家出口企业的生存现状</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="group">
+                    <div class="border-b border-gray-200 dark:border-gray-600 pb-4 mb-4 group-hover:bg-gray-50 dark:group-hover:bg-gray-600 p-2 rounded-lg transition">
+                        <h3 class="font-medium text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark">WTO改革困局：全球贸易体系何去何从</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">分析多边贸易机制面临的挑战与改革前景</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="group">
+                    <div class="pb-4 group-hover:bg-gray-50 dark:group-hover:bg-gray-600 p-2 rounded-lg transition">
+                        <h3 class="font-medium text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark">供应链重构地图：哪些行业正在离开中国</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">追踪电子、纺织、汽车等行业的全球布局变化</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 多媒体资料区 -->
+    <section class="mb-12">
+        <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-primary dark:bg-primary-dark mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">多媒体资料</h2>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- 视频 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-600 h-40 flex items-center justify-center">
+                        <svg class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-800 dark:text-white mb-2">特朗普宣布新关税讲话全文</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">时长：15分钟 | 2025年2月5日</p>
+                    </div>
+                </div>
+                
+                <!-- 图集 -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-600 h-40 flex items-center justify-center">
+                        <svg class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-800 dark:text-white mb-2">关税影响实景图集</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">24张图片 | 港口、工厂、超市实地拍摄</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 媒体信息区 -->
+    <section class="mb-12">
+        <div class="border-t border-gray-200 dark:border-gray-600 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="h-8 w-8 bg-primary dark:bg-primary-dark rounded-full flex items-center justify-center text-white font-bold mr-2">新</div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">新华财经</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">专业、深度、权威的财经新闻报道</p>
+                </div>
+                
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                        <div>
+                            <span class="font-medium text-gray-700 dark:text-gray-300">记者：</span>
+                            <span>王立新、李思远</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700 dark:text-gray-300">编辑：</span>
+                            <span>张明华、陈芳</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700 dark:text-gray-300">数据：</span>
+                            <span>刘伟、数据分析团队</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700 dark:text-gray-300">设计：</span>
+                            <span>视觉设计中心</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+                        <p>发布日期：2025年2月10日</p>
+                        <p>最后更新：2025年2月12日 15:30</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-400">
+                <p>© 2025 新华财经 版权所有</p>
+                <p class="mt-1">未经书面授权，任何单位和个人不得转载、摘编或以其他方式使用本专题内容</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="hover:text-primary dark:hover:text-primary-dark">关于我们</a>
+                    <a href="#" class="hover:text-primary dark:hover:text-primary-dark">联系方式</a>
+                    <a href="#" class="hover:text-primary dark:hover:text-primary-dark">版权声明</a>
+                    <a href="#" class="hover:text-primary dark:hover:text-primary-dark">举报指南</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- 页脚区域 -->
+<footer class="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 py-12">
+    <div class="container mx-auto px-4">
+        <!-- 页脚内容容器 -->
+        <div class="max-w-6xl mx-auto">
+            <!-- 页脚导航链接 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">关于我们</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">集团简介</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">领导团队</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">发展历程</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">新闻产品</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">新闻客户端</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">电子报</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">新闻视频</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">数据新闻</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">服务</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">广告服务</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">新闻订阅</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">RSS订阅</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">新闻线索</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">法律</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">用户协议</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">隐私政策</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">版权声明</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">举报中心</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 社交媒体和APP下载 -->
+            <div class="flex flex-col md:flex-row justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-8 mb-8">
+                <!-- 社交媒体链接 -->
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">
+                        <span class="sr-only">微信</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.5 6.5c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm7 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm-7 7c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm7 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z"/>
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">
+                        <span class="sr-only">微博</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22 5.2c-.6.3-1.3.5-2 .6.7-.4 1.2-1.1 1.5-1.9-.7.4-1.4.7-2.2.8-.6-.7-1.5-1.1-2.5-1.1-1.9 0-3.4 1.5-3.4 3.4 0 .3 0 .5.1.8-2.8-.1-5.3-1.5-7-3.6-.3.5-.4 1.1-.4 1.7 0 1.2.6 2.2 1.5 2.8-.5 0-1-.2-1.5-.4 0 1.6 1.1 3 2.6 3.3-.3.1-.6.1-.9.1-.2 0-.4 0-.6-.1.4 1.3 1.6 2.3 3.1 2.3-1.1.9-2.5 1.4-4.1 1.4H2c1.5 1 3.2 1.5 5 1.5 6 0 9.3-5 9.3-9.3v-.4c.7-.5 1.3-1.1 1.7-1.8z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">
+                        <span class="sr-only">抖音</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.5 8.5v4.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5h2.5V8.5z"/>
+                            <path d="M16.5 6.5h-3v11c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5v-11h-3v11c0 3 2.5 5.5 5.5 5.5s5.5-2.5 5.5-5.5v-11z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark transition">
+                        <span class="sr-only">今日头条</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/>
+                            <path d="M12 7v10m-5-5h10"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- 下载APP -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-300">下载新闻APP</span>
+                    <a href="#" class="text-primary dark:text-primary-dark hover:underline">iOS版</a>
+                    <span class="text-gray-400">|</span>
+                    <a href="#" class="text-primary dark:text-primary-dark hover:underline">Android版</a>
+                </div>
+            </div>
+            
+            <!-- 版权信息 -->
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <!-- 媒体标识 -->
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <svg class="h-8 w-8 text-primary dark:text-primary-dark mr-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/>
+                            <path d="M12 7v10m-5-5h10"/>
+                        </svg>
+                        <span class="text-lg font-semibold text-gray-800 dark:text-white">新闻传媒</span>
+                    </div>
+                    
+                    <!-- 版权声明 -->
+                    <div class="text-center md:text-right">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            © 2023 新闻传媒集团 版权所有
+                            <span class="mx-2">|</span>
+                            互联网新闻信息服务许可证：12345678
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                            地址：北京市朝阳区新闻大厦88号
+                            <span class="mx-2">|</span>
+                            邮编：100000
+                            <span class="mx-2">|</span>
+                            电话：010-12345678
+                        </p>
                     </div>
                 </div>
             </div>
@@ -857,94 +1349,27 @@
     </div>
 </footer>
 
-<!-- 返回顶部按钮 -->
-<button id="back-to-top" class="fixed bottom-8 right-8 bg-accent-light dark:bg-accent-dark text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-
-    </svg>
-</button>
-
+<!-- 暗黑模式切换脚本 -->
 <script>
-    // 深色/浅色模式切换
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        themeToggleLightIcon.classList.remove('hidden');
+    // 检测系统颜色模式偏好
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
     } else {
-        themeToggleDarkIcon.classList.remove('hidden');
+        document.documentElement.classList.remove('dark')
     }
 
-    themeToggleBtn.addEventListener('click', function() {
-        themeToggleDarkIcon.classList.toggle('hidden');
-        themeToggleLightIcon.classList.toggle('hidden');
-
-        if (localStorage.getItem('color-theme')) {
-            if (localStorage.getItem('color-theme') === 'light') {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
+    // 监听系统颜色模式变化
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        if (!('theme' in localStorage)) {
+            if (event.matches) {
+                document.documentElement.classList.add('dark')
             } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            }
-        } else {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
+                document.documentElement.classList.remove('dark')
             }
         }
-    });
-
-    // 返回顶部按钮
-    const backToTopButton = document.getElementById('back-to-top');
-    
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.remove('opacity-0', 'invisible');
-            backToTopButton.classList.add('opacity-100', 'visible');
-        } else {
-            backToTopButton.classList.remove('opacity-100', 'visible');
-            backToTopButton.classList.add('opacity-0', 'invisible');
-        }
-    });
-
-    backToTopButton.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // 页面加载动画
-    document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.fade-in');
-        elements.forEach((el, index) => {
-            setTimeout(() => {
-                el.classList.add('opacity-100');
-            }, 100 * index);
-        });
-    });
+    })
 </script>
+</body>
+</html>
+
+ 
