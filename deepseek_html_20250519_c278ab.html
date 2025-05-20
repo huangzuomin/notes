@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI辅助工作方法论可视化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                fontSize: '22px', // 更大的基础字号
+                nodeBorder: 2,
+                borderRadius: 12,
+                edgeLabelBackground: '#fff',
+                primaryColor: '#E5E7EB'
+            }
+        });
+    </script>
+    <style>
+        .mermaid {
+            font-family: 'Arial', sans-serif;
+            zoom: 1.3; /* 整体放大 */
+        }
+        .mermaid .node rect {
+            padding: 12px !important;
+            min-width: 180px !important; /* 保证节点宽度 */
+        }
+        .mermaid .edgeLabel {
+            font-size: 20px !important;
+            padding: 4px 8px !important;
+        }
+        .header-title {
+            background: linear-gradient(to right, #6EE7B7, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 py-8 px-4">
+    <div class="container mx-auto max-w-4xl text-center">
+        <h1 class="text-5xl font-bold mb-2 header-title">"Word之上，思维之下"</h1>
+        <h2 class="text-3xl font-semibold text-slate-700 mb-8">AI辅助工作方法论 可视化流程</h2>
+
+        <div class="p-4 bg-white rounded-xl shadow-2xl border border-slate-200">
+            <pre class="mermaid">
+graph TD
+    %% 纵向主流程
+    S["🎯 任务启动\n(明确表达目标)"]:::startNode
+    S --> D1{"有明确思路?"}:::decisionNode
+
+    %% 路径一：有思路
+    D1 -- "✅ 有思路" --> P1_1["🧠 快速倾倒想法\n(碎片化记录要点)\n👤 人类主导"]:::humanTask
+    P1_1 --> P1_2["🤖 AI结构化整理\n(归纳/扩展/逻辑化)\n⚙️ AI辅助"]:::aiTask
+    P1_2 --> D2{"需要大纲?"}:::decisionNodeSmall
+    D2 -- "✅ 需要" --> P1_3["📝 构建文章骨架\n(层级化结构设计)\n🤝 人机协作"]:::collabTask
+    D2 -- "❌ 跳过" --> P1_4
+    P1_3 --> P1_4["✍️ 内容扩展成文\n(AI辅助填充润色)\n👤 主导+⚙️辅助"]:::collabTaskWithHumanLead
+
+    %% 路径二：无思路
+    D1 -- "❌ 无思路" --> P2_1["🤖 AI头脑风暴\n(多角度灵感激发)\n⚙️ AI辅助"]:::aiTask
+    P2_1 --> P2_2["🧠 筛选有效灵感\n(建立逻辑关联)\n👤 人类主导"]:::humanTask
+    P2_2 --> P2_3["📝 构建文章骨架\n(确定内容框架)\n🤝 人机协作"]:::collabTask
+    P2_3 --> P2_4["✍️ 内容扩展成文\n(AI辅助填充润色)\n👤 主导+⚙️辅助"]:::collabTaskWithHumanLead
+
+    %% 汇合终点
+    P1_4 --> E["🎉 完成稿件"]
+    P2_4 --> E:::endNode
+
+    %% 增强样式
+    classDef startNode fill:#A7F3D0,stroke:#059669,color:#065F46,font-size:24px,font-weight:bold,rx:12,ry:12,width:220px;
+    classDef endNode fill:#A7F3D0,stroke:#059669,color:#065F46,font-size:24px,font-weight:bold,rx:12,ry:12,width:220px;
+    classDef humanTask fill:#BFDBFE,stroke:#3B82F6,color:#1E40AF,font-size:22px,rx:10,ry:10,width:220px;
+    classDef aiTask fill:#A5F3FC,stroke:#0891B2,color:#164E63,font-size:22px,rx:10,ry:10,width:220px;
+    classDef collabTask fill:#FDE68A,stroke:#F59E0B,color:#78350F,font-size:22px,rx:10,ry:10,width:220px;
+    classDef collabTaskWithHumanLead fill:#FBCFE8,stroke:#DB2777,color:#831843,font-size:22px,rx:10,ry:10,width:240px;
+    classDef decisionNode fill:#FECACA,stroke:#EF4444,color:#991B1B,font-size:22px,font-weight:bold,shape:diamond,width:180px,height:100px;
+    classDef decisionNodeSmall fill:#FED7AA,stroke:#F97316,color:#9A3412,font-size:20px,shape:diamond,width:160px,height:80px;
+
+    class S startNode;
+    class E endNode;
+    class D1,D2 decisionNode;
+    class P1_1,P2_2 humanTask;
+    class P1_2,P2_1 aiTask;
+    class P1_3,P2_3 collabTask;
+    class P1_4,P2_4 collabTaskWithHumanLead;
+            </pre>
+        </div>
+
+        <div class="mt-10 text-left max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-lg border border-slate-200">
+            <h3 class="text-2xl font-semibold text-slate-700 mb-4">图例说明：</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center p-3 bg-slate-50 rounded-lg">
+                    <span class="w-8 h-8 rounded-lg mr-3 flex-shrink-0" style="background-color: #A7F3D0; border: 2px solid #059669;"></span>
+                    <div><strong class="text-green-700">开始/结束节点</strong><br>流程起点与终点</div>
+                </div>
+                <div class="flex items-center p-3 bg-slate-50 rounded-lg">
+                    <span class="w-8 h-8 rounded-lg mr-3 flex-shrink-0" style="background-color: #BFDBFE; border: 2px solid #3B82F6;"></span>
+                    <div><strong class="text-blue-700">人类主导</strong><br>人工思考操作环节</div>
+                </div>
+                <div class="flex items-center p-3 bg-slate-50 rounded-lg">
+                    <span class="w-8 h-8 rounded-lg mr-3 flex-shrink-0" style="background-color: #A5F3FC; border: 2px solid #0891B2;"></span>
+                    <div><strong class="text-cyan-700">AI辅助</strong><br>AI分析生成环节</div>
+                </div>
+                <div class="flex items-center p-3 bg-slate-50 rounded-lg">
+                    <span class="w-8 h-8 rounded-lg mr-3 flex-shrink-0" style="background-color: #FDE68A; border: 2px solid #F59E0B;"></span>
+                    <div><strong class="text-amber-700">人机协作</strong><br>协同工作环节</div>
+                </div>
+                <div class="flex items-center p-3 bg-slate-50 rounded-lg">
+                    <span class="w-8 h-8 rounded-lg mr-3 flex-shrink-0" style="background-color: #FBCFE8; border: 2px solid #DB2777;"></span>
+                    <div><strong class="text-pink-700">人主导AI辅助</strong><br>关键创作环节</div>
+                </div>
+                <div class="flex items-center p-3 bg-slate-50 rounded-lg">
+                    <span class="w-7 h-7 rotate-45 mr-3 flex-shrink-0" style="background-color: #FECACA; border: 2px solid #EF4444;"></span>
+                    <div><strong class="text-red-700">决策节点</strong><br>流程分支判断点</div>
+                </div>
+            </div>
+            <p class="mt-6 text-lg text-slate-600 leading-relaxed">
+                本纵向流程图清晰展示了从任务启动到完成稿件的线性流程，突出两种路径的选择与汇合。<br>
+                建议教学时配合实际案例逐步演示各环节操作，重点讲解人机协作的决策点（钻石形节点）。
+            </p>
+        </div>
+    </div>
+</body>
+</html>
