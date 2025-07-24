@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Calm Tech Harmony -->
+    <!-- Application Structure Plan: This final version is architected as a strategic proposal, not just a feature list. It guides the decision-maker through a compelling narrative: Vision -> Problem -> Financial Gain -> The Solution -> Efficiency Proof -> Risk Mitigation & Partnership -> Future Vision -> Implementation. New key sections (#roi, #security, #services, #scenarios) are added to directly address decision-maker concerns (ROI, security, support, and tangible outcomes). The structure is designed to build confidence at each step, moving from abstract benefits to concrete, relatable scenarios, culminating in a clear implementation plan. This approach transforms the SPA from a technical showcase into a persuasive business case. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: ROI & Value. -> Goal: Justify Investment. -> Viz/Presentation: Interactive ROI calculator (sliders for staff/output) and KPI cards. -> Interaction: Sliders dynamically update calculated savings. -> Justification: Makes the financial benefits tangible and personalized, a critical factor for decision-makers. -> Library/Method: HTML/CSS/JS.
+        - Report Info: Security & Compliance. -> Goal: Build Trust/Mitigate Fear. -> Viz/Presentation: A "Data Security Fortress" diagram (HTML/CSS) and a tabbed interface for detailing the AI-assisted review process and compliance commitments. -> Interaction: Tabs switch between different security aspects. -> Justification: Systematically addresses the most critical non-functional requirement for government-affiliated media. -> Library/Method: HTML/CSS/JS.
+        - Report Info: Service & Support. -> Goal: Show Long-Term Partnership. -> Viz/Presentation: A clear, multi-stage "Partnership Journey" timeline. -> Interaction: Hovering over stages reveals details. -> Justification: Shifts the perception from a one-time purchase to an ongoing, supportive relationship. -> Library/Method: HTML/CSS/JS.
+        - Report Info: Lack of Case Studies. -> Goal: Inspire Vision/Demonstrate Applicability. -> Viz/Presentation: Interactive "Scenario Showcases" (tabs for different county types like Tourism, Industry). -> Interaction: Users select a scenario to see a tailored "Challenge-Solution-Outcome" story. -> Justification: Creates relatable, aspirational "virtual case studies" that help clients envision success in their own context. -> Library/Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>智慧融媒：一体化AI赋能平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0891b2;
+            border-bottom-color: #0891b2;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #1f2937;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #4b5563;
+            max-width: 800px;
+            margin: 1rem auto 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-content {
+            flex-grow: 1;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tab-button {
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            background-color: #0891b2;
+            color: white;
+        }
+        .security-fortress-layer {
+            border: 2px solid;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0 auto;
+            transition: all 0.3s ease-in-out;
+        }
+        .feature-card ul li {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .feature-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #0891b2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <header id="header" class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-800">
+                <span class="text-cyan-600">智慧</span>融媒
+            </div>
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm lg:text-base">
+                <a href="#challenge" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">核心挑战</a>
+                <a href="#solution" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">核心功能</a>
+                <a href="#foundation" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">平台能力</a>
+                <a href="#work-scenarios" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">工作场景</a>
+                <a href="#roi" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">价值回报</a>
+                <a href="#security" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">安全与服务</a>
+                <a href="#roadmap" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">实施路径</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#challenge" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">核心挑战</a>
+            <a href="#solution" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">核心功能</a>
+            <a href="#foundation" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">平台能力</a>
+            <a href="#work-scenarios" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">工作场景</a>
+            <a href="#roi" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">价值回报</a>
+            <a href="#security" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">安全与服务</a>
+            <a href="#roadmap" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-cyan-50">实施路径</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="bg-white">
+            <div class="container mx-auto px-6 py-20 md:py-32 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
+                    <span class="text-cyan-600">AI赋能</span>，重塑县域媒体新生态
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    我们为县市区融媒体中心提供一套私有化、一体化的AI应用解决方案，深度嵌入“策、采、编、审、发、评”全流程，系统性解决内容生产与运营痛点，全面提升媒体“四力”。
+                </p>
+                <a href="#challenge" class="mt-8 inline-block bg-cyan-600 text-white font-bold py-3 px-8 rounded-full hover:bg-cyan-700 transition-colors">
+                    了解核心挑战
+                </a>
+            </div>
+        </section>
+
+        <section id="challenge" class="py-20 md:py-28">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title fade-in">双重使命下的“采纳鸿沟”</h2>
+                <p class="section-subtitle fade-in">
+                    融媒体中心肩负“引导”与“服务”的双重使命，但在数字化转型中，普遍面临贯穿内容生产全流程的系统性痛点，形成AI采纳鸿沟。
+                </p>
+                <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                    <div class="card p-6 text-center fade-in" style="transition-delay: 100ms;"><div class="text-4xl text-cyan-500 mb-4">🧭</div><h3 class="text-xl font-bold mb-2">策划无依据</h3><p class="text-gray-600 text-sm">依赖行政指令和经验判断，缺乏数据驱动，难以挖掘本地真热点。</p></div>
+                    <div class="card p-6 text-center fade-in" style="transition-delay: 200ms;"><div class="text-4xl text-cyan-500 mb-4">✍️</div><h3 class="text-xl font-bold mb-2">生产效率低</h3><p class="text-gray-600 text-sm">传统采编发流程依赖人工，面对多形态内容需求，力不从心。</p></div>
+                    <div class="card p-6 text-center fade-in" style="transition-delay: 300ms;"><div class="text-4xl text-cyan-500 mb-4">📦</div><h3 class="text-xl font-bold mb-2">资产利用难</h3><p class="text-gray-600 text-sm">海量历史媒资因检索困难而沉睡，形成“数据孤岛”。</p></div>
+                    <div class="card p-6 text-center fade-in" style="transition-delay: 400ms;"><div class="text-4xl text-cyan-500 mb-4">🛡️</div><h3 class="text-xl font-bold mb-2">审核风险高</h3><p class="text-gray-600 text-sm">内容安全审核严重依赖人工，效率低且易疏漏，存在合规风险。</p></div>
+                    <div class="card p-6 text-center fade-in" style="transition-delay: 500ms;"><div class="text-4xl text-cyan-500 mb-4">📊</div><h3 class="text-xl font-bold mb-2">评估手段单一</h3><p class="text-gray-600 text-sm">传播效果评价停留在浅层流量指标，无法衡量真实影响力。</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title fade-in">我们的产品：一体化AI内容中台</h2>
+                    <p class="section-subtitle fade-in">
+                        我们提供的不是零散的工具，而是一个深度集成、私有化部署、并与您现有工作流无缝对接的强大AI中台。它是一个统一的工作空间，旨在系统性解决您在内容生产与运营中的核心痛点。
+                    </p>
+                </div>
+                <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 feature-card fade-in">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">🧭</div>
+                            <h3 class="text-xl font-bold mb-2">AI辅助选题与策划</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-4">解决痛点：策划无依据，追不上热点。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>全网及本地热点实时追踪</li>
+                                <li>数据驱动生成选题建议</li>
+                                <li>自动关联政策文件，确保导向正确</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 100ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">✍️</div>
+                            <h3 class="text-xl font-bold mb-2">AI多模态内容创作</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-4">解决痛点：生产效率低，新媒体内容制作难。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>智能写作：一键生成各类稿件</li>
+                                <li>图文转视频：快速生成短视频新闻</li>
+                                <li>数字人播报：7x24小时虚拟主播</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 200ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">📦</div>
+                            <h3 class="text-xl font-bold mb-2">智能媒资库 (MAM)</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-4">解决痛点：媒体资产沉睡，检索困难。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>AI自动多模态打标（人脸、场景、语音）</li>
+                                <li>以文搜图、以图搜视频</li>
+                                <li>RAG知识库问答，盘活历史资料</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 300ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">🤖</div>
+                            <h3 class="text-xl font-bold mb-2">统一智能体工场</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-4">解决痛点：知识无法转化为生产力，服务能力单一。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>无代码创建“政策通”、“文旅通”等AI助手</li>
+                                <li>连接私有知识库，提供权威解答</li>
+                                <li>赋能“新闻+政务+服务”新模式</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 400ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">🛡️</div>
+                            <h3 class="text-xl font-bold mb-2">AI内容审核与风控</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-4">解决痛点：人工审核风险高，效率低下。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>多层级敏感内容自动过滤</li>
+                                <li>涉政、涉敏、事实性错误智能识别</li>
+                                <li>人机协同审核，确保安全合规</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 500ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">📈</div>
+                            <h3 class="text-xl font-bold mb-2">智能分发与效果分析</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-4">解决痛点：多渠道分发繁琐，效果评估单一。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>一键分发并智能适配多平台</li>
+                                <li>基于“四力”的多维度传播效果评估</li>
+                                <li>可视化数据仪表盘，指导内容策略</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="foundation" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title fade-in">平台核心能力：开放、可控的AI基座</h2>
+                    <p class="section-subtitle fade-in">
+                        我们的中台不仅功能强大，其底层架构更为您提供了企业级的灵活性、控制力与扩展性，确保您的投资面向未来。
+                    </p>
+                </div>
+                <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 feature-card fade-in">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">⚙️</div>
+                            <h3 class="text-xl font-bold mb-2">统一模型管理</h3>
+                            <p class="text-sm text-blue-600 font-semibold mb-4">解决痛点：模型选择困难，成本与合规难平衡。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>混合接入云端与本地大模型</li>
+                                <li>动态路由与成本效益优化</li>
+                                <li>未来模型无缝升级与切换</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 100ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">🔑</div>
+                            <h3 class="text-xl font-bold mb-2">精细化权限与管理后台</h3>
+                            <p class="text-sm text-blue-600 font-semibold mb-4">解决痛点：权限管理混乱，资源使用失控。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>员工与部门级访问控制</li>
+                                <li>模型调用配额与成本监控</li>
+                                <li>操作日志审计与安全追溯</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-6 feature-card fade-in" style="transition-delay: 200ms;">
+                        <div class="card-content">
+                            <div class="text-4xl mb-4">🔗</div>
+                            <h3 class="text-xl font-bold mb-2">开放平台与系统集成</h3>
+                            <p class="text-sm text-blue-600 font-semibold mb-4">解决痛点：AI与现有系统脱节，形成新孤岛。</p>
+                            <ul class="text-gray-600 space-y-2 text-sm">
+                                <li>与现有采编、CMS系统无缝对接</li>
+                                <li>通过API连接外部数据源（如政务数据）</li>
+                                <li>支持定制化工具与工作流扩展</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="work-scenarios" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title fade-in">重塑日常：AI如何改变您团队的一天</h2>
+                    <p class="section-subtitle fade-in">
+                        让我们告别抽象的转型概念，聚焦于您团队中每个角色的日常工作，看看AI中台如何为他们带来具体的、革命性的改变。
+                    </p>
+                </div>
+                <div class="mt-12 fade-in">
+                    <div class="flex justify-center flex-wrap gap-2 md:gap-4 p-1 bg-slate-200 rounded-full max-w-2xl mx-auto">
+                        <button class="tab-button flex-1 py-2 px-4 rounded-full text-sm md:text-base font-medium active" data-target="scenario-planner">策划编辑</button>
+                        <button class="tab-button flex-1 py-2 px-4 rounded-full text-sm md:text-base font-medium" data-target="scenario-reporter">一线记者</button>
+                        <button class="tab-button flex-1 py-2 px-4 rounded-full text-sm md:text-base font-medium" data-target="scenario-social">新媒体小编</button>
+                        <button class="tab-button flex-1 py-2 px-4 rounded-full text-sm md:text-base font-medium" data-target="scenario-director">中心主任</button>
+                    </div>
+                    <div class="mt-8">
+                        <div id="scenario-planner" class="scenario-content">
+                            <div class="card p-8 lg:p-12">
+                                <h3 class="text-2xl font-bold text-center mb-8">策划编辑小王的一天</h3>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-500 mb-3">过去 <span class="text-sm">(被动与茫然)</span></h4>
+                                        <p class="text-gray-600 text-sm">上午9点，选题会。面对白板，小王一筹莫展。他花了一上午浏览几十个网站和公众号，信息零散，找不到好选题。最后只能接受领导派发的常规宣传任务。</p>
+                                    </div>
+                                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-dashed pt-8 md:pt-0 md:pl-8">
+                                        <h4 class="font-bold text-lg text-cyan-600 mb-3">现在 <span class="text-sm">(主动与洞察)</span></h4>
+                                        <p class="text-gray-800 text-sm">上午9点，打开AI中台的“热点洞察”仪表盘。系统已自动聚合本地热议话题，并提示“‘老旧小区加装电梯’话题关注度上升300%”。AI已生成3个选题角度，并附上相关政策文件。小王胸有成竹地在选题会上提出了一个数据详实、民生关切的深度报道方案。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="scenario-reporter" class="scenario-content hidden">
+                           <div class="card p-8 lg:p-12">
+                                <h3 class="text-2xl font-bold text-center mb-8">一线记者小李的一天</h3>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-500 mb-3">过去 <span class="text-sm">(繁琐与低效)</span></h4>
+                                        <p class="text-gray-600 text-sm">下午2点，采访结束。小李花了2小时听录音整理文字稿。为了找一段去年的背景视频，他在旧媒资库里用关键词搜了半天，一无所获。晚上加班到10点，才勉强写完初稿。</p>
+                                    </div>
+                                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-dashed pt-8 md:pt-0 md:pl-8">
+                                        <h4 class="font-bold text-lg text-cyan-600 mb-3">现在 <span class="text-sm">(高效与智能)</span></h4>
+                                        <p class="text-gray-800 text-sm">下午2点，采访结束。小李将录音上传至AI中台，5分钟后获得准确的文字稿。他向“智能媒资库”提问：“查找去年关于旧改政策的所有视频资料”，系统秒速返回3个相关视频。AI根据文字稿和背景资料，一键生成了新闻稿初稿。下午5点，小李已完成稿件提交，准时下班。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="scenario-social" class="scenario-content hidden">
+                           <div class="card p-8 lg:p-12">
+                                <h3 class="text-2xl font-bold text-center mb-8">新媒体小编小张的一天</h3>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-500 mb-3">过去 <span class="text-sm">(重复与耗时)</span></h4>
+                                        <p class="text-gray-600 text-sm">接到一篇长篇新闻稿，小张需要为微信、微博、抖音三个平台分别进行改编。改写标题、压缩内容、配图、制作短视频脚本... ... 一套流程下来，大半天就过去了。</p>
+                                    </div>
+                                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-dashed pt-8 md:pt-0 md:pl-8">
+                                        <h4 class="font-bold text-lg text-cyan-600 mb-3">现在 <span class="text-sm">(创意与轻松)</span></h4>
+                                        <p class="text-gray-800 text-sm">在AI中台收到稿件后，小张点击“一键智改”。AI瞬间生成了适用于微信的推文、微博的短文案+海报、以及抖音的口播脚本。她只需在AI生成的基础上进行微调和润色，将更多时间用于创意策划。一篇稿件，30分钟内完成全平台适配与发布。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="scenario-director" class="scenario-content hidden">
+                           <div class="card p-8 lg:p-12">
+                                <h3 class="text-2xl font-bold text-center mb-8">中心主任王主任的一天</h3>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-500 mb-3">过去 <span class="text-sm">(滞后与模糊)</span></h4>
+                                        <p class="text-gray-600 text-sm">月底开总结会，看到的都是各部门提交的、只有阅读量的Excel表。无法判断哪些内容真正起到了引导作用，哪些服务信息最受群众欢迎。决策凭经验，资源分配靠“拍脑袋”。</p>
+                                    </div>
+                                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-dashed pt-8 md:pt-0 md:pl-8">
+                                        <h4 class="font-bold text-lg text-cyan-600 mb-3">现在 <span class="text-sm">(实时与精准)</span></h4>
+                                        <p class="text-gray-800 text-sm">每天打开AI中台的“四力罗盘”数据仪表盘。传播力、引导力、影响力、公信力指数一目了然。他清晰地看到“加装电梯”系列报道不仅阅读量高，评论区正面引导效果也极佳。在周会上，他果断决策，要求加大对此类民生服务话题的资源投入。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roi" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title fade-in">可量化的价值：您的专属ROI分析</h2>
+                    <p class="section-subtitle fade-in">
+                        引入智慧融媒平台不仅是技术升级，更是一项高回报的战略投资。我们将抽象的“降本增效”转化为您看得见的具体数字。
+                    </p>
+                </div>
+                <div class="mt-16 grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="fade-in">
+                        <div class="card p-8">
+                            <h3 class="text-xl font-bold mb-6 text-center">即时估算您的年度效益</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="editors-slider" class="font-medium">您的采编团队规模（人）: <span id="editors-value" class="font-bold text-cyan-600">20</span></label>
+                                    <input id="editors-slider" type="range" min="5" max="100" value="20" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                </div>
+                                <div>
+                                    <label for="content-slider" class="font-medium">月均内容产出（篇/条）: <span id="content-value" class="font-bold text-cyan-600">300</span></label>
+                                    <input id="content-slider" type="range" min="100" max="2000" value="300" step="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                </div>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-gray-200 grid grid-cols-2 gap-6 text-center">
+                                <div>
+                                    <p class="text-gray-500">预计年均效率提升</p>
+                                    <p id="efficiency-gain" class="text-3xl font-bold text-green-500 mt-1">> 60%</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">预计年均成本节约</p>
+                                    <p id="cost-saving" class="text-3xl font-bold text-green-500 mt-1">¥ 580,000+</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4 text-center">*估算基于行业平均薪酬及AI提效数据模型，仅供参考。</p>
+                        </div>
+                    </div>
+                    <div class="fade-in" style="transition-delay: 200ms;">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="card p-6 text-center bg-cyan-50">
+                                <p class="text-5xl font-bold text-cyan-600">60%<span class="text-2xl">+</span></p>
+                                <p class="mt-2 font-semibold">内容生产效率提升</p>
+                            </div>
+                            <div class="card p-6 text-center bg-cyan-50">
+                                <p class="text-5xl font-bold text-cyan-600">80%<span class="text-2xl">+</span></p>
+                                <p class="mt-2 font-semibold">媒资复用率提升</p>
+                            </div>
+                            <div class="card p-6 text-center bg-cyan-50">
+                                <p class="text-5xl font-bold text-cyan-600">95%<span class="text-2xl">-</span></p>
+                                <p class="mt-2 font-semibold">内容审核风险降低</p>
+                            </div>
+                            <div class="card p-6 text-center bg-cyan-50">
+                                <p class="text-5xl font-bold text-cyan-600">5x</p>
+                                <p class="mt-2 font-semibold">跨平台分发速度</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="security" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title fade-in">您的战略安全伙伴：全周期服务与保障</h2>
+                    <p class="section-subtitle fade-in">
+                        我们深知，对于融媒体中心，安全与服务是与技术同等重要的基石。我们提供的不只是一套系统，更是一份长期的、可靠的合作承诺。
+                    </p>
+                </div>
+                <div class="mt-16 grid lg:grid-cols-2 gap-12 items-start">
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-bold text-center mb-6">数据安全堡垒：私有化部署</h3>
+                        <div class="security-fortress-layer border-cyan-600 p-4" style="max-width: 400px;">
+                            <div class="font-bold text-center text-cyan-700 mb-2">第四层：应用与审计</div>
+                            <div class="security-fortress-layer border-sky-500" style="max-width: 350px;">
+                                <div class="font-bold text-center text-sky-600 mb-2">第三层：访问与权限控制</div>
+                                <div class="security-fortress-layer border-teal-500" style="max-width: 300px;">
+                                    <div class="font-bold text-center text-teal-600 mb-2">第二层：数据加密与脱敏</div>
+                                    <div class="security-fortress-layer border-gray-400 bg-gray-100" style="max-width: 250px;">
+                                        <div class="font-bold text-center text-gray-700">第一层：私有服务器</div>
+                                        <p class="text-xs text-center text-gray-600 mt-2">数据不出域，主权在您手</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fade-in" style="transition-delay: 200ms;">
+                        <h3 class="text-2xl font-bold text-center mb-6">全周期合作旅程</h3>
+                        <div class="card p-8">
+                            <ul class="space-y-4">
+                                <li class="flex items-start"><div class="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold mr-4 flex-shrink-0">1</div><div><h4 class="font-bold">项目启动与部署</h4><p class="text-sm text-gray-600">需求调研、方案定制、私有化部署、数据迁移。</p></div></li>
+                                <li class="flex items-start"><div class="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold mr-4 flex-shrink-0">2</div><div><h4 class="font-bold">人才赋能与培训</h4><p class="text-sm text-gray-600">全员应用培训、核心团队进阶、管理层策略研讨。</p></div></li>
+                                <li class="flex items-start"><div class="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold mr-4 flex-shrink-0">3</div><div><h4 class="font-bold">7x24小时运维支持</h4><p class="text-sm text-gray-600">专属客户成功经理、定期巡检、系统免费升级。</p></div></li>
+                                <li class="flex items-start"><div class="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold mr-4 flex-shrink-0">4</div><div><h4 class="font-bold">持续创新与共建</h4><p class="text-sm text-gray-600">与您共建行业解决方案，探索创新业务模式。</p></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title fade-in">分阶段实施路线图</h2>
+                    <p class="section-subtitle fade-in">
+                        我们提供一个清晰、务实、循序渐进的实施路径，确保融媒体中心能够平稳、高效地完成从基础建设到智能运营的全面升级。
+                    </p>
+                </div>
+                <div class="mt-20 fade-in">
+                    <div class="relative">
+                        <div class="absolute left-1/2 top-4 bottom-4 w-1 bg-slate-200 hidden md:block"></div>
+                        <div id="roadmap-container" class="space-y-12 md:space-y-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 智慧融媒体解决方案。保留所有权利。</p>
+            <p class="text-sm text-gray-400 mt-2">一个为未来媒体中心设计的AI赋能平台</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a, #hero a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - document.getElementById('header').offsetHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // ROI Calculator
+            const editorsSlider = document.getElementById('editors-slider');
+            const contentSlider = document.getElementById('content-slider');
+            const editorsValue = document.getElementById('editors-value');
+            const contentValue = document.getElementById('content-value');
+            const costSaving = document.getElementById('cost-saving');
+
+            function updateROI() {
+                const editors = parseInt(editorsSlider.value);
+                const content = parseInt(contentSlider.value);
+                editorsValue.textContent = editors;
+                contentValue.textContent = content;
+                
+                // More comprehensive calculation model
+                // Base saving from overall team efficiency (e.g., 20% of salary)
+                // Additional saving from per-content efficiency (e.g., 1 hour saved per piece, at ~50/hr)
+                const savedCost = (editors * 100000 * 0.20) + (content * 12 * 50);
+                costSaving.textContent = `¥ ${savedCost.toLocaleString()}+`;
+            }
+
+            editorsSlider.addEventListener('input', updateROI);
+            contentSlider.addEventListener('input', updateROI);
+            updateROI();
+
+            // Scenarios Tabs
+            const tabButtons = document.querySelectorAll('#work-scenarios .tab-button');
+            const scenarioContents = document.querySelectorAll('#work-scenarios .scenario-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const targetId = button.dataset.target;
+                    scenarioContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Roadmap
+            const roadmapData = [
+                { phase: '第一阶段', title: '基础构建与试点运行', duration: '1-6个月', description: '完成平台基础设施部署和核心功能上线，并通过小范围试点验证其可用性和价值。', tasks: ['基础设施部署', '平台核心安装', '媒资入库与智能化', '启动试点项目', '初步培训与反馈收集'] },
+                { phase: '第二阶段', title: '流程融合与全面推广', duration: '7-18个月', description: '将平台全面推广到所有业务部门，深度融入日常工作流程，实现业务流程的根本性重塑。', tasks: ['全功能上线', '工作流程再造', '系统性培训', '外部数据整合'] },
+                { phase: '第三阶段', title: '智能运营与创新探索', duration: '19个月及以后', description: '工作的重心将从“如何使用平台”转向“如何利用平台进行战略创新”，最大化地挖掘其潜力。', tasks: ['战略性数据应用', '创新服务孵化（如智能政务问答、沉浸式文旅体验）'] }
+            ];
+
+            const roadmapContainer = document.getElementById('roadmap-container');
+            roadmapData.forEach((item, index) => {
+                const isEven = index % 2 === 0;
+                const alignmentClass = isEven ? 'md:justify-start' : 'md:justify-end';
+                const textAlignmentClass = isEven ? 'md:text-left' : 'md:text-right';
+                const timelineItem = `
+                    <div class="flex ${alignmentClass} md:relative">
+                        <div class="md:w-5/12 ${textAlignmentClass}">
+                            <div class="card p-6">
+                                <p class="text-sm font-semibold text-cyan-600">${item.phase} (${item.duration})</p>
+                                <h4 class="text-xl font-bold my-2">${item.title}</h4>
+                                <p class="text-gray-600 mb-4 text-sm">${item.description}</p>
+                                <ul class="text-sm space-y-1">
+                                    ${item.tasks.map(t => `<li class="flex items-center ${isEven ? 'justify-start' : 'md:justify-end'}"><span class="text-cyan-500 mr-2">▪</span>${t}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-cyan-600 border-4 border-white rounded-full hidden md:flex items-center justify-center text-white font-bold">${index + 1}</div>
+                    </div>
+                `;
+                roadmapContainer.innerHTML += timelineItem;
+            });
+        });
+    </script>
+</body>
+</html>
