@@ -12,6 +12,7 @@
 
 ### 🗺️ 交互式地图
 - `xinjiang-travel-map.html` - 完整功能的交互式旅行地图（需要高德地图API密钥）
+- `xinjiang-travel-map-simple.html` - 简化版交互式地图（已集成API，可直接使用）
 - `optimized-xinjiang-travel.html` - 优化后的线路展示页面
 
 ## 线路亮点
@@ -54,6 +55,7 @@
 3. 在浏览器中打开即可使用完整功能
 
 ### 在线预览
+- [交互式地图（带真实地图功能）](https://mcp.edgeone.site/share/b73mgNjYBbMXrBLpbZh91)
 - [优化版线路展示](https://mcp.edgeone.site/share/4ssRC53TW02i7QeW2BKjb)
 
 ## 重要提醒
