@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高德地图API测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ccc;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #map {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ 高德地图API测试工具</h1>
+        
+        <div class="test-result info">
+            <h3>当前API密钥</h3>
+            <p id="api-key-display">加载中...</p>
+        </div>
+
+        <div>
+            <button onclick="testRestAPI()">测试REST API</button>
+            <button onclick="testJSAPI()">测试JavaScript API</button>
+            <button onclick="testMapLoad()">测试地图加载</button>
+            <button onclick="clearResults()">清除结果</button>
+        </div>
+
+        <div id="test-results"></div>
+
+        <div id="map"></div>
+
+        <div class="test-result info">
+            <h3>📋 常见问题解决方案</h3>
+            <ul>
+                <li><strong>API密钥无效：</strong>检查密钥是否正确复制，是否已启用JavaScript API服务</li>
+                <li><strong>域名限制：</strong>在高德控制台中添加当前域名到白名单（包括localhost）</li>
+                <li><strong>配额超限：</strong>检查API调用次数是否超出限制</li>
+                <li><strong>网络问题：</strong>检查网络连接，尝试使用VPN或更换网络</li>
+                <li><strong>HTTPS要求：</strong>某些功能需要HTTPS环境</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 从主应用中复制API密钥
+        const GAODE_API_KEY = "4a53188fb8c0fd275b28a9f3152816bd";
+        
+        // 显示API密钥信息
+        document.getElementById('api-key-display').innerHTML = `
+            <strong>密钥:</strong> ${GAODE_API_KEY}<br>
+            <strong>长度:</strong> ${GAODE_API_KEY.length} 字符<br>
+            <strong>格式:</strong> ${GAODE_API_KEY.length === 32 ? '✅ 正确' : '❌ 可能有误'}
+        `;
+
+        function addResult(title, content, type = 'info') {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `
+                <h3>${title}</h3>
+                <div>${content}</div>
+                <small>测试时间: ${new Date().toLocaleString()}</small>
+            `;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+
+        // 测试REST API
+        function testRestAPI() {
+            addResult('🔄 测试REST API', '正在测试...', 'info');
+            
+            const testUrl = `https://restapi.amap.com/v3/ip?key=${GAODE_API_KEY}`;
+            
+            fetch(testUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === '1') {
+                        addResult('✅ REST API测试成功', `
+                            <p>API密钥有效！</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        `, 'success');
+                    } else {
+                        addResult('❌ REST API测试失败', `
+                            <p>错误信息: ${data.info || '未知错误'}</p>
+                            <p>错误代码: ${data.infocode || 'N/A'}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        `, 'error');
+                    }
+                })
+                .catch(error => {
+                    addResult('❌ REST API请求失败', `
+                        <p>网络错误: ${error.message}</p>
+                        <p>可能原因: CORS限制、网络连接问题或API服务不可用</p>
+                    `, 'error');
+                });
+        }
+
+        // 测试JavaScript API加载
+        function testJSAPI() {
+            addResult('🔄 测试JavaScript API', '正在加载...', 'info');
+            
+            // 清除之前的脚本
+            const existingScript = document.querySelector('script[src*="webapi.amap.com"]');
+            if (existingScript) {
+                existingScript.remove();
+            }
+
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = `https://webapi.amap.com/maps?v=2.0&key=${GAODE_API_KEY}&plugin=AMap.Driving`;
+            
+            script.onload = () => {
+                if (typeof AMap !== 'undefined') {
+                    addResult('✅ JavaScript API加载成功', `
+                        <p>AMap对象已可用</p>
+                        <p>版本信息: ${AMap.version || '未知'}</p>
+                        <p>可用插件: ${Object.keys(AMap).length} 个</p>
+                    `, 'success');
+                } else {
+                    addResult('❌ JavaScript API加载异常', '脚本加载成功但AMap对象不可用', 'error');
+                }
+            };
+            
+            script.onerror = (error) => {
+                addResult('❌ JavaScript API加载失败', `
+                    <p>脚本加载失败</p>
+                    <p>可能原因: API密钥无效、域名限制或网络问题</p>
+                    <p>请求URL: ${script.src}</p>
+                `, 'error');
+            };
+            
+            document.head.appendChild(script);
+        }
+
+        // 测试地图实例创建
+        function testMapLoad() {
+            if (typeof AMap === 'undefined') {
+                addResult('❌ 地图测试失败', '请先测试JavaScript API加载', 'error');
+                return;
+            }
+
+            addResult('🔄 测试地图创建', '正在创建地图实例...', 'info');
+
+            try {
+                const map = new AMap.Map('map', {
+                    zoom: 10,
+                    center: [116.397428, 39.90923], // 北京坐标
+                    viewMode: '3D'
+                });
+
+                map.on('complete', () => {
+                    addResult('✅ 地图创建成功', `
+                        <p>地图实例创建成功并完成加载</p>
+                        <p>中心点: ${map.getCenter().toString()}</p>
+                        <p>缩放级别: ${map.getZoom()}</p>
+                    `, 'success');
+                });
+
+                map.on('error', (error) => {
+                    addResult('❌ 地图加载错误', `
+                        <p>地图加载过程中发生错误</p>
+                        <p>错误信息: ${error.message || '未知错误'}</p>
+                    `, 'error');
+                });
+
+            } catch (error) {
+                addResult('❌ 地图创建失败', `
+                    <p>创建地图实例时发生异常</p>
+                    <p>错误信息: ${error.message}</p>
+                `, 'error');
+            }
+        }
+
+        // 页面加载完成后自动显示基本信息
+        window.addEventListener('load', () => {
+            addResult('📋 环境信息', `
+                <p><strong>浏览器:</strong> ${navigator.userAgent}</p>
+                <p><strong>协议:</strong> ${location.protocol}</p>
+                <p><strong>域名:</strong> ${location.hostname}</p>
+                <p><strong>端口:</strong> ${location.port || '默认'}</p>
+                <p><strong>完整URL:</strong> ${location.href}</p>
+            `, 'info');
+        });
+    </script>
+</body>
+</html>

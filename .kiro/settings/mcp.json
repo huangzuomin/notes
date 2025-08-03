@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "env": {},
+      "disabled": true, 
+      "autoApprove": []
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/gorit/Documents/code",
+        "/Users/gorit/Documents/devlopment"
+      ]
+    },
+    "amap-maps": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@amap/amap-maps-mcp-server"
+      ],
+      "env": {
+        "AMAP_MAPS_API_KEY": "4a53188fb8c0fd275b28a9f3152816bd"
+      }
+    },
+    "edgeone-pages-mcp-server": {
+      "command": "npx",
+      "args": [
+        "edgeone-pages-mcp"
+      ]
+    }
+  }
+}

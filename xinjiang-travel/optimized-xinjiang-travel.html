@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>驰骋北疆：11日史诗自驾探险之旅 - 优化版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .map-container { height: 100vh; }
+        .sidebar { height: 100vh; overflow-y: auto; }
+        .highlight-new { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+        .highlight-optimized { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <div class="w-1/3 bg-white shadow-lg sidebar">
+            <div class="p-6 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">驰骋北疆</h1>
+                <p class="text-gray-600">11日史诗自驾探险之旅 - 优化版</p>
+                
+                <!-- 行程统计信息 -->
+                <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                    <div class="bg-blue-50 p-3 rounded-lg">
+                        <div class="text-blue-600 font-medium">总里程</div>
+                        <div class="text-blue-800 font-bold">约3000公里</div>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-lg">
+                        <div class="text-green-600 font-medium">总天数</div>
+                        <div class="text-green-800 font-bold">11天</div>
+                    </div>
+                </div>
+                
+                <!-- 优化说明 -->
+                <div class="mt-4 bg-yellow-50 p-3 rounded-lg">
+                    <h3 class="text-sm font-semibold text-yellow-800 mb-2">🎯 线路优化</h3>
+                    <ul class="text-xs text-yellow-700 space-y-1">
+                        <li>• 去掉那拉提和巴音布鲁克</li>
+                        <li>• 增加夏塔古道体验</li>
+                        <li>• 完整独库公路南北段</li>
+                        <li>• 早班机06:35返程</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 行程列表 -->
+            <div class="p-4">
+                <div class="space-y-3">
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第1天 - 8月12日</h3>
+                        <p class="text-sm text-gray-600">抵达乌鲁木齐 - 丝路之门的序曲</p>
+                        <div class="mt-2 text-xs text-blue-600">约30公里 | 1小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第2天 - 8月13日</h3>
+                        <p class="text-sm text-gray-600">乌鲁木齐 → 布尔津 - 五彩滩的落日熔金</p>
+                        <div class="mt-2 text-xs text-blue-600">约650公里 | 7-8小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第3天 - 8月14日</h3>
+                        <p class="text-sm text-gray-600">布尔津 → 喀纳斯国家公园 - 探访神的后花园</p>
+                        <div class="mt-2 text-xs text-blue-600">约130公里 | 2.5-3小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第4天 - 8月15日</h3>
+                        <p class="text-sm text-gray-600">喀纳斯 → 禾木村 - 童话般的村落</p>
+                        <div class="mt-2 text-xs text-blue-600">约60公里 | 2小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第5天 - 8月16日</h3>
+                        <p class="text-sm text-gray-600">禾木 → 乌尔禾 - 魔鬼城的日落魅影</p>
+                        <div class="mt-2 text-xs text-blue-600">约350公里 | 5-6小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第6天 - 8月17日</h3>
+                        <p class="text-sm text-gray-600">乌尔禾 → 赛里木湖 → 伊宁 - 大西洋的最后一滴眼泪</p>
+                        <div class="mt-2 text-xs text-blue-600">约550公里 | 6-7小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                        <h3 class="font-semibold text-gray-800">第7天 - 8月18日</h3>
+                        <p class="text-sm text-gray-600">伊宁 → 喀拉峻草原 → 特克斯 - 立体草原与八卦城</p>
+                        <div class="mt-2 text-xs text-blue-600">约200公里 | 4-5小时</div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer highlight-new">
+                        <h3 class="font-semibold text-gray-800">第8天 - 8月19日 ⭐ 新增</h3>
+                        <p class="text-sm text-gray-600">特克斯 → 夏塔古道 → 昭苏 - 天山深处的秘境之路</p>
+                        <div class="mt-2 text-xs text-blue-600">约180公里 | 3-4小时</div>
+                        <div class="mt-2 text-xs text-amber-600 font-medium">
+                            ✨ 夏塔古道徒步 + 昭苏油菜花海
+                        </div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer highlight-optimized">
+                        <h3 class="font-semibold text-gray-800">第9天 - 8月20日 🔄 优化</h3>
+                        <p class="text-sm text-gray-600">昭苏 → 库车 - 穿越天山南北</p>
+                        <div class="mt-2 text-xs text-blue-600">约350公里 | 6-7小时</div>
+                        <div class="mt-2 text-xs text-blue-600 font-medium">
+                            🛣️ 独库公路南段体验
+                        </div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer highlight-optimized">
+                        <h3 class="font-semibold text-gray-800">第10天 - 8月21日 🔄 优化</h3>
+                        <p class="text-sm text-gray-600">库车 → 奎屯 - 驰骋传奇独库公路北段</p>
+                        <div class="mt-2 text-xs text-blue-600">约380公里 | 7-8小时</div>
+                        <div class="mt-2 text-xs text-blue-600 font-medium">
+                            🏔️ 库车大峡谷 + 独库公路北段 + 大小龙池
+                        </div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer highlight-optimized">
+                        <h3 class="font-semibold text-gray-800">第11天 - 8月22日 ✈️ 早班机</h3>
+                        <p class="text-sm text-gray-600">奎屯 → 乌鲁木齐 → 早班机返程</p>
+                        <div class="mt-2 text-xs text-blue-600">约280公里 | 3.5小时</div>
+                        <div class="mt-2 text-xs text-red-600 font-medium">
+                            ⏰ 06:35航班，凌晨4:00出发
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧地图容器 -->
+        <div class="flex-1 relative">
+            <div class="w-full h-full map-container bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center">
+                <div class="text-center max-w-2xl mx-auto p-8">
+                    <div class="text-6xl mb-6">🗺️</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">11日北疆自驾路线图</h2>
+                    <p class="text-gray-600 mb-8">已优化线路，增加夏塔古道，完整独库公路体验</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- 新增亮点 -->
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4 text-amber-700">⭐ 新增亮点</h3>
+                            <ul class="text-left text-sm space-y-2">
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
+                                    夏塔古道 - 古丝路重要通道
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
+                                    昭苏油菜花海 - 8月最佳观赏期
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
+                                    天山深处峡谷徒步体验
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 线路优化 -->
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4 text-blue-700">🔄 线路优化</h3>
+                            <ul class="text-left text-sm space-y-2">
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                                    独库公路完整南北段体验
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                                    避免草原景观重复
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                                    早班机时间完美适配
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 去掉的景点 -->
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4 text-gray-600">❌ 去掉景点</h3>
+                            <ul class="text-left text-sm space-y-2 text-gray-500">
+                                <li class="flex items-center line-through">
+                                    <span class="w-2 h-2 bg-gray-300 rounded-full mr-3"></span>
+                                    那拉提草原（与喀拉峻重复）
+                                </li>
+                                <li class="flex items-center line-through">
+                                    <span class="w-2 h-2 bg-gray-300 rounded-full mr-3"></span>
+                                    巴音布鲁克草原（时间紧张）
+                                </li>
+                                <li class="flex items-center line-through">
+                                    <span class="w-2 h-2 bg-gray-300 rounded-full mr-3"></span>
+                                    天山天池（早班机时间不够）
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 时间安排 -->
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4 text-red-700">⏰ 重要提醒</h3>
+                            <ul class="text-left text-sm space-y-2">
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                                    8月22日 06:35航班
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                                    凌晨4:00从奎屯出发
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                                    建议前一晚早休息
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-green-100 rounded-lg">
+                        <p class="text-green-800 font-medium">
+                            ✅ 优化完成！线路更加紧凑合理，体验更加丰富多样
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
