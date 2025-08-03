@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北疆11日自驾游 - 交互式地图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=4a53188fb8c0fd275b28a9f3152816bd&plugin=AMap.Driving"></script>
+    <style>
+        .map-container { height: 100vh; }
+        .sidebar { height: 100vh; overflow-y: auto; }
+        .day-item { transition: all 0.3s ease; }
+        .day-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .day-item.active { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <div class="w-1/3 bg-white shadow-lg sidebar">
+            <div class="p-6 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">驰骋北疆</h1>
+                <p class="text-gray-600">11日史诗自驾探险之旅</p>
+                
+                <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                    <div class="bg-blue-50 p-3 rounded-lg">
+                        <div class="text-blue-600 font-medium">总里程</div>
+                        <div class="text-blue-800 font-bold">约3000公里</div>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-lg">
+                        <div class="text-green-600 font-medium">总天数</div>
+                        <div class="text-green-800 font-bold">11天</div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <button id="show-all" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition-colors">
+                        显示全部行程
+                    </button>
+                </div>
+            </div>
+            
+            <div class="p-4">
+                <div id="day-list" class="space-y-3">
+                    <!-- 动态生成的天数列表 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧地图 -->
+        <div class="flex-1 relative">
+            <div id="map-container" class="w-full h-full"></div>
+            
+            <!-- 地图控制按钮 -->
+            <div class="absolute top-4 right-4 z-10 space-y-2">
+                <button id="reset-view" class="bg-white hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg shadow-lg transition-colors">
+                    重置视野
+                </button>
+            </div>
+            
+            <!-- 当前选中信息 -->
+            <div id="current-info" class="absolute bottom-4 left-4 z-10 bg-white rounded-lg shadow-lg p-4 max-w-sm hidden">
+                <div id="info-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 11日行程数据
+        const itineraryData = {
+            title: "驰骋北疆：11日史诗自驾探险之旅",
+            days: [
+                {
+                    day: 1, date: "8月12日", title: "抵达乌鲁木齐",
+                    locations: [
+                        { name: "乌鲁木齐地窝堡国际机场", coordinates: [87.474411, 43.907105], type: "airport" },
+                        { name: "乌鲁木齐康莱德酒店", coordinates: [87.617733, 43.792818], type: "hotel" }
+                    ],
+                    color: "#ef4444"
+                },
+                {
+                    day: 2, date: "8月13日", title: "乌鲁木齐 → 布尔津",
+                    locations: [
+                        { name: "乌鲁木齐市区", coordinates: [87.617733, 43.792818], type: "departure" },
+                        { name: "布尔津县城", coordinates: [86.8286, 47.7045], type: "city" },
+                        { name: "五彩滩", coordinates: [86.6833, 47.7667], type: "attraction" }
+                    ],
+                    color: "#f97316"
+                },
+                {
+                    day: 3, date: "8月14日", title: "布尔津 → 喀纳斯",
+                    locations: [
+                        { name: "贾登峪", coordinates: [87.0167, 48.7167], type: "transfer" },
+                        { name: "神仙湾", coordinates: [87.0333, 48.7333], type: "attraction" },
+                        { name: "月亮湾", coordinates: [87.0417, 48.7417], type: "attraction" },
+                        { name: "观鱼台", coordinates: [87.0583, 48.7583], type: "attraction" }
+                    ],
+                    color: "#eab308"
+                },
+                {
+                    day: 4, date: "8月15日", title: "喀纳斯 → 禾木村",
+                    locations: [
+                        { name: "喀纳斯湖", coordinates: [87.0417, 48.7417], type: "attraction" },
+                        { name: "禾木村", coordinates: [87.1167, 48.6833], type: "village" },
+                        { name: "禾木观景平台", coordinates: [87.1200, 48.6800], type: "viewpoint" }
+                    ],
+                    color: "#22c55e"
+                },
+                {
+                    day: 5, date: "8月16日", title: "禾木 → 乌尔禾",
+                    locations: [
+                        { name: "禾木观景平台", coordinates: [87.1200, 48.6800], type: "viewpoint" },
+                        { name: "乌尔禾世界魔鬼城", coordinates: [85.3167, 46.0833], type: "attraction" }
+                    ],
+                    color: "#06b6d4"
+                },
+                {
+                    day: 6, date: "8月17日", title: "乌尔禾 → 赛里木湖 → 伊宁",
+                    locations: [
+                        { name: "赛里木湖", coordinates: [81.1500, 44.5833], type: "attraction" },
+                        { name: "果子沟大桥", coordinates: [81.2833, 44.3167], type: "landmark" },
+                        { name: "伊宁市", coordinates: [81.3167, 43.9167], type: "city" }
+                    ],
+                    color: "#3b82f6"
+                },
+                {
+                    day: 7, date: "8月18日", title: "伊宁 → 喀拉峻 → 特克斯",
+                    locations: [
+                        { name: "喀拉峻草原", coordinates: [81.8333, 43.0833], type: "attraction" },
+                        { name: "特克斯县城", coordinates: [81.8333, 43.2167], type: "city" }
+                    ],
+                    color: "#8b5cf6"
+                },
+                {
+                    day: 8, date: "8月19日", title: "特克斯 → 夏塔古道 → 昭苏",
+                    locations: [
+                        { name: "夏塔古道", coordinates: [81.0167, 42.9833], type: "attraction" },
+                        { name: "昭苏草原", coordinates: [81.1333, 43.1500], type: "attraction" },
+                        { name: "昭苏县城", coordinates: [81.1333, 43.1500], type: "city" }
+                    ],
+                    color: "#ec4899"
+                },
+                {
+                    day: 9, date: "8月20日", title: "昭苏 → 库车",
+                    locations: [
+                        { name: "昭苏县城", coordinates: [81.1333, 43.1500], type: "departure" },
+                        { name: "独库公路南段", coordinates: [82.5000, 42.5000], type: "road" },
+                        { name: "库车县城", coordinates: [82.9667, 41.7167], type: "city" }
+                    ],
+                    color: "#f59e0b"
+                },
+                {
+                    day: 10, date: "8月21日", title: "库车 → 奎屯",
+                    locations: [
+                        { name: "库车大峡谷", coordinates: [83.0000, 41.7000], type: "attraction" },
+                        { name: "大小龙池", coordinates: [84.4167, 43.0833], type: "attraction" },
+                        { name: "独山子", coordinates: [84.8833, 44.3167], type: "city" },
+                        { name: "奎屯市", coordinates: [84.9000, 44.4167], type: "city" }
+                    ],
+                    color: "#10b981"
+                },
+                {
+                    day: 11, date: "8月22日", title: "奎屯 → 乌鲁木齐 → 返程",
+                    locations: [
+                        { name: "奎屯市区", coordinates: [84.9000, 44.4167], type: "departure" },
+                        { name: "乌鲁木齐地窝堡国际机场", coordinates: [87.474411, 43.907105], type: "airport" }
+                    ],
+                    color: "#6b7280"
+                }
+            ]
+        };
+
+        let map;
+        let markers = [];
+        let polylines = [];
+        let currentDay = null;
+
+        // 初始化地图
+        function initMap() {
+            map = new AMap.Map('map-container', {
+                zoom: 6,
+                center: [85, 44],
+                mapStyle: 'amap://styles/normal'
+            });
+
+            // 添加控件
+            map.addControl(new AMap.Scale());
+            map.addControl(new AMap.ToolBar());
+
+            // 显示所有行程
+            showAllDays();
+        }
+
+        // 显示所有天数的行程
+        function showAllDays() {
+            clearMap();
+            currentDay = null;
+            
+            itineraryData.days.forEach(day => {
+                day.locations.forEach((location, index) => {
+                    addMarker(location, day.color, `第${day.day}天: ${location.name}`);
+                });
+                
+                // 添加路线
+                if (day.locations.length > 1) {
+                    addPolyline(day.locations, day.color);
+                }
+            });
+
+            // 调整视野
+            if (markers.length > 0) {
+                map.setFitView(markers);
+            }
+
+            updateCurrentInfo("显示全部11天行程");
+        }
+
+        // 显示特定天数的行程
+        function showDay(dayNumber) {
+            clearMap();
+            currentDay = dayNumber;
+            
+            const day = itineraryData.days.find(d => d.day === dayNumber);
+            if (!day) return;
+
+            // 添加标记
+            day.locations.forEach((location, index) => {
+                addMarker(location, day.color, `${location.name}`);
+            });
+
+            // 添加路线
+            if (day.locations.length > 1) {
+                addPolyline(day.locations, day.color);
+            }
+
+            // 调整视野
+            if (markers.length > 0) {
+                map.setFitView(markers);
+            }
+
+            updateCurrentInfo(`第${day.day}天 - ${day.date}<br>${day.title}`);
+        }
+
+        // 添加标记
+        function addMarker(location, color, title) {
+            const marker = new AMap.Marker({
+                position: location.coordinates,
+                title: title,
+                icon: new AMap.Icon({
+                    size: new AMap.Size(25, 34),
+                    image: `data:image/svg+xml;base64,${btoa(`
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    `)}`
+                })
+            });
+
+            // 添加信息窗口
+            const infoWindow = new AMap.InfoWindow({
+                content: `<div class="p-2"><strong>${location.name}</strong><br>类型: ${getLocationTypeText(location.type)}</div>`
+            });
+
+            marker.on('click', () => {
+                infoWindow.open(map, marker.getPosition());
+            });
+
+            map.add(marker);
+            markers.push(marker);
+        }
+
+        // 添加路线
+        function addPolyline(locations, color) {
+            const path = locations.map(loc => loc.coordinates);
+            const polyline = new AMap.Polyline({
+                path: path,
+                strokeColor: color,
+                strokeWeight: 4,
+                strokeOpacity: 0.8
+            });
+
+            map.add(polyline);
+            polylines.push(polyline);
+        }
+
+        // 清除地图
+        function clearMap() {
+            markers.forEach(marker => map.remove(marker));
+            polylines.forEach(polyline => map.remove(polyline));
+            markers = [];
+            polylines = [];
+        }
+
+        // 获取位置类型文本
+        function getLocationTypeText(type) {
+            const types = {
+                'airport': '机场',
+                'hotel': '酒店',
+                'attraction': '景点',
+                'city': '城市',
+                'village': '村落',
+                'viewpoint': '观景点',
+                'departure': '出发点',
+                'transfer': '换乘点',
+                'landmark': '地标',
+                'road': '公路',
+                'restaurant': '餐厅',
+                'shopping': '购物'
+            };
+            return types[type] || '地点';
+        }
+
+        // 更新当前信息
+        function updateCurrentInfo(content) {
+            const infoDiv = document.getElementById('current-info');
+            const contentDiv = document.getElementById('info-content');
+            contentDiv.innerHTML = content;
+            infoDiv.classList.remove('hidden');
+        }
+
+        // 生成天数列表
+        function generateDayList() {
+            const dayList = document.getElementById('day-list');
+            
+            itineraryData.days.forEach(day => {
+                const dayItem = document.createElement('div');
+                dayItem.className = 'day-item border rounded-lg p-4 cursor-pointer';
+                dayItem.innerHTML = `
+                    <h3 class="font-semibold text-gray-800">第${day.day}天 - ${day.date}</h3>
+                    <p class="text-sm text-gray-600 mt-1">${day.title}</p>
+                    <div class="mt-2 text-xs" style="color: ${day.color}">
+                        ${day.locations.length}个地点
+                    </div>
+                `;
+                
+                dayItem.addEventListener('click', () => {
+                    // 移除其他活动状态
+                    document.querySelectorAll('.day-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 添加活动状态
+                    dayItem.classList.add('active');
+                    
+                    // 显示该天行程
+                    showDay(day.day);
+                });
+                
+                dayList.appendChild(dayItem);
+            });
+        }
+
+        // 事件监听
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            generateDayList();
+            
+            // 显示全部按钮
+            document.getElementById('show-all').addEventListener('click', () => {
+                document.querySelectorAll('.day-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                showAllDays();
+            });
+            
+            // 重置视野按钮
+            document.getElementById('reset-view').addEventListener('click', () => {
+                if (currentDay) {
+                    showDay(currentDay);
+                } else {
+                    showAllDays();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
