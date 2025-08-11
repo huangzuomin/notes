@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温州园博会 · 新媒体周度选题策划器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Light neutrals with muted green accents) -->
+    <!-- Application Structure Plan: The application is designed as an interactive dashboard or "Topic Planner" rather than a linear document viewer. This structure directly addresses the user's need for generating weekly topic ideas for a meeting. The layout consists of a timeline for strategic context, pillar selectors for thematic filtering, and a dynamic 7-day grid to display actionable content suggestions. This task-oriented design was chosen for its high utility and usability, transforming a dense strategic report into a practical planning tool that facilitates decision-making. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Promotion timeline (3 stages). Goal: Provide strategic context. Viz: Horizontal Bar Chart (Chart.js). Interaction: Visual highlighting of the current phase. Justification: Quickly orients the user within the long-term strategy.
+        - Report Info: Five narrative pillars. Goal: Allow thematic exploration. Viz: Interactive HTML buttons. Interaction: Click to filter content. Justification: Provides a clear, user-driven way to navigate the core themes of the campaign.
+        - Report Info: Specific content ideas from the report. Goal: Provide actionable weekly topics. Viz: Dynamic HTML grid. Interaction: Content updates based on pillar selection. Justification: This is the core of the tool, turning abstract ideas into a concrete weekly plan.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 120px;
+            max-height: 150px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 150px;
+                max-height: 200px;
+            }
+        }
+        .pillar-btn.active {
+            background-color: #047857; /* emerald-700 */
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgb(0 0 0 / 10%);
+        }
+        .topic-card {
+            transition: all 0.3s ease-in-out;
+            border-left-width: 4px;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-emerald-800">温州园博会 · 新媒体周度选题策划器</h1>
+            <p class="text-gray-500 mt-2">基于《永不落幕的序曲》全周期传播策略，动态生成一周选题思路</p>
+        </header>
+
+        <main>
+            <!-- Section 1: Timeline -->
+            <section id="timeline" class="mb-8 bg-white p-4 rounded-lg shadow-sm">
+                <h2 class="text-xl font-semibold mb-4 text-center text-emerald-700">宣传总览：三阶段推广战役</h2>
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+                <p id="phase-description" class="text-center text-gray-600 mt-4 p-2 bg-emerald-50 rounded-md"></p>
+            </section>
+
+            <!-- Section 2: Pillar Selection -->
+            <section id="pillar-selection" class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-center text-emerald-700">核心引擎：五大叙事支柱</h2>
+                <div id="pillar-buttons" class="flex flex-wrap justify-center gap-3 md:gap-4">
+                    <!-- Pillar buttons will be inserted here by JS -->
+                </div>
+            </section>
+
+            <!-- Section 3: Weekly Planner -->
+            <section id="weekly-planner" class="bg-white p-4 md:p-6 rounded-lg shadow-sm">
+                <div id="planner-header" class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-emerald-800">本周选题聚焦：<span id="current-pillar-title"></span></h2>
+                    <p id="current-pillar-message" class="text-gray-500 mt-2 text-lg"></p>
+                </div>
+                <div id="topic-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <!-- Topic cards will be inserted here by JS -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 text-gray-400 text-sm">
+            <p>此工具旨在将宏观策略转化为可执行的周度计划，助力新媒体团队高效决策。</p>
+            <p>&copy; 2025 温州园博会新媒体团队</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const DATA = {
+                phases: [
+                    { name: '播种期', start: '2024-08', end: '2025-06', description: '建立基础认知，激发智识好奇心。核心信息：“一个伟大的愿景，正在温州大地扎根。”', color: 'rgba(13, 148, 136, 0.6)' },
+                    { name: '培育期', start: '2025-07', end: '2026-01', description: '深化情感联结，具象化呈现项目。核心信息：“从蓝图到盛景，一个世界正在成形。”', color: 'rgba(4, 120, 87, 0.8)' },
+                    { name: '引爆期', start: '2026-02', end: '2026-04', description: '驱动大众期待，激发到访意愿。核心信息：“静候花开，亲历非凡。世界级盛会，邀您共赴。”', color: 'rgba(249, 115, 22, 0.8)' }
+                ],
+                pillars: [
+                    {
+                        id: 'future',
+                        name: '未来之光',
+                        color: 'border-cyan-500',
+                        coreMessage: '一座关于未来城市生态与可持续科技的活态实验室。',
+                        topics: [
+                            { day: '周一', title: '【硬核首曝】无人机“飞手”第一视角Vlog', format: 'B站/抖音短视频', platform: 'Bilibili/抖音', desc: '跟随王牌飞手，记录他如何克服挑战，将百斤重的大树精准“送”上山顶，展现工作的艰辛与科技的力量。' },
+                            { day: '周二', title: '【动画科普】一棵树的“数字身份证”是如何诞生的？', format: 'MG动画', platform: '微信视频号/抖音', desc: '用动画模拟“云上园博”系统，解释“一树一码”如何实现对每棵树的全生命周期智慧管理。' },
+                            { day: '周三', title: '【深度图文】唤醒一条河：园博园水系生态修复全纪实', format: '微信公众号长文', platform: '微信公众号', desc: '采访生态工程师，用“之前/之后”的强烈对比，讲述如何运用生态技术让水体恢复生命力。' },
+                            { day: '周四', title: '【直播连线】探秘“水陆空”立体运输网络', format: '微博/抖音直播', platform: '微博/抖音', desc: '连线现场工程师，揭秘苗木如何通过驳船、卡车、无人机高效协同运输，最大限度降低生态影响。' },
+                            { day: '周五', title: '【技术解析】泰顺分会场的“低成本复绿”黑科技', format: '知乎/公众号文章', platform: '知乎/公众号', desc: '深入解析泰顺如何用乡土植物实现生态修复，并将综合成本降低50%，突出先锋理念。' },
+                            { day: '周六', title: '【延时摄影】“山水馆”拔地而起', format: '短视频', platform: '全平台', desc: '发布重点建筑从无到有的延时摄影，展现建设速度与力量，形成视觉冲击。' },
+                            { day: '周日', title: '【互动问答】关于园博园的“黑科技”，你问我答！', format: '微博互动', platform: '微博', desc: '收集网友关于园博园技术应用的问题，由项目工程师在线解答，增强互动。' }
+                        ]
+                    },
+                    {
+                        id: 'world',
+                        name: '世界之窗',
+                        color: 'border-sky-500',
+                        coreMessage: '为中国打开一扇窗，窥见世界园林之精粹。',
+                        topics: [
+                            { day: '周一', title: '【一园一世界】英伦的“画”境', format: '精品短纪录片', platform: '微信/B站', desc: '探索英国自然风景园林如何追求如画般的诗意，并采访英国设计团队。' },
+                            { day: '周二', title: '【图解园林】一张图看懂法兰西的“秩序”之美', format: '信息长图', platform: '微博/小红书', desc: '用动画和图解，解析法国古典园林的几何构图与宏大叙事。' },
+                            { day: '周三', title: '【侨领声音】听意大利侨领讲述亚平宁的“台地”花园', format: '人物专访短片', platform: '全平台/国际平台', desc: '邀请海外侨领大使，介绍意大利台地园如何利用山地创造戏剧性空间。' },
+                            { day: '周四', title: '【海丝回响】“海丝园”将如何再现千年商港辉煌？', format: '深度图文', platform: '微信公众号', desc: '追溯海上丝绸之路历史，预告“海丝园”如何用景观语言讲述历史。' },
+                            { day: '周五', title: '【设计师说】IFLA展园：世界顶级园林理念首秀温州', format: '高端访谈', platform: '行业媒体/公众号', desc: '专访IFLA代表，阐述其展园的设计理念及其对行业的先锋意义。' },
+                            { day: '周六', title: '【全球共建】你最期待哪个国际展园？', format: '微博/小红书互动', platform: '微博/小红书', desc: '发布11个国际展园概念图，发起投票互动，为“全球园林共建人”活动预热。' },
+                            { day: '周日', title: '【文化碰撞】当东方山水遇见西方园林', format: '圆桌讨论/播客', platform: '播客平台/视频号', desc: '邀请中外设计师或文化学者，探讨不同园林哲学在温州的交融与创新。' }
+                        ]
+                    },
+                    {
+                        id: 'wenzhou',
+                        name: '温州之魂',
+                        color: 'border-amber-500',
+                        coreMessage: '从温州独特的土壤中生长而出，承载山海精神。',
+                        topics: [
+                            { day: '周一', title: '【符号里的温州】斗城传说如何“藏”在园林里？', format: 'MG动画短视频', platform: '抖音/视频号', desc: '用快节奏动画，解读园内景观小品如何呼应温州“斗城”的历史传说。' },
+                            { day: '周二', title: '【一首诗一座园】跟着谢灵运的诗“云游”园博园', format: '诗画结合视频', platform: 'B站/小红书', desc: '选取温州山水诗，将其意境与园内景观匹配，制作唯美视频。' },
+                            { day: '周三', title: '【匠人匠心】老木匠与他的廊桥梦', format: '人物纪录短片', platform: '全平台', desc: '专访参与建设的本地工匠，讲述他们如何将传统技艺倾注于一石一瓦。' },
+                            { day: '周四', title: '【图文科普】百里塘河的水波纹，如何“流”上园博路？', format: '设计解析图文', platform: '小红书/公众号', desc: '揭秘园路铺装图案如何取材于百里塘河的水波纹，体现本土文脉。' },
+                            { day: '周五', title: '【精神对话】园博会建设如何体现新时代“温州精神”？', format: '深度评论文章', platform: '微信公众号', desc: '将园博会的宏大建设与温州人“敢为人先”的精神相连接，进行价值升华。' },
+                            { day: '周六', title: '【非遗新生】当温州细纹刻纸遇见园林艺术', format: '跨界合作短片', platform: '抖音/小红书', desc: '展示设计师如何从细纹刻纸等非遗项目中获取灵感，并应用于栏杆雕刻等细节。' },
+                            { day: '周日', title: '【寻根问源】园博园选址“两山一水”有何深意？', format: '航拍+解读视频', platform: '抖音/B站', desc: '结合航拍，解读园博园选址如何浓缩温州“千年纸山、巍巍罗山、百里塘河”的地域禀赋。' }
+                        ]
+                    },
+                     {
+                        id: 'zhejiang',
+                        name: '浙江之心',
+                        color: 'border-blue-500',
+                        coreMessage: '一园览尽浙山水，一日看遍浙江风。',
+                        topics: [
+                            { day: '周一', title: '【指尖上的浙江】第一站：绍兴园的“兰亭雅韵”', format: '微型纪录片', platform: 'B站/视频号', desc: '聚焦绍兴展园，探讨“曲水流觞”的文人雅趣如何体现在现代园林设计中。' },
+                            { day: '周二', title: '【指尖上的浙江】第二站：宁波园的“海港风情”', format: '航拍+图文', platform: '微信公众号', desc: '展示宁波展园如何围绕“海港风情”，体现开放、大气的港城文化。' },
+                            { day: '周三', title: '【设计抢先看】杭州园如何再现“西湖雅韵”？', format: '三维动画漫游', platform: '抖音/微博', desc: '发布杭州展园的三维动画视频，让公众提前感受西湖美景的精髓。' },
+                            { day: '周四', title: '【一园一品】探寻金华园里的“婺州民俗”', format: '图文故事', platform: '小红书', desc: '挖掘金华展园中的民俗文化元素，讲述其背后的故事和手工艺。' },
+                            { day: '周五', title: '【浙派园林大观】11城园林，你最想打卡哪个？', format: '互动投票', platform: '微博', desc: '集中展示浙江11个兄弟城市的展园设计亮点，发起网络票选。' },
+                            { day: '周六', title: '【主创说】打造“浙派园林山水大观”的挑战与巧思', format: '设计师访谈', platform: '微信公众号', desc: '采访“浙山浙水”展园总设计师，分享如何在一个园区内融合浙江各地的园林特色。' },
+                            { day: '周日', title: '【文化连连看】从湖州笔到台州山，浙江文化地标在园博园的奇妙相遇', format: '趣味科普长图', platform: '微博/公众号', desc: '用一张信息图，串联起各个城市展园的文化符号，展现浙江文化的多元一体。' }
+                        ]
+                    },
+                    {
+                        id: 'people',
+                        name: '人民之园',
+                        color: 'border-rose-500',
+                        coreMessage: '一份献给城市与市民的、永不落幕的礼物。',
+                        topics: [
+                            { day: '周一', title: '【我们的花园】探访鹿城斗城公园分会场', format: '社区纪实报道', platform: '微信公众号', desc: '采访每天在斗城公园晨练的市民，听他们讲述园博会分会场给社区带来的变化。' },
+                            { day: '周二', title: '【我的设计，温州封面】会徽设计者背后的故事', format: '人物回访', platform: '全平台', desc: '回访会徽征集活动的获奖者，分享他的创作灵感与城市情怀。' },
+                            { day: '周三', title: '【住在公园旁】黄屿片区居民的“推窗见绿”新生活', format: '民生报道', platform: '本地媒体/公众号', desc: '采访园博园周边新社区的居民，畅想未来的“一刻钟便民生活圈”。' },
+                            { day: '周四', title: '【永不落幕】园博园会后将如何“变身”城市客厅？', format: '可视化展望视频', platform: '抖音/视频号', desc: '用动画和场景模拟，展望园博园在会后作为综合公园免费开放的生动场景。' },
+                            { day: '周五', title: '【全城联动】从洞头“海上花园”到文成“森林氧吧”', format: '系列报道', platform: '旅游类媒体/小红书', desc: '盘点13个分会场的不同特色，为市民和游客提供周末出游新选择。' },
+                            { day: '周六', title: '【小小园博主】儿童友好视角下的园博园是什么样？', format: '亲子体验策划', platform: '小红书/亲子类社群', desc: '从儿童视角出发，策划未来的亲子游玩路线和科普活动。' },
+                            { day: '周日', title: '【市民建议箱】未来的园博园，你希望增加什么？', format: '线上征集活动', platform: '微博/公众号留言区', desc: '发起互动，征集市民对园博园永久保留部分的功能性建议，体现“百姓园博”。' }
+                        ]
+                    }
+                ]
+            };
+
+            const pillarButtonsContainer = document.getElementById('pillar-buttons');
+            const currentPillarTitle = document.getElementById('current-pillar-title');
+            const currentPillarMessage = document.getElementById('current-pillar-message');
+            const topicGrid = document.getElementById('topic-grid');
+            const phaseDescription = document.getElementById('phase-description');
+
+            function init() {
+                renderTimelineChart();
+                renderPillarButtons();
+                // Set initial state to "培育期" and "未来之光" pillar
+                const initialPillar = DATA.pillars[0];
+                setActivePillar(initialPillar.id);
+            }
+
+            function renderTimelineChart() {
+                const ctx = document.getElementById('timelineChart').getContext('2d');
+                const phaseNames = DATA.phases.map(p => p.name);
+                const phaseData = DATA.phases.map(p => {
+                    const start = new Date(p.start);
+                    const end = new Date(p.end);
+                    return (end - start) / (1000 * 60 * 60 * 24 * 30.44); // duration in months
+                });
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: phaseNames,
+                        datasets: [{
+                            label: '推广阶段 (持续月数)',
+                            data: phaseData,
+                            backgroundColor: DATA.phases.map(p => p.color),
+                            borderColor: DATA.phases.map(p => p.color.replace('0.6', '1').replace('0.8', '1')),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.x !== null) {
+                                            label += context.parsed.x.toFixed(1) + '个月';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: '持续时间 (月)'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Set description for the current phase
+                const currentPhase = DATA.phases[1]; // Nurturing Phase
+                phaseDescription.textContent = `当前阶段：${currentPhase.name}。${currentPhase.description}`;
+            }
+
+            function renderPillarButtons() {
+                pillarButtonsContainer.innerHTML = '';
+                DATA.pillars.forEach(pillar => {
+                    const button = document.createElement('button');
+                    button.className = 'pillar-btn px-4 py-2 text-sm md:px-6 md:py-3 md:text-base font-semibold text-emerald-700 bg-white rounded-full shadow-sm hover:bg-emerald-50 transition-all duration-300';
+                    button.textContent = `💡 ${pillar.name}`;
+                    button.dataset.pillarId = pillar.id;
+                    button.addEventListener('click', () => setActivePillar(pillar.id));
+                    pillarButtonsContainer.appendChild(button);
+                });
+            }
+
+            function setActivePillar(pillarId) {
+                // Update button styles
+                document.querySelectorAll('.pillar-btn').forEach(btn => {
+                    if (btn.dataset.pillarId === pillarId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                const pillar = DATA.pillars.find(p => p.id === pillarId);
+                if (pillar) {
+                    currentPillarTitle.textContent = pillar.name;
+                    currentPillarMessage.textContent = pillar.coreMessage;
+                    populateWeeklyPlanner(pillar);
+                }
+            }
+
+            function populateWeeklyPlanner(pillar) {
+                topicGrid.innerHTML = '';
+                const weekDays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+                pillar.topics.forEach(topic => {
+                    const card = document.createElement('div');
+                    card.className = `topic-card bg-white rounded-lg shadow-sm p-4 flex flex-col h-full ${pillar.color}`;
+                    
+                    card.innerHTML = `
+                        <div class="flex-grow">
+                            <p class="text-sm font-bold text-gray-400">${topic.day}</p>
+                            <h3 class="font-bold text-lg mt-1 text-gray-900">${topic.title}</h3>
+                            <p class="text-sm text-gray-600 mt-2 flex-grow">${topic.desc}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2">#${topic.format}</span>
+                            <span class="inline-block bg-emerald-100 text-emerald-800 rounded-full px-3 py-1 text-xs font-semibold">@${topic.platform}</span>
+                        </div>
+                    `;
+                    topicGrid.appendChild(card);
+                });
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
