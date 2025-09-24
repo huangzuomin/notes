@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐清新时代文化形态探索</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 500px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .concept-card.active {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #4f46e5;
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        .step-connector {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Indigo, Amber) -->
+    <!-- Application Structure Plan: An updated single-page dashboard. The new structure introduces a deeper theoretical and practical dimension, creating a comprehensive narrative arc. The flow is now: 1) Core Question (Problem), 2) Past vs. Present (Context), 3) Theoretical Compass (Guiding Principles), 4) 'Artisan Citizen' Paradigm (Specific Solution Proposal), 5) Conceptual Brainstorm (Alternatives/Critique), 6) Action Framework (Practical Steps), and 7) Interactive Chart (Analytical Tool). This refined thematic structure provides a robust framework for exploring the complex topic, guiding the user from foundational ideas to actionable strategies. -->
+    <!-- Visualization & Content Choices: 
+        - New Section - Theoretical Compass: Goal: Organize. Method: A 3-column grid of principle cards with icons. Interaction: Static but visually clear. Justification: Presents the foundational pillars of the new cultural vision in a balanced, digestible format. Method: HTML/Tailwind.
+        - New Section - 'Artisan Citizen' Deep Dive: Goal: Inform & Analyze. Method: A multi-part section with a 2-column comparison ("Artisan" vs. "Citizen") followed by a synthesis description. Interaction: Clear textual breakdown. Justification: Deconstructs the core proposed concept for better understanding before showing alternatives. Method: HTML/Tailwind.
+        - New Section - Action Framework: Goal: Organize process. Method: A 3-pillar layout for key action areas (Enlightenment, Community, Practice). Interaction: Clickable details could be added, but a clear list format is prioritized. Justification: Translates abstract concepts into a concrete, strategic plan for the target audience (the cultural club). Method: HTML/Tailwind.
+        - Existing elements (Comparison, Brainstorm Cards, Chart) are retained and repositioned to fit the enhanced narrative flow.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-900">乐清文化形态探索</h1>
+                </div>
+                <nav class="hidden md:flex md:space-x-6 lg:space-x-8 text-sm">
+                    <a href="#core-question" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">核心议题</a>
+                    <a href="#analysis" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">沿革与反思</a>
+                    <a href="#compass" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">理论罗盘</a>
+                    <a href="#artisan-citizen" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">“工匠公民”范式</a>
+                    <a href="#brainstorm" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">概念思辨</a>
+                    <a href="#action-framework" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">行动框架</a>
+                    <a href="#interactive-chart" class="nav-link text-slate-600 hover:text-indigo-600 transition-colors duration-200">文化坐标</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <section id="core-question" class="mb-20 text-center scroll-mt-20">
+            <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">新时代，新形态</h2>
+            <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600">源自三禾文化俱乐部的深度思考：如何挖掘提炼乐清的文化基因，在富裕之后走向精神的“富贵”，而非物质的“奢靡”？</p>
+            <div class="mt-8">
+                <p class="text-slate-500 italic">"我们思考的文化形态，不是一般意义上的城市文化IP，而是对城市文明发展进行反思，为新时期社会发展面临的各种问题，提供一个解决方案。"</p>
+            </div>
+        </section>
+
+        <section id="analysis" class="mb-20 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">沿革与反思：从“求生存”到“富而贵”</h2>
+                <p class="mt-2 max-w-2xl mx-auto text-md text-slate-600">乐清的发展根植于强大的地域基因，但新时代提出了新的文化要求。这是一个关于城市精神内核演变与升华的课题。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200 h-full">
+                    <h3 class="text-2xl font-semibold text-slate-900 flex items-center">
+                        <span class="text-3xl mr-3">⚙️</span> 过去：生存的智慧
+                    </h3>
+                    <p class="mt-4 text-slate-600">乐清的经济腾飞，尤其是柳市模式的成功，背后是“求生存”的强大文化基因。这种基因务实、坚韧、敢为人先，在特定发展时期发挥了决定性作用，塑造了城市的经济底色。</p>
+                    <ul class="mt-4 space-y-2 text-slate-700">
+                        <li><span class="text-amber-500 font-semibold mr-2">▶</span> 驱动力：摆脱贫困，追求物质发展。</li>
+                        <li><span class="text-amber-500 font-semibold mr-2">▶</span> 特点：顽强，灵活，高度适应市场。</li>
+                        <li><span class="text-amber-500 font-semibold mr-2">▶</span> 贡献：奠定了乐清发达的经济基础。</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200 h-full">
+                    <h3 class="text-2xl font-semibold text-slate-900 flex items-center">
+                        <span class="text-3xl mr-3">💎</span> 现在：富裕的迷思
+                    </h3>
+                    <p class="mt-4 text-slate-600">当物质生活极大丰富，城市面临新的挑战：如何避免“富而奢”，实现“富而贵”？这需要文化提供新的精神指引和价值矫正功能，引导社会能量向更高层次的文明形态迈进。</p>
+                    <ul class="mt-4 space-y-2 text-slate-700">
+                        <li><span class="text-indigo-500 font-semibold mr-2">▶</span> 新课题：追求精神富足，提升文明素养。</li>
+                        <li><span class="text-indigo-500 font-semibold mr-2">▶</span> 需求：需要一种能凝聚人心、引领方向的新文化形态。</li>
+                        <li><span class="text-indigo-500 font-semibold mr-2">▶</span> 功能：为社会发展提供价值锚点和精神动力。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="compass" class="mb-20 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">新文明的理论罗盘</h2>
+                <p class="mt-2 max-w-2xl mx-auto text-md text-slate-600">构建新文化形态，需有清晰的价值指向。它应是回应时代挑战、引领未来发展的思想灯塔。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">❤️</div>
+                    <h3 class="text-xl font-semibold text-slate-900">人文回归</h3>
+                    <p class="mt-2 text-slate-600">从对物质的过度追求，回归到对“人”本身的关怀。关注人的全面发展、精神世界的丰富和生命意义的探寻，将“富裕”导向“丰盈”。</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h3 class="text-xl font-semibold text-slate-900">社会创新</h3>
+                    <p class="mt-2 text-slate-600">鼓励公民参与，培育公共精神，构建开放、包容、有活力的公民社会。通过文化的力量，促进社会资本的增值与良性互动。</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">🌿</div>
+                    <h3 class="text-xl font-semibold text-slate-900">生态永续</h3>
+                    <p class="mt-2 text-slate-600">超越工业文明的思维局限，建立人与自然和谐共生的价值观。将可持续发展的理念内化为城市文化的一部分，追求长远的福祉。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="artisan-citizen" class="mb-20 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">“工匠公民”文化：新时代的新范式</h2>
+                <p class="mt-2 max-w-2xl mx-auto text-md text-slate-600">这是对乐清文化基因的创造性转化与创新性发展，旨在融合专业精神与公共关怀，塑造新时代的理想人格。</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-2xl font-semibold text-indigo-700">工匠精神 (The Artisan Spirit)</h4>
+                        <p class="mt-2 text-slate-600">它继承了乐清务实、精工的传统，并赋予其新的时代内涵：</p>
+                        <ul class="mt-4 space-y-2 list-disc list-inside text-slate-700">
+                            <li><strong>专业与卓越：</strong> 对工作品质的极致追求，反对浮躁与投机。</li>
+                            <li><strong>创新与创造：</strong> 不满足于模仿，致力于技术和模式的创新。</li>
+                            <li><strong>诚信与担当：</strong> 对产品、对客户、对社会负责的商业伦理。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-semibold text-amber-700">公民意识 (The Civic Consciousness)</h4>
+                        <p class="mt-2 text-slate-600">它是对“富而贵”的直接回应，将个人成功与社会进步相联结：</p>
+                        <ul class="mt-4 space-y-2 list-disc list-inside text-slate-700">
+                            <li><strong>公共关怀：</strong> 超越个人利益，关心社区发展与公共事务。</li>
+                            <li><strong>理性参与：</strong> 以建设性的态度参与社会对话与社区治理。</li>
+                            <li><strong>文化自觉：</strong> 对本土文化有认同，对人类文明有向往。</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="my-8 border-slate-200">
+                <div>
+                    <h4 class="text-2xl font-semibold text-slate-900 text-center">1 + 1 > 2：工匠与公民的融合</h4>
+                    <p class="mt-2 max-w-3xl mx-auto text-center text-slate-600">“工匠公民”不是简单的相加，而是一种化学反应。它塑造的是一个在自己的专业领域追求卓越，同时又对社会怀有深切责任感和人文关怀的现代公民。他们是经济的建设者，更是文明的创造者，是乐清从“富”到“贵”的真正主体。</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="brainstorm" class="mb-20 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">概念思辨：寻找那份“浑然天成”的通透感</h2>
+                <p class="mt-2 max-w-2xl mx-auto text-md text-slate-600">“工匠公民”是一个有深度的概念，但文化提炼的脚步不止于此。一个好的口号，应是无需过多阐释，便能引发共鸣的“啊哈”时刻。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="concept-container">
+            </div>
+            <div id="concept-details" class="mt-8 bg-white p-6 rounded-lg shadow-inner border min-h-[100px] text-slate-600">
+                <p>请点击上方的卡片，查看对不同文化概念的思辨与点评。</p>
+            </div>
+        </section>
+
+        <section id="action-framework" class="mb-20 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">实践路径：为公民社会设计的行动框架</h2>
+                <p class="mt-2 max-w-2xl mx-auto text-md text-slate-600">文化构建非一日之功。三禾文化俱乐部可作为先行者，通过系统性的行动，播撒新文化形态的种子。</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-xl font-semibold text-slate-900 border-b-2 border-indigo-500 pb-2">思想启迪</h3>
+                    <ul class="mt-4 space-y-3 text-slate-600">
+                        <li>▶ <strong>举办“新乐清人”系列讲座：</strong>邀请国内外专家学者，探讨新时代公民文化。</li>
+                        <li>▶ <strong>发起线上大讨论：</strong>围绕“如何从富到贵”等议题，激发市民思考。</li>
+                        <li>▶ <strong>出版年度文化蓝皮书：</strong>系统梳理研究成果，为政府决策提供参考。</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-xl font-semibold text-slate-900 border-b-2 border-amber-500 pb-2">社区营造</h3>
+                    <ul class="mt-4 space-y-3 text-slate-600">
+                        <li>▶ <strong>建立“工匠公民”共享空间：</strong>为有志之士提供交流、学习、合作的平台。</li>
+                        <li>▶ <strong>支持社区微公益项目：</strong>鼓励市民自发组织，解决身边的小问题。</li>
+                        <li>▶ <strong>评选“年度工匠公民”：</strong>树立榜样，传播正向价值观。</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-xl font-semibold text-slate-900 border-b-2 border-emerald-500 pb-2">文化实践</h3>
+                    <ul class="mt-4 space-y-3 text-slate-600">
+                        <li>▶ <strong>发起“乐清手艺”复兴计划：</strong>结合现代设计，活化传统工艺。</li>
+                        <li>▶ <strong>组织城市公共艺术节：</strong>提升城市审美，让艺术融入日常生活。</li>
+                        <li>▶ <strong>创建“乐清文化”数字档案：</strong>记录城市故事，留存集体记忆。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="interactive-chart" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">文化坐标：定位乐清的未来形态</h2>
+                <p class="mt-2 max-w-2xl mx-auto text-md text-slate-600">通过一个二维坐标，我们可以直观地分析不同文化概念的特质与倾向。乐清的理想新形态应该落在何处？</p>
+            </div>
+            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg border border-slate-200">
+                <div class="flex justify-center flex-wrap gap-2 sm:gap-4 mb-4" id="chart-filters">
+                    <button data-filter="all" class="filter-btn bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium">全部显示</button>
+                    <button data-filter="past" class="filter-btn bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100">历史基因</button>
+                    <button data-filter="proposed" class="filter-btn bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100">已有提法</button>
+                    <button data-filter="future" class="filter-btn bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100">理想形态</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="cultureChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            <p>为乐清三禾文化俱乐部关于“新时代乐清文化形态”议题所作的交互式探索方案。</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const concepts = [
+                {
+                    id: 'gongjiang',
+                    title: '工匠公民',
+                    description: '“工匠”强调专业精神和精工细作，符合乐清的产业基础。“公民”则指向现代社会的责任与担当。这个组合有深度，但可能略显生硬，传播上需要更多阐释。'
+                },
+                {
+                    id: 'leshang',
+                    title: '乐商精工',
+                    description: '“乐商”明确了主体，有历史传承感，“精工”点出了制造业的优势。这个概念很好地概括了乐清的经济特质，但人文关怀和价值引领的维度稍弱。'
+                },
+                {
+                    id: 'seeking',
+                    title: '寻找新概念...',
+                    description: '理想的新概念应具备以下特质：1) 根植于乐清的历史文脉和现实基础。2) 回应了“富而贵”的时代命题。3) 具有强烈的人文关怀和价值导向。4) 语言上通透、响亮，具有“浑然天成”的质感，易于传播和感知。'
+                }
+            ];
+
+            const conceptContainer = document.getElementById('concept-container');
+            const conceptDetails = document.getElementById('concept-details');
+
+            concepts.forEach((concept, index) => {
+                const card = document.createElement('div');
+                card.className = 'concept-card bg-white p-6 rounded-lg shadow-md border border-slate-200 cursor-pointer transition-all duration-300 hover:shadow-xl hover:border-indigo-500';
+                card.dataset.conceptId = concept.id;
+                card.innerHTML = `<h3 class="text-xl font-semibold text-slate-900">${concept.title}</h3>`;
+                
+                if (index === 0) {
+                    card.classList.add('active');
+                    conceptDetails.innerHTML = `<p>${concept.description}</p>`;
+                }
+                
+                conceptContainer.appendChild(card);
+
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.concept-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    const selectedConcept = concepts.find(c => c.id === card.dataset.conceptId);
+                    conceptDetails.innerHTML = `<p>${selectedConcept.description}</p>`;
+                });
+            });
+
+            const chartData = {
+                all: [
+                    { x: -7, y: -6, r: 15, label: '生存基因', description: '高度务实，以经济生存为核心驱动力。' },
+                    { x: 3, y: 2, r: 18, label: '工匠公民', description: '兼具专业技能与社会责任，是经济向社会发展的过渡。' },
+                    { x: 5, y: -3, r: 18, label: '乐商精工', description: '聚焦商业精神与制造优势，经济属性突出。' },
+                    { x: 6, y: 8, r: 25, label: '理想新形态', description: '以人为本，面向未来，融合历史智慧与时代精神。' }
+                ],
+                past: [
+                    { x: -7, y: -6, r: 15, label: '生存基因', description: '高度务实，以经济生存为核心驱动力。' }
+                ],
+                proposed: [
+                    { x: 3, y: 2, r: 18, label: '工匠公民', description: '兼具专业技能与社会责任，是经济向社会发展的过渡。' },
+                    { x: 5, y: -3, r: 18, label: '乐商精工', description: '聚焦商业精神与制造优势，经济属性突出。' }
+                ],
+                future: [
+                     { x: 6, y: 8, r: 25, label: '理想新形态', description: '以人为本，面向未来，融合历史智慧与时代精神。' }
+                ]
+            };
+            
+            const ctx = document.getElementById('cultureChart').getContext('2d');
+            const cultureChart = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: '文化概念',
+                        data: chartData.all,
+                        backgroundColor: 'rgba(79, 70, 229, 0.6)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.data[context.dataIndex].label || '';
+                                    let desc = context.dataset.data[context.dataIndex].description || '';
+                                    return [label, desc];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '← 经济驱动 · 务实导向  |  人文关怀 · 价值导向 →',
+                                font: { size: 12 },
+                                color: '#64748b'
+                            },
+                            min: -10,
+                            max: 10,
+                            ticks: { display: false },
+                            grid: {
+                                drawBorder: false,
+                                color: function(context) {
+                                    if (context.tick.value === 0) {
+                                        return '#94a3b8';
+                                    }
+                                    return '#e2e8f0';
+                                },
+                                lineWidth: function(context) {
+                                    if (context.tick.value === 0) {
+                                        return 2;
+                                    }
+                                    return 1;
+                                },
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '← 植根历史 · 传承导向  |  面向未来 · 创新导向 →',
+                                font: { size: 12 },
+                                color: '#64748b'
+                            },
+                            min: -10,
+                            max: 10,
+                            ticks: { display: false },
+                             grid: {
+                                drawBorder: false,
+                                color: function(context) {
+                                    if (context.tick.value === 0) {
+                                        return '#94a3b8';
+                                    }
+                                    return '#e2e8f0';
+                                },
+                                lineWidth: function(context) {
+                                    if (context.tick.value === 0) {
+                                        return 2;
+                                    }
+                                    return 1;
+                                },
+                            }
+                        }
+                    }
+                }
+            });
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-indigo-600', 'text-white');
+                        btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-300');
+                    });
+                    button.classList.add('bg-indigo-600', 'text-white');
+                    button.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-300');
+
+                    const filter = button.dataset.filter;
+                    cultureChart.data.datasets[0].data = chartData[filter];
+                    cultureChart.update();
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+             navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(link.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
