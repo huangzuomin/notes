@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国新闻奖交互式深度解读</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --brand-color: #6D28D9;
+            --brand-color-light: #EDE9FE;
+            --brand-color-dark: #4C1D95;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --bg-light: #F9FAFB;
+            --bg-white: #FFFFFF;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Helvetica Neue', 'Arial', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+        .chart-container {
+            position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px;
+        }
+        @media (min-width: 768px) { .chart-container { height: 320px; } }
+        .nav-link { transition: color 0.3s, border-bottom-color 0.3s; }
+        .nav-link.active { color: var(--brand-color); border-bottom: 2px solid var(--brand-color); }
+        .kpi-card { background-color: var(--bg-white); border-left: 4px solid var(--brand-color); transition: transform 0.3s, box-shadow 0.3s; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s; }
+        .tab-btn.active { background-color: var(--brand-color); color: white; }
+        .timeline-item-modal { visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.3s linear; }
+        .timeline-item:hover .timeline-item-modal { visibility: visible; opacity: 1; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+    </head>
+<body class="bg-slate-50">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-gray-800">新闻创优交互指南</div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#hero" class="nav-link text-gray-600 hover:text-[--brand-color] pb-1 font-medium">首页</a>
+                <a href="#context" class="nav-link text-gray-600 hover:text-[--brand-color] pb-1 font-medium">时代背景</a>
+                <a href="#rules" class="nav-link text-gray-600 hover:text-[--brand-color] pb-1 font-medium">规则详解</a>
+                <a href="#guide" class="nav-link text-gray-600 hover:text-[--brand-color] pb-1 font-medium">实战指南</a>
+                <a href="#deepdive" class="nav-link text-gray-600 hover:text-[--brand-color] pb-1 font-medium">赛道精讲</a>
+                <a href="#future" class="nav-link text-gray-600 hover:text-[--brand-color] pb-1 font-medium">未来趋势</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="hero" class="text-center pt-8 pb-16">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">解码中国新闻奖</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10">一份交互式深度指南，助您洞悉评选新规、掌握创优策略，在媒体变革浪潮中脱颖而出。</p>
+            <div class="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+                <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex-1 min-w-[220px]">
+                    <h3 class="font-bold text-violet-700">时代背景</h3>
+                    <p class="text-sm text-gray-600">系统性变革下的创优方位</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex-1 min-w-[220px]">
+                    <h3 class="font-bold text-violet-700">规则应变</h3>
+                    <p class="text-sm text-gray-600">调整应对策略与核心创新</p>
+                </div>
+                 <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex-1 min-w-[220px]">
+                    <h3 class="font-bold text-violet-700">路径探索</h3>
+                    <p class="text-sm text-gray-600">结合短板看未来创优路径</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="context" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-900">01. 时代背景：系统性变革下的创优方位</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">中国新闻奖的规则调整与主流媒体的系统性变革同步。本节将解析变革的宏观驱动力，阐释为何“用户本位”已成为新闻创优的根本前提。通过关键数据和政策要点，您将理解当前变革的紧迫性与方向。</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 flex items-center"><span class="text-3xl mr-3">📢</span>改革的号角：深圳宣言</h3>
+                    <p class="text-gray-600 mb-6">2023年5月，深圳发出的信号预示着媒体人力资源的结构性重塑，核心力量正加速向互联网和移动端迁移。</p>
+                    <div class="space-y-4">
+                        <div class="kpi-card p-4 rounded-lg">
+                            <p class="text-4xl font-bold text-violet-600">95%</p>
+                            <p class="text-gray-700">报业从业人员转向互联网</p>
+                        </div>
+                        <div class="kpi-card p-4 rounded-lg">
+                            <p class="text-4xl font-bold text-violet-600">75%</p>
+                            <p class="text-gray-700">网站采编力量转向移动端</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 flex items-center"><span class="text-3xl mr-3">🧭</span>中央的部署：中宣部论坛四要点</h3>
+                    <p class="text-gray-600 mb-6">媒体融合十年后，中央提出“系统性变革”，强调以用户为核心，通过机制创新和科学评价，增进改革动力。</p>
+                    <div id="accordion-container" class="space-y-2"></div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                 <blockquote class="bg-violet-50 border-l-4 border-violet-500 text-violet-800 p-6 rounded-r-lg max-w-3xl mx-auto italic shadow">
+                    “媒体变革的核心是从‘内容本位’转向‘用户本位’，而新闻奖评选体系的改革，正是为了用‘指挥棒’引导所有媒体和新闻人，全力挺进互联网主战场。”
+                </blockquote>
+            </div>
+        </section>
+
+        <section id="rules" class="py-16 bg-gray-100 -mx-6 px-6">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-900">02. 规则详解：脱胎换骨的赛道重塑</h2>
+             <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">自2022年起，中国新闻奖经历了史上最大规模的改革。本节将通过互动时间线和图表，展示其历史演变和五大核心创新。您将清晰地看到奖项分类如何优化、介质壁垒如何被打破，以及评选机制如何更加注重融合、全媒与实效。</p>
+            
+            <div class="bg-white p-8 rounded-lg shadow-lg mb-12">
+                <h3 class="text-2xl font-bold mb-8 text-center text-gray-800">关键迭代：四次历史性调整 (将鼠标悬停于节点查看详情)</h3>
+                <div class="relative w-full max-w-4xl mx-auto">
+                    <div class="border-l-2 border-violet-300 absolute h-full top-0 left-1/2 -ml-px"></div>
+                    <div id="timeline-container" class="space-y-16"></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-6 items-start">
+                 <div class="md:col-span-3 bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">新规五大创新与突破</h3>
+                    <div id="innovations-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
+                </div>
+                <div class="md:col-span-2 bg-white p-8 rounded-lg shadow-lg flex flex-col items-center">
+                    <h3 class="text-2xl font-bold mb-2 text-center text-gray-800">奖项赛道精简</h3>
+                    <p class="text-sm text-center text-gray-500 mb-4">划分为基础类与专门类，导向更清晰。</p>
+                     <div class="chart-container"><canvas id="rulesChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="guide" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-900">03. 实战指南：刚性要求与避坑技巧</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">熟悉规则是成功的第一步。本节将聚焦于创优工作的具体实践，通过互动标签页清晰展示必须遵守的“硬性要求”、需要警惕的“高压线”，以及拓宽作品报送渠道的有效策略。这些内容将帮助您在作品创作和申报过程中规避风险，提高成功率。</p>
+
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <div class="border-b border-gray-200 mb-6">
+                    <nav id="guide-tab-buttons" class="flex flex-wrap -mb-px">
+                        <button data-tab="guide-tab1" class="guide-tab-btn py-4 px-3 inline-flex items-center text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 active">📏 “短实新”要求</button>
+                        <button data-tab="guide-tab2" class="guide-tab-btn py-4 px-3 inline-flex items-center text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">⚠️ 避坑指南</button>
+                        <button data-tab="guide-tab3" class="guide-tab-btn py-4 px-3 inline-flex items-center text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">🌐 报送渠道</button>
+                    </nav>
+                </div>
+                <div id="guide-tab-contents"></div>
+            </div>
+        </section>
+
+        <section id="deepdive" class="py-16 bg-gray-100 -mx-6 px-6">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-900">04. 赛道精讲：新赛道如何脱颖而出</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">面对融合报道、应用创新等新赛道，传统思维已不再适用。本部分将深入解读几个重点赛道的标准和创优思路，通过正误对比和经典案例分析，为您提供清晰的实践路径，助您的作品在新赛道中拔得头筹。</p>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <div class="border-b border-gray-200 mb-6">
+                    <nav id="deepdive-tab-buttons" class="flex flex-wrap -mb-px">
+                        <button data-tab="deepdive-tab1" class="deepdive-tab-btn py-4 px-3 inline-flex items-center text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 active">💡 融合报道</button>
+                        <button data-tab="deepdive-tab2" class="deepdive-tab-btn py-4 px-3 inline-flex items-center text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">📲 应用创新</button>
+                        <button data-tab="deepdive-tab3" class="deepdive-tab-btn py-4 px-3 inline-flex items-center text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">🌍 国际传播</button>
+                    </nav>
+                </div>
+                 <div id="deepdive-tab-contents"></div>
+            </div>
+        </section>
+
+
+        <section id="future" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-900">05. 未来趋势与行动建议</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">把握评奖的最新信号，补齐自身短板，才能在未来的竞争中占得先机。本节将解读评奖的三个最新信号，并通过图表直观展示需要补强的六大短板。最后，我们提供六条具体的行动建议，帮助您系统规划未来的创优之路。</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-violet-500">
+                    <h4 class="font-bold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">📈</span>强化传播效果</h4>
+                    <p class="text-sm text-gray-600 mb-2">参评表新增数据填报项，新媒体作品报送比例要求大幅提升。</p>
+                    <div class="bg-violet-100 text-violet-800 p-2 rounded text-center font-mono text-sm">35% ➜ 50%+</div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-violet-500">
+                    <h4 class="font-bold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">➕</span>扩大评选范围</h4>
+                    <p class="text-sm text-gray-600">中宣部“三好作品”将优先参评，鼓励更多专业媒体参与。</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-violet-500">
+                    <h4 class="font-bold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">🎤</span>加大监督/评论激励</h4>
+                    <p class="text-sm text-gray-600">增加舆论监督和时事评论作品的参评数量，鼓励媒体发声。</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">需补强的六大短板</h3>
+                    <p class="text-center text-gray-500 text-sm mb-4">雷达图展示了各领域的待提升空间（数值越高代表越需补强）。例如，“舆论监督”需与“维权报道”区分，必须具有建设性。</p>
+                    <div class="chart-container"><canvas id="shortcomingsChart"></canvas></div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">六条行动建议</h3>
+                    <div id="actions-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <footer class="bg-white border-t mt-16">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>本内容根据中国新闻奖评选规则深度解析讲座整理，仅供学习交流使用。</p>
+            <p class="text-sm mt-2">&copy; 2025 新闻创优交互式指南</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const appData = {
+        accordionItems: [
+            { title: "自我革命，壮士断腕", content: "面对移动传播、AI和数字经济的巨大冲击，解决用户意识不强、平台多而不强的问题，是重要的政治任务和工作机遇。" },
+            { title: "用户驱动，服务为王", content: "从“我生产-我发布”转向“围绕用户需求生产”。<br><b>核心三问:</b> 用户在哪？需求为何？连接状态如何？" },
+            { title: "机制改革，激发活力", content: "关键在于一体化运营、扁平化管理。<br><b>核心人才:</b> 培养文章高手、视频能手、数据分析、产品运营的复合型人才。" },
+            { title: "效果评价，增进动力", content: "构建科学评价体系，增加用户渗透率、原创力等指标。用户用“指尖投票”，3秒定胜负，这是改革的直接政策背景。" }
+        ],
+        timelineItems: [
+            { year: '2006', title: '增设网络新闻奖', side: 'right', content: '顺应门户网站兴起的潮流，首次将网络作品纳入评选范围，开启了对新媒体形态的认可。' },
+            { year: '2011', title: '增设国际传播奖', side: 'left', content: '<b>案例:《来吧，来吧》</b><br>一个农民竞选世博形象大使的故事，以小切口展现中国农民自信，获得一等奖，证明真实、自然的故事具有强大国际传播力。' },
+            { year: '2018', title: '增设媒体融合报道奖', side: 'right', content: '标志着对媒体融合实践的正式肯定，鼓励新闻作品在多媒体、多形态上的探索与创新。' },
+            { year: '2022', title: '结构性赛道重塑', side: 'left', content: '一次“脱胎换骨”式调整，打破介质限制，优化奖项分类，是设立以来力度最大、影响最深远的改革。' }
+        ],
+        innovations: [
+            { icon: '📊', title: '优化分类', text: '从29个赛道优化为20个，分为基础类与专门类，逻辑更清晰。' },
+            { icon: '🔗', title: '打破介质', text: '所有媒体形态（文、图、音、视）在同一赛道内同台竞技。' },
+            { icon: '🎯', title: '服务大局', text: '新设重大主题、典型报道、舆论监督三大奖项，导向明确。' },
+            { icon: '💡', title: '界定融合', text: '为新媒体“新物种”设立“融合报道”与“应用创新”两大专属赛道。' }
+        ],
+        guideTabs: [
+            { id: 'guide-tab1', title: '“短实新”要求', content: `<h4 class="text-xl font-bold mb-4 text-gray-800">作品时长与字数限制</h4><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-50 p-4 rounded-lg"> <h5 class="font-semibold mb-2 text-gray-700">文字类</h5> <ul class="list-disc list-inside text-gray-600 space-y-1"> <li>消息: ≤ 1000字</li> <li>评论: ≤ 2000字</li> <li>通讯: ≤ 4000字</li> </ul></div><div class="bg-gray-50 p-4 rounded-lg"> <h5 class="font-semibold mb-2 text-gray-700">音视频类</h5> <ul class="list-disc list-inside text-gray-600 space-y-1"> <li>广播/电视消息: ≤ 4分钟</li> <li>广播专题: ≤ 30分钟</li> <li>电视专题: ≤ 45分钟</li> </ul></div></div>` },
+            { id: 'guide-tab2', title: '避坑指南', content: `<h4 class="text-xl font-bold mb-4 text-gray-800">必须避免的三类致命差错</h4><div class="space-y-4"><div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg"><strong class="text-red-700">事实性差错: 一票否决，无申辩机会！</strong><p class="text-sm text-red-600 mt-1">案例: 义乌物流“1500个县”误写为“15000个县”，导致优秀作品落选。</p></div><div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg"><strong class="text-yellow-700">导向性差错:</strong><p class="text-sm text-yellow-600 mt-1">观点偏激、逻辑混乱等，影响作品立意。</p></div><div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg"><strong class="text-blue-700">文字性差错:</strong><p class="text-sm text-blue-600 mt-1">标点、语言规范问题。案例: “义新欧”班列报道因外文车站名未翻译而降奖。</p></div></div>` },
+            { id: 'guide-tab3', title: '报送渠道', content: `<h4 class="text-xl font-bold mb-4 text-gray-800">拓宽报送渠道</h4><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-50 p-4 rounded-lg"><h5 class="font-semibold mb-2 text-gray-700">省记协渠道</h5><p class="text-gray-600 text-sm">名额有限(16个)，且有广播、县级、评论、新媒体等结构性要求。</p></div><div class="bg-green-50 p-4 rounded-lg"><h5 class="font-semibold mb-2 text-green-700">自荐/他荐渠道</h5><p class="text-gray-600 text-sm">潜力巨大！全国有<b>43家</b>高校和科研机构可推荐。策略：加强与学界联系合作。</p></div></div>` }
+        ],
+        deepDiveTabs: [
+            { id: 'deepdive-tab1', title: '融合报道', content: `<div class="grid lg:grid-cols-2 gap-8"><div class="space-y-4"> <h5 class="font-bold text-lg text-red-600">常见误区 ❌</h5> <ul class="list-none space-y-2 text-gray-600"><li>- 仅是H5，缺乏真正创新</li><li>- 技术与内容“两张皮”</li><li>- 文本粗糙，信息混乱</li><li>- 有“融合”无“新闻”</li></ul> </div><div class="space-y-4"> <h5 class="font-bold text-lg text-green-600">制胜要诀 ✅</h5> <ul class="list-none space-y-2 text-gray-600"><li>- <b>内容:</b> 小切口、有新意、能共情</li><li>- <b>技术:</b> 有创新点、有主基调</li><li>- <b>叙事:</b> 逻辑清晰，场景化</li><li>- <b>呈现:</b> 轻量化，易传播</li><li>- <b>体验:</b> 沉浸感，让用户“玩起来”</li></ul></div></div><div class="mt-8 bg-violet-50 p-4 rounded-lg border border-violet-200"><h5 class="font-bold text-violet-800">案例学习：《风来有迹》</h5><p class="text-sm text-violet-700 mt-1">以2004年抗台理念为切口，可视化呈现20年台风数据，叙事巧妙，技术呈现效果好，是融合报道的典范。</p></div>` },
+            { id: 'deepdive-tab2', title: '应用创新', content: `<h4 class="text-xl font-bold mb-4 text-gray-800">核心标准：“新闻+服务”闭环</h4><p class="text-gray-600 mb-6">应用创新奖项不评单个作品，而是评一个平台型、产品型的应用，它必须将新闻资讯与实用服务相结合，形成从发现问题到解决问题再到用户反馈的完整闭环。</p><div class="bg-violet-50 p-4 rounded-lg border border-violet-200"><h5 class="font-bold text-violet-800">案例学习：《看见》</h5><p class="text-sm text-violet-700 mt-1">湖州新闻传媒中心的舆论监督平台，集线索发现、过程追踪、问题解决、民众评价于一体，是“新闻+服务”闭环的优秀实践。</p></div>` },
+            { id: 'deepdive-tab3', title: '国际传播', content: `<h4 class="text-xl font-bold mb-4 text-gray-800">新标准：从“海外落地”到“精准投放”</h4><p class="text-gray-600 mb-6">过去的国际传播强调内容能否在海外平台播出。现在，新标准更看重传播的精准性和有效性，要求作品能真正触达目标国家和地区的受众，并被其理解和接受。</p><div class="bg-violet-50 p-4 rounded-lg border border-violet-200"><h5 class="font-bold text-violet-800">核心理念：研究“国别区域学”</h5><p class="text-sm text-violet-700 mt-1">针对不同国家和地区的受众心理、文化背景和接受习惯，进行定制化的内容创作和渠道投放，实现有效传播。</p></div>` }
+        ],
+        actions: [
+            { icon: '👐', title: '两手抓', text: '兼顾传统赛道与“三好作品”培育。' },
+            { icon: '🏃', title: '落实“短实新”', text: '深入现场，深蹲式采访发现细节。' },
+            { icon: '🧠', title: '操练“四新”', text: '拓宽新范畴、概念、技术、表达。' },
+            { icon: '📖', title: '研读评选办法', text: '成为单位里的“规则明白人”。' },
+            { icon: '💡', title: '转变思维', text: '创新视角，不重复自己和他人。' },
+            { icon: '🤝', title: '鼓励团队合作', text: '发挥复合型团队的协作优势。' }
+        ],
+        rulesChartData: { labels: ['改革前赛道', '改革后赛道'], datasets: [{ data: [29, 20], backgroundColor: ['#A78BFA', '#6D28D9'], borderWidth: 1 }] },
+        shortcomingsChartData: { labels: ['舆论监督', '时事评论', '国际传播', '融合报道', '重大主题', '移动直播'], datasets: [{ label: '待提升空间', data: [9, 8, 8, 7, 6, 5], backgroundColor: 'rgba(109, 40, 217, 0.2)', borderColor: 'rgba(109, 40, 217, 1)', borderWidth: 2 }] },
+    };
+
+    function initAccordions() {
+        const container = document.getElementById('accordion-container');
+        if (!container) return;
+        container.innerHTML = appData.accordionItems.map(item => `
+            <div>
+                <button class="accordion-button w-full flex justify-between items-center text-left p-4 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none transition-colors">
+                    <span class="font-semibold text-gray-800">${item.title}</span>
+                    <span class="transform transition-transform duration-300 text-violet-600">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="p-4 text-gray-600 bg-white border border-t-0 border-gray-200 rounded-b-lg">${item.content}</div>
+                </div>
+            </div>
+        `).join('');
+
+        container.addEventListener('click', e => {
+            const button = e.target.closest('.accordion-button');
+            if (button) {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('span:last-child');
+                const isOpening = !content.style.maxHeight;
+
+                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = null);
+                document.querySelectorAll('.accordion-button span:last-child').forEach(el => el.classList.remove('rotate-180'));
+                
+                if (isOpening) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.classList.add('rotate-180');
+                }
+            }
+        });
+    }
+    
+    function initTimeline() {
+        const container = document.getElementById('timeline-container');
+        if (!container) return;
+        container.innerHTML = appData.timelineItems.map((item, index) => {
+            const sideClass = item.side === 'left' ? 'md:flex-row-reverse' : '';
+            return `
+            <div class="timeline-item relative flex items-center ${sideClass} w-full mb-8">
+                <div class="hidden md:block w-5/12"></div>
+                <div class="z-20 flex items-center justify-center w-8 h-8 bg-violet-600 rounded-full text-white font-bold">${index + 1}</div>
+                <div class="bg-white p-4 rounded-lg shadow-md w-full md:w-5/12 ml-4 md:ml-0 md:mr-4 ${item.side === 'left' ? 'md:ml-4' : ''}">
+                    <h4 class="font-bold text-gray-800">${item.year} - ${item.title}</h4>
+                    <div class="timeline-item-modal absolute z-30 p-4 bg-gray-800 text-white rounded-lg shadow-xl w-64 text-sm -mt-32">
+                        ${item.content}
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+    
+    function initInnovationsGrid() {
+        const container = document.getElementById('innovations-grid');
+        if(!container) return;
+        container.innerHTML = appData.innovations.map(item => `
+            <div class="bg-violet-50 p-4 rounded-lg text-center transition hover:shadow-md">
+                <div class="text-4xl mb-2">${item.icon}</div>
+                <p class="font-semibold text-gray-800">${item.title}</p>
+                <p class="text-sm text-gray-600 mt-1">${item.text}</p>
+            </div>
+        `).join('');
+    }
+
+    function initTabs(buttonsSelector, contentsContainerId, data) {
+        const buttonsContainer = document.querySelector(buttonsSelector);
+        const contentsContainer = document.getElementById(contentsContainerId);
+        if (!buttonsContainer || !contentsContainer) return;
+        
+        contentsContainer.innerHTML = data.map(tab => `<div id="${tab.id}" class="tab-content">${tab.content}</div>`).join('');
+        if (data.length > 0) contentsContainer.querySelector('.tab-content').classList.add('active');
+
+        buttonsContainer.addEventListener('click', e => {
+            const button = e.target.closest('button');
+            if (button) {
+                const tabId = button.dataset.tab;
+                buttonsContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                contentsContainer.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId) content.classList.add('active');
+                });
+            }
+        });
+    }
+
+    function initActions() {
+        const container = document.getElementById('actions-container');
+        if(!container) return;
+        container.innerHTML = appData.actions.map(action => `
+            <div class="bg-gray-100 p-4 rounded-lg transition-all duration-300 hover:bg-violet-100 hover:shadow-lg group">
+                <strong class="flex items-center text-gray-800 group-hover:text-violet-800">${action.icon} <span class="ml-2">${action.title}</span></strong>
+                <p class="text-sm text-gray-600 mt-1 h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300">${action.text}</p>
+            </div>
+        `).join('');
+    }
+
+    function initCharts() {
+        const rulesCtx = document.getElementById('rulesChart');
+        if (rulesCtx) new Chart(rulesCtx, { type: 'doughnut', data: appData.rulesChartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }}}});
+        
+        const shortcomingsCtx = document.getElementById('shortcomingsChart');
+        if (shortcomingsCtx) new Chart(shortcomingsCtx, { type: 'radar', data: appData.shortcomingsChartData, options: { responsive: true, maintainAspectRatio: false, scales: { r: { angleLines: { color: 'rgba(0,0,0,0.1)' }, grid: { color: 'rgba(0,0,0,0.1)' }, pointLabels: { font: { size: 11 } }, ticks: { backdropColor: 'transparent', stepSize: 2 }}}, plugins: { legend: { display: false } } }});
+    }
+    
+    function initScrollspy() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) link.classList.add('active');
+                    });
+                }
+            });
+        }, { rootMargin: "-40% 0px -60% 0px" });
+        sections.forEach(section => observer.observe(section));
+    }
+    
+    initAccordions();
+    initTimeline();
+    initInnovationsGrid();
+    initTabs('#guide-tab-buttons', 'guide-tab-contents', appData.guideTabs);
+    initTabs('#deepdive-tab-buttons', 'deepdive-tab-contents', appData.deepDiveTabs);
+    initActions();
+    initCharts();
+    initScrollspy();
+});
+</script>
+
+</body>
+</html>
