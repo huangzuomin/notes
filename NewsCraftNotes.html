@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻业务讲座交互笔记</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link.active {
+            color: #d97706; /* amber-600 */
+            font-weight: 600;
+        }
+        .method-card.active {
+            border-color: #d97706; /* amber-600 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <header class="text-center py-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900">不辱使命，淬炼精品</h1>
+        <p class="mt-4 text-lg text-amber-700">如何打造高质量新闻作品：交互式学习笔记</p>
+        <p class="mt-2 text-md text-slate-500">主讲：温州市新闻工作者协会主席 吴伯正</p>
+    </header>
+
+    <nav id="main-nav" class="sticky top-0 bg-stone-50/80 backdrop-blur-md z-10 border-b border-stone-200">
+        <div class="flex justify-center items-center space-x-4 sm:space-x-8 py-4 overflow-x-auto">
+            <a href="#section-1" class="nav-link text-slate-600 hover:text-amber-600 transition-colors whitespace-nowrap px-2 py-1">初心与挑战</a>
+            <a href="#section-2" class="nav-link text-slate-600 hover:text-amber-600 transition-colors whitespace-nowrap px-2 py-1">何为精品</a>
+            <a href="#section-3" class="nav-link text-slate-600 hover:text-amber-600 transition-colors whitespace-nowrap px-2 py-1">精品案例库</a>
+            <a href="#section-4" class="nav-link text-slate-600 hover:text-amber-600 transition-colors whitespace-nowrap px-2 py-1">六大心法</a>
+            <a href="#section-5" class="nav-link text-slate-600 hover:text-amber-600 transition-colors whitespace-nowrap px-2 py-1">三重境界</a>
+        </div>
+    </nav>
+
+    <main class="mt-8">
+
+        <section id="section-1" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">第一部分：重塑初心</h2>
+                <p class="mt-2 max-w-3xl mx-auto text-slate-600">本部分深入剖析当前新闻行业面临的生存压力、人才流失等严峻挑战。通过互动图表与真实案例，您可以直观感受从业者的困境，并重新思考新闻作为“明天历史”的终极价值。</p>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm mb-12">
+                <h3 class="text-xl font-semibold text-center mb-6">当前新闻行业面临的困境与挑战</h3>
+                <div class="chart-container">
+                    <canvas id="challengesChart"></canvas>
+                </div>
+                <div id="challenge-details" class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold text-center mb-6">新闻的终极价值：“今天的新闻，就是明天的历史”</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-sky-50 p-6 rounded-lg border border-sky-200">
+                        <h4 class="font-bold text-sky-800 text-lg">案例一：东北抗战历史的见证者</h4>
+                        <p class="mt-2 text-slate-700">在哈尔滨731部队遗址、长春伪满皇宫等博物馆中，大量展品是当年的新闻报导。这些来自国内（国共两党）、日本及国际媒体的稿件，成为了还原历史真相不可或缺的铁证。</p>
+                    </div>
+                    <div class="bg-sky-50 p-6 rounded-lg border border-sky-200">
+                        <h4 class="font-bold text-sky-800 text-lg">案例二：中共“一大”召开日期的考证</h4>
+                        <p class="mt-2 text-slate-700">“一大”的准确召开日期曾一度模糊。最终，历史学家是通过查找当年上海报纸对一起命案的新闻报导，结合警署档案，才将会议日期精准锁定在7月23日。这则新闻，无意中成为了历史的关键注脚。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-2" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">第二部分：定义精品</h2>
+                <p class="mt-2 max-w-3xl mx-auto text-slate-600">何为真正的好新闻？本部分不仅提出业界公认的“四有”标准，更通过互动卡片的形式，带您逐一击破四种常见的、阻碍精品创作的错误观念。点击卡片，探索何为真正的“内容为王”。</p>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm mb-12">
+                <h3 class="text-xl font-semibold text-center mb-6">高质量新闻的“四有”标准</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="p-6 bg-amber-50 rounded-lg border border-amber-200">
+                        <span class="text-4xl" aria-hidden="true">料</span>
+                        <h4 class="text-lg font-bold mt-2 text-amber-900">有料</h4>
+                        <p class="text-sm text-slate-600 mt-1">内容有“干货”，信息量足</p>
+                    </div>
+                    <div class="p-6 bg-amber-50 rounded-lg border border-amber-200">
+                        <span class="text-4xl" aria-hidden="true">品</span>
+                        <h4 class="text-lg font-bold mt-2 text-amber-900">有品</h4>
+                        <p class="text-sm text-slate-600 mt-1">品味不低级，有格调</p>
+                    </div>
+                    <div class="p-6 bg-amber-50 rounded-lg border border-amber-200">
+                        <span class="text-4xl" aria-hidden="true">趣</span>
+                        <h4 class="text-lg font-bold mt-2 text-amber-900">有趣</h4>
+                        <p class="text-sm text-slate-600 mt-1">生动活泼，表达吸引人</p>
+                    </div>
+                    <div class="p-6 bg-amber-50 rounded-lg border border-amber-200">
+                        <span class="text-4xl" aria-hidden="true">量</span>
+                        <h4 class="text-lg font-bold mt-2 text-amber-900">有量</h4>
+                        <p class="text-sm text-slate-600 mt-1">具有传播力、影响力</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold text-center mb-6">破除四种常见的错误观念 (点击查看反驳)</h3>
+                <div id="misconceptions-container" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <section id="section-3" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">第三部分：精品案例库</h2>
+                <p class="mt-2 max-w-3xl mx-auto text-slate-600">理论结合实践，这里汇总是从2024年浙江新闻奖中精选的获奖作品。您可以通过下方的分类标签，筛选感兴趣的新闻类型，深入剖析这些精品是如何在选题、写作和呈现上脱颖而出的。</p>
+            </div>
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
+                <div id="case-filters" class="flex flex-wrap justify-center gap-2 mb-8"></div>
+                <div id="case-studies-container" class="space-y-6"></div>
+            </div>
+        </section>
+
+        <section id="section-4" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">第四部分：方法论升维</h2>
+                <p class="mt-2 max-w-3xl mx-auto text-slate-600">淬炼精品需要系统的方法论。本部分提炼出六个核心关键词，点击每一张卡片，即可展开学习如何通过改变视角、深入现场、善用比较等高级技巧，让您的新闻作品实现质的飞跃。</p>
+            </div>
+            <div id="methods-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="section-5" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">结语：新闻人生的三重境界</h2>
+                <p class="mt-2 max-w-3xl mx-auto text-slate-600">从业之路漫漫，新闻人的成长通常会经历三个阶段。这不仅是对职业生涯的总结，更是对新闻价值的终极思考。在这里，我们共同探讨一名新闻工作者所能达到的最高成就与慰藉。</p>
+            </div>
+            <div class="max-w-4xl mx-auto space-y-6">
+                 <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold text-slate-800">第一重境：坚守本心</h3>
+                    <p class="mt-2 text-slate-600">在众声喧哗中坚守本心，不随波逐流，按照专业标准做真正的新闻。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold text-slate-800">第二重境：留下代表作</h3>
+                    <p class="mt-2 text-slate-600">倾尽心力，创作几篇能让自己和时代都留下记忆的代表作。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold text-slate-800">第三重境：雁过留声</h3>
+                    <p class="mt-2 text-slate-600">雁过留声，人过留名。职务会消失，但作品会永存。当自己的文章被普通人珍藏、铭记时，那便是新闻工作者最大的价值与慰藉。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 mt-12 border-t border-stone-200">
+        <p class="text-sm text-slate-500">基于“不辱使命，淬炼精品”讲座内容生成的交互式学习笔记</p>
+    </footer>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const appData = {
+        challenges: [
+            { id: 'c1', label: '生存压力巨大', value: 90, detail: '领导层关注点从“作品影响力”转向“流量与盈利”，“腰部”媒体（如市级媒体）在央媒与新媒体双重挤压下生存艰难。' },
+            { id: 'c2', label: '核心人才流失', value: 85, detail: '优秀骨干转去做“公关”以维持单位运营。案例：丽水日报为生存将6名写作能力最强的骨干调去做公关，导致新闻奖评选表现不佳。' },
+            { id: 'c3', label: '采访方式浅薄化', value: 80, detail: '严重依赖电话、微信甚至网络整合信息，这种“闭门造车”的方式无法产生有深度、有温度的精品。' },
+            { id: 'c4', label: '混淆新闻与宣传', value: 75, detail: '满足于完成“命题作文”，失去了主动挖掘和呈现客观事实的动力，新闻的本质被削弱。' },
+            { id: 'c5', label: '从业动机功利化', value: 70, detail: '部分年轻人为“编制”入行，将媒体作为考公务员的跳板，缺乏对新闻事业真正的热爱与投入。' },
+            { id: 'c6', label: '从业心态“躺平”', value: 65, detail: '认为传统媒体没人看，从而失去创作优质内容的动力。现实是，许多媒体自家客户端的用户粘性也极低。' }
+        ],
+        misconceptions: [
+            { id: 'm1', title: '误区一：“新闻是易碎品，不必精雕细琢。”', rebuttal: '反驳：“昙花一现”之所以成为成语，正是因其短暂而极致的美丽。水晶奢侈品也易碎，但这不妨碍它们成为艺术精品。新闻的时效性不能成为粗制滥造的借口。' },
+            { id: 'm2', title: '误区二：“快字当头，好坏无所谓。”', rebuttal: '反驳：新闻的追求应是“又好又快”，质量与速度同等重要。在确保速度的同时，如何将内容做得更优质，才体现专业功力。' },
+            { id: 'm3', title: '误区三：“渠道为王，内容不重要。”', rebuttal: '反驳：总书记强调“内容为王”。优质内容自带传播属性，会被各大渠道主动抓取。反面案例：某省级媒体客户端，文章点击量仅三四千，连自己员工都没覆盖全，谈何影响力？' },
+            { id: 'm4', title: '误区四：“贴近生活就是迎合媚俗。”', rebuttal: '反驳：新闻要关注的是受众“欲知而未知”以及“知其然，而不知其所以然”的内容。贴近不等于低俗化。警示案例：温州晚报创刊初期，为博眼球曾开设充满猎奇、色情的“强奸角”，格调低下，不利于媒体长远发展。' }
+        ],
+        caseStudies: [
+            { category: '消息', title: '《浙江以法治护航“千万工程”》', highlight: '这是一篇典型的“会议新闻”，但写法高明。它跳出会议议程本身，新闻事实主要来自“会外”，通过采访国家级权威专家、基层实践地代表和省人大立法者这三类关键人物，从不同维度印证了该法规的权威性与重要性。', methodology: '方法论：写好会议新闻的诀窍在于“功夫在会外，精彩在会前会后”。' },
+            { category: '消息', title: '《180多位温州企业家“呼唤”出首部民企科创法规》 (对比案例)', highlight: '落选原因：新闻核心事实不准确。“呼唤”一词严重失实，企业家们实际上只是在立法过程中被“征求意见”，其主动性和新闻价值远低于“自下而上地呼吁立法”。', methodology: '启示：新闻核心事实的准确性是作品的生命线。' },
+            { category: '通讯', title: '《同行不是冤家，同行才是正道》', highlight: '故事讲述义乌两家宠物笼企业从互相猜忌到互补合作，最终实现“1+1>2”的共赢。故事颠覆了“同行是冤家”的传统认知，标题极具冲击力和哲理，传递了合作共赢的正向价值观，具有很强的启示意义。', methodology: '方法论：寻找颠覆传统认知的独特故事，传递普世价值。' },
+            { category: '通讯', title: '《我是一个“宝葫芦”》 (创意写法)', highlight: '以第一人称“我”（一个从浙江引种到贵州的吊瓜）的视角，讲述了自己如何帮助贵州农民脱贫致富的故事。叙事方式新颖、亲切、生动，极具代入感，将一个扶贫故事讲得充满趣味和温情。', methodology: '方法论：尝试创新的叙事视角（如拟人化），增加文章趣味性和可读性。' },
+            { category: '评论', title: '《这样的“作业”更像“作秀”》', highlight: '批评学校要求学生收集牛奶盒的环保作业，催生了网上买卖空牛奶盒的造假现象。标题一语中的，揭示了“形式主义”对孩子的负面影响，引发现象级社会共鸣。', methodology: '方法论：评论要观点鲜明，一针见血，切中社会痛点。' },
+            { category: '评论', title: '《反诈保护不能“反”成一种打扰》', highlight: '文章质疑电信部门为“保护用户”而对接到疑似诈骗电话的号码“一刀切”停机的做法。观点犀利，点出了公共管理中“好心办坏事”的懒政思维，引发广泛讨论。', methodology: '方法论：敢于对公共管理中的不合理之处提出建设性质疑。' },
+            { category: '舆论监督', title: '《蹊跷的网络留言》', highlight: '记者在政府反馈平台发现，某村在几分钟内出现大量群众提问和“神速”回复。经调查，是村干部为完成任务而自问自答，弄虚作假。报导揭露了基层的形式主义顽疾，推动了平台的实质性改善。', methodology: '方法论：舆论监督要具备敏锐的洞察力，从细节中发现线索。' },
+            { category: '舆论监督', title: '《三垟湿地生态园“黑车”调查》', highlight: '报导刊发后，被监督对象向省委宣传部恶意举报记者“打击报复”。最终，经过调查证明了记者的清白。这个案例提醒记者，在监督别人的同时，也要做好被反驳和攻击的准备。', methodology: '启示：舆论监督报导必须事实扎实，经得起检验，同时记者也要有强大的心理素质。' },
+            { category: '新媒体', title: '《义乌“外交家”胡阿姨》', highlight: '短视频讲述一位53岁的市场摊主，自学多国语言与外商流利沟通。故事有趣、接地气，充满正能量。用一个小人物的故事，折射出中国对外开放的大时代背景，传播效果极佳。', methodology: '方法论：新媒体是县级融媒体的蓝海，要贴近基层，发掘“有趣”的素人故事。' },
+            { category: '新媒体', title: '《台风有“记”》', highlight: '策划堪称完美。以一位2004年台风夜出生的女孩“云娜”的视角，串联起浙江20年防台抗台体系的巨大进步。立意有高度（紧扣总书记防台理念）、形式有新意（数据可视化+情感故事）、叙事有温度（“台风宝宝”的成长史）、标题有嚼头（“台风有记”一语双关）。', methodology: '方法论：成功的融媒体作品是精心策划的结果，需要高度、新意、温度的完美结合。' }
+        ],
+        methods: [
+            { id: 'p1', title: '视角 (Perspective)', content: '“横看成岭侧成峰”。同样的题材，换个角度，效果截然不同。案例：中国青年报要求摄影记者必须找到与所有其他媒体不同的拍摄角度，于是诞生了躺在地上拍人民大会堂穹顶等经典照片。另一个案例是跳出“好人好事”框架，将雷锋解读为一位“颇有哲学头脑”的自学者，让其形象瞬间变得立体而深刻。' },
+            { id: 'p2', title: '现场 (On-site Presence)', content: '“首先要感动自己，才能感动别人”。新闻是跑出来的，不是在办公室写出来的。尽一切可能深入现场，无法到达时，也要通过多方采访、查阅资料无限还原现场，才能获得真材实料和生动细节。' },
+            { id: 'p3', title: '比较 (Comparison)', content: '“不比不知道，一比吓一跳”。好的新闻善于通过比较，让事实的冲击力更强。案例：回应“中国经济崩溃论”，可以通过横向（比较中美经济数据）和纵向（比较中国产业升级前后的变化）进行多维度比较，让结论不言自明。' },
+            { id: 'p4', title: '联想 (Association)', content: '新闻不能虚构，但可以联想，从而拓展报导的深度和广度。将孤立的新闻点与更广阔的背景联系起来。案例：报导杭州西湖，可以联想到它的地质史（如何形成）、文化史（为何出名）、爱情故事（白蛇传、梁祝），甚至是名人墓葬（岳飞、秋瑾）等。' },
+            { id: 'p5', title: '共情 (Empathy)', content: '好的新闻能引发受众的情感共鸣，巧妙平衡各方情绪。案例：报导香港富豪的“黄金墙”。记者没有渲染其奢华造价（这会引发仇富情绪），而是讲述富豪为了给妻子留住某个傍晚“夕阳洒满墙壁”的金色浪漫瞬间，才决定用黄金造墙。报导的角度从“炫富”变成了“浪漫”，成功引发了读者的正面共情。' },
+            { id: 'p6', title: '悬念 (Suspense)', content: '善用悬念能勾起读者的好奇心，但要避免沦为“标题党”。悬念的设置必须基于事实。案例：报导小区树木虫害，平庸的标题是《专家为XX小区树木会诊》，而带悬念的标题是《昨天，七八位重量级专家突然来到这个小区，全都盯着一棵树看……》，更能吸引读者点击阅读。' }
+        ]
+    };
+    
+    function initChallenges() {
+        const ctx = document.getElementById('challengesChart').getContext('2d');
+        const detailsContainer = document.getElementById('challenge-details');
+        
+        detailsContainer.innerHTML = appData.challenges.map(c => `
+            <div class="bg-stone-100 p-4 rounded-lg">
+                <h5 class="font-semibold text-slate-700">${c.label}</h5>
+                <p class="text-sm text-slate-600 mt-1">${c.detail}</p>
+            </div>
+        `).join('');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: appData.challenges.map(c => c.label),
+                datasets: [{
+                    label: '挑战严峻程度 (示意)',
+                    data: appData.challenges.map(c => c.value),
+                    backgroundColor: 'rgba(217, 119, 6, 0.6)',
+                    borderColor: 'rgba(217, 119, 6, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                    },
+                    y: {
+                        ticks: { autoSkip: false },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: ${context.parsed.x}`
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function initMisconceptions() {
+        const container = document.getElementById('misconceptions-container');
+        container.innerHTML = appData.misconceptions.map(m => `
+            <div class="misconception-card border border-stone-200 rounded-lg overflow-hidden">
+                <button class="title-bar bg-stone-100 p-4 w-full text-left cursor-pointer flex justify-between items-center group" aria-expanded="false">
+                    <h4 class="font-semibold text-slate-700 group-hover:text-amber-700">${m.title}</h4>
+                    <span class="arrow text-amber-600 transform transition-transform text-xl">▼</span>
+                </button>
+                <div class="rebuttal-content bg-white p-4 hidden border-t border-stone-200">
+                    <p class="text-slate-600 whitespace-pre-line">${m.rebuttal}</p>
+                </div>
+            </div>
+        `).join('');
+
+        container.addEventListener('click', e => {
+            const button = e.target.closest('.title-bar');
+            if (button) {
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                button.setAttribute('aria-expanded', !isExpanded);
+                const card = button.parentElement;
+                const content = card.querySelector('.rebuttal-content');
+                const arrow = card.querySelector('.arrow');
+                content.classList.toggle('hidden');
+                arrow.classList.toggle('rotate-180');
+            }
+        });
+    }
+
+    function initCaseStudies() {
+        const filtersContainer = document.getElementById('case-filters');
+        const casesContainer = document.getElementById('case-studies-container');
+        const categories = ['全部', ...new Set(appData.caseStudies.map(c => c.category))];
+
+        filtersContainer.innerHTML = categories.map((cat, index) => `
+            <button class="case-filter-btn px-4 py-2 text-sm font-medium rounded-full transition-colors ${index === 0 ? 'bg-amber-600 text-white' : 'bg-stone-200 text-slate-700 hover:bg-amber-200'}" data-category="${cat}">
+                ${cat}
+            </button>
+        `).join('');
+
+        function renderCases(filter = '全部') {
+            const filteredCases = filter === '全部' ? appData.caseStudies : appData.caseStudies.filter(c => c.category === filter);
+            casesContainer.innerHTML = filteredCases.map(c => `
+                <article class="bg-stone-100 p-6 rounded-lg border-l-4 ${c.methodology.includes('落选') || c.methodology.includes('恶意举报') ? 'border-red-400' : 'border-sky-500'}">
+                    <span class="text-xs font-semibold uppercase text-slate-500">${c.category}</span>
+                    <h4 class="text-lg font-bold text-slate-800 mt-1">${c.title}</h4>
+                    <p class="mt-2 text-sm text-slate-600"><strong class="text-slate-700">亮点：</strong>${c.highlight}</p>
+                    <p class="mt-3 text-sm bg-sky-100 text-sky-800 p-3 rounded">${c.methodology}</p>
+                </article>
+            `).join('');
+        }
+
+        filtersContainer.addEventListener('click', e => {
+            if (e.target.classList.contains('case-filter-btn')) {
+                const category = e.target.dataset.category;
+                document.querySelectorAll('.case-filter-btn').forEach(btn => {
+                    btn.classList.remove('bg-amber-600', 'text-white');
+                    btn.classList.add('bg-stone-200', 'text-slate-700', 'hover:bg-amber-200');
+                });
+                e.target.classList.add('bg-amber-600', 'text-white');
+                e.target.classList.remove('bg-stone-200', 'text-slate-700', 'hover:bg-amber-200');
+                renderCases(category);
+            }
+        });
+
+        renderCases();
+    }
+
+    function initMethods() {
+        const container = document.getElementById('methods-container');
+        container.innerHTML = appData.methods.map(m => `
+            <div class="method-card bg-white rounded-lg shadow-sm border-2 border-transparent hover:border-amber-500/50 transition-all cursor-pointer overflow-hidden" tabindex="0" role="button" aria-expanded="false">
+                <div class="p-6">
+                    <h4 class="text-xl font-bold text-slate-800">${m.title}</h4>
+                </div>
+                <div class="method-content bg-stone-100 p-6 hidden border-t border-stone-200">
+                    <p class="text-slate-700 whitespace-pre-line">${m.content}</p>
+                </div>
+            </div>
+        `).join('');
+        
+        const handleCardToggle = (card) => {
+            if (card) {
+                const isExpanded = card.getAttribute('aria-expanded') === 'true';
+                card.setAttribute('aria-expanded', !isExpanded);
+                const content = card.querySelector('.method-content');
+                card.classList.toggle('active');
+                content.classList.toggle('hidden');
+            }
+        };
+
+        container.addEventListener('click', e => {
+            handleCardToggle(e.target.closest('.method-card'));
+        });
+        
+        container.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const card = e.target.closest('.method-card');
+                if (card) {
+                    e.preventDefault();
+                    handleCardToggle(card);
+                }
+            }
+        });
+    }
+
+    function initNavObserver() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+        
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-25% 0px -75% 0px' });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    }
+    
+    initChallenges();
+    initMisconceptions();
+    initCaseStudies();
+    initMethods();
+    initNavObserver();
+});
+</script>
+
+</body>
+</html>
