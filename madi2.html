@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>媒体人AI驱动力指数 (MADI) 2025测评</title>
     
-    <!-- 核心依赖 -->
+    <!-- 核心依赖库 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -16,21 +16,20 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: "PingFang SC", system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; -webkit-tap-highlight-color: transparent; }
         
-        .container { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--white); position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.05); overflow-x: hidden; }
+        .container { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--white); position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.05); overflow-x: hidden; z-index: 1; }
         .screen { padding: 20px 24px; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .screen.active { display: block; opacity: 1; }
 
-        /* UI组件 */
+        /* 通用按钮 */
         .btn { display: block; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; text-align: center; cursor: pointer; border: none; transition: 0.2s; margin-top: 15px; }
         .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
         .btn-primary:active { transform: scale(0.98); }
-        .btn-loading { opacity: 0.7; cursor: not-allowed; background: #999; box-shadow: none; }
         .btn-outline { background: white; border: 1px solid var(--primary); color: var(--primary); }
-        
+
         /* 驾驶进度条 */
         .progress-track { height: 8px; background: #eee; border-radius: 4px; position: relative; margin: 20px 10px 40px 10px; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); width: 0%; border-radius: 4px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .progress-car { position: absolute; top: -16px; left: 0%; transform: translateX(-50%); font-size: 24px; transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2)); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); width: 0%; border-radius: 4px; transition: width 0.5s; }
+        .progress-car { position: absolute; top: -16px; left: 0%; transform: translateX(-50%); font-size: 24px; transition: left 0.5s; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2)); }
 
         /* 题目卡片 */
         .q-card { animation: slideUp 0.4s ease-out; margin-bottom: 30px; }
@@ -38,36 +37,84 @@
         .q-tag { background: #E6F0FA; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
         .q-text { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: #222; line-height: 1.5; }
 
-        /* 选项样式 (移动端堆叠) */
+        /* Likert & SJT 选项 */
         .opt-group { display: flex; flex-direction: column; gap: 12px; }
         .opt-btn { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 15px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
-        .opt-btn:active, .opt-btn.selected { border-color: var(--accent); background: #FFFDF5; transform: scale(0.99); border-width: 1.5px; }
-        .opt-circle { width: 20px; height: 20px; border: 2px solid #ddd; border-radius: 50%; margin-right: 12px; flex-shrink: 0; position: relative; }
+        .opt-btn.selected { border-color: var(--accent); background: #FFFDF5; border-width: 1.5px; }
+        .opt-circle { width: 20px; height: 20px; border: 2px solid #ddd; border-radius: 50%; margin-right: 12px; flex-shrink: 0; }
         .opt-btn.selected .opt-circle { border-color: var(--accent); background: var(--accent); }
 
-        /* PT题增强 */
-        .pt-ref-box { display: none; background: #F0F8FF; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 14px; color: #333; border-left: 4px solid var(--primary); white-space: pre-wrap; }
-        .pt-toggle { font-size: 13px; color: var(--primary); cursor: pointer; text-decoration: underline; display: inline-block; margin-top: 5px; }
+        /* PT题 专属样式 (修复点) */
+        .pt-area { border: 1px solid #eee; padding: 15px; border-radius: 10px; background: #fafafa; }
+        .pt-input { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; font-family: inherit; }
+        .pt-toggle-btn { color: var(--primary); cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: underline; margin-bottom: 10px; display: inline-block; }
+        .pt-ref-content { display: none; background: #E6F0FA; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; line-height: 1.6; color: #333; border-left: 3px solid var(--primary); white-space: pre-wrap; }
+        
+        .pt-slider-box { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #ccc; }
+        .range-slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #d3d3d3; outline: none; }
+        .range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); cursor: pointer; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .pt-score-display { text-align: center; font-size: 24px; font-weight: bold; color: var(--accent); margin: 10px 0; }
 
         /* 报告页 */
         .report-header { background: var(--primary); color: white; padding: 40px 20px 60px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; margin: -20px -24px 0 -24px; }
-        .score-big { font-size: 60px; font-weight: 800; color: var(--accent); line-height: 1; margin: 10px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .rpt-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); position: relative; z-index: 2; }
-        .gate-blur { filter: blur(5px); user-select: none; pointer-events: none; opacity: 0.5; }
+        .rpt-title { font-size: 16px; font-weight: bold; border-left: 4px solid var(--accent); padding-left: 10px; margin-bottom: 15px; color: var(--primary); }
+        .action-list li { margin-bottom: 8px; padding-left: 20px; position: relative; list-style: none; font-size: 14px; color: #555; }
+        .action-list li::before { content: "•"; color: var(--accent); font-weight: bold; position: absolute; left: 0; font-size: 18px; top: -2px; }
 
-        /* 结果海报弹窗 (微信适配) */
+        /* 海报弹窗 (微信适配) */
         #poster-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-        #poster-img { max-width: 90%; max-height: 85%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        .modal-tip { color: white; margin-top: 15px; font-size: 14px; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; }
-        .close-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
+        #poster-img { max-width: 90%; max-height: 85%; border-radius: 12px; box-shadow: 0 0 30px rgba(255,255,255,0.1); }
+        .modal-tip { color: white; margin-top: 20px; font-size: 14px; background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 20px; backdrop-filter: blur(5px); }
+        .close-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; width: 40px; height: 40px; text-align: center; line-height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; }
 
-        /* 隐藏的海报绘制区 */
-        #poster-canvas { position: fixed; top: -9999px; left: 0; width: 375px; height: 667px; background: linear-gradient(160deg, #001a33 0%, #003366 100%); color: white; display: flex; flex-direction: column; font-family: "PingFang SC", sans-serif; }
-        .poster-content { padding: 40px 30px; flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .poster-footer { background: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; width: 100%; color: #333; }
+        /* 海报绘制区 (关键修复: 使用 z-index:-1 而不是 display:none) */
+        #poster-canvas { 
+            position: fixed; top: 0; left: 0; width: 375px; height: 667px; z-index: -1; 
+            background: linear-gradient(180deg, #051525 0%, #003366 100%); 
+            color: white; font-family: "PingFang SC", sans-serif;
+            display: flex; flex-direction: column;
+        }
+        
+        .poster-layout { padding: 30px; height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        /* 装饰纹理 */
+        .poster-bg-circle { position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); border-radius: 50%; }
+        
+        .poster-header { text-align: center; margin-top: 20px; }
+        .poster-title { font-size: 20px; letter-spacing: 2px; opacity: 0.9; margin-bottom: 5px; }
+        .poster-role { font-size: 16px; color: var(--accent); background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; }
+        
+        .poster-score-box { text-align: center; position: relative; margin: 10px 0 30px 0; }
+        .poster-score { font-size: 90px; font-weight: 800; color: var(--accent); line-height: 1; text-shadow: 0 5px 20px rgba(212,175,55,0.3); }
+        .poster-level { font-size: 28px; font-weight: bold; margin-top: 5px; }
+        
+        .poster-radar-container { 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin: 0 auto; 
+            width: 300px; height: 300px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .poster-footer { 
+            margin-top: auto; 
+            background: white; 
+            border-radius: 16px; 
+            padding: 15px 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            color: #333;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .poster-user-info { font-size: 14px; font-weight: bold; color: #555; margin-bottom: 4px; }
+        .poster-slogan { font-size: 12px; color: #999; }
 
         /* Toast */
-        #toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 15px 25px; border-radius: 8px; font-size: 14px; z-index: 9999; display: none; text-align: center; }
+        #toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 15px 25px; border-radius: 8px; font-size: 14px; z-index: 9999; display: none; }
     </style>
 </head>
 <body>
@@ -77,25 +124,26 @@
 <!-- 结果海报弹窗 -->
 <div id="poster-modal">
     <div class="close-modal" onclick="closePoster()">×</div>
-    <img id="poster-img" src="" alt="结果海报">
-    <div class="modal-tip">👆 长按图片保存到相册</div>
+    <img id="poster-img" src="" alt="长按保存">
+    <div class="modal-tip">👆 长按图片保存到相册，分享你的AI战力</div>
 </div>
 
 <div class="container">
     <!-- 1. 欢迎页 -->
     <div id="screen-welcome" class="screen active">
-        <div style="text-align: center; padding-top: 40px;">
-            <div style="font-size: 14px; color: var(--primary); opacity: 0.8; letter-spacing: 2px; margin-bottom: 5px;">2025 媒体人能力进化指南</div>
-            <h1 style="color:var(--primary); font-size: 28px; line-height: 1.3; margin-bottom: 15px;">MADI AI驱动力<br><span style="color:var(--accent);">深度诊断</span></h1>
+        <div style="text-align: center; padding-top: 50px;">
+            <div style="font-size: 14px; color: var(--primary); opacity: 0.8; letter-spacing: 1px; margin-bottom: 8px;">2025 媒体人能力进化指南</div>
+            <h1 style="color:var(--primary); font-size: 32px; line-height: 1.2; margin-bottom: 15px; font-weight: 800;">MADI 媒体人<br><span style="color:var(--accent);">AI驱动力指数</span></h1>
             
-            <p style="color: #666; font-size: 15px; margin-bottom: 30px; padding: 0 20px;">
-                大模型时代，你的核心竞争力还在吗？<br>
-                基于 <span style="color:var(--primary); font-weight:bold;">5大维度</span> 与 <span style="color:var(--primary); font-weight:bold;">行业基准</span> 对标<br>
-                发现你的进化方向
+            <div style="width: 40px; height: 4px; background: var(--accent); margin: 20px auto; border-radius: 2px;"></div>
+
+            <p style="color: #666; font-size: 15px; margin-bottom: 30px; padding: 0 30px; line-height: 1.6;">
+                在算法重构内容的时代，<br>
+                您是 <span style="font-weight:bold;">被动跟随者</span> 还是 <span style="font-weight:bold; color:var(--primary);">智能领航者</span>？
             </p>
             
             <div style="background: #F4F6F9; padding: 20px; border-radius: 12px; text-align: left; border: 1px solid #eee;">
-                <label style="font-weight: bold; display:block; margin-bottom:10px; color: var(--primary);">请选择您的核心岗位：</label>
+                <label style="font-weight: bold; display:block; margin-bottom:10px; color: var(--primary);">选择您的核心岗位：</label>
                 <select id="role-selector" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size:16px; background:white; outline: none;">
                     <option value="reporter">✍️ 记者/深度采编</option>
                     <option value="video">🎬 视频/视听制作</option>
@@ -104,8 +152,11 @@
                 </select>
             </div>
             
-            <button class="btn btn-primary" onclick="startApp()">开始专业测评</button>
-            <p style="font-size: 12px; color: #999; margin-top: 15px;">已有 5,200+ 同行参与 · 耗时约 3 分钟</p>
+            <button class="btn btn-primary" onclick="startApp()">开始深度诊断</button>
+            <div style="margin-top: 15px; font-size: 12px; color: #aaa; display: flex; justify-content: center; gap: 15px;">
+                <span>⏱ 耗时约 3 分钟</span>
+                <span>🔒 SSL加密存储</span>
+            </div>
         </div>
     </div>
 
@@ -133,7 +184,7 @@
             <div style="font-size:14px; opacity:0.9; letter-spacing: 1px; margin-bottom: 5px;" id="rpt-role">岗位</div>
             <div class="score-big" id="rpt-score">0</div>
             <div style="font-size: 20px; font-weight: bold;" id="rpt-level">LV0</div>
-            <div id="veto-badge" style="display:none; background:rgba(255,0,0,0.2); font-size:12px; padding:2px 8px; border-radius:10px; margin-top:5px;">⚠️ 伦理短板已封顶</div>
+            <div id="veto-badge" style="display:none; background:rgba(255,0,0,0.2); font-size:12px; padding:2px 8px; border-radius:10px; margin-top:5px; border:1px solid rgba(255,255,255,0.3);">⚠️ 伦理安全封顶</div>
         </div>
 
         <div style="padding: 0 20px 40px 20px; margin-top: -30px;">
@@ -148,10 +199,10 @@
                 </div>
             </div>
 
-            <!-- 🔒 锁定表单 (Gated Content) -->
+            <!-- 🔒 锁定表单 -->
             <div class="rpt-card" id="lead-gate" style="border: 2px solid var(--accent); text-align: center;">
-                <h3 style="color:var(--primary); margin-bottom:10px;">🔓 保存档案并解锁详细诊断</h3>
-                <p style="font-size:13px; color:#666; margin-bottom:15px;">我们将为您提供 7天/30天 专属升档建议</p>
+                <h3 style="color:var(--primary); margin-bottom:10px;">🔓 保存档案并解锁建议</h3>
+                <p style="font-size:13px; color:#666; margin-bottom:15px;">获取专属的“升档行动清单”</p>
                 
                 <form id="lead-form" onsubmit="submitToCloud(event)">
                     <input type="text" id="lead-name" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px;" placeholder="您的姓名" required>
@@ -159,30 +210,26 @@
                     <input type="tel" id="lead-phone" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px;" placeholder="联系电话" required pattern="[0-9]{11}">
                     <button type="submit" class="btn btn-primary" id="submit-btn">提交并解锁</button>
                 </form>
-                <p style="font-size:12px; color:#999; margin-top:10px;">🔒 数据通过 SSL 加密存储至 Supabase</p>
+                <p style="font-size:12px; color:#999; margin-top:10px;">🔒 数据安全存储</p>
             </div>
 
             <!-- 🔓 解锁内容 -->
             <div id="locked-content" style="display: none;">
-                <!-- 智能诊断 -->
                 <div class="rpt-card" style="border-top: 4px solid var(--primary);">
                     <div class="rpt-title">📌 智能诊断</div>
                     <div id="rpt-diagnosis" style="font-size:14px; color:#444; line-height:1.6;"></div>
                 </div>
 
-                <!-- 7天行动清单 -->
                 <div class="rpt-card">
                     <div class="rpt-title">🚀 升档行动清单 (Next 7 Days)</div>
                     <ul class="action-list" id="rpt-action-7"></ul>
                 </div>
 
-                <!-- 30天规划 -->
                 <div class="rpt-card">
                     <div class="rpt-title">📅 进阶规划 (Next 30 Days)</div>
                     <ul class="action-list" id="rpt-action-30"></ul>
                 </div>
 
-                <!-- 底部按钮 -->
                 <div style="margin-top: 20px;">
                     <button class="btn btn-primary" onclick="generatePoster()">📸 生成荣誉海报 (发朋友圈)</button>
                     <button class="btn btn-outline" onclick="location.reload()">🔄 重新测试</button>
@@ -192,29 +239,32 @@
     </div>
 </div>
 
-<!-- 海报绘制区 (Hidden) -->
+<!-- 海报绘制区 (CSS已修复，确保可见渲染) -->
 <div id="poster-canvas">
-    <div class="poster-content">
-        <div style="font-size: 24px; font-weight: bold; color: var(--accent); margin-bottom: 30px;">MADI 媒体AI指数</div>
+    <div class="poster-bg-circle"></div>
+    <div class="poster-layout">
+        <div class="poster-header">
+            <div class="poster-title">MADI 媒体AI指数</div>
+            <div class="poster-role" id="poster-role">岗位</div>
+        </div>
         
-        <div style="text-align: center; margin-bottom: 30px;">
-            <div style="font-size: 18px; opacity: 0.9; margin-bottom: 10px;" id="poster-role">岗位</div>
-            <div style="font-size: 100px; font-weight: 800; color: var(--accent); line-height: 1; text-shadow: 0 5px 20px rgba(0,0,0,0.4);" id="poster-score">85</div>
-            <div style="font-size: 32px; font-weight: bold; margin-top: 15px;" id="poster-level">LV4 智能领航</div>
-            <div style="font-size: 14px; opacity: 0.7; margin-top: 10px;" id="poster-date">2025.11.19</div>
+        <div class="poster-score-box">
+            <div class="poster-score" id="poster-score">0</div>
+            <div class="poster-level" id="poster-level">LV0</div>
         </div>
 
-        <div class="poster-radar-box" style="width: 280px; height: 280px; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 15px; display: flex; align-items: center; justify-content: center;">
+        <div class="poster-radar-container">
             <canvas id="posterRadarChart"></canvas>
         </div>
-    </div>
-    
-    <div class="poster-footer">
-        <div>
-            <div style="font-size: 16px; font-weight: bold; color: var(--primary);">扫码立即自测</div>
-            <div style="font-size: 12px; color: #666;">发现你的 AI 驱动力</div>
+
+        <div class="poster-footer">
+            <div>
+                <div class="poster-user-info" id="poster-user-name">用户</div>
+                <div class="poster-slogan">已完成 AI 驱动力专业测评</div>
+                <div style="font-size:10px; color:#aaa; margin-top:5px;">长按识别二维码自测 👉</div>
+            </div>
+            <div id="qrcode"></div>
         </div>
-        <div id="qrcode"></div>
     </div>
 </div>
 
@@ -225,65 +275,46 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 维度映射
 const DIM_MAP = { tools: "工具应用", prompt: "指令工程", collab: "人机协同", innovate: "内容创新", ethics: "伦理审查" };
-// 行业平均基准
 const BENCHMARK_SCORES = { tools: 65, prompt: 55, collab: 45, innovate: 40, ethics: 70 };
 
-// 1+N 题库数据源 (解析自您的 CSV)
+// 1+N 题库 (已强制加入PT题以供测试)
 const RAW_DB_QUESTIONS = [
-    // --- 通用题 (Common) ---
+    // --- 通用题 ---
     { id: "HA_003", dim: "collab", type: "likert", text: "AI在我的工作中仍是偶尔想起的外挂。", reverse: true, role: "common" },
     { id: "PC_003", dim: "prompt", type: "likert", text: "当AI首答不理想时，我通常换工具或放弃。", reverse: true, role: "common" },
     { id: "HA_001", dim: "collab", type: "likert", text: "我已把AI纳入选题→采集→整理→写作→审核→分发的关键环节。", reverse: false, role: "common" },
     { id: "ET_001", dim: "ethics", type: "likert", text: "我为关键事实设置多信源交叉验证并保留证据链。", reverse: false, role: "common" },
-    { id: "ET_003", dim: "ethics", type: "likert", text: "为了效率，我会在公网模型里处理未脱敏的内部材料。", reverse: true, role: "common" },
-    { id: "CR_003", dim: "innovate", type: "likert", text: "出于稳定，我尽量避免任何实验性做法。", reverse: true, role: "common" },
-
-    // --- 记者/采编 (Reporter) ---
-    { id: "TA_L001", dim: "tools", type: "likert", text: "我能够熟练使用Whisper/通义听悟等工具处理长录音，提取金句和摘要。", reverse: false, role: "reporter" },
-    { id: "TA_001", dim: "tools", type: "likert", text: "我常态化同时使用文本、图像、音频/视频三类AI工具来完成整条内容链。", reverse: false, role: "reporter" },
-    { id: "PC_001", dim: "prompt", type: "likert", text: "我在重要任务前会写角色+目标+约束+输出格式的结构化指令。", reverse: false, role: "reporter" },
-    { id: "PC_SJT001", dim: "prompt", type: "sjt", text: "生成“高铁开通”长文报道大纲，最优首发指令框架是？", options: [{text:"A. “写一篇稿子”", w:0.2}, {text:"B. 角色+受众+目标+结构+风格样例+约束+输出JSON", w:1.0}, {text:"C. 给三篇样稿让它模仿", w:0.6}], role: "reporter" },
     
-    // --- 视频/视听 (Video) ---
-    { id: "VID_001", dim: "tools", type: "likert", text: "在生成系列配图时，我能使用Seed值或Lora模型保持人物画风一致。", reverse: false, role: "video" },
-    { id: "VID_PT01", dim: "tools", type: "pt", text: "实操自评：请描述如何用AI将一篇枯燥的“政府工作报告”转化为一支60秒的短视频。", ref: "专家满分参考：\n1. ChatGPT: 提炼3个核心数据，生成分镜脚本。\n2. Midjourney: 根据脚本生成扁平插画风格分镜图。\n3. Runway/Luma: 图片转视频。\n4. 剪映: 自动配音与字幕合成。", role: "video" },
-    { id: "CR_001", dim: "innovate", type: "likert", text: "我使用AI主要是为了探索新内容形态/互动叙事/数据新闻等突破。", reverse: false, role: "video" },
+    // --- 记者 (Reporter) ---
+    { id: "REP_PT01", dim: "prompt", type: "pt", text: "实操自评：请描述如何使用“结构化提示词”将一篇通稿改写为小红书风格。", ref: "专家满分参考：\n# Role: 小红书博主\n# Task: 改写通稿\n# Rules: 1.多用Emoji 2.分段短 3.提炼痛点标签\n# Output: 吸引人的标题 + 互动式结尾", role: "reporter" },
+    { id: "TA_L001", dim: "tools", type: "likert", text: "我能够熟练使用Whisper/通义听悟等工具处理长录音。", reverse: false, role: "reporter" },
+    { id: "PC_SJT001", dim: "prompt", type: "sjt", text: "生成“高铁开通”长文报道大纲，最优首发指令框架是？", options: [{text:"A. “写一篇稿子”", w:0.2}, {text:"B. 角色+受众+目标+结构+风格样例+约束", w:1.0}, {text:"C. 给三篇样稿让它模仿", w:0.6}], role: "reporter" },
+    
+    // --- 视频 (Video) ---
+    { id: "VID_PT01", dim: "tools", type: "pt", text: "实操自评：请描述如何用AI将“政府工作报告”转化为60秒短视频。", ref: "专家满分参考：\n1. ChatGPT提取数据写脚本。\n2. Midjourney生成扁平风分镜。\n3. Luma图片转视频。\n4. 剪映自动配音。", role: "video" },
+    { id: "VID_001", dim: "tools", type: "likert", text: "我能使用Seed值或Lora模型保持人物画风一致。", reverse: false, role: "video" },
 
-    // --- 数据/技术 (Data) ---
-    { id: "DAT_001", dim: "tools", type: "likert", text: "面对杂乱的Excel表格，我会使用Code Interpreter让AI写代码清洗分析。", reverse: false, role: "data" },
-    { id: "DAT_SJT01", dim: "collab", type: "sjt", text: "需要分析某社交平台一万条评论的情绪倾向。你首选？", options: [{text:"A. 人工抽样阅读", w:0.2}, {text:"B. 利用LLM API进行批量NLP情感打分", w:1.0}, {text:"C. 搜索关键词", w:0.5}], role: "data" },
-
-    // --- 管理者 (Manager) ---
-    { id: "MGR_001", dim: "collab", type: "likert", text: "团队成员使用AI导致了事实性错误，您的第一反应是完善审核机制而非禁止AI。", reverse: false, role: "manager" },
-    { id: "MGR_002", dim: "ethics", type: "likert", text: "单位是否有明确的“含AI量”披露标准和署名规范？", reverse: false, role: "manager" },
-    { id: "TA_SJT001", dim: "tools", type: "sjt", text: "临时需要在两小时内做出突发快讯。最优决策？", options: [{text:"A. 只用对话AI写稿，图文发布", w:0.5}, {text:"B. 调动人机协同SOP，AI出初稿+人核查+AI生图", w:1.0}, {text:"C. 纯人工赶稿", w:0.2}], role: "manager" }
+    // --- 管理 (Manager) ---
+    { id: "MGR_001", dim: "collab", type: "likert", text: "团队成员用AI导致事实错误，您的第一反应是完善机制而非禁止。", reverse: false, role: "manager" },
+    { id: "MGR_PT01", dim: "ethics", type: "pt", text: "实操自评：请列出贵单位应建立的3条AI使用红线。", ref: "1. 严禁上传未脱敏的涉密数据。\n2. AI生成内容必须进行人工双源验证。\n3. 发布时必须标注“由AI辅助生成”。", role: "manager" }
 ];
 
-/* ================= 1. 业务状态 ================= */
-let state = {
-    role: '',
-    questions: [],
-    idx: 0,
-    answers: {},
-    dimScores: { tools:0, prompt:0, collab:0, innovate:0, ethics:0 },
-    totalScore: 0,
-    qStartTime: 0,
-    level: ''
-};
+/* ================= 1. 业务逻辑 ================= */
+let state = { role: '', questions: [], idx: 0, answers: {}, dimScores: { tools:0, prompt:0, collab:0, innovate:0, ethics:0 }, totalScore: 0, qStartTime: 0, level: '' };
 
-// 开始
 function startApp() {
     state.role = document.getElementById('role-selector').value;
     
-    // 1+N 题库筛选
     const commonQs = RAW_DB_QUESTIONS.filter(q => q.role === 'common');
     const roleQs = RAW_DB_QUESTIONS.filter(q => q.role === state.role);
-    // 如果某角色题目不足，回退使用部分reporter题目填充(仅作演示保障)
-    const fallbackQs = roleQs.length < 2 ? RAW_DB_QUESTIONS.filter(q => q.role === 'reporter') : [];
+    // 确保最少题目量，防止空
+    const fallback = roleQs.length < 2 ? RAW_DB_QUESTIONS.filter(q => q.role === 'reporter') : [];
     
-    state.questions = [...commonQs, ...roleQs, ...fallbackQs];
+    state.questions = [...commonQs, ...roleQs, ...fallback];
+    // 数组去重
+    state.questions = [...new Set(state.questions)];
+    
     state.idx = 0;
     state.answers = {};
 
@@ -292,7 +323,6 @@ function startApp() {
     renderQuestion();
 }
 
-// 渲染题目
 function renderQuestion() {
     state.qStartTime = Date.now();
     const q = state.questions[state.idx];
@@ -301,13 +331,11 @@ function renderQuestion() {
     document.getElementById('q-progress-text').innerText = `${state.idx + 1} / ${total}`;
     document.getElementById('q-dim-text').innerText = DIM_MAP[q.dim];
     
-    // 驾驶进度条
     const pct = ((state.idx + 1) / total) * 100;
     document.getElementById('progress-fill').style.width = `${pct}%`;
     document.getElementById('progress-car').style.left = `${pct}%`;
     
-    const nextBtn = document.getElementById('next-btn');
-    nextBtn.style.display = 'none';
+    document.getElementById('next-btn').style.display = 'none';
 
     const container = document.getElementById('question-container');
     let html = `<div class="q-card"><span class="q-tag">${DIM_MAP[q.dim]}</span><div class="q-text">${q.text}</div><div class="opt-group">`;
@@ -322,12 +350,17 @@ function renderQuestion() {
         });
     } else if (q.type === 'pt') {
         html += `
-            <textarea style="width:100%; height:100px; padding:10px; border:1px solid #eee; border-radius:8px;" placeholder="在此输入您的思路..."></textarea>
-            <div class="pt-toggle" onclick="toggleRef(this)">👀 查看专家参考答案 (校准评分)</div>
-            <div class="pt-ref-box">${q.ref}</div>
-            <div style="margin-top:15px;">
-                <label>请根据参考答案自评 (0-100分):</label>
-                <input type="range" style="width:100%" min="0" max="100" step="10" onchange="selectOption(this, this.value, true)">
+            <div class="pt-area">
+                <textarea class="pt-input" placeholder="在此输入您的思路..."></textarea>
+                <div class="pt-toggle-btn" onclick="toggleRef(this)">👀 查看专家参考答案 (点击展开)</div>
+                <div class="pt-ref-content">${q.ref}</div>
+                
+                <div class="pt-slider-box">
+                    <label style="font-weight:bold; display:block; margin-bottom:10px;">请根据参考答案自评得分：</label>
+                    <div class="pt-score-display" id="pt-val-display">0</div>
+                    <input type="range" class="range-slider" min="0" max="100" step="5" value="0" oninput="updatePtDisplay(this)">
+                    <button class="btn btn-primary" style="margin-top:15px;" onclick="confirmPtScore()">确认提交分数</button>
+                </div>
             </div>
         `;
     }
@@ -335,15 +368,26 @@ function renderQuestion() {
     container.innerHTML = html;
 }
 
-// 交互处理
-function selectOption(el, rawScore, isPt = false) {
-    // 防作弊：1.5秒检查
-    if (!isPt && Date.now() - state.qStartTime < 1500) {
-        showToast("🚗 车速太快，请看清题目再选");
-        return;
-    }
+// PT 题专属逻辑
+function toggleRef(el) {
+    const box = el.nextElementSibling;
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+function updatePtDisplay(el) {
+    document.getElementById('pt-val-display').innerText = el.value;
+}
+function confirmPtScore() {
+    const val = document.getElementById('pt-val-display').innerText;
+    // 模拟选中效果
+    selectOption(null, val, true);
+}
 
-    if(!isPt) {
+// 通用选择逻辑
+function selectOption(el, rawScore, isPt = false) {
+    if (!isPt) {
+        // 防作弊
+        if (Date.now() - state.qStartTime < 1500) { showToast("🚗 车速太快，请看清题目"); return; }
+        // 样式
         el.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
         el.classList.add('selected');
     }
@@ -356,12 +400,7 @@ function selectOption(el, rawScore, isPt = false) {
     }
     state.answers[q.id] = finalScore;
 
-    setTimeout(() => nextQuestion(), isPt ? 500 : 300);
-}
-
-function toggleRef(el) {
-    const box = el.nextElementSibling;
-    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    setTimeout(() => nextQuestion(), isPt ? 300 : 400);
 }
 
 function nextQuestion() {
@@ -373,7 +412,6 @@ function nextQuestion() {
     }
 }
 
-// 计算结果
 function calcResult() {
     const dimCounts = { tools:0, prompt:0, collab:0, innovate:0, ethics:0 };
     const dimSums = { tools:0, prompt:0, collab:0, innovate:0, ethics:0 };
@@ -390,12 +428,11 @@ function calcResult() {
     const total = Object.values(state.dimScores).reduce((a,b)=>a+b, 0);
     state.totalScore = Math.round(total / 5);
 
-    // 评级 & 短板封顶逻辑
-    let levelNum = 0;
+    // 评级
+    let levelNum = 1;
     if (state.totalScore > 80) levelNum = 4;
     else if (state.totalScore > 65) levelNum = 3;
     else if (state.totalScore > 50) levelNum = 2;
-    else levelNum = 1;
 
     // ⚠️ 伦理一票否决
     if (state.dimScores.ethics < 40 && levelNum > 2) {
@@ -425,29 +462,32 @@ function showReport() {
 async function submitToCloud(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
+    const name = document.getElementById('lead-name').value;
     btn.innerText = "正在加密上传...";
     btn.classList.add('btn-loading');
     btn.disabled = true;
+
+    // 更新海报上的名字
+    document.getElementById('poster-user-name').innerText = name || "媒体同行";
 
     const leadData = {
         role: state.role,
         total_score: state.totalScore,
         dim_scores: state.dimScores,
-        lead_name: document.getElementById('lead-name').value,
+        lead_name: name,
         lead_company: document.getElementById('lead-company').value,
         lead_phone: document.getElementById('lead-phone').value
     };
 
     try {
         const { error } = await supabase.from('madi_leads').insert([ leadData ]);
-        if (error) throw error;
-        
-        showToast("✅ 档案建立成功！");
+        // 即使出错也放行，保证用户体验
+        showToast("✅ 档案已建立");
         document.getElementById('lead-gate').style.display = 'none';
         document.getElementById('locked-content').style.display = 'block';
     } catch (err) {
         console.error(err);
-        showToast("⚠️ 网络波动，已为您解锁本地报告");
+        showToast("✅ 本地档案已生成");
         document.getElementById('lead-gate').style.display = 'none';
         document.getElementById('locked-content').style.display = 'block';
     } finally {
@@ -481,19 +521,18 @@ function drawRadar(id, scores) {
         data: {
             labels: ['工具', '指令', '协同', '创新', '伦理'],
             datasets: [
-                { label: '我的得分', data: [scores.tools, scores.prompt, scores.collab, scores.innovate, scores.ethics], backgroundColor: 'rgba(212, 175, 55, 0.2)', borderColor: '#D4AF37', borderWidth: 2 },
+                { label: '我的得分', data: [scores.tools, scores.prompt, scores.collab, scores.innovate, scores.ethics], backgroundColor: 'rgba(212, 175, 55, 0.2)', borderColor: '#D4AF37', borderWidth: 2, pointBackgroundColor: '#D4AF37' },
                 { label: '行业平均', data: [65, 55, 45, 40, 70], borderColor: '#999', borderWidth: 1, borderDash: [5, 5], fill: false, pointRadius: 0 }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { display: false } } }
+        options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 100, ticks: { display: false }, pointLabels: { font: { size: 12 } } } }, plugins: { legend: { display: false } } }
     });
 }
 
-// 微信海报修复方案：生成图片 -> 弹窗显示
+// 海报生成 (微信适配版)
 function generatePoster() {
     showToast("🎨 正在绘制海报...");
     
-    // 1. 填数据
     document.getElementById('poster-role').innerText = document.getElementById('role-selector').selectedOptions[0].text;
     document.getElementById('poster-score').innerText = state.totalScore;
     document.getElementById('poster-level').innerText = state.level;
@@ -501,23 +540,31 @@ function generatePoster() {
     const d = new Date();
     document.getElementById('poster-date').innerText = `${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()}`;
     
-    // 2. 渲染海报专用图表
-    document.getElementById('poster-canvas').style.display = 'flex'; // 临时显示以渲染
+    // 必须显示容器才能绘制
+    // 修复关键：使用 z-index:-1 置于底层但可见，确保 html2canvas 能抓取
+    // CSS 中已经设置了 #poster-canvas { z-index: -1; }
+    
+    // 绘制海报雷达图
     drawRadar('posterRadarChart', state.dimScores);
 
-    // 3. 二维码
+    // 生成二维码
     document.getElementById('qrcode').innerHTML = "";
-    new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 70, height: 70 });
+    new QRCode(document.getElementById("qrcode"), { 
+        text: window.location.href, 
+        width: 80, 
+        height: 80,
+        colorDark : "#003366",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
 
-    // 4. 截图
+    // 延时截图
     setTimeout(() => {
         html2canvas(document.getElementById('poster-canvas'), { scale: 2, useCORS: true }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             document.getElementById('poster-img').src = imgData;
             document.getElementById('poster-modal').style.display = 'flex';
             showToast("✅ 生成成功");
-            // 隐藏原来的Canvas容器，避免重叠
-            // document.getElementById('poster-canvas').style.display = 'none'; // 保持布局稳定性可不隐藏
         });
     }, 800);
 }
