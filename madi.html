@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>媒体人AI驱动力指数 (MADI) 深度诊断</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #003366;
+            --accent: #D4AF37;
+            --text: #333;
+            --bg: #F5F7FA;
+            --white: #fff;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "PingFang SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        
+        .container { max-width: 800px; margin: 0 auto; min-height: 100vh; background: var(--white); box-shadow: 0 0 30px rgba(0,0,0,0.05); position: relative; }
+        .screen { padding: 40px 24px; display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .screen.active { display: block; opacity: 1; }
+
+        /* 通用组件 */
+        h1, h2, h3 { color: var(--primary); font-weight: 700; }
+        .btn { display: block; width: 100%; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: 600; text-align: center; cursor: pointer; border: none; transition: 0.3s; margin-top: 20px; }
+        .btn-primary { background: var(--accent); color: var(--white); box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
+        .btn-primary:hover { transform: scale(1.02); background: #c5a028; }
+        
+        /* 欢迎页 */
+        .hero { text-align: center; padding: 40px 0; }
+        .role-select { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 8px; font-size: 16px; margin: 20px 0; outline: none; }
+        .role-select:focus { border-color: var(--primary); }
+
+        /* 答题区 */
+        .progress-bar { height: 6px; background: #eee; margin-bottom: 30px; border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+        
+        .question-card { margin-bottom: 20px; }
+        .q-tag { background: #E6F0FA; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .q-text { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+
+        /* Likert 量表样式 */
+        .likert-options { display: flex; justify-content: space-between; gap: 5px; margin: 20px 0; }
+        .likert-btn { flex: 1; padding: 15px 5px; border: 1px solid #ddd; border-radius: 8px; background: #fff; cursor: pointer; font-size: 14px; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .likert-btn:hover { border-color: var(--primary); background: #f0f4f8; }
+        .likert-btn.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        .likert-val { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+
+        /* SJT 选项样式 */
+        .sjt-option { padding: 16px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; }
+        .sjt-option:hover { border-color: var(--primary); background: #f9f9f9; }
+        .sjt-option.selected { border: 2px solid var(--accent); background: #FFFDF5; }
+        .circle { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 50%; margin-right: 12px; flex-shrink: 0; }
+        .sjt-option.selected .circle { background: var(--accent); border-color: var(--accent); }
+
+        /* PT 评分样式 */
+        .pt-area textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; font-family: inherit; }
+        .rubric-box { background: #f8f9fa; padding: 15px; border-radius: 8px; font-size: 14px; color: #555; margin-bottom: 15px; border-left: 4px solid var(--accent); }
+        .pt-slider-container { margin-top: 20px; }
+        .pt-slider { width: 100%; margin: 10px 0; }
+        .pt-score-display { text-align: center; font-weight: bold; color: var(--primary); }
+
+        /* 结果页 */
+        .report-header { background: var(--primary); color: white; padding: 30px; border-radius: var(--radius); text-align: center; margin-bottom: 30px; }
+        .total-score { font-size: 48px; font-weight: 800; color: var(--accent); margin: 10px 0; }
+        .level-badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px; }
+        
+        .card { background: white; border: 1px solid #eee; border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .card h3 { border-left: 4px solid var(--accent); padding-left: 10px; margin-bottom: 15px; font-size: 18px; }
+        
+        .action-list li { margin-bottom: 10px; padding-left: 20px; position: relative; list-style: none; }
+        .action-list li::before { content: "•"; color: var(--accent); font-weight: bold; position: absolute; left: 0; }
+        
+        .warning-banner { background: #FFF0F0; color: #D8000C; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; display: none; border: 1px solid #FFBABA; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Screen 1: 角色选择与欢迎 -->
+    <div id="screen-welcome" class="screen active">
+        <div class="hero">
+            <h1>MADI 媒体人AI驱动力指数</h1>
+            <h2 style="font-size: 16px; font-weight:normal; margin-top:10px; color:#666;">深度诊断版 v1.0</h2>
+            <p style="margin: 30px 0; color: #555;">
+                基于“驱动力”模型，从工具、指令、协同、创新、伦理五个维度，<br>
+                为您提供精准的能力画像与升档建议。
+            </p>
+            
+            <div style="text-align: left; margin-bottom: 5px; font-weight: bold; color: var(--primary);">请选择您的岗位角色：</div>
+            <select id="role-selector" class="role-select">
+                <option value="reporter">记者/一线采编 (侧重协同与创新)</option>
+                <option value="video">视频/音频制作 (侧重工具与创新)</option>
+                <option value="editor">编辑/审核 (侧重伦理与协同)</option>
+                <option value="data">数据记者 (侧重工具与指令)</option>
+                <option value="manager">管理者/决策层 (侧重协同与管理)</option>
+            </select>
+
+            <div style="background: #f0f8ff; padding: 10px; border-radius: 8px; font-size: 12px; color: #666; text-align: left;">
+                ⏱ 预计耗时：12-15分钟 (极速版)<br>
+                🛡 隐私说明：本测试为纯前端运行，不上传您的任何数据。
+            </div>
+
+            <button class="btn btn-primary" onclick="startAssessment()">开始深度诊断</button>
+        </div>
+    </div>
+
+    <!-- Screen 2: 测评过程 -->
+    <div id="screen-quiz" class="screen">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        
+        <div id="question-container">
+            <!-- 动态注入题目 -->
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button id="next-btn" class="btn btn-primary" style="display:none;" onclick="nextQuestion()">下一题</button>
+        </div>
+    </div>
+
+    <!-- Screen 3: 正在生成 -->
+    <div id="screen-loading" class="screen" style="text-align: center; padding-top: 100px;">
+        <div style="font-size: 40px; animation: spin 1s infinite linear; display:inline-block; color:var(--accent);">⚙️</div>
+        <h3>正在计算多维权重...</h3>
+        <p>正在生成您的个性化行动清单</p>
+    </div>
+
+    <!-- Screen 4: 报告页 -->
+    <div id="screen-report" class="screen">
+        <div id="warning-banner" class="warning-banner">
+            ⚠️ 检测到高风险操作倾向：请立即停止在公网环境处理未脱敏的内部敏感数据。
+        </div>
+
+        <div class="report-header">
+            <div class="level-badge" id="result-role">岗位：记者</div>
+            <div>MADI 综合驱动力</div>
+            <div class="total-score" id="result-score">0</div>
+            <div style="font-size: 24px; font-weight: bold;" id="result-level">LV0</div>
+            <p id="result-desc" style="margin-top: 10px; opacity: 0.9;">...</p>
+        </div>
+
+        <div class="card">
+            <h3>五维能力雷达</h3>
+            <div style="height: 300px;">
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div id="strength-weakness" style="margin-top: 20px; font-size: 14px; color: #555;"></div>
+        </div>
+
+        <div class="card">
+            <h3>🚀 升档行动清单 (Next 7 Days)</h3>
+            <ul class="action-list" id="action-list-7">
+                <!-- 动态生成 -->
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>📅 进阶规划 (Next 30 Days)</h3>
+            <ul class="action-list" id="action-list-30">
+                <!-- 动态生成 -->
+            </ul>
+        </div>
+
+        <button class="btn btn-primary" onclick="alert('按Ctrl+P或使用浏览器菜单即可保存为PDF')">保存/打印报告</button>
+        <button class="btn" style="background:transparent; color:#666; margin-top:10px;" onclick="location.reload()">重新测试</button>
+    </div>
+
+</div>
+
+<script>
+/* ================= 配置与数据 ================= */
+
+// 角色权重配置 (Total = 100)
+const ROLE_WEIGHTS = {
+    reporter: { tools: 18, prompt: 22, collab: 28, innovate: 20, ethics: 12 },
+    video:    { tools: 22, prompt: 18, collab: 25, innovate: 25, ethics: 10 },
+    data:     { tools: 20, prompt: 20, collab: 20, innovate: 20, ethics: 20 },
+    editor:   { tools: 15, prompt: 20, collab: 25, innovate: 15, ethics: 25 },
+    manager:  { tools: 15, prompt: 20, collab: 30, innovate: 20, ethics: 15 }
+};
+
+// 题库 (混合了 Likert, SJT, PT)
+// 注意：这里展示的是“极速版”精选题目，逻辑上支持无限扩展
+const QUESTIONS = [
+    // --- A. 工具应用 ---
+    {
+        id: "A1", dimension: "tools", type: "likert",
+        text: "我常态化同时使用文本、图像、音频/视频三类AI工具来完成整条内容链。",
+        reverse: false
+    },
+    {
+        id: "A_SJT1", dimension: "tools", type: "sjt",
+        text: "场景：临时需要在两小时内做出“台风登陆快讯”的图文+30秒竖屏视频。以下哪种做法最好？",
+        options: [
+            { text: "A. 只用熟悉的对话式AI写稿，视频改期。", score: 1 },
+            { text: "B. 同时调用气象数据+图像生成+TTS，拼出模板化成片。", score: 5 },
+            { text: "C. 外包剪辑，自己写文案。", score: 3 }
+        ]
+    },
+    {
+        id: "A_PT", dimension: "tools", type: "pt",
+        text: "实操自评：请在脑海中构建一个“AI工具栈→工作流”的连接。这个工作流是否包含自动触发机制？",
+        rubric: "0分=无；3分=清晰的三步连接；5分=包含API连接或自动化触发且有失败回退机制。"
+    },
+
+    // --- B. 指令工程 ---
+    {
+        id: "B1", dimension: "prompt", type: "likert",
+        text: "我在重要任务前会写“角色+目标+约束+输出格式”的结构化指令。",
+        reverse: false
+    },
+    {
+        id: "B6", dimension: "prompt", type: "likert",
+        text: "当AI首答不理想时，我通常直接放弃或换一个工具，而不是优化提问。",
+        reverse: true // 反向题
+    },
+    {
+        id: "B_SJT2", dimension: "prompt", type: "sjt",
+        text: "场景：AI擅自虚构了采访对象的语录。你首先应做什么？",
+        options: [
+            { text: "A. 严厉斥责它“别胡编”。", score: 1 },
+            { text: "B. 追问生成依据并要求列出来源链接，再提供真实素材作为参考。", score: 5 },
+            { text: "C. 直接自己改写了事。", score: 3 }
+        ]
+    },
+
+    // --- C. 人机协同 ---
+    {
+        id: "C1", dimension: "collab", type: "likert",
+        text: "我已把AI纳入“选题→采集→整理→写作→审核”中至少3个关键环节。",
+        reverse: false
+    },
+    {
+        id: "C_PT", dimension: "collab", type: "pt",
+        text: "实操自评：回顾你最近的一次团队合作，是否建立了明确的“人机协同泳道图”（谁做、AI做什么、谁验收）？",
+        rubric: "0分=无；3分=有简单的口头分工；5分=有书面的流程图、验收标准和风险控制点。"
+    },
+
+    // --- D. 内容创新 ---
+    {
+        id: "D1", dimension: "innovate", type: "likert",
+        text: "我使用AI主要是为了探索新内容形态（如数据新闻、互动叙事），而不仅是提效。",
+        reverse: false
+    },
+    {
+        id: "D_SJT1", dimension: "innovate", type: "sjt",
+        text: "场景：你要做“沿海渔村口述史”互动专题，优先方案？",
+        options: [
+            { text: "A. 传统长文配图。", score: 3 },
+            { text: "B. 音频访谈→ASR转写→主题分析→生成时间轴可视化→短视频二创。", score: 5 },
+            { text: "C. 完全用AI生成虚构故事。", score: 1 }
+        ]
+    },
+
+    // --- E. 伦理与审查 ---
+    {
+        id: "E6", dimension: "ethics", type: "likert",
+        text: "为了赶进度，我会将未脱敏的内部会议记录直接上传到公网模型处理。",
+        reverse: true // 高危反向题
+    },
+    {
+        id: "E_SJT1", dimension: "ethics", type: "sjt",
+        text: "场景：AI生成了一张涉及公共事件的合成图。最佳处理方式？",
+        options: [
+            { text: "A. 清晰标注“AI合成”说明，并保留原始素材可追溯。", score: 5 },
+            { text: "B. 打个水印即可。", score: 3 },
+            { text: "C. 不标注，看着像真的就行。", score: 1 }
+        ]
+    }
+];
+
+/* ================= 状态管理 ================= */
+let state = {
+    role: 'reporter',
+    currentQIndex: 0,
+    answers: {}, // { qId: score }
+    startTime: 0,
+    isSpeeding: false
+};
+
+/* ================= 核心逻辑 ================= */
+
+function startAssessment() {
+    state.role = document.getElementById('role-selector').value;
+    state.startTime = Date.now();
+    switchScreen('screen-welcome', 'screen-quiz');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const q = QUESTIONS[state.currentQIndex];
+    const container = document.getElementById('question-container');
+    const progress = ((state.currentQIndex) / QUESTIONS.length) * 100;
+    document.getElementById('progress-fill').style.width = `${progress}%`;
+    
+    // 隐藏下一题按钮，直到作答
+    document.getElementById('next-btn').style.display = 'none';
+
+    let html = `
+        <div>
+            <span class="q-tag">${getDimName(q.dimension)}</span>
+            <div class="q-text">${state.currentQIndex + 1}. ${q.text}</div>
+    `;
+
+    // 根据题型渲染
+    if (q.type === 'likert') {
+        html += `<div class="likert-options">`;
+        const options = [
+            { val: 1, label: "非常不同意" },
+            { val: 2, label: "不同意" },
+            { val: 3, label: "不确定" },
+            { val: 4, label: "同意" },
+            { val: 5, label: "非常同意" }
+        ];
+        options.forEach(opt => {
+            html += `
+                <div class="likert-btn" onclick="selectLikert(${opt.val}, '${q.id}', this)">
+                    <div class="likert-val">${opt.val}</div>
+                    <div style="font-size:12px; color:#666;">${opt.label}</div>
+                </div>`;
+        });
+        html += `</div>`;
+    } 
+    else if (q.type === 'sjt') {
+        html += `<div class="sjt-container">`;
+        q.options.forEach((opt, idx) => {
+            html += `
+                <div class="sjt-option" onclick="selectSJT(${opt.score}, '${q.id}', this)">
+                    <div class="circle"></div>
+                    <div>${opt.text}</div>
+                </div>`;
+        });
+        html += `</div>`;
+    }
+    else if (q.type === 'pt') {
+        html += `
+            <div class="pt-area">
+                <div class="rubric-box">💡 评分量规：${q.rubric}</div>
+                <textarea placeholder="在此简要描述您的思路（选填，仅用于辅助您自我打分）..."></textarea>
+                <div class="pt-slider-container">
+                    <label>请根据量规为自己打分 (0-5)：</label>
+                    <input type="range" min="0" max="5" step="1" value="0" class="pt-slider" oninput="updatePTSlider(this, '${q.id}')">
+                    <div class="pt-score-display">0 分</div>
+                </div>
+            </div>
+        `;
+        // PT题默认给0分，显示下一步按钮
+        setTimeout(() => {
+            state.answers[q.id] = 0;
+            document.getElementById('next-btn').style.display = 'block';
+        }, 100);
+    }
+
+    html += `</div>`;
+    container.innerHTML = html;
+}
+
+// 交互处理
+function selectLikert(val, qId, el) {
+    document.querySelectorAll('.likert-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    
+    // 反向计分逻辑：如果是反向题，则 6 - val
+    const q = QUESTIONS.find(i => i.id === qId);
+    const score = q.reverse ? (6 - val) : val;
+    
+    state.answers[qId] = score;
+    autoNext();
+}
+
+function selectSJT(score, qId, el) {
+    document.querySelectorAll('.sjt-option').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    state.answers[qId] = score;
+    autoNext();
+}
+
+function updatePTSlider(el, qId) {
+    const val = parseInt(el.value);
+    el.nextElementSibling.innerText = val + " 分";
+    state.answers[qId] = val;
+    document.getElementById('next-btn').style.display = 'block';
+}
+
+function autoNext() {
+    // 延迟跳转，给用户看清选中状态
+    setTimeout(() => {
+        nextQuestion();
+    }, 400);
+}
+
+function nextQuestion() {
+    if (state.currentQIndex < QUESTIONS.length - 1) {
+        state.currentQIndex++;
+        renderQuestion();
+    } else {
+        finishQuiz();
+    }
+}
+
+function finishQuiz() {
+    // 检查作答时间
+    const duration = (Date.now() - state.startTime) / 1000;
+    // 假设极速版如果小于30秒做完，判定为过快
+    if (duration < 30) state.isSpeeding = true;
+
+    switchScreen('screen-quiz', 'screen-loading');
+    setTimeout(calculateResults, 1500);
+}
+
+/* ================= 结算与报告 ================= */
+
+function calculateResults() {
+    const scores = { tools: [], prompt: [], collab: [], innovate: [], ethics: [] };
+    let rawScores = {};
+
+    // 1. 收集分数并归类
+    QUESTIONS.forEach(q => {
+        const score = state.answers[q.id] || 0;
+        scores[q.dimension].push(score);
+        
+        // 风险检测
+        if (q.id === 'E6' && score <= 2) { // E6是反向题，选1或2(非常不同意)得分为5/4分(安全)；选4/5(同意)得分为2/1分(危险)
+            // 逻辑修正：反向题 E6 "我会上传内部资料"。
+            // 用户选"5-非常同意" -> 计分 6-5=1分 (高风险)。
+            if (score <= 2) document.getElementById('warning-banner').style.display = 'block';
+        }
+    });
+
+    // 2. 计算各维度百分制得分 (平均分/5 * 100)
+    let dimResults = {};
+    for (let dim in scores) {
+        const arr = scores[dim];
+        const sum = arr.reduce((a,b)=>a+b, 0);
+        // 归一化：(总分 / (题数*5)) * 100
+        dimResults[dim] = Math.round((sum / (arr.length * 5)) * 100);
+    }
+
+    // 3. 根据角色权重计算总分
+    const weights = ROLE_WEIGHTS[state.role];
+    let madiScore = 0;
+    for (let dim in dimResults) {
+        madiScore += dimResults[dim] * (weights[dim] / 100);
+    }
+    madiScore = Math.round(madiScore);
+
+    // 4. 档位判定
+    let level = "LV0";
+    let levelDesc = "";
+    if (madiScore < 20) { level = "LV0 - 引擎未启"; levelDesc = "您尚未建立AI工作流，仍处于纯人工生产阶段。"; }
+    else if (madiScore < 35) { level = "LV1 - 怠速预热"; levelDesc = "您已开始尝试，但尚未形成稳定的生产力增益。"; }
+    else if (madiScore < 50) { level = "LV2 - 一档起步"; levelDesc = "AI已成为您的辅助工具，分担了部分基础工作。"; }
+    else if (madiScore < 70) { level = "LV3 - 巡航驾驶"; levelDesc = "您能熟练驾驭AI，是团队中可靠的先进生产力。"; }
+    else if (madiScore < 85) { level = "LV4 - 运动模式"; levelDesc = "您正在重塑工作流，拥有极高的创新与执行效率。"; }
+    else { level = "LV5 - 智能领航"; levelDesc = "您站在行业顶端，正在定义人机协同的未来范式。"; }
+
+    if(state.isSpeeding) levelDesc += " (注：作答速度过快，结果可能不准确)";
+
+    // 5. 渲染报告
+    document.getElementById('result-score').innerText = madiScore;
+    document.getElementById('result-level').innerText = level;
+    document.getElementById('result-desc').innerText = levelDesc;
+    document.getElementById('result-role').innerText = `岗位：${getRoleName(state.role)}`;
+
+    renderRadar(dimResults);
+    generateActionPlan(dimResults);
+    
+    switchScreen('screen-loading', 'screen-report');
+}
+
+function renderRadar(data) {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['工具应用', '指令工程', '人机协同', '内容创新', '伦理审查'],
+            datasets: [{
+                label: '能力维度得分 (0-100)',
+                data: [data.tools, data.prompt, data.collab, data.innovate, data.ethics],
+                backgroundColor: 'rgba(212, 175, 55, 0.2)',
+                borderColor: '#D4AF37',
+                pointBackgroundColor: '#003366'
+            }]
+        },
+        options: {
+            scales: { r: { min: 0, max: 100, ticks: { stepSize: 20 } } },
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    // 强弱项逻辑
+    const entries = Object.entries(data).sort((a,b) => b[1] - a[1]);
+    const top = entries[0];
+    const bottom = entries[entries.length-1];
+    document.getElementById('strength-weakness').innerHTML = 
+        `🌟 您的最强项是 <b>${getDimName(top[0])}</b> (${top[1]}分)，` +
+        `建议重点提升 <b>${getDimName(bottom[0])}</b> (${bottom[1]}分)。`;
+}
+
+function generateActionPlan(data) {
+    const list7 = document.getElementById('action-list-7');
+    const list30 = document.getElementById('action-list-30');
+    let actions7 = [];
+    let actions30 = [];
+
+    // 根据短板生成建议
+    if (data.prompt < 60) {
+        actions7.push("建立您的第一个“结构化提示词”模板（包含角色、任务、背景、约束）。");
+        actions30.push("创建一个个人的 Prompt 库，收集至少 10 个高频场景的优质指令。");
+    }
+    if (data.collab < 60) {
+        actions7.push("尝试在一次任务中，明确划分“人做判断、AI做执行”的具体边界。");
+        actions30.push("绘制您当前核心工作的“人机协同泳道图”，找出可自动化的卡点。");
+    }
+    if (data.ethics < 60) {
+        actions7.push("检查最近生成的内容，补充来源链接或进行双源验证。");
+        actions30.push("制定个人的“AI使用红线清单”，明确哪些数据绝不上传公网。");
+    }
+    if (data.tools < 60) {
+        actions7.push("尝试一款除了对话框以外的新形态AI工具（如文档解析或PPT生成）。");
+    }
+    
+    // 通用建议填充
+    if (actions7.length < 2) actions7.push("向团队中的AI高手请教一个提效小技巧。");
+    if (actions30.length < 2) actions30.push("复盘过去一个月的工作，计算AI为您节省的总工时。");
+
+    list7.innerHTML = actions7.map(t => `<li>${t}</li>`).join('');
+    list30.innerHTML = actions30.map(t => `<li>${t}</li>`).join('');
+}
+
+/* ================= 工具函数 ================= */
+function switchScreen(from, to) {
+    document.getElementById(from).classList.remove('active');
+    document.getElementById(to).classList.add('active');
+    window.scrollTo(0,0);
+}
+
+function getDimName(key) {
+    const map = { tools: "工具应用", prompt: "指令工程", collab: "人机协同", innovate: "内容创新", ethics: "伦理审查" };
+    return map[key];
+}
+
+function getRoleName(key) {
+    const map = { reporter: "记者/采编", video: "视听制作", data: "数据记者", editor: "编辑/审核", manager: "管理者" };
+    return map[key];
+}
+
+</script>
+</body>
+</html>
