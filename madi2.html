@@ -16,7 +16,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: "PingFang SC", system-ui, -apple-system, sans-serif; background: var(--bg); color: #333; line-height: 1.6; -webkit-tap-highlight-color: transparent; }
         
-        /* 主容器：Flex布局以支持页脚沉底 */
+        /* 主容器 */
         .container { 
             max-width: 600px; margin: 0 auto; min-height: 100vh; 
             background: var(--white); position: relative; 
@@ -24,24 +24,24 @@
             display: flex; flex-direction: column;
         }
         
-        /* 屏幕切换逻辑 (修复空白页Bug) */
+        /* 屏幕切换 */
         .screen { flex: 1; display: none; opacity: 0; transition: opacity 0.3s ease; padding-bottom: 20px; width: 100%; }
         .screen.active { display: block; opacity: 1; }
         .screen-padded { padding: 30px 24px; }
 
-        /* 结果页特殊布局 (修复ID优先级问题) */
+        /* 结果页布局 */
         #screen-report { padding: 0; background: #F5F7FA; }
-        #screen-report.active { display: flex; flex-direction: column; } /* 强制Flex布局 */
+        #screen-report.active { display: flex; flex-direction: column; }
 
-        /* 页脚样式 */
+        /* 页脚 */
         .app-footer {
             text-align: center; padding: 20px 0; color: #999; font-size: 12px; font-weight: 500;
             background: transparent; margin-top: auto; border-top: 1px solid #f5f5f5;
         }
 
-        /* 按钮体系 */
-        .btn { display: block; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; text-align: center; cursor: pointer; border: none; transition: 0.2s; margin-top: 15px; }
-        .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
+        /* 按钮 */
+        .btn { display: block; width: 100%; padding: 15px; border-radius: 8px; font-size: 17px; font-weight: 600; text-align: center; cursor: pointer; border: none; transition: 0.2s; margin-top: 15px; }
+        .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); }
         .btn-primary:active { transform: scale(0.98); }
         .btn-loading { opacity: 0.7; cursor: not-allowed; background: #999; box-shadow: none; }
         .btn-outline { background: white; border: 1px solid var(--primary); color: var(--primary); }
@@ -65,44 +65,89 @@
         .opt-circle { width: 22px; height: 22px; border: 2px solid #ddd; border-radius: 50%; margin-right: 14px; flex-shrink: 0; }
         .opt-btn.selected .opt-circle { border-color: var(--accent); background: var(--accent); }
 
-        /* PT题 & 滑动条修复 */
+        /* PT题 & 滑动条 */
         .pt-area { border: 1px solid #f0f0f0; padding: 15px; border-radius: 12px; background: #fafafa; }
         .pt-input { width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; font-family: inherit; font-size: 14px; }
         .pt-toggle-btn { color: var(--primary); cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 5px; margin-bottom: 10px; }
         .pt-ref-content { display: none; background: #E6F0FA; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; line-height: 1.6; color: #333; border-left: 3px solid var(--primary); white-space: pre-wrap; }
-        
         .pt-slider-box { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ddd; }
-        /* 修复滑动条宽度问题 */
-        .range-slider { 
-            -webkit-appearance: none; width: 100%; height: 8px; 
-            border-radius: 5px; background: #d3d3d3; outline: none; display: block;
-        }
+        .range-slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #d3d3d3; outline: none; display: block; }
         .range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); cursor: pointer; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .pt-score-display { text-align: center; font-size: 24px; font-weight: bold; color: var(--accent); margin: 10px 0; }
 
         /* 报告页组件 */
         .report-header { background: linear-gradient(180deg, #003366 0%, #002244 100%); color: white; padding: 50px 24px 80px 24px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; flex-shrink: 0; }
         .report-content-wrapper { padding: 0 24px 20px 24px; margin-top: -60px; flex: 1; }
-        
         .score-big { font-size: 64px; font-weight: 800; color: var(--accent); line-height: 1; margin: 10px 0; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        
         .rpt-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.06); position: relative; z-index: 2; }
         .rpt-title { font-size: 17px; font-weight: bold; border-left: 4px solid var(--accent); padding-left: 12px; margin-bottom: 18px; color: var(--primary); }
         
+        .action-list li { margin-bottom: 10px; padding-left: 20px; position: relative; list-style: none; font-size: 14px; color: #555; }
+        .action-list li::before { content: "•"; color: var(--accent); font-weight: bold; position: absolute; left: 0; font-size: 18px; top: -2px; }
+
+        /* 锁定表单 (文案优化版) */
+        #lead-gate { border: 2px solid var(--accent); text-align: center; background: linear-gradient(to bottom, #fff, #fffdf5); }
+        .gate-title { color: var(--primary); font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+        .gate-subtitle { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5; }
+        .gate-highlight { color: #d9534f; font-weight: bold; background: rgba(217,83,79,0.1); padding: 0 4px; border-radius: 4px; }
+
         /* 海报弹窗 */
         #poster-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         #poster-img { max-width: 85%; max-height: 80vh; border-radius: 12px; box-shadow: 0 0 40px rgba(255,255,255,0.1); object-fit: contain; }
         .modal-tip { color: white; margin-top: 20px; font-size: 14px; background: rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 20px; backdrop-filter: blur(5px); }
         .close-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 32px; cursor: pointer; opacity: 0.8; }
 
-        /* 海报绘制区 (隐藏) */
+        /* ------------------- 海报绘制区 (关键修复) ------------------- */
         #poster-canvas { 
-            position: fixed; left: -9999px; top: 0; width: 375px; height: 667px; z-index: -1;
-            background: linear-gradient(180deg, #051525 0%, #003366 100%); color: white; 
-            display: flex; flex-direction: column; font-family: "PingFang SC", sans-serif;
+            position: fixed; left: -9999px; top: 0; 
+            width: 375px; height: 667px; 
+            z-index: -1;
+            background: linear-gradient(160deg, #051525 0%, #003366 100%); 
+            color: white; 
+            display: flex; flex-direction: column; 
+            font-family: "PingFang SC", sans-serif;
+            overflow: hidden; /* 防止溢出 */
         }
-        .poster-body { flex: 1; padding: 40px 30px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .poster-footer { background: white; padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; width: 100%; color: #333; height: 110px; box-sizing: border-box; }
-        .poster-radar-box { width: 280px; height: 280px; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); margin-top: 20px; }
+        
+        .poster-body { 
+            flex: 1; 
+            padding: 40px 30px; 
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            padding-bottom: 140px; /* ⚠️ 关键：给底部留出足够空间，避免被绝对定位的 footer 遮挡 */
+        }
+        
+        /* 绝对定位 Footer，确保永远在最底部 */
+        .poster-footer { 
+            position: absolute; 
+            bottom: 0; left: 0; width: 100%;
+            background: white; 
+            padding: 20px 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: #333; 
+            height: 120px; /* 增加高度 */
+            box-sizing: border-box;
+            border-radius: 20px 20px 0 0; /* 顶部圆角，更有设计感 */
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+        }
+
+        .poster-radar-box { 
+            width: 260px; height: 260px; 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; padding: 15px; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+            margin-top: 20px; 
+        }
+        
+        #qrcode {
+            width: 80px; height: 80px;
+            flex-shrink: 0;
+            background: #fff;
+        }
+        #qrcode img { display: block; width: 100%; height: 100%; }
 
         /* Toast */
         #toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 15px 25px; border-radius: 8px; font-size: 14px; z-index: 100000; display: none; text-align: center; }
@@ -174,7 +219,7 @@
         <div class="app-footer">温州市新闻传媒中心AIGC实验室</div>
     </div>
 
-    <!-- 3. 报告页 (修复 display:none 优先级问题) -->
+    <!-- 3. 报告页 -->
     <div id="screen-report" class="screen">
         <div class="report-header">
             <div style="font-size:14px; opacity:0.9; letter-spacing: 1px; margin-bottom: 5px;" id="rpt-role">岗位</div>
@@ -195,18 +240,20 @@
                 </div>
             </div>
 
-            <!-- 🔒 锁定表单 -->
-            <div class="rpt-card" id="lead-gate" style="border: 2px solid var(--accent); text-align: center;">
-                <h3 style="color:var(--primary); margin-bottom:10px;">🔓 保存档案并解锁建议</h3>
-                <p style="font-size:13px; color:#666; margin-bottom:15px;">我们将为您建立专属能力档案</p>
+            <!-- 🔒 锁定表单 (文案优化) -->
+            <div class="rpt-card" id="lead-gate">
+                <div class="gate-title">获取《2025媒体人AI能力突围报告》完整版</div>
+                <div class="gate-subtitle">
+                    解锁包含：<span class="gate-highlight">行业薪资竞争力对标</span> + <span class="gate-highlight">7天实操工具包</span> + <span class="gate-highlight">避坑指南</span>
+                </div>
                 
                 <form id="lead-form" onsubmit="submitToCloud(event)">
-                    <input type="text" id="lead-name" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px;" placeholder="您的姓名" required>
-                    <input type="text" id="lead-company" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px;" placeholder="所属媒体机构" required>
-                    <input type="tel" id="lead-phone" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px;" placeholder="联系电话" required pattern="[0-9]{11}">
-                    <button type="submit" class="btn btn-primary" id="submit-btn">提交并解锁</button>
+                    <input type="text" id="lead-name" style="width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; background:#fff;" placeholder="您的姓名" required>
+                    <input type="text" id="lead-company" style="width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; background:#fff;" placeholder="所属媒体机构" required>
+                    <input type="tel" id="lead-phone" style="width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; background:#fff;" placeholder="手机号 (免费发送至手机)" required pattern="[0-9]{11}">
+                    <button type="submit" class="btn btn-primary" id="submit-btn" style="margin-top:20px;">免费获取报告</button>
                 </form>
-                <p style="font-size:12px; color:#999; margin-top:10px;">🔒 SSL加密存储至云端</p>
+                <p style="font-size:12px; color:#999; margin-top:12px;">🔒 数据通过 SSL 加密存储，仅用于报告生成</p>
             </div>
 
             <!-- 🔓 解锁内容 -->
@@ -254,10 +301,10 @@
     </div>
     
     <div class="poster-footer">
-        <div>
-            <div style="font-size: 16px; font-weight: bold; color: var(--primary);" id="poster-user-name">媒体同行</div>
-            <div style="font-size: 12px; color: #666; margin-top: 4px;">温州市新闻传媒中心AIGC实验室</div>
-            <div style="font-size: 10px; color: #999; margin-top: 2px;">长按识别二维码自测 👉</div>
+        <div style="flex:1; padding-right:15px; text-align:left;">
+            <div style="font-size: 18px; font-weight: bold; color: var(--primary); margin-bottom:5px;" id="poster-user-name">媒体同行</div>
+            <div style="font-size: 12px; color: #666;">温州市新闻传媒中心AIGC实验室</div>
+            <div style="font-size: 12px; color: #999;">长按识别二维码自测 👉</div>
         </div>
         <div id="qrcode"></div>
     </div>
@@ -273,16 +320,16 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const DIM_MAP = { tools: "工具应用", prompt: "指令工程", collab: "人机协同", innovate: "内容创新", ethics: "伦理审查" };
 const BENCHMARK_SCORES = { tools: 65, prompt: 55, collab: 45, innovate: 40, ethics: 70 };
 
-// 题库扩充 (确保每个组合 >10题)
+// 题库 (11题)
 const RAW_DB_QUESTIONS = [
-    // --- 通用题 (Common) 5题 ---
+    // --- 通用题 (Common) ---
     { id: "C_01", dim: "collab", type: "likert", text: "AI在我的工作中仍是偶尔想起的外挂。", reverse: true, role: "common" },
     { id: "C_02", dim: "prompt", type: "likert", text: "当AI首答不理想时，我通常换工具或放弃。", reverse: true, role: "common" },
     { id: "C_03", dim: "collab", type: "likert", text: "我已把AI纳入选题→采集→写作→审核的关键环节。", reverse: false, role: "common" },
     { id: "C_04", dim: "ethics", type: "likert", text: "我为关键事实设置多信源交叉验证并保留证据链。", reverse: false, role: "common" },
     { id: "C_05", dim: "tools", type: "likert", text: "遇到陌生技术问题，我第一时间是问AI而不是百度。", reverse: false, role: "common" },
 
-    // --- 记者 (Reporter) 6题 ---
+    // --- 记者 (Reporter) ---
     { id: "R_PT1", dim: "prompt", type: "pt", text: "实操自评：请描述如何使用“结构化提示词”将一篇通稿改写为小红书风格。", ref: "专家参考：\n# Role: 小红书博主\n# Task: 改写通稿\n# Rules: 1.多Emoji 2.分段短 3.提炼痛点\n# Output: 吸引人的标题 + 互动式结尾", role: "reporter" },
     { id: "R_01", dim: "tools", type: "likert", text: "我能够熟练使用Whisper/通义听悟等工具处理长录音。", reverse: false, role: "reporter" },
     { id: "R_02", dim: "innovate", type: "likert", text: "我会尝试利用AI辅助挖掘新闻线索或分析复杂财报。", reverse: false, role: "reporter" },
@@ -290,7 +337,7 @@ const RAW_DB_QUESTIONS = [
     { id: "R_SJT1", dim: "prompt", type: "sjt", text: "生成“高铁开通”报道大纲，最优指令框架是？", options: [{text:"A. “写一篇稿子”", w:0.2}, {text:"B. 角色+受众+目标+结构+风格+约束", w:1.0}, {text:"C. 给三篇样稿让它模仿", w:0.6}], role: "reporter" },
     { id: "R_SJT2", dim: "ethics", type: "sjt", text: "AI生成的解释包含一个生僻术语。你会？", options: [{text:"A. 直接用", w:0.0}, {text:"B. 查证两个独立信源", w:1.0}, {text:"C. 百度一下", w:0.5}], role: "reporter" },
 
-    // --- 视频 (Video) 6题 ---
+    // --- 视频 (Video) ---
     { id: "V_PT1", dim: "tools", type: "pt", text: "实操自评：请描述如何用AI将“报告”转化为60秒短视频。", ref: "专家参考：\n1. GPT写脚本\n2. MJ画分镜\n3. Luma转视频\n4. 剪映自动配音", role: "video" },
     { id: "V_01", dim: "tools", type: "likert", text: "我能使用Seed值或Lora模型保持人物画风一致。", reverse: false, role: "video" },
     { id: "V_02", dim: "innovate", type: "likert", text: "我尝试过使用数字人播报非核心时段的新闻。", reverse: false, role: "video" },
@@ -298,7 +345,7 @@ const RAW_DB_QUESTIONS = [
     { id: "V_04", dim: "collab", type: "likert", text: "我会利用AI生成分镜脚本来与摄像沟通画面需求。", reverse: false, role: "video" },
     { id: "V_SJT1", dim: "ethics", type: "sjt", text: "使用AI生成素材时，版权风险如何处理？", options: [{text:"A. 只要不火就没事", w:0.0}, {text:"B. 使用商用授权模型并保留生成日志", w:1.0}, {text:"C. 打个水印", w:0.4}], role: "video" },
 
-    // --- 数据 (Data) 6题 ---
+    // --- 数据 (Data) ---
     { id: "D_01", dim: "tools", type: "likert", text: "面对杂乱Excel，我会用Code Interpreter清洗分析。", reverse: false, role: "data" },
     { id: "D_02", dim: "tools", type: "likert", text: "我能用AI辅助编写Python/SQL查询代码。", reverse: false, role: "data" },
     { id: "D_03", dim: "innovate", type: "likert", text: "我尝试过用AI生成交互式数据图表（如ECharts配置）。", reverse: false, role: "data" },
@@ -306,7 +353,7 @@ const RAW_DB_QUESTIONS = [
     { id: "D_SJT1", dim: "collab", type: "sjt", text: "分析一万条评论情绪，首选？", options: [{text:"A. 人工抽样", w:0.2}, {text:"B. LLM API批量打分", w:1.0}, {text:"C. 搜关键词", w:0.5}], role: "data" },
     { id: "D_PT1", dim: "prompt", type: "pt", text: "实操：如何让AI从非结构化PDF中提取涉案金额？", ref: "专家参考：\n使用支持长文档的模型，Prompt：提取文中所有金额，统一转换为人民币元，输出为CSV格式，包含时间、金额、上下文。", role: "data" },
 
-    // --- 管理 (Manager) 6题 ---
+    // --- 管理 (Manager) ---
     { id: "M_01", dim: "collab", type: "likert", text: "成员用AI导致错误，第一反应是完善机制而非禁止。", reverse: false, role: "manager" },
     { id: "M_02", dim: "collab", type: "likert", text: "我已建立团队共享的Prompt库或知识库。", reverse: false, role: "manager" },
     { id: "M_03", dim: "innovate", type: "likert", text: "我正在重新设计团队的SOP以适配人机协同。", reverse: false, role: "manager" },
@@ -507,9 +554,11 @@ function drawRadar(id, scores) {
 
 function generatePoster() {
     showToast("🎨 正在绘制海报...");
+    
     document.getElementById('poster-role').innerText = document.getElementById('role-selector').selectedOptions[0].text;
     document.getElementById('poster-score').innerText = state.totalScore;
     document.getElementById('poster-level').innerText = state.level;
+    
     const d = new Date();
     document.getElementById('poster-date').innerText = `${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()}`;
     
