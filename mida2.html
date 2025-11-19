@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>媒体人AI驱动力指数 (MADI) 云端数据版 V4.0</title>
+    
+    <!-- 1. 核心依赖库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- 新增: Supabase 客户端 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        :root { --primary: #003366; --accent: #D4AF37; --bg: #F5F7FA; --white: #fff; --radius: 12px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "PingFang SC", system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+        
+        .container { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--white); position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        .screen { padding: 30px 20px; display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .screen.active { display: block; opacity: 1; }
+
+        /* 组件样式 */
+        .btn { display: block; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; text-align: center; cursor: pointer; border: none; transition: 0.2s; margin-top: 15px; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-loading { opacity: 0.7; cursor: not-allowed; }
+        
+        .progress-track { height: 6px; background: #eee; border-radius: 3px; position: relative; margin: 20px 10px 40px 10px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); width: 0%; border-radius: 3px; transition: width 0.5s; }
+        .progress-car { position: absolute; top: -14px; left: 0%; transform: translateX(-50%); font-size: 24px; transition: left 0.5s; }
+
+        .q-card { animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .q-tag { background: #E6F0FA; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        .q-text { font-size: 18px; font-weight: 700; margin-bottom: 25px; }
+
+        .likert-options { display: flex; gap: 8px; }
+        .likert-btn { flex: 1; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px 4px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .likert-btn.selected { border-color: var(--accent); background: #FFFDF5; color: var(--accent); font-weight: bold; transform: translateY(-2px); }
+
+        .report-header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        .gate-card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 24px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; }
+        .form-input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; }
+        
+        #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px; font-size: 14px; z-index: 999; display: none; }
+
+        @media (max-width: 480px) {
+            .likert-options { flex-direction: column; gap: 10px; }
+            .likert-btn { display: flex; align-items: center; padding: 12px 15px; text-align: left; }
+            .likert-btn::before { content: attr(data-val); width: 28px; height: 28px; background: #f5f5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-weight: bold; color: #666; font-size: 12px; }
+            .likert-btn.selected::before { background: var(--accent); color: white; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="container">
+    <!-- 1. 欢迎页 -->
+    <div id="screen-welcome" class="screen active">
+        <div style="text-align: center; padding-top: 40px;">
+            <h1 style="color:var(--primary); margin: 10px 0;">MADI 媒体AI指数</h1>
+            <p style="color: #666; font-size: 14px;">V4.0 云端数据实战版</p>
+            
+            <div style="background: #F8F9FA; padding: 20px; border-radius: 12px; text-align: left; margin-top: 30px;">
+                <label style="font-weight: bold; display:block; margin-bottom:10px;">选择您的核心岗位：</label>
+                <select id="role-selector" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size:16px; background:white;">
+                    <option value="reporter">✍️ 记者/深度采编</option>
+                    <option value="video">🎬 视频/视听制作</option>
+                    <option value="manager">💼 管理者/主编</option>
+                    <option value="editor">🛡️ 编辑/审核</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="startAssessment()">开始测评</button>
+        </div>
+    </div>
+
+    <!-- 2. 答题页 -->
+    <div id="screen-quiz" class="screen">
+        <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+            <div class="progress-car" id="progress-car">🚗</div>
+        </div>
+        <div id="question-container"></div>
+    </div>
+
+    <!-- 3. 报告页 -->
+    <div id="screen-report" class="screen" style="padding:0;">
+        <div class="report-header">
+            <div style="font-size:14px; opacity:0.9;" id="rpt-role">岗位</div>
+            <div style="font-size: 48px; font-weight: 800; color: var(--accent);" id="rpt-score">0</div>
+            <div style="font-size: 20px; font-weight: bold;" id="rpt-level">LV0</div>
+        </div>
+
+        <div style="padding: 20px;">
+            <!-- 雷达图 -->
+            <div style="height: 250px; position: relative;">
+                <canvas id="radarChart"></canvas>
+            </div>
+
+            <!-- 锁定表单 (数据上传点) -->
+            <div class="gate-card" id="lead-gate">
+                <h3 style="color:var(--primary); margin-bottom:10px;">📥 保存结果并解锁建议</h3>
+                <p style="font-size:13px; color:#666; margin-bottom:15px;">我们将为您建立专属档案，并提供同岗位的实时数据对比。</p>
+                
+                <form id="lead-form" onsubmit="handleSubmit(event)">
+                    <input type="text" id="lead-name" class="form-input" placeholder="您的姓名" required>
+                    <input type="text" id="lead-company" class="form-input" placeholder="所属媒体机构" required>
+                    <input type="tel" id="lead-phone" class="form-input" placeholder="联系电话 (用于找回档案)" required pattern="[0-9]{11}">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">提交并解锁完整报告</button>
+                </form>
+                <p style="font-size:12px; color:#999; margin-top:10px;">🔒 数据已通过 SSL 加密存储至云端数据库</p>
+            </div>
+
+            <!-- 解锁后的内容 -->
+            <div id="locked-content" style="display: none; margin-top: 20px;">
+                <div style="background:#F0F8FF; padding:15px; border-radius:8px; border-left:4px solid var(--primary); margin-bottom:20px;">
+                    <h4 style="color:var(--primary);">📌 智能诊断</h4>
+                    <p style="font-size:14px; color:#555; margin-top:5px;" id="rpt-advice">...</p>
+                </div>
+                <button class="btn btn-outline" style="border:1px solid var(--primary); color:var(--primary); background:white;" onclick="generatePoster()">📸 生成荣誉海报</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/* ================= 0. Supabase 配置 (请替换此处!) ================= */
+// 🔴 请将下面的 URL 和 KEY 替换为您自己的 Supabase 项目凭证
+const SUPABASE_URL = 'https://dhmbtfkzilgbvcroosyr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRobWJ0Zmt6aWxnYnZjcm9vc3lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MjcxNDMsImV4cCI6MjA3MjQwMzE0M30.YxqjGDN65zuRYkKLS1bUeFJGnEenafzjOMneSl-GpIE';
+
+// 初始化客户端
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ================= 1. 题库数据 ================= */
+const Q_DATA = {
+    common: [
+        { id: "C1", dim: "ethics", text: "我绝不将未脱敏的内部敏感数据上传至公网AI模型。", type: "likert" },
+        { id: "C2", dim: "tools", text: "遇到问题时，我的第一反应是问AI，而不是百度。", type: "likert" }
+    ],
+    reporter: [
+        { id: "R1", dim: "tools", text: "我能用AI处理长录音，提取摘要和金句。", type: "likert" },
+        { id: "R2", dim: "prompt", text: "我会使用结构化提示词(角色+任务)来提问。", type: "likert" },
+        { id: "R3", dim: "ethics", text: "对于AI给出的事实，我会进行双源验证。", type: "likert" }
+    ],
+    video: [
+        { id: "V1", dim: "innovate", text: "我能通过Seed值控制AI生成画面的一致性。", type: "likert" },
+        { id: "V2", dim: "tools", text: "我尝试过图生视频(Image-to-Video)工具。", type: "likert" }
+    ],
+    manager: [
+        { id: "M1", dim: "collab", text: "我建立了团队共享的Prompt库。", type: "likert" },
+        { id: "M2", dim: "ethics", text: "我有明确的AI使用合规与免责机制。", type: "likert" }
+    ],
+    editor: [ { id: "E1", dim: "ethics", text: "我会检查稿件的AI含金量并进行标注。", type: "likert" } ]
+};
+
+const BENCHMARKS = {
+    reporter: { tools:60, prompt:55, collab:40, innovate:30, ethics:70 },
+    video:    { tools:75, prompt:60, collab:50, innovate:65, ethics:40 },
+    manager:  { tools:40, prompt:50, collab:75, innovate:60, ethics:80 },
+    editor:   { tools:50, prompt:50, collab:60, innovate:40, ethics:85 }
+};
+
+/* ================= 2. 业务状态 ================= */
+let state = { role: '', qs: [], idx: 0, answers: {}, qStart: 0, finalScores: null, finalTotal: 0 };
+
+// 开始测评
+function startAssessment() {
+    state.role = document.getElementById('role-selector').value;
+    state.qs = [...Q_DATA.common, ...(Q_DATA[state.role] || Q_DATA.reporter)];
+    state.idx = 0;
+    document.getElementById('screen-welcome').classList.remove('active');
+    document.getElementById('screen-quiz').classList.add('active');
+    renderQuestion();
+}
+
+// 渲染题目
+function renderQuestion() {
+    state.qStart = Date.now();
+    const q = state.qs[state.idx];
+    const pct = ((state.idx) / state.qs.length) * 100;
+    
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-car').style.left = pct + '%';
+
+    const html = `
+        <div class="q-card">
+            <span class="q-tag">${getDimName(q.dim)}</span>
+            <div class="q-text">${state.idx+1}. ${q.text}</div>
+            <div class="likert-options">
+                ${[1,2,3,4,5].map(v => `
+                    <div class="likert-btn" data-val="${v}" onclick="handleAnswer(${v}, '${q.id}', this)">
+                        <div style="font-size:12px;">${getLikertLabel(v)}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    document.getElementById('question-container').innerHTML = html;
+}
+
+// 处理作答
+function handleAnswer(val, id, el) {
+    if (Date.now() - state.qStart < 1000) { showToast("🚗 车速太快，请看清题目"); return; }
+    
+    document.querySelectorAll('.likert-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    state.answers[id] = val;
+
+    setTimeout(() => {
+        if (state.idx < state.qs.length - 1) {
+            state.idx++;
+            renderQuestion();
+        } else {
+            calculateResult();
+        }
+    }, 300);
+}
+
+// 计算结果（暂不上传，等待表单）
+function calculateResult() {
+    const scores = { tools:[], prompt:[], collab:[], innovate:[], ethics:[] };
+    state.qs.forEach(q => { if (scores[q.dim]) scores[q.dim].push(state.answers[q.id]||0); });
+    
+    let userScore = {};
+    let total = 0;
+    for(let k in scores) {
+        const arr = scores[k];
+        userScore[k] = arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/(arr.length*5))*100) : 0;
+        total += userScore[k];
+    }
+    state.finalScores = userScore;
+    state.finalTotal = Math.round(total / 5);
+
+    // 切换到报告页
+    document.getElementById('screen-quiz').classList.remove('active');
+    document.getElementById('screen-report').classList.add('active');
+    
+    // 填充基础数据
+    document.getElementById('rpt-role').innerText = document.getElementById('role-selector').selectedOptions[0].text;
+    document.getElementById('rpt-score').innerText = state.finalTotal;
+    document.getElementById('rpt-level').innerText = getLevel(state.finalTotal);
+    
+    // 绘制雷达图
+    renderRadar(state.finalScores, BENCHMARKS[state.role]);
+}
+
+/* ================= 3. Supabase 数据提交逻辑 ================= */
+async function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const originalText = btn.innerText;
+    
+    // UI 状态更新
+    btn.innerText = "正在加密上传云端...";
+    btn.classList.add('btn-loading');
+    btn.disabled = true;
+
+    // 收集表单数据
+    const leadData = {
+        role: state.role,
+        total_score: state.finalTotal,
+        dim_scores: state.finalScores,
+        lead_name: document.getElementById('lead-name').value,
+        lead_company: document.getElementById('lead-company').value,
+        lead_phone: document.getElementById('lead-phone').value
+    };
+
+    try {
+        // ⚠️ 核心：向 Supabase 插入数据
+        const { data, error } = await supabase
+            .from('madi_leads') // 确保这个表名与你在 Supabase 创建的一致
+            .insert([ leadData ])
+            .select();
+
+        if (error) throw error;
+
+        // 成功后逻辑
+        showToast("✅ 档案建立成功！");
+        document.getElementById('lead-gate').style.display = 'none';
+        document.getElementById('locked-content').style.display = 'block';
+        
+        // 自动生成个性化建议
+        generateAdvice();
+
+    } catch (err) {
+        console.error("Upload Error:", err);
+        // 降级处理：即使数据库报错，也让用户看结果，以免流失
+        showToast("⚠️ 网络连接微弱，但已为您解锁本地报告");
+        document.getElementById('lead-gate').style.display = 'none';
+        document.getElementById('locked-content').style.display = 'block';
+        generateAdvice();
+    } finally {
+        btn.innerText = originalText;
+        btn.classList.remove('btn-loading');
+        btn.disabled = false;
+    }
+}
+
+/* ================= 4. 辅助与图表 ================= */
+function renderRadar(user, bench) {
+    new Chart(document.getElementById('radarChart'), {
+        type: 'radar',
+        data: {
+            labels: ['工具','指令','协同','创新','伦理'],
+            datasets: [
+                { label:'我的得分', data:[user.tools,user.prompt,user.collab,user.innovate,user.ethics], backgroundColor:'rgba(212,175,55,0.2)', borderColor:'#D4AF37' },
+                { label:'行业平均', data:[bench.tools,bench.prompt,bench.collab,bench.innovate,bench.ethics], borderColor:'#ccc', borderDash:[5,5], fill:false, pointRadius:0 }
+            ]
+        },
+        options: { scales: { r: { min:0, max:100, ticks:{display:false} } }, plugins: { legend: { position:'bottom' } } }
+    });
+}
+
+function generateAdvice() {
+    const sorted = Object.entries(state.finalScores).sort((a,b)=>a[1]-b[1]);
+    const low = sorted[0];
+    document.getElementById('rpt-advice').innerText = 
+        `系统分析了您的五维模型，发现您在 [${getDimName(low[0])}] 维度（${low[1]}分）与行业平均水平有一定差距。建议重点强化该领域的工具链整合。`;
+}
+
+function generatePoster() {
+    showToast("正在生成高清海报...");
+    html2canvas(document.getElementById('screen-report')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `MADI_${document.getElementById('lead-name').value}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+
+function getDimName(k) { const m={tools:'工具',prompt:'指令',collab:'协同',innovate:'创新',ethics:'伦理'}; return m[k]; }
+function getLikertLabel(v) { return ['','非常不同意','不同意','一般','同意','非常同意'][v]; }
+function getLevel(s) { return s<40?'LV1 引擎预热': s<60?'LV2 一档起步': s<80?'LV3 巡航驾驶':'LV4 智能领航'; }
+function showToast(msg) { const t=document.getElementById('toast'); t.innerText=msg; t.style.display='block'; setTimeout(()=>t.style.display='none', 3000); }
+
+</script>
+</body>
+</html>
