@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创意来自摩擦 - AI 策略</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+/* 1. THE SETUP */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a1a;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: flex-start;
+  background-color: #000;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1280px;
+}
+
+/* 1.1 BACKGROUND STYLING - Abstract Flowing Lines for Depth */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 100% 0%, rgba(222, 255, 154, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide-container::after {
+  background: linear-gradient(90deg, transparent, rgba(222, 255, 154, 0.3), transparent);
+  bottom: 0;
+  content: '';
+  height: 1px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.slide-container > * {
+    z-index: 1;
+}
+
+/* 2. CONSISTENT TYPOGRAPHY */
+
+/* Headings Font - Added Chinese Fonts */
+
+.slide-container h1,
+.slide-container h2,
+.slide-container h3,
+.slide-container h4 {
+  color: #f5f5f5;
+  font-weight: 700;
+  font-family: 'Urbanist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.slide-container h1 span,
+.slide-container h2 span,
+.highlight-text {
+  color: #deff9a;
+}
+
+/* Body Text Font - Added Chinese Fonts */
+
+.slide-container p,
+.slide-container .subtitle,
+.slide-container li,
+.slide-container td,
+.slide-container th {
+  color: #e0e0e0;
+  font-family: 'Urbanist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-weight: 300;
+}
+
+/* Consistent Font Sizes */
+
+.slide-container h1 {
+  font-size: 72px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.slide-container .slide-title {
+  font-size: 48px;
+  line-height: 1.2;
+  margin-bottom: 40px;
+  width: 100%;
+  border-left: 4px solid #deff9a;
+  padding-left: 20px;
+}
+
+.slide-container h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Unified body text size */
+
+.slide-container p,
+.slide-container li {
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.slide-container .subtitle {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.4;
+  opacity: 0.9;
+  max-width: 800px;
+}
+
+/* 3. LAYOUT DEFINITIONS */
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Title Slide Layout */
+.title-layout {
+  text-align: left;
+  max-width: 900px;
+  padding-left: 20px;
+}
+
+/* Quote Layout */
+.quote-layout {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.quote-layout blockquote {
+  font-size: 56px;
+  font-weight: 700;
+  color: #f5f5f5;
+  line-height: 1.2;
+  margin: 0 0 30px;
+}
+
+.quote-layout blockquote span {
+  color: #deff9a;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Two Column Layout */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  width: 100%;
+  align-items: center;
+}
+
+.two-column.tiled {
+  align-items: stretch;
+}
+
+.two-column.tiled > div {
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 40px;
+}
+
+/* Bleed Image Layout */
+.slide-container.bleed-image-layout {
+  align-items: start;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+}
+
+.slide-container.bleed-image-layout > .content-container {
+  padding: 80px 0 80px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.slide-container.bleed-image-layout > .image-container {
+  height: 100%;
+  width: 100%;
+}
+
+.slide-container.bleed-image-layout img.bleed-image-side {
+  border-radius: 0; /* Sharp edges for this theme */
+  display: block;
+  height: 100%;
+  max-height: 720px;
+  max-width: 100%;
+  object-fit: cover;
+  width: 100%;
+  filter: grayscale(100%) contrast(1.2); /* Stylized image */
+}
+
+/* Tiled Text With Icons */
+.tiled-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.tile {
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.tile .icon {
+  font-size: 32px;
+  color: #deff9a;
+  margin-bottom: 20px;
+  background: rgba(222, 255, 154, 0.1);
+  padding: 15px;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bullet List Style */
+.bullet-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bullet-list li {
+  margin-bottom: 25px;
+  padding-left: 50px;
+  position: relative;
+}
+
+.bullet-list li i {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  color: #deff9a;
+  font-size: 24px;
+}
+
+/* Charts */
+.chart-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.doughnut-chart-container {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+}
+
+.doughnut-chart {
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.doughnut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  background-color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.doughnut-center .number {
+  font-size: 64px;
+  font-weight: 700;
+  color: #f5f5f5;
+  line-height: 1;
+}
+
+.doughnut-center .label {
+  color: #888;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.legend {
+  list-style: none;
+  padding: 0;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.legend .color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+/* Rounded Image */
+.rounded-image-layout .image-wrapper {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #deff9a;
+  margin: 0 auto;
+}
+
+.rounded-image-layout .image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+/* Full Background */
+.full-bg-image {
+  background-size: cover;
+  background-position: center;
+}
+
+.full-bg-image .content-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 60px;
+  border-left: 10px solid #deff9a;
+  backdrop-filter: blur(5px);
+  max-width: 800px;
+}
+
+/* Q&A */
+.qa-layout h2 {
+    font-size: 100px;
+    color: #deff9a;
+}
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title_Slide -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <h1>创意不是<br><span>“想出来的”</span></h1>
+        <p class="subtitle">而是“被逼出来的”。当你没想法时，如何利用 AI 制造摩擦、压力和限制来产生非平均态的创意。</p>
+    </div>
+</div>
+
+<!-- Slide 2: Quote (The Conclusion) -->
+<div class="slide-container" id="slide2">
+    <div class="content-area">
+        <div class="quote-layout">
+            <blockquote>
+                “不要让 AI 给你‘好点子’，而要让它逼你产生<span>‘态度’。</span>”
+            </blockquote>
+            <p class="subtitle" style="text-align: center;">当没有方向时，AI 给你的只能是概率最高的平庸表达。</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Two_Column_Tiled_Text (The Problem) -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">为什么“头脑风暴”必然低效？</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3 style="color: #ef4444;">现状</h3>
+                <p>你和 AI 都在做同一件事：在一张空白纸上“想点子”。你没有立场，AI 没有约束。</p>
+            </div>
+            <div>
+                <h3 style="color: #deff9a;">结果</h3>
+                <p>三重叠加的平庸。模型自然回归中位数，给你最安全的叙事（如“从情绪切入”）。这些不是错，是没用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Bleed_Image_Right (The Paradigm Shift) -->
+<div class="slide-container bleed-image-layout" id="slide4">
+    <div class="content-container">
+        <h2 class="slide-title">停止索要点子</h2>
+        <div class="bleed-text-side">
+            <p>关键不是“怎么问 AI 才更聪明”，而是改变关系。</p>
+            <p><strong>不要给 AI“创作权”。</strong> 而是让它充当对手或施压者。</p>
+            <p>利用 AI 制造一个“非平均态”的思考场，迫使你做出反应。</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <!-- Replaced with high-quality abstract dark texture -->
+        <img class="bleed-image-side" src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?q=80&w=2068&auto=format&fit=crop" alt="Abstract dark moody texture representing pressure">
+    </div>
+</div>
+
+<!-- Slide 5: Tiled_Text_With_Icons (Method 1) -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">方法一：制造“不可回避的问题”</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-eye-slash"></i></div>
+                <h3>盲区</h3>
+                <p>不要问“有什么新角度”，要问“这个话题里，有哪些问题是所有人都在回避的？”</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-skull-crossbones"></i></div>
+                <h3>死穴</h3>
+                <p>问“如果这个视频失败，最可能死在哪？”在开始前找到痛点。</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-masks-theater"></i></div>
+                <h3>伪善</h3>
+                <p>问“这个主题里，最不政治正确但最真实的矛盾是什么？”一旦你感到生理不适，创意就开始了。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Image_Right_Text_Left (Method 2) -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">方法二：强制“极端立场”</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p>平均 = 中庸。创意 = 偏执。你需要逼迫 AI 走向极端：</p>
+                <br>
+                <ul style="padding-left: 20px; list-style-type: disc;">
+                    <li>“请分别站在三个立场，彻底否定这个选题。”</li>
+                    <li>“假设这是一个自大、刻薄的创作者拍的，会怎么拍？”</li>
+                </ul>
+                <br>
+                <p><strong>目标：</strong> 你要的不是对错，而是刺激。真正的创意来自一句：“这个说法我不同意，但……”</p>
+            </div>
+            <div class="image-wrapper" style="border: 1px solid #333; border-radius: 12px; height: 100%;">
+                <!-- Replaced with high-contrast black and yellow abstract art -->
+                <img src="https://images.unsplash.com/photo-1505356822725-08ad25f3ffe4?q=80&w=1976&auto=format&fit=crop" alt="Abstract yellow and black contrast conflict" style="object-fit: cover; width: 100%; height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Doughnut_Chart_For_Proportions (Method 3) -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">方法三：先定“不能拍什么”</h2>
+    <div class="content-area">
+        <div class="chart-container">
+            <div class="doughnut-chart-container">
+                <div class="doughnut-chart" style="background: conic-gradient(#333 0% 90%, #deff9a 90% 100%);">
+                    <div class="doughnut-center">
+                        <span class="number">10%</span>
+                        <span class="label">创意</span>
+                    </div>
+                </div>
+                <ul class="legend">
+                    <li><div class="color-box" style="background-color: #333;"></div>被封死的“安全路径”</li>
+                    <li><div class="color-box" style="background-color: #deff9a;"></div>剩下的可能性</li>
+                </ul>
+            </div>
+        </div>
+        <p style="text-align: center; max-width: 800px; margin-top: 20px;">
+            让 AI 列出所有行活、套路和陈词滥调。<strong>把它们封死。</strong> 当你把 90% 的安全路径堵住，剩下的 10% 自然就显形了。
+        </p>
+    </div>
+</div>
+
+<!-- Slide 8: Rounded_Image_and_Text (Method 4) -->
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">方法四：拆解“失败作品”</h2>
+    <div class="content-area">
+        <div class="two-column rounded-image-layout" style="align-items: center;">
+            <div class="image-wrapper">
+                <!-- Replaced with technical/circuit abstract -->
+                <img src="https://images.unsplash.com/photo-1535868463750-c78d9c4b3cce?q=80&w=2000&auto=format&fit=crop" alt="Abstract technology circuits representing structure">
+            </div>
+            <div>
+                <h3>解剖失败</h3>
+                <p>让 AI 模拟一个失败但典型的方案。“为什么它一周内就被算法淹没？”“在哪一句话会让人关掉？”</p>
+                <p style="margin-top: 20px;">你的任务不是改好它，而是问自己：<strong>“如果我非要拍，唯一不一样的地方会在哪？”</strong> 那一个地方，就是创意源头。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Two_Column_Tiled_Text (Method 5) -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">方法五：把 AI 当“异己”</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div style="border-color: #deff9a;">
+                <h3>AI 的角色</h3>
+                <p>负责制造压力、偏见、极端、错误。它是你撞击的墙。</p>
+            </div>
+            <div style="border-color: #f5f5f5;">
+                <h3>你的角色</h3>
+                <p>负责判断、反驳、偏离、篡改。创意不是协作共识，而是冲突的副产品。</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 40px;">不要把 AI 当成和你“好好商量”的朋友。</p>
+    </div>
+</div>
+
+<!-- Slide 10: Styled_Bullet_Points (Prerequisites) -->
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">何时才让 AI“真正创作”？</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 30px;">只有在这三个条件同时满足时：</p>
+        <div class="bullet-list">
+            <ul>
+                <li>
+                    <i class="fa-solid fa-gavel"></i>
+                    <strong>你已有立场。</strong> 你有一个愿意为之辩护的判断。
+                </li>
+                <li>
+                    <i class="fa-solid fa-ban"></i>
+                    <strong>你知道不要什么。</strong> 你能说出至少一个不想拍的版本。
+                </li>
+                <li>
+                    <i class="fa-solid fa-bullseye"></i>
+                    <strong>你知道痛点。</strong> 你知道作品最可能被骂的点在哪里。
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Full_Background_Image (Summary) -->
+<div class="slide-container full-bg-image" id="slide11" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');">
+    <div class="content-overlay">
+        <h2>态度 > 点子</h2>
+        <p>当你没想法时，不要让 AI 给你“好点子”，而要让它逼你产生<strong>“态度”</strong>。</p>
+        <p>态度一旦出现，创意自然会跟上。</p>
+    </div>
+</div>
+
+<!-- Slide 12: Q&A -->
+<div class="slide-container" id="slide12">
+    <div class="qa-layout">
+        <h2>问答环节</h2>
+        <p>聊聊你的“摩擦点”</p>
+    </div>
+</div>
+
+</body>
+</html>
