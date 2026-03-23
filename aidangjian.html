@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw AI党建系统 - 打造数智党务干事</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Lucide图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- 配置Tailwind主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        party: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            600: '#dc2626', // 核心党建红
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        },
+                        tech: {
+                            900: '#0f172a', // 深沉科技底色
+                            800: '#1e293b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 滚动进入动画基础样式 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 渐变文本 */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 玻璃拟物化卡片 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        /* 自定义红点列表 */
+        .list-dot li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background-color: #dc2626;
+            border-radius: 50%;
+        }
+        .list-dot li {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-party-100 selection:text-party-900">
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded bg-party-600 flex items-center justify-center text-white font-bold text-xl">
+                        <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">OpenClaw</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-sm font-medium text-slate-600 hover:text-party-600 transition">核心能力</a>
+                    <a href="#scenarios" class="text-sm font-medium text-slate-600 hover:text-party-600 transition">应用场景</a>
+                    <a href="#security" class="text-sm font-medium text-slate-600 hover:text-party-600 transition">安全合规</a>
+                    <a href="#cta" class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-md text-white bg-party-600 hover:bg-party-700 shadow-sm transition-all hover:shadow-md">
+                        申请演示
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 【首屏 / Hero Section】 -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-tech-900 text-white">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-party-900/40 to-tech-900"></div>
+            <div class="absolute right-0 top-0 -translate-y-12 translate-x-1/3 w-[800px] h-[800px] bg-party-600/20 rounded-full blur-[120px] opacity-50"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm font-medium text-party-100 mb-8 reveal">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-party-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-party-500"></span>
+                </span>
+                面向基层党组织的智能工作平台
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 reveal" style="transition-delay: 100ms;">
+                告别“台账焦虑”<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-party-600">进入数智党建时代</span>
+            </h1>
+            
+            <p class="mt-6 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light reveal" style="transition-delay: 200ms;">
+                <strong class="text-white font-medium">让技术处理“事”，让干部专注“人”。</strong><br/>
+                <span class="text-lg mt-2 block opacity-80">这不是一个会聊天的AI，而是一套真正能嵌入党务工作的系统。</span>
+            </p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay: 300ms;">
+                <a href="#cta" class="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-md text-white bg-party-600 hover:bg-party-700 shadow-lg shadow-party-600/30 transition-all hover:-translate-y-1">
+                    申请本地化部署演示
+                    <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+                <a href="#features" class="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-md text-white bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
+                    获取解决方案
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【问题引出 / Pain Points】 -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">基层党建，正在承受“结构性压力”</h2>
+                <p class="text-lg text-slate-600">本质问题不是“人不够”，而是<strong class="text-party-600">缺少一个可运行的党务工作系统</strong>。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Pain Point Card -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-party-200 hover:shadow-lg transition-all reveal relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-party-500 transition-colors"></div>
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-slate-700 mb-6 group-hover:text-party-600 transition-colors">
+                        <i data-lucide="folder-open" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">台账焦虑</h3>
+                    <p class="text-slate-600 leading-relaxed">材料重复写、留痕重、检查前集中补材料，耗费大量精力。</p>
+                </div>
+                <!-- Pain Point Card -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-party-200 hover:shadow-lg transition-all reveal relative overflow-hidden group" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-party-500 transition-colors"></div>
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-slate-700 mb-6 group-hover:text-party-600 transition-colors">
+                        <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">事务负担重</h3>
+                    <p class="text-slate-600 leading-relaxed">会议纪要整理耗时，待办事项难追踪，工作容易断线。</p>
+                </div>
+                <!-- Pain Point Card -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-party-200 hover:shadow-lg transition-all reveal relative overflow-hidden group" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-party-500 transition-colors"></div>
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-slate-700 mb-6 group-hover:text-party-600 transition-colors">
+                        <i data-lucide="search-x" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">信息碎片化</h3>
+                    <p class="text-slate-600 leading-relaxed">政策文件多、历史资料检索难、核心要点总结难。</p>
+                </div>
+                <!-- Pain Point Card -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-party-200 hover:shadow-lg transition-all reveal relative overflow-hidden group" style="transition-delay: 300ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-party-500 transition-colors"></div>
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-slate-700 mb-6 group-hover:text-party-600 transition-colors">
+                        <i data-lucide="lightbulb-off" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">创新能力弱</h3>
+                    <p class="text-slate-600 leading-relaxed">日常事务缠身，党建项目和品牌活动缺乏系统策划支撑。</p>
+                </div>
+                <!-- Pain Point Card -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-party-200 hover:shadow-lg transition-all reveal relative overflow-hidden group" style="transition-delay: 400ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-party-500 transition-colors"></div>
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-slate-700 mb-6 group-hover:text-party-600 transition-colors">
+                        <i data-lucide="megaphone-off" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">党建与宣传割裂</h3>
+                    <p class="text-slate-600 leading-relaxed">做了很多好工作，但宣传内容能力未被激活，传播效果差。</p>
+                </div>
+                <!-- Pain Point Card -->
+                <div class="p-8 rounded-2xl bg-party-50 border border-party-100 shadow-inner hover:shadow-lg transition-all reveal relative overflow-hidden group" style="transition-delay: 500ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-party-500"></div>
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-party-600 mb-6">
+                        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-party-900 mb-3">通用AI不可用</h3>
+                    <p class="text-party-800 leading-relaxed">市面通用大模型无边界、数据不可控、内容不可信，不敢用于党务。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【产品定位 / Positioning】 -->
+    <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#dc2626 1px, transparent 1px); background-size: 32px 32px;"></div>
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10 reveal">
+            <span class="text-party-500 font-semibold tracking-wider uppercase text-sm mb-4 block">Product Positioning</span>
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 leading-tight">不止是工具，而是<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-party-500">“数智党务干事”</span></h2>
+            <p class="text-xl text-slate-300 mb-12 max-w-3xl mx-auto">
+                OpenClaw AI党建系统，是围绕基层党组织全流程构建的智能辅助平台。
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
+                <div class="flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full border border-white/10">
+                    <i data-lucide="check-circle-2" class="text-party-500 w-5 h-5"></i>
+                    <span>懂党务流程</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full border border-white/10">
+                    <i data-lucide="check-circle-2" class="text-party-500 w-5 h-5"></i>
+                    <span>懂公文规范</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full border border-white/10">
+                    <i data-lucide="check-circle-2" class="text-party-500 w-5 h-5"></i>
+                    <span>懂组织运行</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full border border-white/10">
+                    <i data-lucide="check-circle-2" class="text-party-500 w-5 h-5"></i>
+                    <span>懂宣传表达</span>
+                </div>
+            </div>
+
+            <div class="inline-block border border-party-500/30 bg-party-900/30 rounded-2xl p-6 px-10 text-xl font-medium tracking-wide shadow-2xl shadow-party-900/50">
+                具备三大核心能力： <span class="text-party-400 ml-2">事务自动化 ｜ 流程标准化 ｜ 组织记忆化</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【核心能力总览 / Capabilities】 -->
+    <section id="features" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">七大智能能力，重构党建工作流</h2>
+                <div class="w-24 h-1 bg-party-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cap 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal">
+                    <div class="w-10 h-10 bg-party-50 rounded-lg flex items-center justify-center text-party-600 mb-4">
+                        <i data-lucide="puzzle" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">智能策划</h3>
+                    <p class="text-slate-500 text-sm">系统化策划党日活动、党建品牌及攻坚项目，输出完整方案。</p>
+                </div>
+                <!-- Cap 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal" style="transition-delay: 100ms;">
+                    <div class="w-10 h-10 bg-party-50 rounded-lg flex items-center justify-center text-party-600 mb-4">
+                        <i data-lucide="file-pen" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">智能纪要</h3>
+                    <p class="text-slate-500 text-sm">会议录音一键转标准纪要，自动提取决议并生成待办事项。</p>
+                </div>
+                <!-- Cap 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal" style="transition-delay: 200ms;">
+                    <div class="w-10 h-10 bg-party-50 rounded-lg flex items-center justify-center text-party-600 mb-4">
+                        <i data-lucide="book-open-check" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">智能摘要</h3>
+                    <p class="text-slate-500 text-sm">长篇政策文件深度学习，提炼核心要义，生成党建微内参。</p>
+                </div>
+                <!-- Cap 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal" style="transition-delay: 300ms;">
+                    <div class="w-10 h-10 bg-party-50 rounded-lg flex items-center justify-center text-party-600 mb-4">
+                        <i data-lucide="database" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">智能台账</h3>
+                    <p class="text-slate-500 text-sm">从日常工作痕迹中自动提取要素，结构化归档生成规范台账。</p>
+                </div>
+                <!-- Cap 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal">
+                    <div class="w-10 h-10 bg-party-50 rounded-lg flex items-center justify-center text-party-600 mb-4">
+                        <i data-lucide="radar" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">智能监测</h3>
+                    <p class="text-slate-500 text-sm">自动获取权威党媒信息及上级精神，保持工作方向敏锐度。</p>
+                </div>
+                <!-- Cap 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal" style="transition-delay: 100ms;">
+                    <div class="w-10 h-10 bg-party-50 rounded-lg flex items-center justify-center text-party-600 mb-4">
+                        <i data-lucide="megaphone" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">智能宣传</h3>
+                    <p class="text-slate-500 text-sm">基于活动记录，自动生成符合规范的新闻稿、发布稿及品牌文案。</p>
+                </div>
+                <!-- Cap 7 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all border border-slate-100 hover:-translate-y-1 reveal md:col-span-2 lg:col-span-2" style="transition-delay: 200ms;">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 shrink-0 bg-party-600 rounded-lg flex items-center justify-center text-white mt-1 shadow-md shadow-party-600/30">
+                            <i data-lucide="archive" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">智能归档与组织记忆</h3>
+                            <p class="text-slate-500 leading-relaxed">不仅仅是存储文件，而是将每一次活动提炼为结构化的“活动卡片”，沉淀为单位的专属“组织记忆库”，供未来复用与进化。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【核心工作流 / Workflow】 -->
+    <section class="py-24 bg-white border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">从“做一次工作”到“沉淀长期资产”</h2>
+                <p class="text-lg text-slate-600">系统构建完整闭环，实现一次工作，多次复用</p>
+            </div>
+
+            <div class="relative reveal">
+                <!-- 连线背景 -->
+                <div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-party-300 to-slate-200 -translate-y-1/2 z-0"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-6 gap-6 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="bg-white border border-slate-100 rounded-xl p-6 text-center shadow-sm relative group hover:-translate-y-2 transition-transform">
+                        <div class="w-10 h-10 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center font-bold mx-auto mb-4 group-hover:bg-party-100 group-hover:text-party-600 transition-colors">1</div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">识别任务类型</h4>
+                        <p class="text-xs text-slate-500">党务/学习/宣传/项目</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="bg-white border border-slate-100 rounded-xl p-6 text-center shadow-sm relative group hover:-translate-y-2 transition-transform">
+                        <div class="w-10 h-10 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center font-bold mx-auto mb-4 group-hover:bg-party-100 group-hover:text-party-600 transition-colors">2</div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">匹配技能模块</h4>
+                        <p class="text-xs text-slate-500">Skill Routing</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="bg-white border border-slate-100 rounded-xl p-6 text-center shadow-sm relative group hover:-translate-y-2 transition-transform">
+                        <div class="w-10 h-10 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center font-bold mx-auto mb-4 group-hover:bg-party-100 group-hover:text-party-600 transition-colors">3</div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">智能调用</h4>
+                        <p class="text-xs text-slate-500">知识库+模板+历史记忆</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="bg-white border-2 border-party-500 rounded-xl p-6 text-center shadow-md relative group hover:-translate-y-2 transition-transform scale-105">
+                        <div class="w-10 h-10 bg-party-600 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-4 shadow-lg shadow-party-600/40">4</div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">生成结构化成果</h4>
+                        <p class="text-xs text-party-600 font-medium">方案 / 纪要 / 台账</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="bg-white border border-slate-100 rounded-xl p-6 text-center shadow-sm relative group hover:-translate-y-2 transition-transform">
+                        <div class="w-10 h-10 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center font-bold mx-auto mb-4 group-hover:bg-party-100 group-hover:text-party-600 transition-colors">5</div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">自动归档</h4>
+                        <p class="text-xs text-slate-500">活动卡片/日历</p>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="bg-slate-900 text-white border border-slate-800 rounded-xl p-6 text-center shadow-lg relative group hover:-translate-y-2 transition-transform">
+                        <div class="w-10 h-10 bg-white/20 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-4">
+                            <i data-lucide="infinity" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-sm mb-2">持续积累</h4>
+                        <p class="text-xs text-slate-300">构建组织能力算力</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【典型应用场景 / Scenarios】(Interactive Tabs) -->
+    <section id="scenarios" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">覆盖基层党建六大高频场景</h2>
+                <p class="text-lg text-slate-600">为真实痛点提供即插即用的解决方案</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 reveal">
+                <!-- Tabs List -->
+                <div class="w-full lg:w-1/3 flex flex-col gap-2">
+                    <button class="tab-btn active text-left px-6 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-between border border-transparent" data-target="tab1">
+                        <span class="flex items-center gap-3"><i data-lucide="users" class="w-5 h-5"></i>组织生活策划</span>
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-50"></i>
+                    </button>
+                    <button class="tab-btn text-left px-6 py-4 rounded-xl font-bold text-lg text-slate-500 hover:bg-slate-100 transition-all flex items-center justify-between border border-transparent" data-target="tab2">
+                        <span class="flex items-center gap-3"><i data-lucide="pen-tool" class="w-5 h-5"></i>会议纪要与待办</span>
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-0 transition-opacity"></i>
+                    </button>
+                    <button class="tab-btn text-left px-6 py-4 rounded-xl font-bold text-lg text-slate-500 hover:bg-slate-100 transition-all flex items-center justify-between border border-transparent" data-target="tab3">
+                        <span class="flex items-center gap-3"><i data-lucide="book-open" class="w-5 h-5"></i>学习教育辅助</span>
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-0 transition-opacity"></i>
+                    </button>
+                    <button class="tab-btn text-left px-6 py-4 rounded-xl font-bold text-lg text-slate-500 hover:bg-slate-100 transition-all flex items-center justify-between border border-transparent" data-target="tab4">
+                        <span class="flex items-center gap-3"><i data-lucide="clipboard-check" class="w-5 h-5"></i>台账与留痕管理</span>
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-0 transition-opacity"></i>
+                    </button>
+                    <button class="tab-btn text-left px-6 py-4 rounded-xl font-bold text-lg text-slate-500 hover:bg-slate-100 transition-all flex items-center justify-between border border-transparent" data-target="tab5">
+                        <span class="flex items-center gap-3"><i data-lucide="radio" class="w-5 h-5"></i>宣传与内容生产</span>
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-0 transition-opacity"></i>
+                    </button>
+                    <button class="tab-btn text-left px-6 py-4 rounded-xl font-bold text-lg text-slate-500 hover:bg-slate-100 transition-all flex items-center justify-between border border-transparent relative overflow-hidden" data-target="tab6">
+                        <div class="absolute inset-0 bg-gradient-to-r from-amber-100/50 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
+                        <span class="flex items-center gap-3 relative z-10 text-amber-700"><i data-lucide="rocket" class="w-5 h-5"></i>群众诉求转化 (核心)</span>
+                        <i data-lucide="chevron-right" class="w-5 h-5 opacity-0 transition-opacity relative z-10 text-amber-700"></i>
+                    </button>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 md:p-12 min-h-[400px] relative">
+                        
+                        <!-- Content 1 -->
+                        <div id="tab1" class="tab-content block animate-fade-in">
+                            <div class="w-14 h-14 bg-party-50 text-party-600 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="users" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">组织生活策划</h3>
+                            <ul class="space-y-4 list-dot text-slate-600 text-lg">
+                                <li>一键生成主题党日 / “三会一课”完整策划方案</li>
+                                <li>根据主题自动输出配套主持词</li>
+                                <li>智能生成会议/活动所需材料清单</li>
+                                <li>预置台账结构，确保活动要素不遗漏</li>
+                            </ul>
+                            <div class="mt-8 p-4 bg-slate-50 rounded-lg border border-slate-100">
+                                <p class="text-sm text-slate-500 italic">"以前策划党日活动要翻半天资料，现在输入主题，一套标准规范的方案就出来了。"</p>
+                            </div>
+                        </div>
+
+                        <!-- Content 2 -->
+                        <div id="tab2" class="tab-content hidden animate-fade-in">
+                            <div class="w-14 h-14 bg-party-50 text-party-600 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="pen-tool" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">会议纪要与待办</h3>
+                            <ul class="space-y-4 list-dot text-slate-600 text-lg">
+                                <li>语音/文本输入，自动生成符合公文规范的正式纪要</li>
+                                <li>智能提取会议决议事项与明确的责任分工</li>
+                                <li>自动将决议转化为待办任务，支持跟进督办</li>
+                                <li>同步输出结构化台账数据，归档备查</li>
+                            </ul>
+                        </div>
+
+                        <!-- Content 3 -->
+                        <div id="tab3" class="tab-content hidden animate-fade-in">
+                            <div class="w-14 h-14 bg-party-50 text-party-600 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="book-open" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">学习教育辅助</h3>
+                            <ul class="space-y-4 list-dot text-slate-600 text-lg">
+                                <li>长篇幅政策文件输入，瞬间提炼核心摘要与学习要点</li>
+                                <li>支持自动生成“每日党建微内参”，方便党员碎片化学习</li>
+                                <li>基于上级文件精神，智能输出结合本单位实际的本地化落实建议</li>
+                            </ul>
+                        </div>
+
+                        <!-- Content 4 -->
+                        <div id="tab4" class="tab-content hidden animate-fade-in">
+                            <div class="w-14 h-14 bg-party-50 text-party-600 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="clipboard-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">台账与留痕管理</h3>
+                            <ul class="space-y-4 list-dot text-slate-600 text-lg">
+                                <li>从工作总结、新闻稿等非结构化文本中，自动提取时间、地点、人物、主题等活动要素</li>
+                                <li>一键套用标准模板，生成规范的迎检台账</li>
+                                <li>支持台账缺失项自动检查与历史台账数据快捷复用</li>
+                            </ul>
+                            <div class="mt-8 flex items-center gap-2 text-party-600 font-medium">
+                                <i data-lucide="check-circle" class="w-5 h-5"></i> 彻底告别年底集中“补材料”的窘境
+                            </div>
+                        </div>
+
+                        <!-- Content 5 -->
+                        <div id="tab5" class="tab-content hidden animate-fade-in">
+                            <div class="w-14 h-14 bg-party-50 text-party-600 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="radio" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">宣传与内容生产</h3>
+                            <ul class="space-y-4 list-dot text-slate-600 text-lg">
+                                <li>基于简单的活动纪要或图片，自动生成高质量的新闻稿、微信公众号推文</li>
+                                <li>内置多种宣传文风模板（严肃报道、人物纪实、党建品牌宣传等）</li>
+                                <li>彻底打通党建实务与媒体传播能力，让好工作被“看见”</li>
+                            </ul>
+                        </div>
+
+                        <!-- Content 6 -->
+                        <div id="tab6" class="tab-content hidden animate-fade-in">
+                            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="rocket" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">群众诉求转化 <span class="text-sm font-normal bg-amber-100 text-amber-700 px-3 py-1 rounded-full ml-3 border border-amber-200">系统核心能力</span></h3>
+                            <ul class="space-y-4 list-dot text-slate-600 text-lg mb-8">
+                                <li>输入杂乱的群众问题反馈或12345工单数据</li>
+                                <li>系统运用AI语义分析，自动归类并提炼基层治理的共性痛点与重点</li>
+                                <li><strong class="text-slate-900">核心转化：</strong>将分析出的治理重点，智能转化为下一次的“主题党日活动方案”或党员干部的“先锋攻坚任务”</li>
+                            </ul>
+                            <div class="p-6 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-xl">
+                                <div class="text-lg font-bold text-amber-800 mb-2 flex items-center gap-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i> 价值跃迁
+                                </div>
+                                <p class="text-amber-900">实现工作模式从被动的<strong>“接诉即办”</strong>，真正升级为主动出击的<strong>“党建驱动治理”</strong>。</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【安全与合规 / Security】 -->
+    <section id="security" class="py-24 bg-slate-900 text-white relative">
+        <!-- 背景纹理 -->
+        <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <i data-lucide="shield-check" class="w-16 h-16 text-party-500 mx-auto mb-6"></i>
+                <h2 class="text-3xl font-bold mb-4">把政治安全，作为第一能力</h2>
+                <p class="text-xl text-slate-300">OpenClaw 构建“三道坚固的安全防线”，确保系统在体制内安全运行。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm reveal">
+                    <div class="w-12 h-12 bg-party-600/20 text-party-400 rounded-full flex items-center justify-center mb-6 border border-party-500/30">
+                        <i data-lucide="server" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">数据不出网（本地优先）</h3>
+                    <ul class="text-slate-400 space-y-2">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>支持纯本地化私有部署</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>敏感数据物理隔离</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>操作日志全链路可追溯</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm reveal" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-party-600/20 text-party-400 rounded-full flex items-center justify-center mb-6 border border-party-500/30">
+                        <i data-lucide="file-search" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">知识有依据（拒绝幻觉）</h3>
+                    <ul class="text-slate-400 space-y-2">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>仅基于预置权威党务知识库生成</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>系统底层阻断无依据的内容输出</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>生成内容提供引用溯源</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm reveal" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-party-600/20 text-party-400 rounded-full flex items-center justify-center mb-6 border border-party-500/30">
+                        <i data-lucide="user-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">人工最终把关（机制保障）</h3>
+                    <ul class="text-slate-400 space-y-2">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>系统定位为“辅助干事”生成初稿</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>强制要求政工干部审核定稿</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-party-500 shrink-0"></i>确保方向不偏、内容可靠、责任清晰</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【升维能力 / Future Capabilities】 -->
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">从“工具”走向“组织操作系统”</h2>
+                    <p class="text-lg text-slate-600 mb-8">不仅解决当下的痛点，更着眼于提升组织的长期数字化运转能力。</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0">
+                                <i data-lucide="calendar-clock" class="w-5 h-5 text-party-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">日历驱动智能催办</h4>
+                                <p class="text-slate-600">打通组织日历，自动识别未完成的周期性党务任务（如三会一课频次），提前预警并智能补全方案。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0">
+                                <i data-lucide="layers" class="w-5 h-5 text-party-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">一源多用内容裂变</h4>
+                                <p class="text-slate-600">一次活动纪要输入，系统可自动裂变为：内部台账存档、领导工作简报、对外宣传推文，一键分发。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0">
+                                <i data-lucide="package-check" class="w-5 h-5 text-party-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">一键迎检打包与洞察引擎</h4>
+                                <p class="text-slate-600">年底一键生成全年标准党建材料合集。更结合历史数据与最新政策，自动生成下一年度党建品牌升级建议。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal lg:pl-10">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-party-100 to-slate-50 rounded-3xl transform rotate-3 scale-105 -z-10"></div>
+                    <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl">
+                        <h4 class="font-bold text-slate-900 mb-6 flex items-center gap-2">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-party-600"></i>
+                            对组织的真实改变
+                        </h4>
+                        <ul class="space-y-5">
+                            <li class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <span class="text-slate-600 flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-slate-400"></i> 降本增效</span>
+                                <span class="font-bold text-party-600">减少重复劳动30%+</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <span class="text-slate-600 flex items-center gap-2"><i data-lucide="brain" class="w-4 h-4 text-slate-400"></i> 能力升级</span>
+                                <span class="font-bold text-party-600">经验驱动 → 系统驱动</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <span class="text-slate-600 flex items-center gap-2"><i data-lucide="database" class="w-4 h-4 text-slate-400"></i> 资产沉淀</span>
+                                <span class="font-bold text-party-600">工作成果全面数字化</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <span class="text-slate-600 flex items-center gap-2"><i data-lucide="lightbulb" class="w-4 h-4 text-slate-400"></i> 创新增强</span>
+                                <span class="font-bold text-party-600">被动执行 → 主动策划</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【落地路径 / Implementation】 -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="text-2xl font-bold text-slate-900 mb-10">落地路径：小切口切入，渐进式升级</h2>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-0">
+                <div class="bg-white px-6 py-4 rounded-full border border-slate-200 shadow-sm flex items-center gap-3 z-10">
+                    <div class="w-8 h-8 rounded-full bg-party-100 text-party-600 font-bold flex items-center justify-center">1</div>
+                    <div class="text-left">
+                        <div class="font-bold text-slate-800 text-sm">微应用试点</div>
+                        <div class="text-xs text-slate-500">从纪要/学习模块快速切入见效</div>
+                    </div>
+                </div>
+                
+                <div class="w-1 h-8 md:w-16 md:h-1 bg-slate-200"></div>
+                
+                <div class="bg-white px-6 py-4 rounded-full border border-slate-200 shadow-sm flex items-center gap-3 z-10">
+                    <div class="w-8 h-8 rounded-full bg-party-100 text-party-600 font-bold flex items-center justify-center">2</div>
+                    <div class="text-left">
+                        <div class="font-bold text-slate-800 text-sm">流程嵌入</div>
+                        <div class="text-xs text-slate-500">无缝融入现有党建工作体系</div>
+                    </div>
+                </div>
+                
+                <div class="w-1 h-8 md:w-16 md:h-1 bg-slate-200"></div>
+                
+                <div class="bg-white px-6 py-4 rounded-full border border-party-500 shadow-sm shadow-party-100 flex items-center gap-3 z-10">
+                    <div class="w-8 h-8 rounded-full bg-party-600 text-white font-bold flex items-center justify-center">3</div>
+                    <div class="text-left">
+                        <div class="font-bold text-party-700 text-sm">能力沉淀</div>
+                        <div class="text-xs text-party-600/70">建立专属知识库与长期组织算力</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 【最终CTA & 收尾 / Closing】 -->
+    <section id="cta" class="py-24 relative overflow-hidden bg-tech-900 text-white text-center">
+        <!-- 装饰背景 -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E')]"></div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-1/2 bg-party-600/20 blur-[100px] rounded-full z-0"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">一套系统，重构工作方式</h2>
+            <p class="text-xl text-slate-300 mb-10 font-light">
+                OpenClaw 的目标不是替代人，而是为基层党组织提供一个：<br/>
+                <strong class="text-white mt-4 block text-2xl">“懂规则、会做事、能沉淀、可进化的数智党务干事”</strong>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-4 rounded-md bg-party-600 hover:bg-party-500 text-white font-bold text-lg shadow-lg shadow-party-600/50 transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i data-lucide="monitor-play" class="w-5 h-5"></i>
+                    申请产品演示
+                </button>
+                <button class="px-8 py-4 rounded-md bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-lg backdrop-blur-sm transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    获取完整解决方案
+                </button>
+            </div>
+            <p class="mt-6 text-sm text-slate-400">支持信创环境部署 | 提供专属实施顾问对接</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-white/10 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-8 font-serif text-xl italic text-slate-300 opacity-80">
+                <p>从“材料生产”，到“系统运行”</p>
+                <p class="my-2">从“留痕管理”，到“组织记忆”</p>
+                <p class="text-party-500 not-italic font-bold mt-4">OpenClaw，让党建进入数智时代</p>
+            </div>
+            <div class="flex justify-center gap-6 mb-8 text-sm">
+                <a href="#" class="hover:text-white transition">关于我们</a>
+                <a href="#" class="hover:text-white transition">隐私政策</a>
+                <a href="#" class="hover:text-white transition">部署咨询</a>
+            </div>
+            <p class="text-xs">&copy; 2024 OpenClaw AI党建系统. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <!-- 交互脚本 -->
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md', 'bg-white/95');
+                navbar.classList.remove('bg-white/80');
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-white/95');
+                navbar.classList.add('bg-white/80');
+            }
+        });
+
+        // 滚动揭示动画 (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // 只触发一次
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 场景选项卡交互逻辑
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有按钮的 active 状态和特殊样式
+                tabBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-white', 'shadow-md', 'border-slate-200');
+                    b.classList.add('text-slate-500');
+                    const icon = b.querySelector('.opacity-50, .opacity-100');
+                    if(icon && !b.hasAttribute('data-target', 'tab6')) { // 排出核心能力标签的特殊图标处理
+                         icon.classList.remove('opacity-50');
+                         icon.classList.add('opacity-0');
+                    }
+                });
+                
+                // 隐藏所有内容
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('block');
+                });
+
+                // 激活当前按钮
+                btn.classList.add('active');
+                // 特殊处理第六个标签的样式保留
+                if(btn.dataset.target !== 'tab6'){
+                    btn.classList.remove('text-slate-500');
+                    btn.classList.add('bg-white', 'shadow-md', 'border-slate-200', 'text-party-600');
+                } else {
+                    btn.classList.add('bg-white', 'shadow-md', 'border-amber-200');
+                }
+                
+                const currentIcon = btn.querySelector('i[data-lucide="chevron-right"]');
+                if(currentIcon) {
+                    currentIcon.classList.remove('opacity-0');
+                    currentIcon.classList.add('opacity-50');
+                }
+
+                // 显示对应内容
+                const targetId = btn.getAttribute('data-target');
+                const targetContent = document.getElementById(targetId);
+                targetContent.classList.remove('hidden');
+                targetContent.classList.add('block');
+            });
+        });
+
+        // 初始化第一个Tab的样式
+        const firstTab = document.querySelector('.tab-btn[data-target="tab1"]');
+        if(firstTab) {
+            firstTab.classList.add('bg-white', 'shadow-md', 'border-slate-200', 'text-party-600');
+            firstTab.classList.remove('text-slate-500');
+        }
+
+        // 添加 Tailwind 配置中的自定义动画类 (如果在 style 中写了，这里作为补充)
+        tailwind.config.theme.extend.animation = {
+            'fade-in': 'fadeIn 0.5s ease-out forwards',
+        }
+        tailwind.config.theme.extend.keyframes = {
+            fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+        }
+    </script>
+</body>
+</html>
